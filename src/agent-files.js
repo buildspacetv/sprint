@@ -872,6 +872,8 @@ pricing outside it:
 
 - **Nebius Token Factory** — new accounts get $25 in credits plus $25 in Tavily credits.
   Inference beyond that is billed by Nebius.
+- **NVIDIA API** — the second host for the model pillar, used for what Token Factory does
+  not serve. Bring your own key from build.nvidia.com; billing is between you and NVIDIA.
 - **Your own hardware** — the SO-101 arms and Unitree robots are provided at the venue and
   shared between teams. Buying your own is not required and not expected.
 `;
@@ -928,10 +930,12 @@ and shared across all teams, so simulation is the dependable path.
 - **Sim-ready assets** — a calibrated SO-101 digital twin, the Unitree lineup in the Isaac
   asset library, ready-made environments, and props.
 - **Physical assets** — blocks of various size, shape, and color; vials and vial racks.
-- **Frontier models** — NVIDIA Nemotron and Cosmos Reason over an OpenAI-compatible API at
-  https://integrate.api.nvidia.com/v1 . Cosmos Reason is a vision-language model that
-  reasons about the physical world from video and images; Nemotron covers planning and
-  tool calling.
+- **Frontier models** — NVIDIA Nemotron and Cosmos Reason over an OpenAI-compatible API.
+  Start on Nebius Token Factory (https://api.tokenfactory.nebius.com/v1/), where new
+  accounts get $25 in credits plus $25 in Tavily credits; NVIDIA's own endpoint
+  (https://integrate.api.nvidia.com/v1) serves what Token Factory does not, Cosmos Reason
+  above all. Cosmos Reason is a vision-language model that reasons about the physical
+  world from video and images; Nemotron covers planning and tool calling.
 - **Support** — engineers from the host companies on hand all day.
 
 ### Judging

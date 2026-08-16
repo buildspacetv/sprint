@@ -964,36 +964,64 @@
         </ul>
 
         <h3 id="models">Frontier models: Nemotron and Cosmos from NVIDIA</h3>
-        <p>NVIDIA serves both families over an OpenAI-compatible API, so any OpenAI client works — point it at <code>https://integrate.api.nvidia.com/v1</code> and use your own key from <a href="https://build.nvidia.com">build.nvidia.com</a>. The two families do different jobs, and the split maps onto the challenge's own pillars.</p>
+        <p>Both families are served over an OpenAI-compatible API, so any OpenAI client works — you only change the base URL and the key. <b>Start on Nebius Token Factory</b>: that is where your event credits live. Reach for NVIDIA's own endpoint when you want a model Token Factory does not serve, Cosmos Reason above all. The two families do different jobs, and the split maps onto the challenge's own pillars.</p>
+
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Host</th><th>Base URL</th><th>Key</th><th>Use it for</th></tr></thead>
+            <tbody>
+              <tr><td><b>Nebius Token Factory</b> — start here</td><td><code>https://api.tokenfactory.nebius.com/v1/</code></td><td><code>NEBIUS_API_KEY</code> from <a href="https://tokenfactory.nebius.com/?modals=create-api-key">tokenfactory.nebius.com</a></td><td>Nemotron. New accounts get $25 in credits plus $25 in Tavily credits for live web search.</td></tr>
+              <tr><td>NVIDIA</td><td><code>https://integrate.api.nvidia.com/v1</code></td><td><code>NVIDIA_API_KEY</code> from <a href="https://build.nvidia.com">build.nvidia.com</a></td><td>Cosmos Reason, and anything missing from the Token Factory catalogue.</td></tr>
+            </tbody>
+          </table>
+        </div>
 
         <div class="cards two">
           <div class="card">
             <span class="tag">Perception + reasoning</span>
             <h4>Cosmos Reason</h4>
             <p>A vision-language model that understands the physical world by reasoning over video and images — the closest thing here to a model built for this exact challenge.</p>
-            <p class="detail"><code>nvidia/cosmos-reason2-8b</code></p>
+            <p class="detail"><code>nvidia/cosmos-reason2-8b</code> · on NVIDIA</p>
           </div>
           <div class="card">
             <span class="tag">Planning + tool calling</span>
             <h4>Nemotron</h4>
             <p>Open reasoning models for the planning layer. The flagship is a hybrid Mamba-Transformer MoE with a 1M-token context, built for agentic reasoning, planning, and tool calling.</p>
-            <p class="detail"><code>nvidia/nemotron-3-super-120b-a12b</code></p>
+            <p class="detail"><code>nvidia/nemotron-3-super-120b-a12b</code> · on Token Factory</p>
           </div>
         </div>
 
-        <h4>Ask Cosmos Reason what it sees</h4>
-        <p>This is the pillar that is easiest to underbuild. Hand it a wrist-camera frame and ask it to reason about the scene before you plan a motion.</p>
-        <div class="term" data-tag="python"><pre><code>import base64, os
+        <h4>Turn a goal into steps with Nemotron</h4>
+        <p>Any OpenAI client works — point it at Token Factory and use it for natural-language tasking, multi-step planning, or deciding what to do when a grasp fails.</p>
+        <div class="term" data-tag="python"><pre><code>import os
 from openai import OpenAI
 
-client = OpenAI(
+tf = OpenAI(
+    base_url="https://api.tokenfactory.nebius.com/v1/",
+    api_key=os.environ["NEBIUS_API_KEY"],
+)
+
+plan = tf.chat.completions.create(
+    model="nvidia/nemotron-3-super-120b-a12b",
+    messages=[
+        {"role": "system", "content": "Turn goals into SO-101 pick-and-place steps."},
+        {"role": "user", "content": "Put the green cube in the tray, then reset."},
+    ],
+)
+print(plan.choices[0].message.content)</code></pre></div>
+
+        <h4>Ask Cosmos Reason what it sees</h4>
+        <p>This is the pillar that is easiest to underbuild. Hand it a wrist-camera frame and ask it to reason about the scene before you plan a motion. Same client, second host — Cosmos Reason is served from NVIDIA's endpoint.</p>
+        <div class="term" data-tag="python"><pre><code>import base64
+
+nvidia = OpenAI(
     base_url="https://integrate.api.nvidia.com/v1",
     api_key=os.environ["NVIDIA_API_KEY"],
 )
 
 frame = base64.b64encode(open("wrist.jpg", "rb").read()).decode()
 
-resp = client.chat.completions.create(
+resp = nvidia.chat.completions.create(
     model="nvidia/cosmos-reason2-8b",
     messages=[{
         "role": "user",
@@ -1005,19 +1033,9 @@ resp = client.chat.completions.create(
 )
 print(resp.choices[0].message.content)</code></pre></div>
 
-        <h4>Turn a goal into steps with Nemotron</h4>
-        <div class="term" data-tag="python"><pre><code>plan = client.chat.completions.create(
-    model="nvidia/nemotron-3-super-120b-a12b",
-    messages=[
-        {"role": "system", "content": "Turn goals into SO-101 pick-and-place steps."},
-        {"role": "user", "content": "Put the green cube in the tray, then reset."},
-    ],
-)
-print(plan.choices[0].message.content)</code></pre></div>
-
         <div class="note info">
           <div class="note-head">Picking a size</div>
-          <div class="note-body">The catalogue carries the whole Nemotron range, from <code>nvidia/nvidia-nemotron-nano-9b-v2</code> for something small and fast in a control loop up to <code>nvidia/nemotron-3-ultra-550b-a55b</code>. <code>nvidia/nemotron-nano-12b-v2-vl</code> is the vision-language option if you want one model for both jobs. The live list is at <a href="https://integrate.api.nvidia.com/v1/models">integrate.api.nvidia.com/v1/models</a>, and NVIDIA engineers are on site all day.</div>
+          <div class="note-body">The Nemotron range runs from something small and fast enough for a control loop (<code>nvidia/nvidia-nemotron-nano-9b-v2</code>) up to <code>nvidia/nemotron-3-ultra-550b-a55b</code>, with <code>nvidia/nemotron-nano-12b-v2-vl</code> as the vision-language option if you want one model for both jobs. Model IDs are per-host, so copy the exact string from the catalogue you are calling: <code>GET https://api.tokenfactory.nebius.com/v1/models</code> for Token Factory, <a href="https://integrate.api.nvidia.com/v1/models">integrate.api.nvidia.com/v1/models</a> for NVIDIA. Nebius and NVIDIA engineers are on site all day.</div>
         </div>
 
         <h3 id="support">Support</h3>

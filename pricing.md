@@ -30,5 +30,7 @@ pricing outside it:
 
 - **Nebius Token Factory** — new accounts get $25 in credits plus $25 in Tavily credits.
   Inference beyond that is billed by Nebius.
+- **NVIDIA API** — the second host for the model pillar, used for what Token Factory does
+  not serve. Bring your own key from build.nvidia.com; billing is between you and NVIDIA.
 - **Your own hardware** — the SO-101 arms and Unitree robots are provided at the venue and
   shared between teams. Buying your own is not required and not expected.
