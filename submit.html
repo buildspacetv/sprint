@@ -301,12 +301,15 @@ code { font-family: var(--f-mono); font-size: .86em; }
 
 .team { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); margin: 16px 0; padding: 0; list-style: none; }
 .team li { margin: 0; }
-.team a {
+.team a, .team .nolink {
   display: flex; align-items: center; gap: 11px; padding: 9px 12px;
   border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
   text-decoration: none; color: inherit;
 }
 .team a:hover { border-color: var(--line-2); }
+.team .nolink { color: var(--ink-3); }
+.tcard-top h3 a { color: inherit; text-decoration: none; }
+.tcard-top h3 a:hover { color: var(--accent-ink); }
 .team img { width: 34px; height: 34px; border-radius: 99px; flex: none; background: var(--surface-2); }
 .team .who { display: flex; flex-direction: column; min-width: 0; }
 .team .nm { font-family: var(--f-display); font-size: 1rem; letter-spacing: .01em; }

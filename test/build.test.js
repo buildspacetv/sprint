@@ -211,3 +211,77 @@ test('coverFor drops unsafe image URLs instead of rendering them', () => {
   assert.ok(!out.includes('javascript:'));
   assert.ok(out.includes('example.com/ok.png'));
 });
+
+/* --------------------------------------------------------------- roster */
+
+const { roster, teamPage, projectPage } = require('../build.js');
+
+test('roster links each member to their GitHub profile', () => {
+  const out = roster([{ name: 'Ada Lovelace', github: 'ada' }]);
+  assert.ok(out.includes('href="https://github.com/ada"'));
+  assert.ok(out.includes('github.com/ada.png'), 'avatar comes from the handle');
+  assert.ok(out.includes('Ada Lovelace'));
+  assert.ok(out.includes('@ada'));
+});
+
+test('roster renders a member with no handle without a dead link', () => {
+  const out = roster([{ name: 'No Handle', github: null }]);
+  assert.ok(out.includes('No Handle'));
+  assert.ok(!out.includes('<a '), 'must not emit an anchor with nowhere to go');
+});
+
+test('roster returns nothing for an empty team', () => {
+  assert.equal(roster([]), '');
+  assert.equal(roster(null), '');
+});
+
+/* ---------------------------------------------------- team <-> project */
+
+const TEAM = {
+  slug: 'gripper-gang', name: 'The Gripper Gang', pitch: 'Vials.', open: true,
+  looking: ['CV'], have: ['RL'], members: [{ name: 'Ada', github: 'ada' }],
+  contact: '@ada', issue: 7,
+};
+const PROJ = {
+  slug: 'vial-sorter', title: 'Vial Sorter', tagline: 'Sorts vials.', track: 'both',
+  robots: ['SO-101'], description: 'x', images: [], team: [], issue: 30,
+};
+
+test('a team page lists the projects that reference it', () => {
+  const out = teamPage(TEAM, [PROJ]);
+  assert.ok(out.includes('href="/projects/vial-sorter.html"'));
+  assert.ok(out.includes('Vial Sorter'));
+  assert.ok(!out.includes('No project submitted yet'));
+});
+
+test('a team page shows an empty state before the team submits', () => {
+  const out = teamPage(TEAM, []);
+  assert.ok(out.includes('No project submitted yet'));
+  assert.ok(out.includes('/submit.html'));
+});
+
+test('a team page links back to the directory and the join thread', () => {
+  const out = teamPage(TEAM, []);
+  assert.ok(out.includes('href="/teams.html"'));
+  assert.ok(out.includes('/issues/7'));
+});
+
+test('a project page links to its team page, not an anchor', () => {
+  const out = projectPage(PROJ, TEAM);
+  assert.ok(out.includes('href="/teams/gripper-gang.html"'));
+  assert.ok(!out.includes('teams.html#team-'), 'the old anchor form should be gone');
+});
+
+test('a project page with no team omits the row rather than linking nowhere', () => {
+  const out = projectPage(PROJ, null);
+  assert.ok(!out.includes('<dt>Team</dt>'));
+});
+
+test('team and project pages escape a hostile team name identically', () => {
+  const evil = { ...TEAM, name: '</script><img src=x onerror=alert(1)>' };
+  for (const out of [teamPage(evil, []), projectPage(PROJ, evil)]) {
+    assert.ok(!out.includes('<img src=x onerror'), 'must never emit the raw payload');
+    assert.equal((out.match(/<script/g) || []).length, (out.match(/<\/script>/g) || []).length,
+      'script tags must stay balanced');
+  }
+});

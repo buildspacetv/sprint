@@ -14,6 +14,7 @@ because generated pages are committed to the repo.
 | `/teams.html` | generated | Team directory: post a team, find one with room, search by skill or person. |
 | `/showcase.html` | generated | Grid of all submitted projects, with search and track filter. |
 | `/submit.html` | generated | How to submit; links to the GitHub issue form. |
+| `/teams/<slug>.html` | generated | One page per team: roster, skills, and the projects they submitted. |
 | `/projects/<slug>.html` | generated | One page per project. |
 
 `index.html` deliberately keeps its own copy of the design tokens rather than
@@ -117,8 +118,8 @@ removes the team from the directory.
 
 The submission form has a **Team** field taking a team name or issue number.
 `resolveTeam()` matches it at build time and links both directions: the project
-page gets a Team row pointing at `teams.html#team-<slug>`, and the team card
-gets a "Built" row pointing at the project. If the project's members field is
+page gets a Team row pointing at that team's page, and the team page lists every
+project that references it (the directory card shows them too). If the project's members field is
 blank, the roster is **inherited** from the team entry, so nobody types the same
 people twice and the two rosters cannot drift.
 

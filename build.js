@@ -302,8 +302,7 @@ ${projects.map(card).join('\n')}
 
 /* ----------------------------------------------------------- project page */
 
-function shareBlock(p, url) {
-  const text = `${p.title} — ${p.tagline || 'built at The Physical AI Sprint'}`;
+function shareBlock({ title, text, url }) {
   const x = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
   const li = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
   const bs = `https://bsky.app/intent/compose?text=${encodeURIComponent(`${text} ${url}`)}`;
@@ -331,7 +330,7 @@ function shareBlock(p, url) {
   <script>
   (function () {
     var url = ${jsonForScript(url)};
-    var title = ${jsonForScript(p.title || '')};
+    var title = ${jsonForScript(title || '')};
     var text = ${jsonForScript(text)};
     var copy = document.getElementById('copyLink');
     copy.addEventListener('click', function () {
@@ -393,26 +392,18 @@ ${images.map((src) => `    <a href="${esc(src)}" target="_blank" rel="noopener n
   </div>` : ''}
 
 ${team.length ? `  <h2>Team</h2>
-  <ul class="team">
-${team.map((m) => {
-    const av = m.user ? `https://github.com/${m.user}.png?size=68` : null;
-    const inner = `${av ? `<img src="${esc(av)}" alt="" loading="lazy">` : ''}<span class="who"><span class="nm">${esc(m.name)}</span>${m.user ? `<span class="gh">@${esc(m.user)}</span>` : ''}</span>`;
-    return m.user
-      ? `    <li><a href="https://github.com/${esc(m.user)}" target="_blank" rel="noopener noreferrer">${inner}</a></li>`
-      : `    <li><a href="#" aria-disabled="true" onclick="return false">${inner}</a></li>`;
-  }).join('\n')}
-  </ul>` : ''}
+${roster(p.team)}` : ''}
 
   <dl class="facts">
     <div><dt>Track</dt><dd>${esc(t.label)}</dd></div>
-    ${teamEntry ? `<div><dt>Team</dt><dd><a href="/teams.html#team-${esc(teamEntry.slug)}">${esc(teamEntry.name)}</a></dd></div>`
+    ${teamEntry ? `<div><dt>Team</dt><dd><a href="/teams/${esc(teamEntry.slug)}.html">${esc(teamEntry.name)}</a></dd></div>`
            : (p.teamRef ? `<div><dt>Team</dt><dd>${esc(p.teamRef)}</dd></div>` : '')}
     ${(p.robots || []).length ? `<div><dt>Robots</dt><dd>${esc(p.robots.join(', '))}</dd></div>` : ''}
     ${repo ? `<div><dt>Code</dt><dd><a href="${esc(repo)}" target="_blank" rel="noopener noreferrer">${esc(repo.replace(/^https:\/\//, ''))}</a></dd></div>` : ''}
     ${p.issue ? `<div><dt>Submission</dt><dd><a href="${REPO}/issues/${esc(p.issue)}" target="_blank" rel="noopener noreferrer">Issue #${esc(p.issue)}</a></dd></div>` : ''}
   </dl>
 
-${shareBlock(p, url)}
+${shareBlock({ title: p.title, text: `${p.title} — ${p.tagline || 'built at The Physical AI Sprint'}`, url })}
 </div>`;
 
   return page({
@@ -433,7 +424,7 @@ function teamCard(t, built) {
   const members = (t.members || []).map((m) => ({ name: m.name || ghUser(m.github) || 'Unnamed', user: ghUser(m.github) }));
   return `      <article class="tcard" id="team-${esc(t.slug)}" data-open="${t.open ? 'yes' : 'no'}" data-search="${esc([t.name, t.pitch, (t.looking || []).join(' '), (t.have || []).join(' '), members.map((m) => `${m.name} ${m.user || ''}`).join(' ')].join(' ').toLowerCase())}">
         <div class="tcard-top">
-          <h3>${esc(t.name)}</h3>
+          <h3><a href="/teams/${esc(t.slug)}.html">${esc(t.name)}</a></h3>
           <span class="chip ${t.open ? 'track-both' : ''}">${t.open ? 'Looking for teammates' : 'Full'}</span>
         </div>
         <p class="tag">${esc(t.pitch)}</p>
@@ -446,7 +437,8 @@ ${members.map((m) => (m.user
         </ul>
         ${(built || []).length ? `<p class="built"><span class="skills-label">Built</span>${built.map((b) => `<a href="/projects/${esc(b.slug)}.html">${esc(b.title)}</a>`).join(', ')}</p>` : ''}
         <div class="tcard-foot">
-          <a class="btn ghost" href="${REPO}/issues/${esc(t.issue)}" target="_blank" rel="noopener noreferrer">${t.open ? 'Ask to join' : 'View team'}</a>
+          <a class="btn ghost" href="/teams/${esc(t.slug)}.html">View team</a>
+          ${t.open ? `<a class="btn ghost" href="${REPO}/issues/${esc(t.issue)}" target="_blank" rel="noopener noreferrer">Ask to join</a>` : ''}
           ${t.contact ? `<span class="badge">${esc(t.contact)}</span>` : ''}
           ${t.comments ? `<span class="badge">${esc(t.comments)} comment${t.comments === 1 ? '' : 's'}</span>` : ''}
         </div>
@@ -555,6 +547,85 @@ ${teams.map((t) => teamCard(t, builtBy.get(t.slug))).join('\n')}
     body,
     current: 'teams',
     canonical: `${SITE}/teams.html`,
+  });
+}
+
+/* -------------------------------------------------------------- team page */
+
+function roster(members) {
+  const people = (members || []).map((m) => ({ name: m.name || ghUser(m.github) || 'Unnamed', user: ghUser(m.github) }));
+  if (!people.length) return '';
+  return `  <ul class="team">
+${people.map((m) => {
+    const av = m.user ? `https://github.com/${m.user}.png?size=68` : null;
+    const inner = `${av ? `<img src="${esc(av)}" alt="" loading="lazy">` : ''}<span class="who"><span class="nm">${esc(m.name)}</span>${m.user ? `<span class="gh">@${esc(m.user)}</span>` : ''}</span>`;
+    return m.user
+      ? `    <li><a href="https://github.com/${esc(m.user)}" target="_blank" rel="noopener noreferrer">${inner}</a></li>`
+      : `    <li><span class="nolink">${inner}</span></li>`;
+  }).join('\n')}
+  </ul>`;
+}
+
+function teamPage(t, built) {
+  const url = `${SITE}/teams/${t.slug}.html`;
+  const projects = built || [];
+  const cover = projects.map((p) => (p.images || []).map(safeUrl).filter(Boolean)[0]).filter(Boolean)[0] || null;
+
+  const body = `
+<header class="pagehead narrow">
+  <div class="pagehead-in">
+    <p class="eyebrow"><a class="back" href="/teams.html">← All teams</a></p>
+    <h1>${esc(t.name)}</h1>
+    <p class="lede">${esc(t.pitch || '')}</p>
+    <div class="actions">
+      <span class="chip ${t.open ? 'track-both' : ''}">${t.open ? 'Looking for teammates' : 'Full'}</span>
+      ${(t.looking || []).map((s) => `<span class="chip">${esc(s)}</span>`).join('\n      ')}
+    </div>
+  </div>
+</header>
+
+<div class="wrap narrow">
+  <h2>Team</h2>
+${roster(t.members)}
+
+  <h2>Projects</h2>
+${projects.length ? `  <div class="grid">
+${projects.map(card).join('\n')}
+  </div>` : `  <div class="empty">
+    <h3>No project submitted yet</h3>
+    <p>${t.open ? 'This team is still forming.' : 'Projects appear here as soon as the team submits one.'} The deadline is 3:30pm on event day.</p>
+    <div class="actions" style="justify-content:center">
+      <a class="btn" href="/submit.html">Submit a project</a>
+    </div>
+  </div>`}
+
+  <dl class="facts">
+    <div><dt>Status</dt><dd>${t.open ? 'Looking for teammates' : 'Full'}</dd></div>
+    <div><dt>Members</dt><dd>${(t.members || []).length}</dd></div>
+    ${(t.have || []).length ? `<div><dt>Skills</dt><dd>${esc(t.have.join(', '))}</dd></div>` : ''}
+    ${(t.looking || []).length ? `<div><dt>Looking for</dt><dd>${esc(t.looking.join(', '))}</dd></div>` : ''}
+    ${t.contact ? `<div><dt>Contact</dt><dd>${esc(t.contact)}</dd></div>` : ''}
+    ${t.issue ? `<div><dt>Team thread</dt><dd><a href="${REPO}/issues/${esc(t.issue)}" target="_blank" rel="noopener noreferrer">Issue #${esc(t.issue)}</a> — comment to ask to join</dd></div>` : ''}
+  </dl>
+
+  ${t.open && t.issue ? `<div class="actions">
+    <a class="btn" href="${REPO}/issues/${esc(t.issue)}" target="_blank" rel="noopener noreferrer">Ask to join this team</a>
+  </div>` : ''}
+
+${shareBlock({
+    title: t.name,
+    text: `${t.name}${t.open ? ' is looking for teammates' : ''} at The Physical AI Sprint`,
+    url,
+  })}
+</div>`;
+
+  return page({
+    title: `${t.name} — Physical AI Sprint`,
+    description: t.pitch || `A team at The Physical AI Sprint hackathon.`,
+    body,
+    current: 'teams',
+    ogImage: cover,
+    canonical: url,
   });
 }
 
@@ -689,6 +760,20 @@ function main() {
     if (!(p.team || []).length && (t.members || []).length) p.team = t.members;
   }
 
+  // One page per team, with the same stale-page sweep the projects get.
+  const teamDir = path.join(ROOT, 'teams');
+  fs.mkdirSync(teamDir, { recursive: true });
+  const keepTeams = new Set(teams.map((t) => `${t.slug}.html`));
+  for (const f of fs.readdirSync(teamDir)) {
+    if (f.endsWith('.html') && !keepTeams.has(f)) {
+      fs.unlinkSync(path.join(teamDir, f));
+      console.log(`removed teams/${f}`);
+    }
+  }
+  for (const t of teams) {
+    fs.writeFileSync(path.join(teamDir, `${t.slug}.html`), teamPage(t, builtBy.get(t.slug)));
+  }
+
   fs.writeFileSync(path.join(ROOT, 'teams.html'), teamsPage(teams, builtBy));
   fs.writeFileSync(path.join(ROOT, 'showcase.html'), showcase(projects));
   fs.writeFileSync(path.join(ROOT, 'submit.html'), submitPage());
@@ -696,7 +781,7 @@ function main() {
     fs.writeFileSync(path.join(outDir, `${p.slug}.html`), projectPage(p, teamOf.get(p.slug)));
   }
 
-  console.log(`built ${teams.length} team(s), ${projects.length} project(s), ${teamOf.size} linked`);
+  console.log(`built ${teams.length} team page(s), ${projects.length} project page(s), ${teamOf.size} linked`);
 }
 
 // Only build when run directly, so the helpers above can be unit tested.
@@ -704,5 +789,5 @@ if (require.main === module) main();
 
 module.exports = {
   esc, jsonForScript, safeSlug, safeUrl, prose, videoEmbed, ghUser, avatar,
-  track, resolveTeam, coverFor,
+  track, resolveTeam, coverFor, roster, teamPage, projectPage,
 };
