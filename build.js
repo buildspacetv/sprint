@@ -1021,6 +1021,9 @@ function main() {
   // Unlisted judging tool. Deliberately not in the nav, the sitemap, or
   // llms.txt, and served noindex — it is for the five judges, not the public.
   fs.writeFileSync(path.join(ROOT, 'judge.html'), judgePage(teams, apiProjects));
+  // /edit — the entry point into edit mode. Unlisted like /judge: reachable if
+  // you know it, not advertised in the nav.
+  fs.writeFileSync(path.join(ROOT, 'edit.html'), extraPages.editPage(page, teams, apiProjects));
   const mdTwins = agentFiles.markdownTwins(teams, projects);
   // Edit mode: one inert script served everywhere, plus a map of index.html's
   // section ids to line numbers so handbook sections deep-link to the line.

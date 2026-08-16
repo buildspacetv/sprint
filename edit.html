@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Open any page of the Physical AI Sprint site in edit mode.">
+<meta name="color-scheme" content="light dark">
+<title>Edit</title>
+<link rel="canonical" href="https://www.buildspace.tv/edit.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Edit">
+<meta property="og:description" content="Open any page of the Physical AI Sprint site in edit mode.">
+<meta property="og:url" content="https://www.buildspace.tv/edit.html">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Edit">
+<meta name="twitter:description" content="Open any page of the Physical AI Sprint site in edit mode.">
+
+<link rel="alternate" type="text/markdown" href="/edit.html.md" title="Markdown version">
+<meta name="edit-kind" content="file">
+<meta name="edit-target" content="src/pages-extra.js">
+<meta name="edit-label" content="src/pages-extra.js — editPage()">
+<link rel="alternate" type="application/json" href="/api/index.json" title="JSON API">
+<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
+
+<style>
+/* ==========================================================================
+   The Physical AI Sprint — shared design system
+   Single source of truth for every generated page. build.js inlines this
+   file into each output page, so the pages stay self-contained.
+   index.html keeps its own copy of these tokens on purpose: it is also
+   published as a standalone Artifact, which cannot load external CSS.
+   ========================================================================== */
+
+:root {
+  --paper:      #EDEFF1;
+  --surface:    #F8FAFB;
+  --surface-2:  #E1E6EA;
+  --ink:        #10151A;
+  --ink-2:      #414D58;
+  --ink-3:      #5F6C77;
+  --line:       #CBD3D9;
+  --line-2:     #A8B4BE;
+  --accent:     #1F3FBF;
+  --accent-ink: #1F3FBF;
+  --accent-soft: rgba(31,63,191,.10);
+  --ok:         #0B6B57;
+  --ok-soft:    rgba(11,107,87,.10);
+  --warn:       #8C5906;
+  --warn-soft:  rgba(140,89,6,.11);
+  --alert:      #A62D1B;
+  --alert-soft: rgba(166,45,27,.10);
+  --term-bg:    #0B1116;
+  --term-ink:   #D2DCE3;
+  --term-line:  #22303A;
+  --term-dim:   #7A8B97;
+  --shadow:     0 1px 2px rgba(16,21,26,.06), 0 8px 24px -12px rgba(16,21,26,.18);
+
+  --f-display: "Avenir Next Condensed", "Roboto Condensed", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --f-body: Charter, "Bitstream Charter", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --f-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:      #0C1115;
+    --surface:    #131A20;
+    --surface-2:  #1B242B;
+    --ink:        #E7EDF1;
+    --ink-2:      #A7B4BF;
+    --ink-3:      #74838F;
+    --line:       #24303A;
+    --line-2:     #38454F;
+    --accent:     #86A2FF;
+    --accent-ink: #A5B9FF;
+    --accent-soft: rgba(134,162,255,.13);
+    --ok:         #4CC7A2;
+    --ok-soft:    rgba(76,199,162,.12);
+    --warn:       #E2A84E;
+    --warn-soft:  rgba(226,168,78,.12);
+    --alert:      #F2735E;
+    --alert-soft: rgba(242,115,94,.12);
+    --term-bg:    #070C10;
+    --term-ink:   #CBD7DF;
+    --term-line:  #1D2A33;
+    --term-dim:   #6C7D89;
+    --shadow:     0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"] {
+  --paper:      #0C1115;
+  --surface:    #131A20;
+  --surface-2:  #1B242B;
+  --ink:        #E7EDF1;
+  --ink-2:      #A7B4BF;
+  --ink-3:      #74838F;
+  --line:       #24303A;
+  --line-2:     #38454F;
+  --accent:     #86A2FF;
+  --accent-ink: #A5B9FF;
+  --accent-soft: rgba(134,162,255,.13);
+  --ok:         #4CC7A2;
+  --ok-soft:    rgba(76,199,162,.12);
+  --warn:       #E2A84E;
+  --warn-soft:  rgba(226,168,78,.12);
+  --alert:      #F2735E;
+  --alert-soft: rgba(242,115,94,.12);
+  --term-bg:    #070C10;
+  --term-ink:   #CBD7DF;
+  --term-line:  #1D2A33;
+  --term-dim:   #6C7D89;
+  --shadow:     0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px;
+}
+img, video { max-width: 100%; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--accent); color: #fff; padding: 10px 16px;
+  font-family: var(--f-display); border-radius: 0 0 6px 0; text-decoration: none;
+}
+.skip:focus { left: 0; }
+
+/* ---------- top bar ---------- */
+.bar {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; gap: 22px;
+  padding: 12px 28px;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+}
+.bar .mark { display: flex; flex-direction: column; gap: 1px; text-decoration: none; color: var(--ink); }
+.bar .mark b {
+  font-family: var(--f-display); font-weight: 600; font-size: 1.1rem;
+  letter-spacing: .01em; text-transform: uppercase; line-height: 1.05;
+}
+.bar .mark span { font-family: var(--f-mono); font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+.bar nav { margin-left: auto; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.bar nav a {
+  font-family: var(--f-display); font-size: .98rem; letter-spacing: .015em;
+  padding: 6px 12px; border-radius: 6px; text-decoration: none; color: var(--ink-2);
+}
+.bar nav a:hover { background: var(--surface-2); color: var(--ink); }
+.bar nav a[aria-current="page"] { background: var(--accent-soft); color: var(--accent-ink); }
+
+/* ---------- shared layout ---------- */
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px 120px; }
+.wrap.narrow { max-width: 780px; }
+
+.pagehead {
+  padding: 62px 28px 40px; border-bottom: 1px solid var(--line);
+  background:
+    repeating-linear-gradient(0deg, var(--accent-soft) 0 1px, transparent 1px 46px),
+    repeating-linear-gradient(90deg, var(--accent-soft) 0 1px, transparent 1px 46px),
+    var(--surface);
+  margin-bottom: 42px;
+}
+.pagehead-in { max-width: 1120px; margin: 0 auto; }
+.pagehead.narrow .pagehead-in { max-width: 780px; }
+.eyebrow { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent-ink); margin: 0; }
+h1 {
+  font-family: var(--f-display); font-weight: 600;
+  font-size: clamp(2.1rem, 5vw, 3.2rem); line-height: 1; letter-spacing: -.005em;
+  text-transform: uppercase; text-wrap: balance; margin: 13px 0 16px;
+}
+h2 {
+  font-family: var(--f-display); font-weight: 600; text-transform: uppercase;
+  font-size: 1.6rem; line-height: 1.1; margin: 46px 0 6px; text-wrap: balance;
+}
+h3 { font-family: var(--f-display); font-weight: 600; font-size: 1.16rem; margin: 30px 0 4px; letter-spacing: .01em; }
+p { margin: 12px 0; }
+.lede { font-size: 1.1rem; color: var(--ink-2); max-width: 62ch; margin: 0; }
+
+ul.list, ol.list { margin: 12px 0; padding-left: 1.15em; display: flex; flex-direction: column; gap: 7px; }
+ul.list li::marker { color: var(--ink-3); }
+ol.list li::marker { font-family: var(--f-mono); font-size: .82rem; color: var(--accent-ink); }
+
+code { font-family: var(--f-mono); font-size: .86em; }
+:not(pre) > code { background: var(--surface-2); padding: 1px 5px; border-radius: 4px; color: var(--ink); word-break: break-word; }
+
+.chip {
+  font-family: var(--f-mono); font-size: .68rem; letter-spacing: .06em;
+  padding: 3px 9px; border: 1px solid var(--line-2); border-radius: 99px;
+  color: var(--ink-2); background: var(--paper); white-space: nowrap;
+}
+.chip.track-sim { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); }
+.chip.track-hardware { border-color: var(--warn); color: var(--warn); background: var(--warn-soft); }
+.chip.track-both { border-color: var(--ok); color: var(--ok); background: var(--ok-soft); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--f-display); font-size: 1rem; letter-spacing: .02em;
+  padding: 9px 18px; border-radius: 6px; text-decoration: none;
+  border: 1px solid var(--accent); background: var(--accent); color: #fff;
+}
+:root[data-theme="dark"] .btn:not(.ghost) { color: #0C1115; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn:not(.ghost) { color: #0C1115; } }
+.btn:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; color: var(--accent-ink); }
+.btn.ghost:hover { background: var(--accent-soft); filter: none; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 0; }
+
+.note {
+  margin: 20px 0; border: 1px solid var(--line); border-left: 3px solid var(--line-2);
+  border-radius: 0 8px 8px 0; background: var(--surface); padding: 12px 16px 14px;
+}
+.note-head { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
+.note-body { margin-top: 5px; font-size: .95rem; color: var(--ink-2); }
+.note-body > :first-child { margin-top: 0; }
+.note.info { border-left-color: var(--accent); background: var(--accent-soft); }
+.note.info .note-head { color: var(--accent-ink); }
+.note.warn { border-left-color: var(--warn); background: var(--warn-soft); }
+.note.warn .note-head { color: var(--warn); }
+
+/* ---------- showcase controls ---------- */
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 26px; }
+.controls input[type="search"] {
+  flex: 1 1 240px; min-width: 0;
+  font-family: var(--f-body); font-size: .96rem; color: var(--ink);
+  padding: 9px 13px; border: 1px solid var(--line); border-radius: 7px;
+  background: var(--surface);
+}
+.controls input[type="search"]::placeholder { color: var(--ink-3); }
+.filters { display: flex; gap: 4px; padding: 3px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.filters button {
+  font-family: var(--f-mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase;
+  padding: 6px 12px; border: 0; border-radius: 5px; background: transparent; color: var(--ink-3); cursor: pointer;
+}
+.filters button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+:root[data-theme="dark"] .filters button[aria-pressed="true"] { color: #0C1115; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .filters button[aria-pressed="true"] { color: #0C1115; } }
+.count { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-left: auto; }
+
+/* ---------- project grid ---------- */
+.grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+.pcard {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+  overflow: hidden; text-decoration: none; color: inherit;
+  transition: border-color .15s, transform .15s;
+}
+.pcard:hover { border-color: var(--line-2); transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) { .pcard:hover { transform: none; } }
+.pcard .cover {
+  aspect-ratio: 16 / 9; background: var(--surface-2);
+  display: grid; place-items: center; overflow: hidden; border-bottom: 1px solid var(--line);
+}
+.pcard .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pcard .cover .ph { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+.pcard .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.pcard h3 { margin: 0; font-size: 1.14rem; line-height: 1.2; }
+.pcard .tag { margin: 0; font-size: .92rem; color: var(--ink-2); flex: 1; }
+.pcard .meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pcard .badge {
+  font-family: var(--f-mono); font-size: .6rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-3); display: inline-flex; align-items: center; gap: 5px;
+}
+
+/* ---------- team directory cards ---------- */
+.grid.teams { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+.tcard {
+  display: flex; flex-direction: column; gap: 10px;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+  padding: 16px 18px 15px;
+}
+.tcard[data-open="yes"] { border-left: 3px solid var(--ok); }
+.tcard-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.tcard-top h3 { margin: 0; font-size: 1.16rem; line-height: 1.2; }
+.tcard .tag { margin: 0; font-size: .94rem; color: var(--ink-2); }
+.skills { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; }
+.skills-label { font-family: var(--f-mono); font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-right: 3px; }
+.roster { list-style: none; margin: 2px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.roster li { margin: 0; }
+.roster a, .roster span {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .86rem; color: var(--ink-2); text-decoration: none;
+  padding: 3px 9px 3px 3px; border: 1px solid var(--line); border-radius: 99px; background: var(--paper);
+}
+.roster a:hover { border-color: var(--accent); color: var(--accent-ink); }
+.roster span { padding-left: 9px; }
+.roster img { width: 20px; height: 20px; border-radius: 99px; background: var(--surface-2); }
+.tcard:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.built { margin: 0; font-size: .9rem; display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; }
+.tcard-foot { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-top: auto; padding-top: 10px; }
+.tcard-foot .btn { padding: 6px 13px; font-size: .92rem; }
+.badge { font-family: var(--f-mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+
+/* ---------- team ---------- */
+.avatars { display: flex; align-items: center; }
+.avatars img {
+  width: 26px; height: 26px; border-radius: 99px; display: block;
+  border: 1.5px solid var(--surface); background: var(--surface-2); margin-left: -7px;
+}
+.avatars img:first-child { margin-left: 0; }
+
+.team { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); margin: 16px 0; padding: 0; list-style: none; }
+.team li { margin: 0; }
+.team a, .team .nolink {
+  display: flex; align-items: center; gap: 11px; padding: 9px 12px;
+  border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
+  text-decoration: none; color: inherit;
+}
+.team a:hover { border-color: var(--line-2); }
+.team .nolink { color: var(--ink-3); }
+.tcard-top h3 a { color: inherit; text-decoration: none; }
+.tcard-top h3 a:hover { color: var(--accent-ink); }
+.team img { width: 34px; height: 34px; border-radius: 99px; flex: none; background: var(--surface-2); }
+.team .who { display: flex; flex-direction: column; min-width: 0; }
+.team .nm { font-family: var(--f-display); font-size: 1rem; letter-spacing: .01em; }
+.team .gh { font-family: var(--f-mono); font-size: .7rem; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; }
+
+/* ---------- project page media ---------- */
+.videowrap {
+  position: relative; aspect-ratio: 16 / 9; margin: 22px 0;
+  border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #000;
+}
+.videowrap iframe, .videowrap video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+
+.gallery { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 20px 0; }
+.gallery a { display: block; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; background: var(--surface-2); }
+.gallery img { width: 100%; display: block; aspect-ratio: 4 / 3; object-fit: cover; }
+
+.facts { border: 1px solid var(--line); border-radius: 9px; overflow: hidden; margin: 22px 0; }
+.facts div { display: grid; grid-template-columns: 132px 1fr; gap: 14px; padding: 9px 15px; border-bottom: 1px solid var(--line); font-size: .93rem; }
+.facts div:last-child { border-bottom: 0; }
+.facts dt { font-family: var(--f-mono); font-size: .63rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin: 3px 0 0; }
+.facts dd { margin: 0; color: var(--ink-2); }
+
+.prose p { max-width: 68ch; }
+.back { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; }
+
+.empty {
+  border: 1px dashed var(--line-2); border-radius: 10px; padding: 54px 28px;
+  text-align: center; color: var(--ink-2); background: var(--surface);
+}
+.empty h3 { margin: 0 0 6px; }
+.empty p { margin: 0 auto; max-width: 46ch; }
+
+/* ---------- steps ---------- */
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 22px 0; display: flex; flex-direction: column; gap: 16px; }
+.steps li {
+  counter-increment: s; position: relative; padding-left: 46px;
+}
+.steps li::before {
+  content: counter(s, decimal-leading-zero); position: absolute; left: 0; top: 1px;
+  font-family: var(--f-mono); font-size: .74rem; letter-spacing: .06em; color: var(--accent-ink);
+  border: 1px solid var(--line); border-radius: 6px; padding: 3px 7px; background: var(--surface);
+}
+.steps h3 { margin: 0 0 3px; }
+.steps p { margin: 0; color: var(--ink-2); font-size: .96rem; }
+
+.fields { width: 100%; border-collapse: collapse; font-size: .93rem; margin: 16px 0; }
+.fields th {
+  text-align: left; font-family: var(--f-mono); font-weight: 500; font-size: .62rem;
+  letter-spacing: .15em; text-transform: uppercase; color: var(--ink-3);
+  padding: 9px 12px; border-bottom: 1px solid var(--line);
+}
+.fields td { padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-2); }
+.fields td:first-child { color: var(--ink); font-family: var(--f-display); font-size: 1rem; white-space: nowrap; }
+.fields tr:last-child td { border-bottom: 0; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
+
+/* ---------- share ---------- */
+.share { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 26px 0 0; padding-top: 20px; border-top: 1px solid var(--line); }
+.share-label { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); margin-right: 4px; }
+.share a, .share button {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--f-display); font-size: .92rem; letter-spacing: .015em;
+  padding: 7px 13px; border: 1px solid var(--line-2); border-radius: 6px;
+  background: var(--surface); color: var(--ink-2); text-decoration: none; cursor: pointer;
+}
+.share a:hover, .share button:hover { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); }
+.share svg { width: 14px; height: 14px; flex: none; fill: currentColor; }
+.share button.done { border-color: var(--ok); color: var(--ok); background: var(--ok-soft); }
+#nativeShare[hidden] { display: none; }
+
+/* ---------- footer ---------- */
+.foot { border-top: 1px solid var(--line); margin-top: 70px; padding: 28px 0 0; display: flex; flex-direction: column; gap: 12px; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: .9rem; }
+.foot-fine { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .06em; color: var(--ink-3); margin: 0; }
+
+@media (max-width: 720px) {
+  /* The nav wrapped to a second row, making the sticky bar 95px tall — 12% of
+     a phone viewport, permanently. Drop the date line and tighten the nav so
+     it fits one row. */
+  .bar { padding: 8px 14px; gap: 10px; }
+  .bar .mark span { display: none; }
+  .bar .mark b { font-size: 1rem; }
+  .bar nav { gap: 1px; }
+  .bar nav a { padding: 5px 7px; font-size: .88rem; }
+  .wrap, .pagehead { padding-left: 16px; padding-right: 16px; }
+  .pagehead { padding-top: 40px; padding-bottom: 30px; }
+  .facts div { grid-template-columns: 1fr; gap: 2px; }
+  .count { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+</style>
+</head>
+<body>
+
+<a class="skip" href="#content">Skip to content</a>
+
+<header class="bar">
+  <a class="mark" href="/">
+    <b>The Physical AI Sprint</b>
+    <span>Monday, August 17, 2026</span>
+  </a>
+  <nav>
+    <a href="/">Handbook</a>
+    <a href="/teams.html">Teams</a>
+    <a href="/showcase.html">Showcase</a>
+    <a href="/submit.html">Submit</a>
+    <a href="/developers.html">API</a>
+  </nav>
+</header>
+
+<main id="content">
+
+<header class="pagehead narrow">
+  <div class="pagehead-in">
+    <p class="eyebrow">Edit mode</p>
+    <h1>Edit the site</h1>
+    <p class="lede">Open any page in edit mode and every editable region gets a link to the thing that actually produces it — a file, or the GitHub issue behind it. Edit mode stays on as you click around, and ends when you close the tab.</p>
+    <div class="actions">
+      <a class="btn" href="/?edit=1">Start with the handbook</a>
+      <a class="btn ghost" href="https://github.com/buildspacetv/sprint">Open the repo</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap narrow">
+  <div class="note warn">
+    <div class="note-head">Never edit the HTML of a generated page</div>
+    <div class="note-body">Most pages here are build output committed to the repo. GitHub will let you edit them and the page will look right — then the next build regenerates the file and your change is gone, silently. Edit mode exists to stop that: it points every page at its real source and says so on the page.</div>
+  </div>
+
+  <h2>Pages</h2>
+  <div class="tablewrap">
+    <table class="fields">
+      <thead><tr><th>Page</th><th>Real source</th><th>How to edit</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="team"><a href="/?edit=1">Handbook</a></td>
+          <td><code>index.html</code></td>
+          <td>Hand-written. Sections deep-link to the exact line in the browser editor.</td>
+        </tr>
+        <tr>
+          <td class="team"><a href="/about.html?edit=1">About</a></td>
+          <td><code>src/pages-extra.js</code></td>
+          <td>Prose lives in the generator.</td>
+        </tr>
+        <tr>
+          <td class="team"><a href="/contact.html?edit=1">Contact</a></td>
+          <td><code>src/pages-extra.js</code></td>
+          <td>Prose lives in the generator.</td>
+        </tr>
+        <tr>
+          <td class="team"><a href="/privacy.html?edit=1">Privacy</a></td>
+          <td><code>src/pages-extra.js</code></td>
+          <td>Prose lives in the generator.</td>
+        </tr>
+        <tr>
+          <td class="team"><a href="/developers.html?edit=1">Developers</a></td>
+          <td><code>src/pages-extra.js</code></td>
+          <td>Prose lives in the generator.</td>
+        </tr>
+        <tr>
+          <td class="team"><a href="/teams.html?edit=1">Team directory</a></td>
+          <td><code>build.js</code></td>
+          <td>Page furniture only — each team comes from its own issue.</td>
+        </tr>
+        <tr>
+          <td class="team"><a href="/showcase.html?edit=1">Project showcase</a></td>
+          <td><code>build.js</code></td>
+          <td>Page furniture only — each project comes from its own issue.</td>
+        </tr>
+        <tr>
+          <td class="team"><a href="/submit.html?edit=1">Submit</a></td>
+          <td><code>build.js</code></td>
+          <td>Prose lives in the generator.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Teams and projects</h2>
+  <p>These are not files. Each one is a GitHub issue, rendered at build time — so editing the issue is editing the page, and the site rebuilds itself within a couple of minutes.</p>
+  <div class="tablewrap">
+    <table class="fields">
+      <thead><tr><th>Page</th><th>Issue</th></tr></thead>
+      <tbody>
+        <tr><td class="team"><a href="/teams/practice-makes-perfect.html?edit=1">Practice Makes Perfect</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/1">#1</a></td></tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <h2>What you need</h2>
+  <ul class="list">
+    <li>A GitHub account with push access to <a href="https://github.com/buildspacetv/sprint">the repo</a>. Without it GitHub offers you a fork and a pull request, which is the right outcome for an outside contributor.</li>
+    <li>Nothing else — there is no CMS, no password, and no separate login.</li>
+  </ul>
+
+  <h2>How a change goes live</h2>
+  <ol class="list">
+    <li>Edit the file or the issue on GitHub and commit.</li>
+    <li>The build regenerates the affected pages and commits the result.</li>
+    <li>Vercel deploys. Roughly a minute or two end to end.</li>
+  </ol>
+</div>
+</main>
+
+<div class="wrap">
+  <footer class="foot">
+    <div class="foot-links">
+      <a href="https://luma.com/nkknxvrz">Apply</a>
+      <a href="https://discord.com/invite/nN58zxSTFR">Discord</a>
+      <a href="/teams.html">Teams</a>
+      <a href="/showcase.html">Showcase</a>
+      <a href="/submit.html">Submit a project</a>
+      <a href="/developers.html">API</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="https://github.com/buildspacetv/sprint">Repo</a>
+    </div>
+    <p class="foot-fine">© 2026 The Physical AI Sprint Hackathon. All rights reserved.</p>
+  </footer>
+</div>
+
+<script src="/edit-mode.js" defer></script>
+</body>
+</html>

@@ -203,4 +203,87 @@ for p in projects:
   });
 }
 
-module.exports = { aboutPage, contactPage, privacyPage, developersPage };
+/**
+ * /edit — the way into edit mode without a subdomain.
+ *
+ * Every link here carries ?edit=1, which the edit script turns into a sticky
+ * session flag, so clicking through the site keeps edit mode on until the tab
+ * closes or "Leave edit mode" is pressed.
+ */
+function editPage(page, teams, projects) {
+  const row = (href, name, source, note) => `        <tr>
+          <td class="team"><a href="${href}?edit=1">${name}</a></td>
+          <td><code>${source}</code></td>
+          <td>${note}</td>
+        </tr>`;
+
+  const body = `
+<header class="pagehead narrow">
+  <div class="pagehead-in">
+    <p class="eyebrow">Edit mode</p>
+    <h1>Edit the site</h1>
+    <p class="lede">Open any page in edit mode and every editable region gets a link to the thing that actually produces it — a file, or the GitHub issue behind it. Edit mode stays on as you click around, and ends when you close the tab.</p>
+    <div class="actions">
+      <a class="btn" href="/?edit=1">Start with the handbook</a>
+      <a class="btn ghost" href="${REPO}">Open the repo</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap narrow">
+  <div class="note warn">
+    <div class="note-head">Never edit the HTML of a generated page</div>
+    <div class="note-body">Most pages here are build output committed to the repo. GitHub will let you edit them and the page will look right — then the next build regenerates the file and your change is gone, silently. Edit mode exists to stop that: it points every page at its real source and says so on the page.</div>
+  </div>
+
+  <h2>Pages</h2>
+  <div class="tablewrap">
+    <table class="fields">
+      <thead><tr><th>Page</th><th>Real source</th><th>How to edit</th></tr></thead>
+      <tbody>
+${row('/', 'Handbook', 'index.html', 'Hand-written. Sections deep-link to the exact line in the browser editor.')}
+${row('/about.html', 'About', 'src/pages-extra.js', 'Prose lives in the generator.')}
+${row('/contact.html', 'Contact', 'src/pages-extra.js', 'Prose lives in the generator.')}
+${row('/privacy.html', 'Privacy', 'src/pages-extra.js', 'Prose lives in the generator.')}
+${row('/developers.html', 'Developers', 'src/pages-extra.js', 'Prose lives in the generator.')}
+${row('/teams.html', 'Team directory', 'build.js', 'Page furniture only — each team comes from its own issue.')}
+${row('/showcase.html', 'Project showcase', 'build.js', 'Page furniture only — each project comes from its own issue.')}
+${row('/submit.html', 'Submit', 'build.js', 'Prose lives in the generator.')}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Teams and projects</h2>
+  <p>These are not files. Each one is a GitHub issue, rendered at build time — so editing the issue is editing the page, and the site rebuilds itself within a couple of minutes.</p>
+${teams.length || projects.length ? `  <div class="tablewrap">
+    <table class="fields">
+      <thead><tr><th>Page</th><th>Issue</th></tr></thead>
+      <tbody>
+${teams.map((t) => `        <tr><td class="team"><a href="/teams/${t.slug}.html?edit=1">${t.name}</a></td><td><a href="${REPO}/issues/${t.issue}">#${t.issue}</a></td></tr>`).join('\n')}
+${projects.map((p) => `        <tr><td class="team"><a href="/projects/${p.slug}.html?edit=1">${p.title}</a></td><td><a href="${REPO}/issues/${p.issue}">#${p.issue}</a></td></tr>`).join('\n')}
+      </tbody>
+    </table>
+  </div>` : `  <div class="empty"><h3>Nothing submitted yet</h3><p>Teams and projects appear here as they are created.</p></div>`}
+
+  <h2>What you need</h2>
+  <ul class="list">
+    <li>A GitHub account with push access to <a href="${REPO}">the repo</a>. Without it GitHub offers you a fork and a pull request, which is the right outcome for an outside contributor.</li>
+    <li>Nothing else — there is no CMS, no password, and no separate login.</li>
+  </ul>
+
+  <h2>How a change goes live</h2>
+  <ol class="list">
+    <li>Edit the file or the issue on GitHub and commit.</li>
+    <li>The build regenerates the affected pages and commits the result.</li>
+    <li>Vercel deploys. Roughly a minute or two end to end.</li>
+  </ol>
+</div>`;
+
+  return page({
+    edit: { kind: 'file', target: 'src/pages-extra.js', label: 'src/pages-extra.js — editPage()' },
+    title: 'Edit', description: 'Open any page of the Physical AI Sprint site in edit mode.',
+    body, current: 'edit', canonical: `${SITE}/edit.html`,
+  });
+}
+
+module.exports = { aboutPage, contactPage, privacyPage, developersPage, editPage };

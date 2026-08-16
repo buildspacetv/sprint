@@ -74,7 +74,22 @@ function editModeScript() {
 
   var host = location.hostname;
   var forced = /[?&]edit=1\\b/.test(location.search);
-  if (!/^edit\\./i.test(host) && !forced) return;
+
+  // Three ways in, so edit mode works without a dedicated subdomain:
+  //   1. an edit. host          (edit.buildspace.tv, if that is ever attached)
+  //   2. ?edit=1 on any page    (how /edit hands off, and how you test locally)
+  //   3. a sticky session flag  (so it survives clicking through the site)
+  // The flag lives in sessionStorage, not localStorage: edit mode should end
+  // when the tab does, rather than surprising someone days later.
+  var STICKY = 'pais-edit-mode';
+  function sticky(v) {
+    try {
+      if (v === undefined) return sessionStorage.getItem(STICKY) === '1';
+      if (v) sessionStorage.setItem(STICKY, '1'); else sessionStorage.removeItem(STICKY);
+    } catch (e) { return false; }
+  }
+  if (forced) sticky(true);
+  if (!/^edit\\./i.test(host) && !forced && !sticky()) return;
 
   var REPO = ${JSON.stringify(REPO_SLUG)};
   var BRANCH = 'main';
@@ -138,8 +153,13 @@ function editModeScript() {
     '<button type="button" id="emToggle" aria-pressed="true">Highlight editable</button>' +
     '<a id="emView" target="_blank" rel="noopener">View source</a>' +
     '<a id="emEdit" target="_blank" rel="noopener">Edit this page</a>' +
-    '<a href="https://www.buildspace.tv' + location.pathname + '">Leave edit mode</a>';
+    '<button type="button" id="emLeave">Leave edit mode</button>';
   document.body.insertBefore(bar, document.body.firstChild);
+
+  document.getElementById('emLeave').addEventListener('click', function () {
+    sticky(false);
+    location.href = location.pathname;
+  });
 
   document.getElementById('emEdit').href = resolve(kind, target);
   var viewEl = document.getElementById('emView');

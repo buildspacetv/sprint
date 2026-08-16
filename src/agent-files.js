@@ -1076,6 +1076,7 @@ User-agent: *
 Allow: /
 # The judging tool is for the five judges, not for indexing.
 Disallow: /judge.html
+Disallow: /edit.html
 
 # Content Signals — search and AI answers yes, model training no.
 Content-Signal: search=yes, ai-input=yes, ai-train=no
