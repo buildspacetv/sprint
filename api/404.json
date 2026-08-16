@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "not_found",
+    "message": "No such endpoint. This API is read-only and has three endpoints.",
+    "resolution": "Fetch https://physical-ai-sprint.vercel.app/api/index.json for the endpoint list, or https://physical-ai-sprint.vercel.app/openapi.json for the full specification.",
+    "documentation": "https://physical-ai-sprint.vercel.app/developers.html"
+  }
+}

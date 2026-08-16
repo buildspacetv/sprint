@@ -6,19 +6,14 @@ body:
   - type: markdown
     attributes:
       value: |
+        **Put your team name in the title above**, after the `[Team]` tag —
+        that becomes the team name in the directory.
+
         You do not need a full team to post — a team of one looking for three
         others is exactly what this directory is for.
 
         People join by **commenting on this issue**. Edit it any time; the
         directory updates itself.
-
-  - type: input
-    id: name
-    attributes:
-      label: Team name
-      placeholder: The Gripper Gang
-    validations:
-      required: true
 
   - type: textarea
     id: pitch

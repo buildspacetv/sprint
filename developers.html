@@ -3,96 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Projects built at the Physical AI Sprint hackathon.">
+<meta name="description" content="Read-only JSON API over the Physical AI Sprint teams and projects. No authentication, no rate limit, OpenAPI 3.1 spec.">
 <meta name="color-scheme" content="light dark">
-<title>Project Showcase</title>
-<link rel="canonical" href="https://physical-ai-sprint.vercel.app/showcase.html">
+<title>Developers</title>
+<link rel="canonical" href="https://physical-ai-sprint.vercel.app/developers.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Project Showcase">
-<meta property="og:description" content="Projects built at the Physical AI Sprint hackathon.">
-<meta property="og:url" content="https://physical-ai-sprint.vercel.app/showcase.html">
+<meta property="og:title" content="Developers">
+<meta property="og:description" content="Read-only JSON API over the Physical AI Sprint teams and projects. No authentication, no rate limit, OpenAPI 3.1 spec.">
+<meta property="og:url" content="https://physical-ai-sprint.vercel.app/developers.html">
 
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Project Showcase">
-<meta name="twitter:description" content="Projects built at the Physical AI Sprint hackathon.">
+<meta name="twitter:title" content="Developers">
+<meta name="twitter:description" content="Read-only JSON API over the Physical AI Sprint teams and projects. No authentication, no rate limit, OpenAPI 3.1 spec.">
 
 <link rel="alternate" type="application/json" href="/api/index.json" title="JSON API">
 <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://physical-ai-sprint.vercel.app/#organization",
-      "name": "The Physical AI Sprint",
-      "url": "https://physical-ai-sprint.vercel.app",
-      "description": "A one-day Physical AI hackathon alongside Actuate SF, hosted by Nebius with NVIDIA, Antioch, and Toloka.",
-      "sameAs": [
-        "https://github.com/opencolin/physical-ai-sprint-handbook",
-        "https://luma.com/nkknxvrz",
-        "https://discord.com/invite/nN58zxSTFR",
-        "https://nebius.com"
-      ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "organizer",
-        "url": "https://physical-ai-sprint.vercel.app/contact.html",
-        "email": "hello@dabl.club",
-        "availableLanguage": [
-          "en"
-        ]
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "San Francisco",
-        "addressRegion": "CA",
-        "addressCountry": "US"
-      }
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://physical-ai-sprint.vercel.app/#website",
-      "url": "https://physical-ai-sprint.vercel.app",
-      "name": "The Physical AI Sprint",
-      "publisher": {
-        "@id": "https://physical-ai-sprint.vercel.app/#organization"
-      },
-      "inLanguage": "en"
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Handbook",
-          "item": "https://physical-ai-sprint.vercel.app/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Showcase",
-          "item": "https://physical-ai-sprint.vercel.app/showcase.html"
-        }
-      ]
-    },
-    {
-      "@type": "CollectionPage",
-      "name": "Project Showcase",
-      "url": "https://physical-ai-sprint.vercel.app/showcase.html",
-      "isPartOf": {
-        "@id": "https://physical-ai-sprint.vercel.app/#website"
-      },
-      "mainEntity": {
-        "@type": "ItemList",
-        "numberOfItems": 0,
-        "itemListElement": []
-      }
-    }
-  ]
-}
-</script>
+
 <style>
 /* ==========================================================================
    The Physical AI Sprint — shared design system
@@ -492,30 +418,89 @@ code { font-family: var(--f-mono); font-size: .86em; }
   <nav>
     <a href="/">Handbook</a>
     <a href="/teams.html">Teams</a>
-    <a href="/showcase.html" aria-current="page">Showcase</a>
+    <a href="/showcase.html">Showcase</a>
     <a href="/submit.html">Submit</a>
-    <a href="/developers.html">API</a>
+    <a href="/developers.html" aria-current="page">API</a>
   </nav>
 </header>
 
 <main id="content">
 
-<header class="pagehead">
+<header class="pagehead narrow">
   <div class="pagehead-in">
-    <p class="eyebrow">Project showcase</p>
-    <h1>What teams built</h1>
-    <p class="lede">Every project submitted to the Physical AI Sprint. Judging is science-fair style — the top 6 teams demo to the full group at 4:30pm.</p>
+    <p class="eyebrow">Developers</p>
+    <h1>API</h1>
+    <p class="lede">A read-only JSON API over the hackathon's teams and projects. No key, no rate limit, CORS open — every endpoint is a static document regenerated whenever a submission changes.</p>
+    <div class="actions">
+      <a class="btn" href="/openapi.json">OpenAPI 3.1 spec</a>
+      <a class="btn ghost" href="/llms.txt">llms.txt</a>
+    </div>
   </div>
 </header>
 
-<div class="wrap">
-  <div class="empty">
-    <h3>No submissions yet</h3>
-    <p>Projects appear here as teams submit them. The deadline is 3:30pm on event day.</p>
-    <div class="actions" style="justify-content:center">
-      <a class="btn" href="/submit.html">Submit your project</a>
-    </div>
+<div class="wrap narrow">
+  <h2>Endpoints</h2>
+  <div class="tablewrap">
+    <table class="fields">
+      <thead><tr><th>Endpoint</th><th>Returns</th></tr></thead>
+      <tbody>
+        <tr><td><a href="/api/index.json">/api/index.json</a></td><td>The endpoint index, with links to the spec and docs.</td></tr>
+        <tr><td><a href="/api/event.json">/api/event.json</a></td><td>Date, timings, hosts, tracks, robots available, judging criteria, registration link.</td></tr>
+        <tr><td><a href="/api/teams.json">/api/teams.json</a></td><td>Every team (1), with roster, skills present, and skills wanted.</td></tr>
+        <tr><td><a href="/api/projects.json">/api/projects.json</a></td><td>Every submitted project (0), with track, robots, media, and team.</td></tr>
+      </tbody>
+    </table>
   </div>
+
+  <h2>Quickstart</h2>
+  <p>No authentication step — this is the entire integration:</p>
+  <div class="term"><pre><code>curl -s https://physical-ai-sprint.vercel.app/api/teams.json</code></pre></div>
+
+  <p>Which teams still have room, and what are they looking for?</p>
+  <div class="term" data-tag="jq"><pre><code>curl -s https://physical-ai-sprint.vercel.app/api/teams.json \
+  | jq -r '.data[] | select(.lookingForMembers) | "\(.name): \(.skillsWanted | join(", "))"'</code></pre></div>
+
+  <p>Every project that touched real hardware:</p>
+  <div class="term" data-tag="jq"><pre><code>curl -s https://physical-ai-sprint.vercel.app/api/projects.json \
+  | jq -r '.data[] | select(.track == "hardware" or .track == "both") | .title'</code></pre></div>
+
+  <div class="term" data-tag="python"><pre><code>import urllib.request, json
+
+with urllib.request.urlopen("https://physical-ai-sprint.vercel.app/api/projects.json") as r:
+    projects = json.load(r)["data"]
+
+for p in projects:
+    print(p["title"], "—", ", ".join(p["robots"]) or "no robots listed")</code></pre></div>
+
+  <h2>Authentication</h2>
+  <p>There is none, deliberately. See <a href="/auth.md">auth.md</a> — it exists so an agent looking for a credential stops looking rather than hunting for an authorization server we do not run.</p>
+
+  <h2>Errors</h2>
+  <p>An unknown path under <code>/api/</code> returns a JSON error body with a machine-readable <code>code</code>, a human-readable <code>message</code>, and a <code>resolution</code> — not an HTML page.</p>
+  <div class="term"><pre><code>curl -s https://physical-ai-sprint.vercel.app/api/nope.json</code></pre></div>
+
+  <h2>Freshness and stability</h2>
+  <p>Documents regenerate whenever a team or project issue changes, so the API is as current as the site. Slugs are stable identifiers and match the page paths, so <code>/api/teams.json</code> entry <code>slug</code> maps to <code>/teams/&lt;slug&gt;.html</code>. Fields are additive: new keys may appear, existing ones will not change meaning.</p>
+
+  <h2>Machine-readable discovery</h2>
+  <div class="tablewrap">
+    <table class="fields">
+      <thead><tr><th>Document</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><a href="/openapi.json">/openapi.json</a></td><td>OpenAPI 3.1 description of every endpoint.</td></tr>
+        <tr><td><a href="/.well-known/api-catalog">/.well-known/api-catalog</a></td><td>RFC 9727 API catalog linkset.</td></tr>
+        <tr><td><a href="/.well-known/ai-catalog.json">/.well-known/ai-catalog.json</a></td><td>Agentic Resource Discovery catalog.</td></tr>
+        <tr><td><a href="/.well-known/agent-card.json">/.well-known/agent-card.json</a></td><td>A2A agent card.</td></tr>
+        <tr><td><a href="/.well-known/agent-skills/index.json">/.well-known/agent-skills/index.json</a></td><td>Agent Skills index.</td></tr>
+        <tr><td><a href="/llms.txt">/llms.txt</a></td><td>Navigation index with when-to-use guidance.</td></tr>
+        <tr><td><a href="/llms-full.txt">/llms-full.txt</a></td><td>The whole handbook as one markdown document.</td></tr>
+        <tr><td><a href="/agents.md">/agents.md</a></td><td>Agent instructions: when to use this site, and what it cannot do.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Licence</h2>
+  <p>Event and handbook content is CC BY 4.0. Team and project content belongs to the people who submitted it. Source: <a href="https://github.com/opencolin/physical-ai-sprint-handbook">github.com/opencolin/physical-ai-sprint-handbook</a>.</p>
 </div>
 </main>
 

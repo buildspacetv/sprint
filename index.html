@@ -5,25 +5,214 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="The Physical AI Sprint hackathon handbook: event brief, schedule, judging, and four getting-started guides for the SO-101, Antioch, and Unitree robots.">
 <meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://physical-ai-sprint.vercel.app/">
 <title>Physical AI Sprint Handbook</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Physical AI Sprint">
+<meta property="og:title" content="The Physical AI Sprint — Hackathon Handbook">
+<meta property="og:description" content="A one-day Physical AI hackathon on August 17, 2026 alongside Actuate SF. Challenge brief, schedule, judging, and four setup guides for the SO-101, Antioch, and Unitree robots.">
+<meta property="og:url" content="https://physical-ai-sprint.vercel.app/">
+<meta property="og:image" content="https://opengraph.githubassets.com/1/opencolin/physical-ai-sprint-handbook">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Physical AI Sprint — Hackathon Handbook">
+<meta name="twitter:description" content="A one-day Physical AI hackathon on August 17, 2026 alongside Actuate SF.">
+<meta name="twitter:image" content="https://opengraph.githubassets.com/1/opencolin/physical-ai-sprint-handbook">
+<link rel="alternate" type="text/markdown" href="/index.md" title="Markdown version">
+<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
+<link rel="alternate" type="application/json" href="/api/index.json" title="JSON API">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Event",
-  "name": "The Physical AI Sprint Hackathon",
-  "description": "A one-day hackathon at the intersection of AI and the physical world, alongside Actuate SF. Workshops, then build a working Physical AI prototype in simulation, on real robots, or both.",
-  "startDate": "2026-08-17T08:00:00-07:00",
-  "endDate": "2026-08-17T21:00:00-07:00",
-  "eventStatus": "https://schema.org/EventScheduled",
-  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-  "organizer": { "@type": "Organization", "name": "Nebius", "url": "https://nebius.com" },
-  "offers": {
-    "@type": "Offer",
-    "price": 0,
-    "priceCurrency": "USD",
-    "availability": "https://schema.org/InStock",
-    "url": "https://luma.com/nkknxvrz"
-  }
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://physical-ai-sprint.vercel.app/#organization",
+      "name": "The Physical AI Sprint",
+      "url": "https://physical-ai-sprint.vercel.app",
+      "description": "A one-day Physical AI hackathon alongside Actuate SF, hosted by Nebius with NVIDIA, Antioch, and Toloka.",
+      "sameAs": [
+        "https://github.com/opencolin/physical-ai-sprint-handbook",
+        "https://luma.com/nkknxvrz",
+        "https://discord.com/invite/nN58zxSTFR",
+        "https://nebius.com"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "organizer",
+        "url": "https://physical-ai-sprint.vercel.app/contact.html",
+        "email": "hello@dabl.club",
+        "availableLanguage": [
+          "en"
+        ]
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "San Francisco",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://physical-ai-sprint.vercel.app/#website",
+      "url": "https://physical-ai-sprint.vercel.app",
+      "name": "The Physical AI Sprint",
+      "publisher": {
+        "@id": "https://physical-ai-sprint.vercel.app/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "Event",
+      "@id": "https://physical-ai-sprint.vercel.app/#event",
+      "name": "The Physical AI Sprint Hackathon",
+      "description": "A one-day hackathon at the intersection of AI and the physical world. Workshops, then build a working Physical AI prototype in simulation, on real robots, or both.",
+      "startDate": "2026-08-17T08:00:00-07:00",
+      "endDate": "2026-08-17T21:00:00-07:00",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "San Francisco, CA",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "San Francisco",
+          "addressRegion": "CA",
+          "addressCountry": "US"
+        }
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "Nebius",
+        "url": "https://nebius.com"
+      },
+      "sponsor": [
+        {
+          "@type": "Organization",
+          "name": "NVIDIA",
+          "url": "https://nvidia.com"
+        },
+        {
+          "@type": "Organization",
+          "name": "Antioch"
+        },
+        {
+          "@type": "Organization",
+          "name": "Toloka",
+          "url": "https://toloka.ai"
+        }
+      ],
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "url": "https://luma.com/nkknxvrz",
+        "validFrom": "2026-07-01T00:00:00-07:00"
+      },
+      "maximumAttendeeCapacity": 125,
+      "inLanguage": "en"
+    },
+    {
+      "@type": "TechArticle",
+      "@id": "https://physical-ai-sprint.vercel.app/#handbook",
+      "headline": "The Physical AI Sprint Handbook",
+      "description": "Participant handbook: challenge brief, schedule, judging criteria, and four setup guides for the SO-101, Antioch, and Unitree robots.",
+      "about": {
+        "@id": "https://physical-ai-sprint.vercel.app/#event"
+      },
+      "isPartOf": {
+        "@id": "https://physical-ai-sprint.vercel.app/#website"
+      },
+      "inLanguage": "en",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "proficiencyLevel": "Intermediate",
+      "keywords": "physical AI, robotics, LeRobot SO-101, Unitree Go2-W, Unitree G1, Isaac Sim, Isaac Lab, imitation learning, ACT policy, hackathon"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Handbook",
+          "item": "https://physical-ai-sprint.vercel.app/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://physical-ai-sprint.vercel.app/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "When is the Physical AI Sprint?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Monday, August 17, 2026. Doors open at 8:00am, hacking begins at 10:30am, submissions close at 3:30pm, winners are announced at 5:30pm, and a happy hour runs until 9:00pm Pacific time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does it cost to attend?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nothing. The event is free, but space is limited and every attendee must apply and be approved. Registration is on Luma."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to bring a team?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Teams are 4 or 5 people, and the team directory on the site lets you post what you want to build or find a team that still has room. Organizers also help people connect at the event."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What robots can I use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ten LeRobot SO-101 leader/follower arm pairs, two Unitree Go2-W wheeled quadrupeds, and one Unitree G1 humanoid. Hardware is shared between teams. The Antioch cloud simulation platform is also available with a calibrated SO-101 digital twin and the Unitree lineup."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need a GPU or a powerful laptop?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Antioch dispatches simulation to GPU machines in the cloud, so nothing heavy runs locally: no GPU, no Docker, and no Isaac install. macOS and Linux both work."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I bring?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Your laptop, charger, and anything else you rely on for a full day of building. Setup instructions are shared with registered participants beforehand, and the four guides in the handbook cover what you can install in advance."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How are projects judged?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Science-fair style: judges circulate and view projects at team stations, then the top six teams demo to the full group. Projects are scored on ambition, functionality, creativity, and architectural quality, unweighted."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who should attend?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Robotics engineers, machine learning engineers, computer vision engineers, research engineers and applied scientists, data and infrastructure engineers working with robotics, and technical founders exploring embodied intelligence."
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
 

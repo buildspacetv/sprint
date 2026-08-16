@@ -6,19 +6,14 @@ body:
   - type: markdown
     attributes:
       value: |
+        **Put your project name in the title above**, after the `[Project]` tag —
+        that becomes the project name and its page URL.
+
         One submission per team — whoever files this is fine, list everyone below.
 
         **Media:** drag image and video files straight into the photo and video boxes.
         GitHub uploads and hosts them. You can edit this issue any time before judging
         and your project page will update itself.
-
-  - type: input
-    id: title
-    attributes:
-      label: Project name
-      placeholder: Vial Sorter 9000
-    validations:
-      required: true
 
   - type: input
     id: tagline

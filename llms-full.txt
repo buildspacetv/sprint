@@ -1,0 +1,118 @@
+# The Physical AI Sprint — full handbook
+
+Generated from the event handbook at https://physical-ai-sprint.vercel.app/. Event date 2026-08-17.
+
+## The event
+
+A one-day hackathon at the intersection of AI and the physical world, alongside Actuate SF.
+Hosted by Nebius with NVIDIA, Antioch, and Toloka. 100-125 participants in teams of 4-5.
+Free to attend; applications are approved because space is limited.
+
+### The challenge
+
+Modern AI excels at generating text and pixels. Physical AI requires closing the loop
+between the digital mind and a physical embodiment, integrating three pillars:
+
+- **Perception (sense)** — interpret camera and sensor data into a live understanding of a
+  scene: RGB-D video, LiDAR, IMU readings, tactile feedback, spatial audio.
+- **Reasoning (think)** — turn goals into multi-step behavior and adapt when the world
+  changes, using foundation models, spatial computing, and decision-making frameworks.
+- **Action (act)** — translate plans into robot motion that actually works: manipulation,
+  autonomous navigation, drone flight dynamics, or IoT actuation.
+
+Three project directions, all equally viable: **sim only** on the Antioch platform,
+**hardware only** on the physical robots, or **sim and real** — prototype in sim and run on
+the real robot, or capture real demonstrations and bring them into sim. Hardware is limited
+and shared across all teams, so simulation is the dependable path.
+
+### Schedule (subject to change)
+
+| Time | What |
+| --- | --- |
+| 8:00 am | Doors open, check-in, breakfast |
+| 9:00 am | Welcome and challenge briefing |
+| 9:15 am | Technical workshops by hosts |
+| 10:30 am | Hacking begins |
+| 12:00 pm | Lunch |
+| 1:00 pm | Hacking continues |
+| 3:30 pm | Submission deadline |
+| 4:30 pm | Demos and judging (top 6 live demos) |
+| 5:30 pm | Winners announced |
+| 6-9 pm | Happy hour |
+
+### What you get
+
+- **The Antioch platform** — cloud simulation for robotics. Write ordinary Python against
+  the NVIDIA Isaac stack (Isaac Sim and Isaac Lab both available) on your own laptop;
+  Antioch dispatches it to GPU machines on Nebius. No local GPU, Docker, or Isaac install.
+- **Robot hardware** — 10 LeRobot SO-101 leader/follower arm pairs, 2 Unitree Go2-W wheeled
+  quadrupeds, 1 Unitree G1 humanoid. Stations are shared and staffed by the host teams.
+- **Sim-ready assets** — a calibrated SO-101 digital twin, the Unitree lineup in the Isaac
+  asset library, ready-made environments, and props.
+- **Physical assets** — blocks of various size, shape, and color; vials and vial racks.
+- **Frontier models** — Kimi K3 on Nebius Token Factory over an OpenAI-compatible API, for
+  the reasoning layer or for routing a coding agent through kimirelay.
+- **Support** — engineers from the host companies on hand all day.
+
+### Judging
+
+Science-fair style first: judges circulate and view projects at team stations, so have a
+tight walkthrough and a live or recorded demo ready. The top 6 teams then demo to the full
+group. Four unweighted categories:
+
+- **Ambition** — how hard the problem is and how much of the loop you take on.
+- **Functionality** — does it work end-to-end when demonstrated.
+- **Creativity** — originality in the task, approach, or demo.
+- **Architectural quality** — clean boundaries between perception, reasoning, and action.
+
+### Ground rules
+
+Unless you are confident you can pull it off quickly, avoid fine-tuning pre-trained
+policies or VLA models. Training a small imitation policy from scratch on your own
+demonstrations fits comfortably in the day; wrangling a large pre-trained model usually
+does not. Make it awesome.
+
+### Who should attend
+
+Robotics engineers, machine learning engineers, computer vision engineers, research
+engineers and applied scientists, data and infrastructure engineers working with robotics
+or physical AI, and technical founders exploring embodied intelligence. You do not need to
+arrive with a team.
+
+### What to bring
+
+Your laptop, charger, and anything else you rely on for a full day of building.
+
+## The guides
+
+Four walkthroughs, each from zero to a working proof of concept. Full text with commands,
+checkpoints, and troubleshooting tables is at https://physical-ai-sprint.vercel.app/.
+
+1. **[LeRobot on macOS](https://physical-ai-sprint.vercel.app/#g1)** — first-time SO-101 setup on Apple Silicon. The
+   published LeRobot instructions assume Windows or Ubuntu, so port names, permissions, and
+   GPU advice differ. About 45 minutes, most of it calibration. macOS uses
+   `/dev/tty.usbmodemXXXXXXXX`, not `/dev/ttyACM0`; there is no CUDA wheel for Mac and
+   none is needed (MPS works); terminal camera access must be granted in Privacy and Security.
+2. **[Sim teleoperation](https://physical-ai-sprint.vercel.app/#g2)** — hold a real leader arm and watch a physics-simulated
+   SO-101 mirror it on a cloud GPU, recording demonstration episodes scored the moment you
+   stop. Needs two terminals: the sim session and the bridge.
+3. **[Policy training](https://physical-ai-sprint.vercel.app/#g3)** — generate episodes in simulation, train an ACT or
+   Diffusion policy, evaluate it closed-loop, and run it on a real arm. About 1.5 hours,
+   most of it unattended. Train on commanded joint targets, never measured positions.
+4. **[Unitree on Antioch](https://physical-ai-sprint.vercel.app/#g4)** — spawn a quadruped or humanoid and verify it on
+   physics rather than video. Isaac Sim and Isaac Lab expose completely different Python
+   entry points for the same robot; pick one engine per project.
+
+## Teams and projects
+
+Teams and project submissions are public data, available as JSON:
+
+- Teams: https://physical-ai-sprint.vercel.app/api/teams.json (1 registered, 1 looking for members)
+- Projects: https://physical-ai-sprint.vercel.app/api/projects.json (0 submitted)
+- Full API: https://physical-ai-sprint.vercel.app/openapi.json
+
+## Links
+
+- Register: https://luma.com/nkknxvrz
+- Discord: https://discord.com/invite/nN58zxSTFR
+- Source: https://github.com/opencolin/physical-ai-sprint-handbook

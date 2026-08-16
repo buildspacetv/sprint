@@ -21,6 +21,8 @@ const DISCORD = 'https://discord.com/invite/nN58zxSTFR';
 const SUBMIT_URL = `${REPO}/issues/new?template=project-submission.yml&labels=submission`;
 
 const css = fs.readFileSync(path.join(ROOT, 'src', 'styles.css'), 'utf8');
+const agentFiles = require('./src/agent-files.js');
+const extraPages = require('./src/pages-extra.js');
 
 /* ---------------------------------------------------------------- helpers */
 
@@ -121,9 +123,53 @@ function resolveTeam(project, teams) {
   return teams.find((t) => norm(t.name) === key) || null;
 }
 
+/* ------------------------------------------------------- structured data */
+
+const ORG = {
+  '@type': 'Organization',
+  '@id': `${SITE}/#organization`,
+  name: 'The Physical AI Sprint',
+  url: SITE,
+  description: 'A one-day Physical AI hackathon alongside Actuate SF, hosted by Nebius with NVIDIA, Antioch, and Toloka.',
+  sameAs: [REPO, APPLY, DISCORD, 'https://nebius.com'],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'organizer',
+    url: `${SITE}/contact.html`,
+    email: 'hello@dabl.club',
+    availableLanguage: ['en'],
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'San Francisco',
+    addressRegion: 'CA',
+    addressCountry: 'US',
+  },
+};
+
+const WEBSITE = {
+  '@type': 'WebSite',
+  '@id': `${SITE}/#website`,
+  url: SITE,
+  name: 'The Physical AI Sprint',
+  publisher: { '@id': `${SITE}/#organization` },
+  inLanguage: 'en',
+};
+
+function breadcrumbs(trail) {
+  return {
+    '@type': 'BreadcrumbList',
+    itemListElement: trail.map(([name, url], i) => ({
+      '@type': 'ListItem', position: i + 1, name, item: `${SITE}${url}`,
+    })),
+  };
+}
+
+const graph = (...nodes) => JSON.stringify({ '@context': 'https://schema.org', '@graph': nodes }, null, 2);
+
 /* ------------------------------------------------------------ page shell */
 
-function page({ title, description, body, current, ogImage, canonical }) {
+function page({ title, description, body, current, ogImage, canonical, jsonLd }) {
   const desc = description || 'The Physical AI Sprint — a one-day hackathon at the intersection of AI and the physical world.';
   const img = safeUrl(ogImage);
   return `<!doctype html>
@@ -144,6 +190,9 @@ ${img ? `<meta property="og:image" content="${esc(img)}">` : ''}
 <meta name="twitter:title" content="${esc(title)}">
 <meta name="twitter:description" content="${esc(desc)}">
 ${img ? `<meta name="twitter:image" content="${esc(img)}">` : ''}
+<link rel="alternate" type="application/json" href="/api/index.json" title="JSON API">
+<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
+${jsonLd ? `<script type="application/ld+json">\n${jsonLd}\n</script>` : ''}
 <style>
 ${css}
 </style>
@@ -162,6 +211,7 @@ ${css}
     <a href="/teams.html"${current === 'teams' ? ' aria-current="page"' : ''}>Teams</a>
     <a href="/showcase.html"${current === 'showcase' ? ' aria-current="page"' : ''}>Showcase</a>
     <a href="/submit.html"${current === 'submit' ? ' aria-current="page"' : ''}>Submit</a>
+    <a href="/developers.html"${current === 'developers' ? ' aria-current="page"' : ''}>API</a>
   </nav>
 </header>
 
@@ -177,6 +227,10 @@ ${body}
       <a href="/teams.html">Teams</a>
       <a href="/showcase.html">Showcase</a>
       <a href="/submit.html">Submit a project</a>
+      <a href="/developers.html">API</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy.html">Privacy</a>
       <a href="${REPO}">Repo</a>
     </div>
     <p class="foot-fine">© 2026 The Physical AI Sprint Hackathon. All rights reserved.</p>
@@ -292,6 +346,19 @@ ${projects.map(card).join('\n')}
 </div>`;
 
   return page({
+    jsonLd: graph(ORG, WEBSITE, breadcrumbs([['Handbook', '/'], ['Showcase', '/showcase.html']]), {
+      '@type': 'CollectionPage',
+      name: 'Project Showcase',
+      url: `${SITE}/showcase.html`,
+      isPartOf: { '@id': `${SITE}/#website` },
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: projects.length,
+        itemListElement: projects.map((p, i) => ({
+          '@type': 'ListItem', position: i + 1, name: p.title, url: `${SITE}/projects/${p.slug}.html`,
+        })),
+      },
+    }),
     title: 'Project Showcase',
     description: `Projects built at the Physical AI Sprint hackathon${projects.length ? ` — ${projects.length} submitted` : ''}.`,
     body,
@@ -407,6 +474,21 @@ ${shareBlock({ title: p.title, text: `${p.title} — ${p.tagline || 'built at Th
 </div>`;
 
   return page({
+    jsonLd: graph(ORG, WEBSITE, breadcrumbs([['Handbook', '/'], ['Showcase', '/showcase.html'], [p.title, `/projects/${p.slug}.html`]]), {
+      '@type': 'CreativeWork',
+      name: p.title,
+      url,
+      abstract: p.tagline || undefined,
+      description: p.description || p.tagline || undefined,
+      ...(cover ? { image: cover } : {}),
+      ...(repo ? { codeRepository: repo } : {}),
+      keywords: (p.robots || []).join(', ') || undefined,
+      isPartOf: { '@id': `${SITE}/#website` },
+      author: team.map((m) => ({
+        '@type': 'Person', name: m.name,
+        ...(m.user ? { sameAs: `https://github.com/${m.user}` } : {}),
+      })),
+    }),
     title: `${p.title} — Physical AI Sprint`,
     description: p.tagline || `A project built at The Physical AI Sprint hackathon.`,
     body,
@@ -542,6 +624,19 @@ ${teams.map((t) => teamCard(t, builtBy.get(t.slug))).join('\n')}
 </div>`;
 
   return page({
+    jsonLd: graph(ORG, WEBSITE, breadcrumbs([['Handbook', '/'], ['Teams', '/teams.html']]), {
+      '@type': 'CollectionPage',
+      name: 'Team Directory',
+      url: `${SITE}/teams.html`,
+      isPartOf: { '@id': `${SITE}/#website` },
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: teams.length,
+        itemListElement: teams.map((t, i) => ({
+          '@type': 'ListItem', position: i + 1, name: t.name, url: `${SITE}/teams/${t.slug}.html`,
+        })),
+      },
+    }),
     title: 'Team Directory',
     description: `Find a team for the Physical AI Sprint${teams.length ? ` — ${teams.length} teams, ${open} looking for members` : ''}.`,
     body,
@@ -620,6 +715,17 @@ ${shareBlock({
 </div>`;
 
   return page({
+    jsonLd: graph(ORG, WEBSITE, breadcrumbs([['Handbook', '/'], ['Teams', '/teams.html'], [t.name, `/teams/${t.slug}.html`]]), {
+      '@type': 'Organization',
+      name: t.name,
+      url,
+      description: t.pitch || undefined,
+      subOrganizationOf: { '@id': `${SITE}/#organization` },
+      member: (t.members || []).map((m) => ({
+        '@type': 'Person', name: m.name,
+        ...(ghUser(m.github) ? { sameAs: `https://github.com/${ghUser(m.github)}` } : {}),
+      })),
+    }),
     title: `${t.name} — Physical AI Sprint`,
     description: t.pitch || `A team at The Physical AI Sprint hackathon.`,
     body,
@@ -700,6 +806,19 @@ function submitPage() {
 </div>`;
 
   return page({
+    jsonLd: graph(ORG, WEBSITE, breadcrumbs([['Handbook', '/'], ['Submit', '/submit.html']]), {
+      '@type': 'FAQPage',
+      mainEntity: [
+        ['How do I submit a project?', 'Open the GitHub issue form linked from the submit page, fill in the fields, and drag your photos and video straight into the form. Your project page builds and appears in the showcase within a couple of minutes.'],
+        ['When is the submission deadline?', 'Submissions close at 3:30pm on event day, Monday August 17 2026. Demos and judging follow at 4:30pm.'],
+        ['Do I need a GitHub account?', 'Yes. Signing in is what lets you upload media and what links your project to your profile. Signing up takes about a minute.'],
+        ['Can I edit my submission after sending it?', 'Yes. Edit the issue at any time before judging and the project page updates itself. To withdraw a project, close the issue or remove its submission label.'],
+        ['How is my project judged?', 'Science-fair style at your team station, on four unweighted criteria: ambition, functionality, creativity, and architectural quality. The top six teams then demo to the whole room.'],
+      ].map(([q, a]) => ({
+        '@type': 'Question', name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    }),
     title: 'Submit a Project',
     description: 'Submit your Physical AI Sprint project — a GitHub issue form with photo and video upload. Deadline 3:30pm.',
     body,
@@ -781,7 +900,32 @@ function main() {
     fs.writeFileSync(path.join(outDir, `${p.slug}.html`), projectPage(p, teamOf.get(p.slug)));
   }
 
-  console.log(`built ${teams.length} team page(s), ${projects.length} project page(s), ${teamOf.size} linked`);
+  // Trust anchors + developer portal.
+  fs.writeFileSync(path.join(ROOT, 'about.html'), extraPages.aboutPage(page));
+  fs.writeFileSync(path.join(ROOT, 'contact.html'), extraPages.contactPage(page));
+  fs.writeFileSync(path.join(ROOT, 'privacy.html'), extraPages.privacyPage(page));
+  fs.writeFileSync(path.join(ROOT, 'developers.html'), extraPages.developersPage(page, teams, projects));
+
+  // Machine-readable surface. Projects carry their resolved team slug so the
+  // API expresses the same link the pages do.
+  const apiProjects = projects.map((p) => ({ ...p, teamSlug: (teamOf.get(p.slug) || {}).slug || null }));
+  const mdTwins = agentFiles.markdownTwins(teams, projects);
+  const generated = {
+    ...mdTwins,
+    'robots.txt': agentFiles.robots(),
+    'sitemap.xml': agentFiles.sitemap(teams, projects),
+    'openapi.json': agentFiles.openapi(),
+    ...agentFiles.apiFiles(teams, apiProjects),
+    ...agentFiles.discoveryFiles(teams, projects),
+    ...agentFiles.textFiles(teams, projects),
+  };
+  for (const [rel, content] of Object.entries(generated)) {
+    const out = path.join(ROOT, rel);
+    fs.mkdirSync(path.dirname(out), { recursive: true });
+    fs.writeFileSync(out, content);
+  }
+
+  console.log(`built ${teams.length} team page(s), ${projects.length} project page(s), ${teamOf.size} linked, ${Object.keys(generated).length} agent file(s)`);
 }
 
 // Only build when run directly, so the helpers above can be unit tested.

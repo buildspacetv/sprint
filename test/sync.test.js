@@ -145,3 +145,20 @@ test('TRACKS maps the dropdown labels and resists prototype keys', () => {
   assert.equal(TRACKS['__proto__'], undefined,
     'a plain object literal would return Object.prototype here');
 });
+
+/* ------------------------------------- name comes from the issue title ---- */
+
+test('a team name falls back to the issue title once the duplicate field is gone', () => {
+  const f = parseIssueForm('### What you want to build\n\nRobots.');
+  assert.equal(f['team name'], undefined, 'the field no longer exists on the form');
+  // build path: (f['team name'] || issue.title.replace(/^\[team\]\s*/i, '')).trim()
+  const name = (f['team name'] || '[Team] The Gripper Gang'.replace(/^\[team\]\s*/i, '')).trim();
+  assert.equal(name, 'The Gripper Gang');
+});
+
+test('a project name falls back to the issue title', () => {
+  const f = parseIssueForm('### One-line summary\n\nSorts vials.');
+  assert.equal(f['project name'], undefined);
+  const title = (f['project name'] || '[Project] Vial Sorter 9000'.replace(/^\[project\]\s*/i, '')).trim();
+  assert.equal(title, 'Vial Sorter 9000');
+});

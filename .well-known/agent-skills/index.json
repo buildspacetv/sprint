@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "version": "0.2.0",
+  "name": "The Physical AI Sprint",
+  "description": "Skills for answering questions about the Physical AI Sprint hackathon and reading its team and project data.",
+  "skills": [
+    {
+      "name": "physical-ai-sprint-event",
+      "type": "skill-md",
+      "description": "Answer questions about the Physical AI Sprint: date, schedule, hosts, tracks, robots available, judging criteria, what to bring, and how to register.",
+      "url": "https://physical-ai-sprint.vercel.app/agents.md"
+    },
+    {
+      "name": "physical-ai-sprint-api",
+      "type": "skill-md",
+      "description": "Read the hackathon team directory and project showcase over the public read-only JSON API, including which teams still have room for members.",
+      "url": "https://physical-ai-sprint.vercel.app/llms.txt"
+    }
+  ]
+}

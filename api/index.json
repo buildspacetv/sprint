@@ -1,0 +1,23 @@
+{
+  "object": "index",
+  "description": "Read-only JSON API for The Physical AI Sprint. No authentication, no rate limit, CORS open.",
+  "openapi": "https://physical-ai-sprint.vercel.app/openapi.json",
+  "docs": "https://physical-ai-sprint.vercel.app/developers.html",
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/api/event.json",
+      "description": "Event details: date, hosts, tracks, robots, judging criteria."
+    },
+    {
+      "method": "GET",
+      "path": "/api/teams.json",
+      "description": "Every registered team with roster and the skills they are seeking."
+    },
+    {
+      "method": "GET",
+      "path": "/api/projects.json",
+      "description": "Every submitted project with track, media, and team."
+    }
+  ]
+}

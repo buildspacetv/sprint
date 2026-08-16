@@ -1,0 +1,80 @@
+{
+  "$schema": "https://agenticresourcediscovery.org/schema/v1/catalog.json",
+  "version": "1.0",
+  "updated": "2026-08-17",
+  "provider": {
+    "name": "The Physical AI Sprint",
+    "url": "https://physical-ai-sprint.vercel.app",
+    "description": "A one-day Physical AI hackathon alongside Actuate SF, hosted by Nebius with NVIDIA, Antioch, and Toloka."
+  },
+  "entries": [
+    {
+      "id": "urn:air:physical-ai-sprint.vercel.app:api:openapi",
+      "displayName": "Physical AI Sprint API",
+      "description": "Read-only JSON API over the hackathon teams and projects. No authentication required.",
+      "mediaType": "application/vnd.oai.openapi+json",
+      "url": "https://physical-ai-sprint.vercel.app/openapi.json",
+      "trustManifest": {
+        "verifiableIdentity": {
+          "domain": "physical-ai-sprint.vercel.app",
+          "method": "dns-origin"
+        },
+        "source": {
+          "repository": "https://github.com/opencolin/physical-ai-sprint-handbook",
+          "license": "CC BY 4.0"
+        }
+      }
+    },
+    {
+      "id": "urn:air:physical-ai-sprint.vercel.app:doc:handbook",
+      "displayName": "Physical AI Sprint Handbook",
+      "description": "Full participant handbook: challenge brief, schedule, judging criteria, and four hardware and simulation setup guides.",
+      "mediaType": "text/markdown",
+      "url": "https://physical-ai-sprint.vercel.app/llms-full.txt",
+      "trustManifest": {
+        "verifiableIdentity": {
+          "domain": "physical-ai-sprint.vercel.app",
+          "method": "dns-origin"
+        },
+        "source": {
+          "repository": "https://github.com/opencolin/physical-ai-sprint-handbook",
+          "license": "CC BY 4.0"
+        }
+      }
+    },
+    {
+      "id": "urn:air:physical-ai-sprint.vercel.app:data:teams",
+      "displayName": "Team directory data",
+      "description": "Every team at the event, which teams still have room, and the skills they are looking for.",
+      "mediaType": "application/json",
+      "url": "https://physical-ai-sprint.vercel.app/api/teams.json",
+      "trustManifest": {
+        "verifiableIdentity": {
+          "domain": "physical-ai-sprint.vercel.app",
+          "method": "dns-origin"
+        },
+        "source": {
+          "repository": "https://github.com/opencolin/physical-ai-sprint-handbook",
+          "license": "CC BY 4.0"
+        }
+      }
+    },
+    {
+      "id": "urn:air:physical-ai-sprint.vercel.app:data:projects",
+      "displayName": "Project showcase data",
+      "description": "Every project submitted to the showcase with track, robots used, media, and team roster.",
+      "mediaType": "application/json",
+      "url": "https://physical-ai-sprint.vercel.app/api/projects.json",
+      "trustManifest": {
+        "verifiableIdentity": {
+          "domain": "physical-ai-sprint.vercel.app",
+          "method": "dns-origin"
+        },
+        "source": {
+          "repository": "https://github.com/opencolin/physical-ai-sprint-handbook",
+          "license": "CC BY 4.0"
+        }
+      }
+    }
+  ]
+}

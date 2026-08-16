@@ -1,0 +1,67 @@
+{
+  "protocolVersion": "0.3.0",
+  "name": "Physical AI Sprint",
+  "description": "Answers questions about The Physical AI Sprint hackathon and serves its team and project data as JSON.",
+  "url": "https://physical-ai-sprint.vercel.app",
+  "provider": {
+    "organization": "The Physical AI Sprint",
+    "url": "https://physical-ai-sprint.vercel.app"
+  },
+  "version": "1.0.0",
+  "documentationUrl": "https://physical-ai-sprint.vercel.app/developers.html",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "application/json",
+    "text/markdown"
+  ],
+  "skills": [
+    {
+      "id": "list-teams",
+      "name": "List teams",
+      "description": "Return the teams at the hackathon, including which ones are still looking for members and what skills they want.",
+      "tags": [
+        "teams",
+        "hackathon",
+        "recruiting"
+      ],
+      "examples": [
+        "Which teams still have room?",
+        "Which teams need a computer vision person?"
+      ]
+    },
+    {
+      "id": "list-projects",
+      "name": "List projects",
+      "description": "Return the projects submitted to the showcase with their track, robots used, and team.",
+      "tags": [
+        "projects",
+        "showcase",
+        "robotics"
+      ],
+      "examples": [
+        "What did teams build?",
+        "Which projects used the Unitree G1?"
+      ]
+    },
+    {
+      "id": "event-details",
+      "name": "Event details",
+      "description": "Return the date, schedule, hosts, judging criteria, and registration link for the event.",
+      "tags": [
+        "event",
+        "schedule"
+      ],
+      "examples": [
+        "When is the Physical AI Sprint?",
+        "How is it judged?"
+      ]
+    }
+  ]
+}

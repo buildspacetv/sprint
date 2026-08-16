@@ -1,0 +1,24 @@
+{
+  "object": "list",
+  "count": 1,
+  "generatedAt": "2026-08-17T00:00:00-07:00",
+  "docs": "https://physical-ai-sprint.vercel.app/developers.html",
+  "data": [
+    {
+      "slug": "practice-makes-perfect",
+      "name": "Practice Makes Perfect",
+      "pitch": "Practice Makes Perfect",
+      "lookingForMembers": true,
+      "skillsWanted": [],
+      "skillsPresent": [],
+      "members": [
+        {
+          "name": "Colin Lowenberg",
+          "github": "opencolin"
+        }
+      ],
+      "url": "https://physical-ai-sprint.vercel.app/teams/practice-makes-perfect.html",
+      "threadUrl": "https://github.com/opencolin/physical-ai-sprint-handbook/issues/1"
+    }
+  ]
+}

@@ -1,0 +1,548 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Physical AI Sprint API",
+    "version": "1.0.0",
+    "summary": "Read-only access to the teams and projects of The Physical AI Sprint hackathon.",
+    "description": "A public, read-only JSON API over the hackathon's teams and projects.\n\nNo authentication is required and there is no rate limit: every endpoint is a static\nJSON document served from a CDN, regenerated whenever a team or project submission\nchanges. CORS is open, so browser agents can call it directly.\n\nUse it to list the teams at the event, see which are still looking for members, or\nenumerate submitted projects with their tracks, media, and rosters.",
+    "contact": {
+      "name": "The Physical AI Sprint",
+      "url": "https://physical-ai-sprint.vercel.app/contact.html"
+    },
+    "license": {
+      "name": "CC BY 4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://physical-ai-sprint.vercel.app",
+      "description": "Production"
+    }
+  ],
+  "externalDocs": {
+    "description": "Developer portal",
+    "url": "https://physical-ai-sprint.vercel.app/developers.html"
+  },
+  "tags": [
+    {
+      "name": "event",
+      "description": "Event-level facts."
+    },
+    {
+      "name": "teams",
+      "description": "Teams taking part."
+    },
+    {
+      "name": "projects",
+      "description": "Projects submitted to the showcase."
+    }
+  ],
+  "paths": {
+    "/api/index.json": {
+      "get": {
+        "operationId": "getApiIndex",
+        "summary": "List the available endpoints",
+        "description": "Returns the endpoint index, including the OpenAPI URL and documentation link.",
+        "tags": [
+          "event"
+        ],
+        "responses": {
+          "200": {
+            "description": "The endpoint index.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiIndex"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such endpoint.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/event.json": {
+      "get": {
+        "operationId": "getEvent",
+        "summary": "Get event details",
+        "description": "Date, timings, hosts, tracks, robots available, judging criteria, and registration links.",
+        "tags": [
+          "event"
+        ],
+        "responses": {
+          "200": {
+            "description": "Event details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Event"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such endpoint.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/teams.json": {
+      "get": {
+        "operationId": "listTeams",
+        "summary": "List all teams",
+        "description": "Every registered team, with its roster, the skills it has, and the skills it is looking for. `lookingForMembers` is true when the team still has room.",
+        "tags": [
+          "teams"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of teams.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such endpoint.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projects.json": {
+      "get": {
+        "operationId": "listProjects",
+        "summary": "List all submitted projects",
+        "description": "Every project submitted to the showcase, with its track, robots used, media, repository, and team.",
+        "tags": [
+          "projects"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of projects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such endpoint.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "required": [
+              "code",
+              "message"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Machine-readable error code.",
+                "example": "not_found"
+              },
+              "message": {
+                "type": "string",
+                "description": "Human-readable explanation."
+              },
+              "resolution": {
+                "type": "string",
+                "description": "What to do about it."
+              },
+              "documentation": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          }
+        }
+      },
+      "Person": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Display name as the team wrote it."
+          },
+          "github": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "GitHub handle, or null if none was given."
+          }
+        }
+      },
+      "ApiIndex": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "const": "index"
+          },
+          "description": {
+            "type": "string"
+          },
+          "openapi": {
+            "type": "string",
+            "format": "uri"
+          },
+          "docs": {
+            "type": "string",
+            "format": "uri"
+          },
+          "endpoints": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "method": {
+                  "type": "string",
+                  "enum": [
+                    "GET"
+                  ]
+                },
+                "path": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Event": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "tagline": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "example": "2026-08-17"
+          },
+          "startTime": {
+            "type": "string",
+            "example": "08:00"
+          },
+          "endTime": {
+            "type": "string",
+            "example": "21:00"
+          },
+          "timezone": {
+            "type": "string",
+            "example": "America/Los_Angeles"
+          },
+          "free": {
+            "type": "boolean"
+          },
+          "registrationUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "discordUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "hosts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "teamSize": {
+            "type": "string",
+            "example": "4-5"
+          },
+          "capacity": {
+            "type": "string"
+          },
+          "tracks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "enum": [
+                    "sim",
+                    "hardware",
+                    "both"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "robots": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "judging": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "submissionDeadline": {
+            "type": "string",
+            "example": "15:30"
+          }
+        }
+      },
+      "Team": {
+        "type": "object",
+        "required": [
+          "slug",
+          "name"
+        ],
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "Stable identifier, also the page path segment."
+          },
+          "name": {
+            "type": "string"
+          },
+          "pitch": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "What the team wants to build."
+          },
+          "lookingForMembers": {
+            "type": "boolean",
+            "description": "True when the team still has room."
+          },
+          "skillsWanted": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "skillsPresent": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Person"
+            }
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "The team page."
+          },
+          "threadUrl": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "description": "GitHub issue where people ask to join."
+          }
+        }
+      },
+      "Project": {
+        "type": "object",
+        "required": [
+          "slug",
+          "title"
+        ],
+        "properties": {
+          "slug": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "tagline": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "track": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "sim",
+              "hardware",
+              "both",
+              null
+            ]
+          },
+          "robots": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "video": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "repo": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "team": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Person"
+            }
+          },
+          "teamSlug": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Slug of the team that built it, when linked."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "TeamList": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "const": "list"
+          },
+          "count": {
+            "type": "integer"
+          },
+          "generatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "docs": {
+            "type": "string",
+            "format": "uri"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Team"
+            }
+          }
+        }
+      },
+      "ProjectList": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "const": "list"
+          },
+          "count": {
+            "type": "integer"
+          },
+          "generatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "docs": {
+            "type": "string",
+            "format": "uri"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Project"
+            }
+          }
+        }
+      }
+    }
+  }
+}

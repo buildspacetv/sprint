@@ -3,96 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Projects built at the Physical AI Sprint hackathon.">
+<meta name="description" content="What data the Physical AI Sprint site holds, where it comes from, and how to remove yours.">
 <meta name="color-scheme" content="light dark">
-<title>Project Showcase</title>
-<link rel="canonical" href="https://physical-ai-sprint.vercel.app/showcase.html">
+<title>Privacy</title>
+<link rel="canonical" href="https://physical-ai-sprint.vercel.app/privacy.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Project Showcase">
-<meta property="og:description" content="Projects built at the Physical AI Sprint hackathon.">
-<meta property="og:url" content="https://physical-ai-sprint.vercel.app/showcase.html">
+<meta property="og:title" content="Privacy">
+<meta property="og:description" content="What data the Physical AI Sprint site holds, where it comes from, and how to remove yours.">
+<meta property="og:url" content="https://physical-ai-sprint.vercel.app/privacy.html">
 
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Project Showcase">
-<meta name="twitter:description" content="Projects built at the Physical AI Sprint hackathon.">
+<meta name="twitter:title" content="Privacy">
+<meta name="twitter:description" content="What data the Physical AI Sprint site holds, where it comes from, and how to remove yours.">
 
 <link rel="alternate" type="application/json" href="/api/index.json" title="JSON API">
 <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://physical-ai-sprint.vercel.app/#organization",
-      "name": "The Physical AI Sprint",
-      "url": "https://physical-ai-sprint.vercel.app",
-      "description": "A one-day Physical AI hackathon alongside Actuate SF, hosted by Nebius with NVIDIA, Antioch, and Toloka.",
-      "sameAs": [
-        "https://github.com/opencolin/physical-ai-sprint-handbook",
-        "https://luma.com/nkknxvrz",
-        "https://discord.com/invite/nN58zxSTFR",
-        "https://nebius.com"
-      ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "organizer",
-        "url": "https://physical-ai-sprint.vercel.app/contact.html",
-        "email": "hello@dabl.club",
-        "availableLanguage": [
-          "en"
-        ]
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "San Francisco",
-        "addressRegion": "CA",
-        "addressCountry": "US"
-      }
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://physical-ai-sprint.vercel.app/#website",
-      "url": "https://physical-ai-sprint.vercel.app",
-      "name": "The Physical AI Sprint",
-      "publisher": {
-        "@id": "https://physical-ai-sprint.vercel.app/#organization"
-      },
-      "inLanguage": "en"
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Handbook",
-          "item": "https://physical-ai-sprint.vercel.app/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Showcase",
-          "item": "https://physical-ai-sprint.vercel.app/showcase.html"
-        }
-      ]
-    },
-    {
-      "@type": "CollectionPage",
-      "name": "Project Showcase",
-      "url": "https://physical-ai-sprint.vercel.app/showcase.html",
-      "isPartOf": {
-        "@id": "https://physical-ai-sprint.vercel.app/#website"
-      },
-      "mainEntity": {
-        "@type": "ItemList",
-        "numberOfItems": 0,
-        "itemListElement": []
-      }
-    }
-  ]
-}
-</script>
+
 <style>
 /* ==========================================================================
    The Physical AI Sprint — shared design system
@@ -492,7 +418,7 @@ code { font-family: var(--f-mono); font-size: .86em; }
   <nav>
     <a href="/">Handbook</a>
     <a href="/teams.html">Teams</a>
-    <a href="/showcase.html" aria-current="page">Showcase</a>
+    <a href="/showcase.html">Showcase</a>
     <a href="/submit.html">Submit</a>
     <a href="/developers.html">API</a>
   </nav>
@@ -500,22 +426,34 @@ code { font-family: var(--f-mono); font-size: .86em; }
 
 <main id="content">
 
-<header class="pagehead">
+<header class="pagehead narrow">
   <div class="pagehead-in">
-    <p class="eyebrow">Project showcase</p>
-    <h1>What teams built</h1>
-    <p class="lede">Every project submitted to the Physical AI Sprint. Judging is science-fair style — the top 6 teams demo to the full group at 4:30pm.</p>
+    <p class="eyebrow">Privacy</p>
+    <h1>Privacy</h1>
+    <p class="lede">This is a static site with no accounts, no analytics, and no tracking. Here is exactly what data exists and where it comes from.</p>
   </div>
 </header>
 
-<div class="wrap">
-  <div class="empty">
-    <h3>No submissions yet</h3>
-    <p>Projects appear here as teams submit them. The deadline is 3:30pm on event day.</p>
-    <div class="actions" style="justify-content:center">
-      <a class="btn" href="/submit.html">Submit your project</a>
-    </div>
-  </div>
+<div class="wrap narrow">
+  <h2>What this site collects</h2>
+  <p><strong>Nothing.</strong> There is no database, no login, no cookie banner, and no analytics script. The site is a set of static HTML files on a CDN. We do not set cookies, we do not run third-party trackers, and we do not build a profile of anyone who visits.</p>
+  <p>One thing is stored locally in your own browser: the checkpoint progress in the handbook guides uses <code>localStorage</code> so your place survives a refresh. It never leaves your device and is not readable by us. Clearing site data removes it.</p>
+
+  <h2>What data is published, and who supplied it</h2>
+  <p>The team directory and project showcase display information that people submitted themselves through public GitHub issue forms. That means a name, a GitHub handle, an optional contact handle, and whatever a team wrote about their project. It was public on GitHub the moment it was filed; this site renders it, it does not originate it.</p>
+  <p>Member avatars are loaded directly from GitHub's own avatar URLs, so GitHub sees those image requests.</p>
+
+  <h2>Removing your information</h2>
+  <p>Because every entry maps to a GitHub issue, removal is under your control: edit the issue to remove a detail, or close the issue to drop the entry entirely. The next build removes the corresponding page — including deleting a stale team or project page, not just unlinking it. If you would rather not do it yourself, open an issue on <a href="https://github.com/opencolin/physical-ai-sprint-handbook/issues">the repository</a> and an organizer will.</p>
+
+  <h2>Third parties</h2>
+  <p>Registration happens on <a href="https://luma.com/nkknxvrz">Luma</a> and chat happens on <a href="https://discord.com/invite/nN58zxSTFR">Discord</a>; both are outside this site and have their own privacy policies. Project pages may embed a video from YouTube, Vimeo, or Loom when a team submitted one, and those embeds are subject to the host's policies. Photos submitted by teams are hosted by GitHub.</p>
+
+  <h2>Hosting</h2>
+  <p>The site is served by Vercel, which processes standard request logs (IP address, user agent) as part of delivering it. See <a href="https://vercel.com/legal/privacy-policy">Vercel's privacy policy</a>.</p>
+
+  <h2>Content licensing</h2>
+  <p>The handbook and event content are available under CC BY 4.0, and the source is public at <a href="https://github.com/opencolin/physical-ai-sprint-handbook">github.com/opencolin/physical-ai-sprint-handbook</a>. Project and team content belongs to the people who submitted it.</p>
 </div>
 </main>
 

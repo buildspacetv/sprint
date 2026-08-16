@@ -1,0 +1,40 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://physical-ai-sprint.vercel.app",
+      "service-desc": [
+        {
+          "href": "https://physical-ai-sprint.vercel.app/openapi.json",
+          "type": "application/vnd.oai.openapi+json",
+          "title": "Physical AI Sprint API (OpenAPI 3.1)"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://physical-ai-sprint.vercel.app/developers.html",
+          "type": "text/html",
+          "title": "Developer portal"
+        },
+        {
+          "href": "https://physical-ai-sprint.vercel.app/llms.txt",
+          "type": "text/plain",
+          "title": "llms.txt index"
+        }
+      ],
+      "service-meta": [
+        {
+          "href": "https://physical-ai-sprint.vercel.app/.well-known/ai-catalog.json",
+          "type": "application/json",
+          "title": "Agentic Resource Discovery catalog"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://physical-ai-sprint.vercel.app/api/index.json",
+          "type": "application/json",
+          "title": "Endpoint index"
+        }
+      ]
+    }
+  ]
+}

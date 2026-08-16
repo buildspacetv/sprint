@@ -1,0 +1,53 @@
+{
+  "name": "The Physical AI Sprint",
+  "tagline": "A one-day hackathon at the intersection of AI and the physical world, alongside Actuate SF.",
+  "date": "2026-08-17",
+  "startTime": "08:00",
+  "endTime": "21:00",
+  "timezone": "America/Los_Angeles",
+  "free": true,
+  "registrationUrl": "https://luma.com/nkknxvrz",
+  "discordUrl": "https://discord.com/invite/nN58zxSTFR",
+  "hosts": [
+    "Nebius",
+    "NVIDIA",
+    "Antioch",
+    "Toloka"
+  ],
+  "teamSize": "4-5",
+  "capacity": "100-125 participants",
+  "tracks": [
+    {
+      "id": "sim",
+      "label": "Sim only",
+      "description": "Built entirely on the Antioch simulation platform."
+    },
+    {
+      "id": "hardware",
+      "label": "Hardware only",
+      "description": "Built directly on the physical robots."
+    },
+    {
+      "id": "both",
+      "label": "Sim and real",
+      "description": "A trajectory between the two: sim-to-real or real-to-sim."
+    }
+  ],
+  "robots": [
+    "LeRobot SO-101 leader/follower arms",
+    "Unitree Go2-W wheeled quadruped",
+    "Unitree G1 humanoid"
+  ],
+  "judging": [
+    "Ambition",
+    "Functionality",
+    "Creativity",
+    "Architectural quality"
+  ],
+  "submissionDeadline": "15:30",
+  "links": {
+    "handbook": "https://physical-ai-sprint.vercel.app",
+    "teams": "https://physical-ai-sprint.vercel.app/api/teams.json",
+    "projects": "https://physical-ai-sprint.vercel.app/api/projects.json"
+  }
+}

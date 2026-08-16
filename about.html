@@ -3,96 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Projects built at the Physical AI Sprint hackathon.">
+<meta name="description" content="What The Physical AI Sprint is, who runs it, what teams work with, and how judging works.">
 <meta name="color-scheme" content="light dark">
-<title>Project Showcase</title>
-<link rel="canonical" href="https://physical-ai-sprint.vercel.app/showcase.html">
+<title>About</title>
+<link rel="canonical" href="https://physical-ai-sprint.vercel.app/about.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Project Showcase">
-<meta property="og:description" content="Projects built at the Physical AI Sprint hackathon.">
-<meta property="og:url" content="https://physical-ai-sprint.vercel.app/showcase.html">
+<meta property="og:title" content="About">
+<meta property="og:description" content="What The Physical AI Sprint is, who runs it, what teams work with, and how judging works.">
+<meta property="og:url" content="https://physical-ai-sprint.vercel.app/about.html">
 
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Project Showcase">
-<meta name="twitter:description" content="Projects built at the Physical AI Sprint hackathon.">
+<meta name="twitter:title" content="About">
+<meta name="twitter:description" content="What The Physical AI Sprint is, who runs it, what teams work with, and how judging works.">
 
 <link rel="alternate" type="application/json" href="/api/index.json" title="JSON API">
 <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://physical-ai-sprint.vercel.app/#organization",
-      "name": "The Physical AI Sprint",
-      "url": "https://physical-ai-sprint.vercel.app",
-      "description": "A one-day Physical AI hackathon alongside Actuate SF, hosted by Nebius with NVIDIA, Antioch, and Toloka.",
-      "sameAs": [
-        "https://github.com/opencolin/physical-ai-sprint-handbook",
-        "https://luma.com/nkknxvrz",
-        "https://discord.com/invite/nN58zxSTFR",
-        "https://nebius.com"
-      ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "organizer",
-        "url": "https://physical-ai-sprint.vercel.app/contact.html",
-        "email": "hello@dabl.club",
-        "availableLanguage": [
-          "en"
-        ]
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "San Francisco",
-        "addressRegion": "CA",
-        "addressCountry": "US"
-      }
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://physical-ai-sprint.vercel.app/#website",
-      "url": "https://physical-ai-sprint.vercel.app",
-      "name": "The Physical AI Sprint",
-      "publisher": {
-        "@id": "https://physical-ai-sprint.vercel.app/#organization"
-      },
-      "inLanguage": "en"
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Handbook",
-          "item": "https://physical-ai-sprint.vercel.app/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Showcase",
-          "item": "https://physical-ai-sprint.vercel.app/showcase.html"
-        }
-      ]
-    },
-    {
-      "@type": "CollectionPage",
-      "name": "Project Showcase",
-      "url": "https://physical-ai-sprint.vercel.app/showcase.html",
-      "isPartOf": {
-        "@id": "https://physical-ai-sprint.vercel.app/#website"
-      },
-      "mainEntity": {
-        "@type": "ItemList",
-        "numberOfItems": 0,
-        "itemListElement": []
-      }
-    }
-  ]
-}
-</script>
+
 <style>
 /* ==========================================================================
    The Physical AI Sprint — shared design system
@@ -492,7 +418,7 @@ code { font-family: var(--f-mono); font-size: .86em; }
   <nav>
     <a href="/">Handbook</a>
     <a href="/teams.html">Teams</a>
-    <a href="/showcase.html" aria-current="page">Showcase</a>
+    <a href="/showcase.html">Showcase</a>
     <a href="/submit.html">Submit</a>
     <a href="/developers.html">API</a>
   </nav>
@@ -500,21 +426,34 @@ code { font-family: var(--f-mono); font-size: .86em; }
 
 <main id="content">
 
-<header class="pagehead">
+<header class="pagehead narrow">
   <div class="pagehead-in">
-    <p class="eyebrow">Project showcase</p>
-    <h1>What teams built</h1>
-    <p class="lede">Every project submitted to the Physical AI Sprint. Judging is science-fair style — the top 6 teams demo to the full group at 4:30pm.</p>
+    <p class="eyebrow">About</p>
+    <h1>About the Sprint</h1>
+    <p class="lede">A one-day hackathon at the intersection of AI and the physical world, held 2026-08-17 alongside Actuate SF.</p>
   </div>
 </header>
 
-<div class="wrap">
-  <div class="empty">
-    <h3>No submissions yet</h3>
-    <p>Projects appear here as teams submit them. The deadline is 3:30pm on event day.</p>
-    <div class="actions" style="justify-content:center">
-      <a class="btn" href="/submit.html">Submit your project</a>
-    </div>
+<div class="wrap narrow">
+  <h2>What it is</h2>
+  <p>The Physical AI Sprint gathers 100 to 125 engineers into teams of 4 or 5 for a single day of building. The brief is deliberately open-ended: we provide the robots, the simulation platform, and the building blocks, and each team decides what their system does and how it thinks.</p>
+  <p>The framing is the perception–reasoning–action loop. Modern AI is very good at generating text and pixels; Physical AI requires closing the loop between a digital mind and a physical embodiment. A project has to interpret sensor data into an understanding of a scene, turn a goal into multi-step behavior that adapts when the world changes, and translate that plan into motion that actually works on hardware or in physics.</p>
+
+  <h2>Who runs it</h2>
+  <p>The event is hosted by <strong>Nebius</strong>, with <strong>NVIDIA</strong>, <strong>Antioch</strong>, and <strong>Toloka</strong>. Engineers from each are on site for the full day answering platform, hardware, and training questions — the guides in the handbook exist so that those conversations can be about robotics rather than about environment setup.</p>
+
+  <h2>What teams work with</h2>
+  <p>Ten LeRobot SO-101 leader/follower arm pairs, two Unitree Go2-W wheeled quadrupeds, and one Unitree G1 humanoid, shared between teams and staffed by the hosts. Alongside the hardware, the Antioch cloud simulation platform runs the NVIDIA Isaac stack on GPU machines, so a team with no local GPU can still build and test a full loop. Because hardware is limited and shared, simulation is the dependable path, and the strongest projects usually run most of their loop in sim even when they touch a real robot.</p>
+
+  <h2>How judging works</h2>
+  <p>Judging runs science-fair style: judges circulate and view projects at team stations, then the top six demo to the full group before winners are announced. Projects are scored on ambition, functionality, creativity, and architectural quality, unweighted — how hard the problem is, whether it works end-to-end when demonstrated, how original the approach is, and how cleanly the system separates perception, reasoning, and action.</p>
+
+  <h2>This site</h2>
+  <p>The handbook, team directory, and project showcase are a static site with no database. Teams and submissions are GitHub issues, synced into JSON and rendered into pages by a build script, so everything published here has a traceable source. The whole thing is open source at <a href="https://github.com/opencolin/physical-ai-sprint-handbook">github.com/opencolin/physical-ai-sprint-handbook</a>, and the same data is available as a <a href="/developers.html">read-only JSON API</a>.</p>
+
+  <div class="actions">
+    <a class="btn" href="https://luma.com/nkknxvrz">Apply to attend</a>
+    <a class="btn ghost" href="/contact.html">Contact</a>
   </div>
 </div>
 </main>

@@ -1,0 +1,11 @@
+# Physical AI Sprint API
+
+> Read-only JSON over the hackathon's teams and projects. No auth, no rate limit.
+
+- [/openapi.json](https://physical-ai-sprint.vercel.app/openapi.json): OpenAPI 3.1 specification
+- [/api/index.json](https://physical-ai-sprint.vercel.app/api/index.json): endpoint index
+- [/api/event.json](https://physical-ai-sprint.vercel.app/api/event.json): event details
+- [/api/teams.json](https://physical-ai-sprint.vercel.app/api/teams.json): teams and rosters
+- [/api/projects.json](https://physical-ai-sprint.vercel.app/api/projects.json): submitted projects
+- [/auth.md](https://physical-ai-sprint.vercel.app/auth.md): authentication (none required)
+- [/developers.html](https://physical-ai-sprint.vercel.app/developers.html): worked examples
