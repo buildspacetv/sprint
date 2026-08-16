@@ -1,7 +1,7 @@
 ---
 title: Privacy
 description: What data the Physical AI Sprint site holds.
-canonical: https://physical-ai-sprint.vercel.app/privacy.html
+canonical: https://www.buildspace.tv/privacy.html
 last-updated: 2026-08-17
 ---
 
@@ -23,4 +23,4 @@ build removes the page. Or open an issue at [https://github.com/opencolin/physic
 Registration is on Luma and chat is on Discord, both outside this site with their own
 policies. Hosting is Vercel, which processes standard request logs.
 
-Full detail: [https://physical-ai-sprint.vercel.app/privacy.html](https://physical-ai-sprint.vercel.app/privacy.html).
+Full detail: [https://www.buildspace.tv/privacy.html](https://www.buildspace.tv/privacy.html).

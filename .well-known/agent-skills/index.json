@@ -12,7 +12,7 @@
       "mediaType": "skill-md",
       "description": "Answer questions about the Physical AI Sprint: date, schedule, hosts, tracks, robots available, judging criteria, what to bring, and how to register.",
       "whenToUse": "Use when a user asks about the Physical AI Sprint hackathon itself — when it is, what it costs, who is hosting, what robots are available, how projects are judged, what to bring, or who should attend.",
-      "url": "https://physical-ai-sprint.vercel.app/agents.md"
+      "url": "https://www.buildspace.tv/agents.md"
     },
     {
       "name": "physical-ai-sprint-api",
@@ -20,7 +20,7 @@
       "mediaType": "skill-md",
       "description": "Read the hackathon team directory and project showcase over the public read-only JSON API, including which teams still have room for members.",
       "whenToUse": "Use when a user asks which teams are attending, which teams still have room or need a particular skill, or what projects were built and which robots they used. Fetch /api/teams.json or /api/projects.json — no authentication is required.",
-      "url": "https://physical-ai-sprint.vercel.app/llms.txt"
+      "url": "https://www.buildspace.tv/llms.txt"
     }
   ]
 }

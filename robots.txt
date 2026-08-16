@@ -1,4 +1,4 @@
-# The Physical AI Sprint — https://physical-ai-sprint.vercel.app
+# The Physical AI Sprint — https://www.buildspace.tv
 #
 # Answer-engine and user-triggered agents are welcome everywhere. Training-only
 # crawlers are not: the handbook is written for participants of one event, and
@@ -56,4 +56,4 @@ Allow: /
 # Content Signals — search and AI answers yes, model training no.
 Content-Signal: search=yes, ai-input=yes, ai-train=no
 
-Sitemap: https://physical-ai-sprint.vercel.app/sitemap.xml
+Sitemap: https://www.buildspace.tv/sitemap.xml

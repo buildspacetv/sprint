@@ -1,13 +1,13 @@
 # Authentication
 
-<!-- canonical: https://physical-ai-sprint.vercel.app/auth.md · last-updated: 2026-08-17 -->
+<!-- canonical: https://www.buildspace.tv/auth.md · last-updated: 2026-08-17 -->
 
 ## Discover
 
 There is nothing to discover, and that is the whole answer: **the Physical AI Sprint API
 requires no authentication.** Every endpoint is a static JSON document served from a CDN.
 
-    curl -s https://physical-ai-sprint.vercel.app/api/teams.json
+    curl -s https://www.buildspace.tv/api/teams.json
 
 That request is complete as written. There is no `Authorization` header to add.
 
@@ -47,8 +47,8 @@ An unknown path under `/api/` returns a JSON error body rather than an HTML page
   "error": {
     "code": "not_found",
     "message": "No such endpoint. This API is read-only and has three endpoints.",
-    "resolution": "Fetch https://physical-ai-sprint.vercel.app/api/index.json for the endpoint list.",
-    "documentation": "https://physical-ai-sprint.vercel.app/developers.html"
+    "resolution": "Fetch https://www.buildspace.tv/api/index.json for the endpoint list.",
+    "documentation": "https://www.buildspace.tv/developers.html"
   }
 }
 ```

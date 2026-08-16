@@ -1,7 +1,7 @@
 ---
 title: Physical AI Sprint — agent instructions
 description: When and how an agent should use this site's data.
-canonical: https://physical-ai-sprint.vercel.app/agents.md
+canonical: https://www.buildspace.tv/agents.md
 last-updated: 2026-08-17
 ---
 
@@ -29,18 +29,18 @@ differences deliberately; they are accurate for this event, not universally.
 Every endpoint is a static JSON document. No key, no header, no rate limit.
 
 ```bash
-curl -s https://physical-ai-sprint.vercel.app/api/event.json
-curl -s https://physical-ai-sprint.vercel.app/api/teams.json
-curl -s https://physical-ai-sprint.vercel.app/api/projects.json
+curl -s https://www.buildspace.tv/api/event.json
+curl -s https://www.buildspace.tv/api/teams.json
+curl -s https://www.buildspace.tv/api/projects.json
 ```
 
-Full description: [openapi.json](https://physical-ai-sprint.vercel.app/openapi.json).
+Full description: [openapi.json](https://www.buildspace.tv/openapi.json).
 
 ## What you cannot do here
 
 - **Register a user.** Registration is on Luma: https://luma.com/nkknxvrz
 - **Create a team or submit a project.** Both are GitHub issue forms, which need a signed-in
-  GitHub user. Link the person to https://physical-ai-sprint.vercel.app/teams.html or https://physical-ai-sprint.vercel.app/submit.html rather than
+  GitHub user. Link the person to https://www.buildspace.tv/teams.html or https://www.buildspace.tv/submit.html rather than
   attempting it on their behalf.
 - **Write anything.** The API is read-only by design.
 

@@ -6,11 +6,11 @@
 <meta name="description" content="Read-only JSON API over the Physical AI Sprint teams and projects. No authentication, no rate limit, OpenAPI 3.1 spec.">
 <meta name="color-scheme" content="light dark">
 <title>Developers</title>
-<link rel="canonical" href="https://physical-ai-sprint.vercel.app/developers.html">
+<link rel="canonical" href="https://www.buildspace.tv/developers.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Developers">
 <meta property="og:description" content="Read-only JSON API over the Physical AI Sprint teams and projects. No authentication, no rate limit, OpenAPI 3.1 spec.">
-<meta property="og:url" content="https://physical-ai-sprint.vercel.app/developers.html">
+<meta property="og:url" content="https://www.buildspace.tv/developers.html">
 
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Developers">
@@ -454,19 +454,19 @@ code { font-family: var(--f-mono); font-size: .86em; }
 
   <h2>Quickstart</h2>
   <p>No authentication step — this is the entire integration:</p>
-  <div class="term"><pre><code>curl -s https://physical-ai-sprint.vercel.app/api/teams.json</code></pre></div>
+  <div class="term"><pre><code>curl -s https://www.buildspace.tv/api/teams.json</code></pre></div>
 
   <p>Which teams still have room, and what are they looking for?</p>
-  <div class="term" data-tag="jq"><pre><code>curl -s https://physical-ai-sprint.vercel.app/api/teams.json \
+  <div class="term" data-tag="jq"><pre><code>curl -s https://www.buildspace.tv/api/teams.json \
   | jq -r '.data[] | select(.lookingForMembers) | "\(.name): \(.skillsWanted | join(", "))"'</code></pre></div>
 
   <p>Every project that touched real hardware:</p>
-  <div class="term" data-tag="jq"><pre><code>curl -s https://physical-ai-sprint.vercel.app/api/projects.json \
+  <div class="term" data-tag="jq"><pre><code>curl -s https://www.buildspace.tv/api/projects.json \
   | jq -r '.data[] | select(.track == "hardware" or .track == "both") | .title'</code></pre></div>
 
   <div class="term" data-tag="python"><pre><code>import urllib.request, json
 
-with urllib.request.urlopen("https://physical-ai-sprint.vercel.app/api/projects.json") as r:
+with urllib.request.urlopen("https://www.buildspace.tv/api/projects.json") as r:
     projects = json.load(r)["data"]
 
 for p in projects:
@@ -477,7 +477,7 @@ for p in projects:
 
   <h2>Errors</h2>
   <p>An unknown path under <code>/api/</code> returns a JSON error body with a machine-readable <code>code</code>, a human-readable <code>message</code>, and a <code>resolution</code> — not an HTML page.</p>
-  <div class="term"><pre><code>curl -s https://physical-ai-sprint.vercel.app/api/nope.json</code></pre></div>
+  <div class="term"><pre><code>curl -s https://www.buildspace.tv/api/nope.json</code></pre></div>
 
   <h2>Freshness and stability</h2>
   <p>Documents regenerate whenever a team or project issue changes, so the API is as current as the site. Slugs are stable identifiers and match the page paths, so <code>/api/teams.json</code> entry <code>slug</code> maps to <code>/teams/&lt;slug&gt;.html</code>. Fields are additive: new keys may appear, existing ones will not change meaning.</p>

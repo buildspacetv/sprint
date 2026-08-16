@@ -1,8 +1,8 @@
 {
   "object": "index",
   "description": "Read-only JSON API for The Physical AI Sprint. No authentication, no rate limit, CORS open.",
-  "openapi": "https://physical-ai-sprint.vercel.app/openapi.json",
-  "docs": "https://physical-ai-sprint.vercel.app/developers.html",
+  "openapi": "https://www.buildspace.tv/openapi.json",
+  "docs": "https://www.buildspace.tv/developers.html",
   "endpoints": [
     {
       "method": "GET",

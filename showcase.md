@@ -1,7 +1,7 @@
 ---
 title: Project showcase
 description: Projects built at the Physical AI Sprint.
-canonical: https://physical-ai-sprint.vercel.app/showcase.html
+canonical: https://www.buildspace.tv/showcase.html
 last-updated: 2026-08-17
 ---
 
@@ -11,4 +11,4 @@ last-updated: 2026-08-17
 
 _No projects submitted yet. The deadline is 3:30pm on event day._
 
-Structured data: [https://physical-ai-sprint.vercel.app/api/projects.json](https://physical-ai-sprint.vercel.app/api/projects.json).
+Structured data: [https://www.buildspace.tv/api/projects.json](https://www.buildspace.tv/api/projects.json).

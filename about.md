@@ -1,7 +1,7 @@
 ---
 title: About
 description: What the Physical AI Sprint is and who runs it.
-canonical: https://physical-ai-sprint.vercel.app/about.html
+canonical: https://www.buildspace.tv/about.html
 last-updated: 2026-08-17
 ---
 
@@ -21,4 +21,4 @@ Teams work with 10 LeRobot SO-101 arm pairs, 2 Unitree Go2-W quadrupeds, and 1 U
 humanoid, shared between teams, plus the Antioch cloud simulation platform. Because
 hardware is limited and shared, simulation is the dependable path.
 
-Full detail: [https://physical-ai-sprint.vercel.app/about.html](https://physical-ai-sprint.vercel.app/about.html).
+Full detail: [https://www.buildspace.tv/about.html](https://www.buildspace.tv/about.html).

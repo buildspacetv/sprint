@@ -2,7 +2,7 @@
   "object": "list",
   "count": 1,
   "generatedAt": "2026-08-17T00:00:00-07:00",
-  "docs": "https://physical-ai-sprint.vercel.app/developers.html",
+  "docs": "https://www.buildspace.tv/developers.html",
   "data": [
     {
       "slug": "practice-makes-perfect",
@@ -17,7 +17,7 @@
           "github": "opencolin"
         }
       ],
-      "url": "https://physical-ai-sprint.vercel.app/teams/practice-makes-perfect.html",
+      "url": "https://www.buildspace.tv/teams/practice-makes-perfect.html",
       "threadUrl": "https://github.com/opencolin/physical-ai-sprint-handbook/issues/1"
     }
   ]

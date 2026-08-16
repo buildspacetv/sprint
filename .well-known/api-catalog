@@ -1,58 +1,58 @@
 {
   "linkset": [
     {
-      "anchor": "https://physical-ai-sprint.vercel.app",
+      "anchor": "https://www.buildspace.tv",
       "service-desc": [
         {
-          "href": "https://physical-ai-sprint.vercel.app/openapi.json",
+          "href": "https://www.buildspace.tv/openapi.json",
           "type": "application/vnd.oai.openapi+json",
           "title": "Physical AI Sprint API (OpenAPI 3.1)"
         }
       ],
       "service-doc": [
         {
-          "href": "https://physical-ai-sprint.vercel.app/developers.html",
+          "href": "https://www.buildspace.tv/developers.html",
           "type": "text/html",
           "title": "Developer portal"
         },
         {
-          "href": "https://physical-ai-sprint.vercel.app/llms.txt",
+          "href": "https://www.buildspace.tv/llms.txt",
           "type": "text/plain",
           "title": "llms.txt index"
         }
       ],
       "service-meta": [
         {
-          "href": "https://physical-ai-sprint.vercel.app/.well-known/ai-catalog.json",
+          "href": "https://www.buildspace.tv/.well-known/ai-catalog.json",
           "type": "application/json",
           "title": "Agentic Resource Discovery catalog"
         }
       ],
       "status": [
         {
-          "href": "https://physical-ai-sprint.vercel.app/api/index.json",
+          "href": "https://www.buildspace.tv/api/index.json",
           "type": "application/json",
           "title": "Endpoint index"
         }
       ],
       "item": [
         {
-          "href": "https://physical-ai-sprint.vercel.app/api/index.json",
+          "href": "https://www.buildspace.tv/api/index.json",
           "type": "application/json",
           "title": "Endpoint index"
         },
         {
-          "href": "https://physical-ai-sprint.vercel.app/api/event.json",
+          "href": "https://www.buildspace.tv/api/event.json",
           "type": "application/json",
           "title": "Event details"
         },
         {
-          "href": "https://physical-ai-sprint.vercel.app/api/teams.json",
+          "href": "https://www.buildspace.tv/api/teams.json",
           "type": "application/json",
           "title": "Teams"
         },
         {
-          "href": "https://physical-ai-sprint.vercel.app/api/projects.json",
+          "href": "https://www.buildspace.tv/api/projects.json",
           "type": "application/json",
           "title": "Projects"
         }

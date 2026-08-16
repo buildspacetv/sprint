@@ -4,7 +4,7 @@ Static site for the hackathon: the handbook, the project showcase, and the
 submission flow. Deployed to Vercel from `main`; no build step runs on Vercel,
 because generated pages are committed to the repo.
 
-**Live:** https://physical-ai-sprint.vercel.app
+**Live:** https://www.buildspace.tv
 
 ## Pages
 

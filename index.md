@@ -1,7 +1,7 @@
 ---
 title: The Physical AI Sprint
 description: A one-day Physical AI hackathon on 2026-08-17 alongside Actuate SF.
-canonical: https://physical-ai-sprint.vercel.app/
+canonical: https://www.buildspace.tv/
 last-updated: 2026-08-17
 ---
 
@@ -15,10 +15,10 @@ Teams of 4-5 build a perception-reasoning-action loop on real robots, in the Ant
 simulator, or across both. Judging is science-fair style on ambition, functionality,
 creativity, and architectural quality.
 
-- [Full handbook](https://physical-ai-sprint.vercel.app/) — challenge, schedule, judging, and four setup guides
-- [Everything as one markdown document](https://physical-ai-sprint.vercel.app/llms-full.txt)
-- [Team directory](https://physical-ai-sprint.vercel.app/teams.html) · [Project showcase](https://physical-ai-sprint.vercel.app/showcase.html)
-- [API](https://physical-ai-sprint.vercel.app/developers.html) · [Register](https://luma.com/nkknxvrz) · [Discord](https://discord.com/invite/nN58zxSTFR)
+- [Full handbook](https://www.buildspace.tv/) — challenge, schedule, judging, and four setup guides
+- [Everything as one markdown document](https://www.buildspace.tv/llms-full.txt)
+- [Team directory](https://www.buildspace.tv/teams.html) · [Project showcase](https://www.buildspace.tv/showcase.html)
+- [API](https://www.buildspace.tv/developers.html) · [Register](https://luma.com/nkknxvrz) · [Discord](https://discord.com/invite/nN58zxSTFR)
 
 ## Schedule
 

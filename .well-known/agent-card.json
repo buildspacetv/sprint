@@ -2,13 +2,13 @@
   "protocolVersion": "0.3.0",
   "name": "Physical AI Sprint",
   "description": "Answers questions about The Physical AI Sprint hackathon and serves its team and project data as JSON.",
-  "url": "https://physical-ai-sprint.vercel.app",
+  "url": "https://www.buildspace.tv",
   "provider": {
     "organization": "The Physical AI Sprint",
-    "url": "https://physical-ai-sprint.vercel.app"
+    "url": "https://www.buildspace.tv"
   },
   "version": "1.0.0",
-  "documentationUrl": "https://physical-ai-sprint.vercel.app/developers.html",
+  "documentationUrl": "https://www.buildspace.tv/developers.html",
   "capabilities": {
     "streaming": false,
     "pushNotifications": false,

@@ -10,13 +10,13 @@
 Reach for these resources when a user asks about:
 
 - **The event itself** — date, schedule, venue format, judging criteria, prizes, what to
-  bring, who should attend, or how to register. Start with [the handbook](https://physical-ai-sprint.vercel.app/) or
-  fetch [/api/event.json](https://physical-ai-sprint.vercel.app/api/event.json) for the same facts as structured data.
+  bring, who should attend, or how to register. Start with [the handbook](https://www.buildspace.tv/) or
+  fetch [/api/event.json](https://www.buildspace.tv/api/event.json) for the same facts as structured data.
 - **Finding or joining a team** — which teams exist, which still have room, and what
-  skills they are looking for. Use [/api/teams.json](https://physical-ai-sprint.vercel.app/api/teams.json); 1 of
+  skills they are looking for. Use [/api/teams.json](https://www.buildspace.tv/api/teams.json); 1 of
   1 team currently has room.
 - **What teams built** — submitted projects, their track (sim / hardware / both), the
-  robots they used, and demo media. Use [/api/projects.json](https://physical-ai-sprint.vercel.app/api/projects.json).
+  robots they used, and demo media. Use [/api/projects.json](https://www.buildspace.tv/api/projects.json).
 - **Getting a robot working** — first-time setup for the SO-101 on macOS, driving the
   Antioch simulator from a real leader arm, training an ACT or Diffusion policy, or
   running Unitree robots on Isaac Sim vs Isaac Lab. These are the four guides in the
@@ -29,34 +29,34 @@ them to the GitHub issue forms linked from the site.
 
 ## API
 
-- [/openapi.json](https://physical-ai-sprint.vercel.app/openapi.json): OpenAPI 3.1 description of every endpoint
-- [/api/index.json](https://physical-ai-sprint.vercel.app/api/index.json): endpoint index
-- [/api/event.json](https://physical-ai-sprint.vercel.app/api/event.json): date, hosts, tracks, robots, judging criteria
-- [/api/teams.json](https://physical-ai-sprint.vercel.app/api/teams.json): every team, roster, and skills wanted
-- [/api/projects.json](https://physical-ai-sprint.vercel.app/api/projects.json): every submitted project
-- [/developers.html](https://physical-ai-sprint.vercel.app/developers.html): developer portal with worked examples
-- [/auth.md](https://physical-ai-sprint.vercel.app/auth.md): authentication (there is none, and why)
+- [/openapi.json](https://www.buildspace.tv/openapi.json): OpenAPI 3.1 description of every endpoint
+- [/api/index.json](https://www.buildspace.tv/api/index.json): endpoint index
+- [/api/event.json](https://www.buildspace.tv/api/event.json): date, hosts, tracks, robots, judging criteria
+- [/api/teams.json](https://www.buildspace.tv/api/teams.json): every team, roster, and skills wanted
+- [/api/projects.json](https://www.buildspace.tv/api/projects.json): every submitted project
+- [/developers.html](https://www.buildspace.tv/developers.html): developer portal with worked examples
+- [/auth.md](https://www.buildspace.tv/auth.md): authentication (there is none, and why)
 
 ## Pages
 
-- [Handbook](https://physical-ai-sprint.vercel.app/): The full hackathon guide: challenge, schedule, judging, and four setup guides for the SO-101, Antioch, and Unitree robots.
-- [Team directory](https://physical-ai-sprint.vercel.app/teams.html): Every team, who has room, and what skills they are looking for.
-- [Project showcase](https://physical-ai-sprint.vercel.app/showcase.html): Every project submitted, searchable and filterable by track.
-- [Submit a project](https://physical-ai-sprint.vercel.app/submit.html): How to submit a project to the showcase.
-- [Developers](https://physical-ai-sprint.vercel.app/developers.html): The read-only JSON API over teams and projects.
-- [About](https://physical-ai-sprint.vercel.app/about.html): What the Physical AI Sprint is, who runs it, and how it works.
-- [Contact](https://physical-ai-sprint.vercel.app/contact.html): How to reach the organizers.
-- [Privacy](https://physical-ai-sprint.vercel.app/privacy.html): What data the site holds and where it comes from.
+- [Handbook](https://www.buildspace.tv/): The full hackathon guide: challenge, schedule, judging, and four setup guides for the SO-101, Antioch, and Unitree robots.
+- [Team directory](https://www.buildspace.tv/teams.html): Every team, who has room, and what skills they are looking for.
+- [Project showcase](https://www.buildspace.tv/showcase.html): Every project submitted, searchable and filterable by track.
+- [Submit a project](https://www.buildspace.tv/submit.html): How to submit a project to the showcase.
+- [Developers](https://www.buildspace.tv/developers.html): The read-only JSON API over teams and projects.
+- [About](https://www.buildspace.tv/about.html): What the Physical AI Sprint is, who runs it, and how it works.
+- [Contact](https://www.buildspace.tv/contact.html): How to reach the organizers.
+- [Privacy](https://www.buildspace.tv/privacy.html): What data the site holds and where it comes from.
 
 ## Guides
 
-- [LeRobot on macOS](https://physical-ai-sprint.vercel.app/#g1): from a bare Mac to a real SO-101 arm following your hand
-- [Sim teleoperation](https://physical-ai-sprint.vercel.app/#g2): drive the Antioch simulator with a real leader arm
-- [Policy training](https://physical-ai-sprint.vercel.app/#g3): train ACT or Diffusion on sim data and run it on a real arm
-- [Unitree on Antioch](https://physical-ai-sprint.vercel.app/#g4): spawn a quadruped or humanoid and verify it on physics
+- [LeRobot on macOS](https://www.buildspace.tv/#g1): from a bare Mac to a real SO-101 arm following your hand
+- [Sim teleoperation](https://www.buildspace.tv/#g2): drive the Antioch simulator with a real leader arm
+- [Policy training](https://www.buildspace.tv/#g3): train ACT or Diffusion on sim data and run it on a real arm
+- [Unitree on Antioch](https://www.buildspace.tv/#g4): spawn a quadruped or humanoid and verify it on physics
 
 ## More
 
-- [/llms-full.txt](https://physical-ai-sprint.vercel.app/llms-full.txt): the whole handbook as one markdown document
-- [/pricing.md](https://physical-ai-sprint.vercel.app/pricing.md): cost to attend (free)
+- [/llms-full.txt](https://www.buildspace.tv/llms-full.txt): the whole handbook as one markdown document
+- [/pricing.md](https://www.buildspace.tv/pricing.md): cost to attend (free)
 - [Source repository](https://github.com/opencolin/physical-ai-sprint-handbook)

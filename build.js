@@ -14,7 +14,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = __dirname;
-const SITE = 'https://physical-ai-sprint.vercel.app';
+const SITE = 'https://www.buildspace.tv';
 const REPO = 'https://github.com/opencolin/physical-ai-sprint-handbook';
 const APPLY = 'https://luma.com/nkknxvrz';
 const DISCORD = 'https://discord.com/invite/nN58zxSTFR';

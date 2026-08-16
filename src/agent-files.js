@@ -12,7 +12,7 @@
  * agent that tried to follow it.
  */
 
-const SITE = 'https://physical-ai-sprint.vercel.app';
+const SITE = 'https://www.buildspace.tv';
 const REPO = 'https://github.com/opencolin/physical-ai-sprint-handbook';
 const APPLY = 'https://luma.com/nkknxvrz';
 const DISCORD = 'https://discord.com/invite/nN58zxSTFR';
@@ -465,50 +465,50 @@ function discoveryFiles(teams, projects) {
       },
       entries: [
         {
-          identifier: 'urn:air:physical-ai-sprint.vercel.app:api:openapi',
+          identifier: 'urn:air:buildspace.tv:api:openapi',
           displayName: 'Physical AI Sprint API',
           description: 'Read-only JSON API over the hackathon teams and projects. No authentication required.',
           type: 'application/vnd.oai.openapi+json',
           mediaType: 'application/vnd.oai.openapi+json',
           url: `${SITE}/openapi.json`,
           trustManifest: {
-            verifiableIdentity: { domain: 'physical-ai-sprint.vercel.app', method: 'dns-origin' },
+            verifiableIdentity: { domain: 'buildspace.tv', method: 'dns-origin' },
             source: { repository: REPO, license: 'CC BY 4.0' },
           },
         },
         {
-          identifier: 'urn:air:physical-ai-sprint.vercel.app:doc:handbook',
+          identifier: 'urn:air:buildspace.tv:doc:handbook',
           displayName: 'Physical AI Sprint Handbook',
           description: 'Full participant handbook: challenge brief, schedule, judging criteria, and four hardware and simulation setup guides.',
           type: 'text/markdown',
           mediaType: 'text/markdown',
           url: `${SITE}/llms-full.txt`,
           trustManifest: {
-            verifiableIdentity: { domain: 'physical-ai-sprint.vercel.app', method: 'dns-origin' },
+            verifiableIdentity: { domain: 'buildspace.tv', method: 'dns-origin' },
             source: { repository: REPO, license: 'CC BY 4.0' },
           },
         },
         {
-          identifier: 'urn:air:physical-ai-sprint.vercel.app:data:teams',
+          identifier: 'urn:air:buildspace.tv:data:teams',
           displayName: 'Team directory data',
           description: 'Every team at the event, which teams still have room, and the skills they are looking for.',
           type: 'application/json',
           mediaType: 'application/json',
           url: `${SITE}/api/teams.json`,
           trustManifest: {
-            verifiableIdentity: { domain: 'physical-ai-sprint.vercel.app', method: 'dns-origin' },
+            verifiableIdentity: { domain: 'buildspace.tv', method: 'dns-origin' },
             source: { repository: REPO, license: 'CC BY 4.0' },
           },
         },
         {
-          identifier: 'urn:air:physical-ai-sprint.vercel.app:data:projects',
+          identifier: 'urn:air:buildspace.tv:data:projects',
           displayName: 'Project showcase data',
           description: 'Every project submitted to the showcase with track, robots used, media, and team roster.',
           type: 'application/json',
           mediaType: 'application/json',
           url: `${SITE}/api/projects.json`,
           trustManifest: {
-            verifiableIdentity: { domain: 'physical-ai-sprint.vercel.app', method: 'dns-origin' },
+            verifiableIdentity: { domain: 'buildspace.tv', method: 'dns-origin' },
             source: { repository: REPO, license: 'CC BY 4.0' },
           },
         },

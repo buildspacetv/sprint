@@ -46,8 +46,8 @@
   ],
   "submissionDeadline": "15:30",
   "links": {
-    "handbook": "https://physical-ai-sprint.vercel.app",
-    "teams": "https://physical-ai-sprint.vercel.app/api/teams.json",
-    "projects": "https://physical-ai-sprint.vercel.app/api/projects.json"
+    "handbook": "https://www.buildspace.tv",
+    "teams": "https://www.buildspace.tv/api/teams.json",
+    "projects": "https://www.buildspace.tv/api/projects.json"
   }
 }

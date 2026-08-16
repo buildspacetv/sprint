@@ -1,7 +1,7 @@
 ---
 title: Pricing
 description: What it costs to attend the Physical AI Sprint.
-canonical: https://physical-ai-sprint.vercel.app/pricing.md
+canonical: https://www.buildspace.tv/pricing.md
 last-updated: 2026-08-17
 ---
 
@@ -21,7 +21,7 @@ last-updated: 2026-08-17
 ## The API
 
 Also free. The read-only JSON API has no paid tier, no key, and no rate limit. See
-[auth.md](https://physical-ai-sprint.vercel.app/auth.md).
+[auth.md](https://www.buildspace.tv/auth.md).
 
 ## Costs you may still incur
 

@@ -1,6 +1,6 @@
 # The Physical AI Sprint — full handbook
 
-Generated from the event handbook at https://physical-ai-sprint.vercel.app/. Event date 2026-08-17.
+Generated from the event handbook at https://www.buildspace.tv/. Event date 2026-08-17.
 
 ## The event
 
@@ -86,20 +86,20 @@ Your laptop, charger, and anything else you rely on for a full day of building.
 ## The guides
 
 Four walkthroughs, each from zero to a working proof of concept. Full text with commands,
-checkpoints, and troubleshooting tables is at https://physical-ai-sprint.vercel.app/.
+checkpoints, and troubleshooting tables is at https://www.buildspace.tv/.
 
-1. **[LeRobot on macOS](https://physical-ai-sprint.vercel.app/#g1)** — first-time SO-101 setup on Apple Silicon. The
+1. **[LeRobot on macOS](https://www.buildspace.tv/#g1)** — first-time SO-101 setup on Apple Silicon. The
    published LeRobot instructions assume Windows or Ubuntu, so port names, permissions, and
    GPU advice differ. About 45 minutes, most of it calibration. macOS uses
    `/dev/tty.usbmodemXXXXXXXX`, not `/dev/ttyACM0`; there is no CUDA wheel for Mac and
    none is needed (MPS works); terminal camera access must be granted in Privacy and Security.
-2. **[Sim teleoperation](https://physical-ai-sprint.vercel.app/#g2)** — hold a real leader arm and watch a physics-simulated
+2. **[Sim teleoperation](https://www.buildspace.tv/#g2)** — hold a real leader arm and watch a physics-simulated
    SO-101 mirror it on a cloud GPU, recording demonstration episodes scored the moment you
    stop. Needs two terminals: the sim session and the bridge.
-3. **[Policy training](https://physical-ai-sprint.vercel.app/#g3)** — generate episodes in simulation, train an ACT or
+3. **[Policy training](https://www.buildspace.tv/#g3)** — generate episodes in simulation, train an ACT or
    Diffusion policy, evaluate it closed-loop, and run it on a real arm. About 1.5 hours,
    most of it unattended. Train on commanded joint targets, never measured positions.
-4. **[Unitree on Antioch](https://physical-ai-sprint.vercel.app/#g4)** — spawn a quadruped or humanoid and verify it on
+4. **[Unitree on Antioch](https://www.buildspace.tv/#g4)** — spawn a quadruped or humanoid and verify it on
    physics rather than video. Isaac Sim and Isaac Lab expose completely different Python
    entry points for the same robot; pick one engine per project.
 
@@ -107,9 +107,9 @@ checkpoints, and troubleshooting tables is at https://physical-ai-sprint.vercel.
 
 Teams and project submissions are public data, available as JSON:
 
-- Teams: https://physical-ai-sprint.vercel.app/api/teams.json (1 registered, 1 looking for members)
-- Projects: https://physical-ai-sprint.vercel.app/api/projects.json (0 submitted)
-- Full API: https://physical-ai-sprint.vercel.app/openapi.json
+- Teams: https://www.buildspace.tv/api/teams.json (1 registered, 1 looking for members)
+- Projects: https://www.buildspace.tv/api/projects.json (0 submitted)
+- Full API: https://www.buildspace.tv/openapi.json
 
 ## Links
 

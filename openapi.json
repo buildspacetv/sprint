@@ -7,7 +7,7 @@
     "description": "A public, read-only JSON API over the hackathon's teams and projects.\n\nNo authentication is required and there is no rate limit: every endpoint is a static\nJSON document served from a CDN, regenerated whenever a team or project submission\nchanges. CORS is open, so browser agents can call it directly.\n\nUse it to list the teams at the event, see which are still looking for members, or\nenumerate submitted projects with their tracks, media, and rosters.",
     "contact": {
       "name": "The Physical AI Sprint",
-      "url": "https://physical-ai-sprint.vercel.app/contact.html"
+      "url": "https://www.buildspace.tv/contact.html"
     },
     "license": {
       "name": "CC BY 4.0",
@@ -16,7 +16,7 @@
   },
   "servers": [
     {
-      "url": "https://physical-ai-sprint.vercel.app",
+      "url": "https://www.buildspace.tv",
       "description": "Production"
     }
   ],
@@ -27,7 +27,7 @@
   },
   "externalDocs": {
     "description": "Developer portal",
-    "url": "https://physical-ai-sprint.vercel.app/developers.html"
+    "url": "https://www.buildspace.tv/developers.html"
   },
   "tags": [
     {
