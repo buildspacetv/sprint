@@ -402,11 +402,6 @@
     background: var(--surface-2); color: var(--ink-2); white-space: nowrap;
   }
 
-  .progress { padding: 12px 22px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 7px; }
-  .progress-top { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--f-mono); font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
-  .progress-top b { color: var(--ink); font-variant-numeric: tabular-nums; letter-spacing: .04em; }
-  .bar { height: 4px; background: var(--surface-2); border-radius: 99px; overflow: hidden; }
-  .bar i { display: block; height: 100%; width: 0; background: var(--ok); transition: width .3s ease; }
 
   .nav { flex: 1; overflow-y: auto; padding: 14px 12px 40px; }
   .nav-group { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); padding: 14px 10px 6px; }
@@ -718,11 +713,6 @@
         Search guides &amp; symptoms
         <kbd>/</kbd>
       </button>
-    </div>
-
-    <div class="progress">
-      <div class="progress-top"><span>Checkpoints cleared</span><b><span id="pDone">0</span>/<span id="pTotal">0</span></b></div>
-      <div class="bar"><i id="pBar"></i></div>
     </div>
 
     <nav class="nav" id="nav" aria-label="Handbook sections">
@@ -1815,19 +1805,10 @@ robot = Articulation(UNITREE_GO2_CFG.replace(prim_path="/World/robot"))</code></
     term.appendChild(btn);
   });
 
-  /* ---- checkpoint progress ---- */
+  /* ---- checkpoints ---- */
+  // The checkpoints stay tickable and remembered across refreshes; the sidebar
+  // progress meter that counted them was removed as clutter.
   var ckpts = Array.prototype.slice.call(document.querySelectorAll(".ckpt[data-ck]"));
-  var pDone = document.getElementById("pDone");
-  var pTotal = document.getElementById("pTotal");
-  var pBar = document.getElementById("pBar");
-  pTotal.textContent = ckpts.length;
-
-  function refresh() {
-    var n = 0;
-    ckpts.forEach(function (c) { if (c.classList.contains("done")) n++; });
-    pDone.textContent = n;
-    pBar.style.width = (ckpts.length ? (n / ckpts.length) * 100 : 0) + "%";
-  }
   ckpts.forEach(function (c) {
     var key = "pais-ck-" + c.getAttribute("data-ck");
     var box = c.querySelector("input");
@@ -1840,10 +1821,8 @@ robot = Articulation(UNITREE_GO2_CFG.replace(prim_path="/World/robot"))</code></
     box.addEventListener("change", function () {
       c.classList.toggle("done", box.checked);
       store.set(key, box.checked ? "1" : "0");
-      refresh();
     });
   });
-  refresh();
 
   /* ---- engine switch ---- */
   var tabs = Array.prototype.slice.call(document.querySelectorAll(".switch button[data-engine]"));
