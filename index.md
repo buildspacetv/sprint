@@ -11,7 +11,7 @@ A one-day hackathon at the intersection of AI and the physical world, 2026-08-17
 alongside Actuate SF. Hosted by Nebius with NVIDIA, Antioch, and Toloka. Free to attend;
 applications are approved because space is limited.
 
-Teams of 4-5 build a perception-reasoning-action loop on real robots, in the Antioch cloud
+Teams of 1-5 build a perception-reasoning-action loop on real robots, in the Antioch cloud
 simulator, or across both. Judging is science-fair style on ambition, functionality,
 creativity, and architectural quality.
 

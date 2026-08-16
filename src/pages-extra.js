@@ -20,7 +20,7 @@ function aboutPage(page) {
 
 <div class="wrap narrow">
   <h2>What it is</h2>
-  <p>The Physical AI Sprint gathers 100 to 125 engineers into teams of 4 or 5 for a single day of building. The brief is deliberately open-ended: we provide the robots, the simulation platform, and the building blocks, and each team decides what their system does and how it thinks.</p>
+  <p>The Physical AI Sprint gathers 100 to 125 engineers into teams of 1 to 5 for a single day of building. The brief is deliberately open-ended: we provide the robots, the simulation platform, and the building blocks, and each team decides what their system does and how it thinks.</p>
   <p>The framing is the perception–reasoning–action loop. Modern AI is very good at generating text and pixels; Physical AI requires closing the loop between a digital mind and a physical embodiment. A project has to interpret sensor data into an understanding of a scene, turn a goal into multi-step behavior that adapts when the world changes, and translate that plan into motion that actually works on hardware or in physics.</p>
 
   <h2>Who runs it</h2>

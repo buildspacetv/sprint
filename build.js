@@ -600,7 +600,7 @@ function teamsPage(teams, builtBy) {
   <div class="pagehead-in">
     <p class="eyebrow">Team directory</p>
     <h1>Find a team</h1>
-    <p class="lede">You do not need to arrive with a team. Post what you want to build, or find a team with room and ask to join. Teams are 4 or 5 people.</p>
+    <p class="lede">You do not need to arrive with a team. Post what you want to build, or find a team with room and ask to join. Teams are 1 to 5 people, so hacking solo is fine.</p>
     <div class="actions">
       <a class="btn" href="${TEAM_URL}" target="_blank" rel="noopener noreferrer">Create a team</a>
       <a class="btn ghost" href="${DISCORD}" target="_blank" rel="noopener noreferrer">Join the Discord</a>
@@ -708,7 +708,7 @@ ${teams.map((t) => teamCard(t, builtBy.get(t.slug))).join('\n')}
     </li>
     <li>
       <h3>Add them to the list</h3>
-      <p>Edit the issue to add members. Mark the team full when you hit 4 or 5 and it stops showing under "has room".</p>
+      <p>Edit the issue to add members. Teams cap at 5 — mark yours full once you have the people you want and it stops showing under "has room".</p>
     </li>
   </ol>
 </div>`;

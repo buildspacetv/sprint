@@ -73,7 +73,7 @@ function apiFiles(teams, projects) {
       registrationUrl: APPLY,
       discordUrl: DISCORD,
       hosts: ['Nebius', 'NVIDIA', 'Antioch', 'Toloka'],
-      teamSize: '4-5',
+      teamSize: '1-5',
       capacity: '100-125 participants',
       tracks: [
         { id: 'sim', label: 'Sim only', description: 'Built entirely on the Antioch simulation platform.' },
@@ -216,7 +216,7 @@ function openapi() {
       registrationUrl: { type: 'string', format: 'uri', description: 'Where to register.' },
       discordUrl: { type: 'string', format: 'uri', description: 'Event chat.' },
       hosts: { type: 'array', items: { type: 'string' }, description: 'Hosting organizations.' },
-      teamSize: { type: 'string', description: 'Allowed team size.', example: '4-5' },
+      teamSize: { type: 'string', description: 'Allowed team size.', example: '1-5' },
       capacity: { type: 'string', description: 'Expected attendance.' },
       tracks: { type: 'array', description: 'Project tracks.', items: {
         type: 'object', properties: {
@@ -367,7 +367,7 @@ function openapi() {
             registrationUrl: { type: 'string', format: 'uri' },
             discordUrl: { type: 'string', format: 'uri' },
             hosts: { type: 'array', items: { type: 'string' } },
-            teamSize: { type: 'string', example: '4-5' },
+            teamSize: { type: 'string', example: '1-5' },
             capacity: { type: 'string' },
             tracks: {
               type: 'array',
@@ -614,7 +614,7 @@ function textFiles(teams, projects) {
   const llms = `# The Physical AI Sprint
 
 > A one-day Physical AI hackathon on ${EVENT_DATE} alongside Actuate SF, hosted by
-> Nebius with NVIDIA, Antioch, and Toloka. Teams of 4-5 build a perception-reasoning-action
+> Nebius with NVIDIA, Antioch, and Toloka. Teams of 1-5 build a perception-reasoning-action
 > loop on real robots (LeRobot SO-101 arms, Unitree Go2-W, Unitree G1), in the Antioch
 > cloud simulation platform, or across both.
 
@@ -682,7 +682,7 @@ last-updated: ${EVENT_DATE}
 The event site for The Physical AI Sprint, a one-day robotics and AI hackathon held on
 ${EVENT_DATE} in San Francisco alongside Actuate SF. Hosted by Nebius with NVIDIA,
 Antioch, and Toloka. Free to attend, application required, 100-125 participants in teams
-of 4-5.
+of 1-5; solo is fine.
 
 ## When to use it
 
@@ -830,7 +830,7 @@ Generated from the event handbook at ${SITE}/. Event date ${EVENT_DATE}.
 ## The event
 
 A one-day hackathon at the intersection of AI and the physical world, alongside Actuate SF.
-Hosted by Nebius with NVIDIA, Antioch, and Toloka. 100-125 participants in teams of 4-5.
+Hosted by Nebius with NVIDIA, Antioch, and Toloka. 100-125 participants in teams of 1-5 (solo is fine).
 Free to attend; applications are approved because space is limited.
 
 ### The challenge
@@ -1080,7 +1080,7 @@ A one-day hackathon at the intersection of AI and the physical world, ${EVENT_DA
 alongside Actuate SF. Hosted by Nebius with NVIDIA, Antioch, and Toloka. Free to attend;
 applications are approved because space is limited.
 
-Teams of 4-5 build a perception-reasoning-action loop on real robots, in the Antioch cloud
+Teams of 1-5 build a perception-reasoning-action loop on real robots, in the Antioch cloud
 simulator, or across both. Judging is science-fair style on ambition, functionality,
 creativity, and architectural quality.
 
@@ -1142,7 +1142,7 @@ Authentication: none — see [${SITE}/auth.md](${SITE}/auth.md).
     'about.md': fm('About', 'What the Physical AI Sprint is and who runs it.', SITE + '/about.html') +
 `# About the Sprint
 
-The Physical AI Sprint gathers 100-125 engineers into teams of 4 or 5 for a single day of
+The Physical AI Sprint gathers 100-125 engineers into teams of 1 to 5 for a single day of
 building, ${EVENT_DATE}, alongside Actuate SF.
 
 The framing is the perception-reasoning-action loop: interpret sensor data into an

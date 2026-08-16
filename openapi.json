@@ -221,7 +221,7 @@
                     "teamSize": {
                       "type": "string",
                       "description": "Allowed team size.",
-                      "example": "4-5"
+                      "example": "1-5"
                     },
                     "capacity": {
                       "type": "string",
@@ -831,7 +831,7 @@
           },
           "teamSize": {
             "type": "string",
-            "example": "4-5"
+            "example": "1-5"
           },
           "capacity": {
             "type": "string"

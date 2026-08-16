@@ -1,7 +1,7 @@
 # The Physical AI Sprint
 
 > A one-day Physical AI hackathon on 2026-08-17 alongside Actuate SF, hosted by
-> Nebius with NVIDIA, Antioch, and Toloka. Teams of 4-5 build a perception-reasoning-action
+> Nebius with NVIDIA, Antioch, and Toloka. Teams of 1-5 build a perception-reasoning-action
 > loop on real robots (LeRobot SO-101 arms, Unitree Go2-W, Unitree G1), in the Antioch
 > cloud simulation platform, or across both.
 

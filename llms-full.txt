@@ -5,7 +5,7 @@ Generated from the event handbook at https://www.buildspace.tv/. Event date 2026
 ## The event
 
 A one-day hackathon at the intersection of AI and the physical world, alongside Actuate SF.
-Hosted by Nebius with NVIDIA, Antioch, and Toloka. 100-125 participants in teams of 4-5.
+Hosted by Nebius with NVIDIA, Antioch, and Toloka. 100-125 participants in teams of 1-5 (solo is fine).
 Free to attend; applications are approved because space is limited.
 
 ### The challenge

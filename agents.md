@@ -12,7 +12,7 @@ last-updated: 2026-08-17
 The event site for The Physical AI Sprint, a one-day robotics and AI hackathon held on
 2026-08-17 in San Francisco alongside Actuate SF. Hosted by Nebius with NVIDIA,
 Antioch, and Toloka. Free to attend, application required, 100-125 participants in teams
-of 4-5.
+of 1-5; solo is fine.
 
 ## When to use it
 

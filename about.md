@@ -7,7 +7,7 @@ last-updated: 2026-08-17
 
 # About the Sprint
 
-The Physical AI Sprint gathers 100-125 engineers into teams of 4 or 5 for a single day of
+The Physical AI Sprint gathers 100-125 engineers into teams of 1 to 5 for a single day of
 building, 2026-08-17, alongside Actuate SF.
 
 The framing is the perception-reasoning-action loop: interpret sensor data into an
