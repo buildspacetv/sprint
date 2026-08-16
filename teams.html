@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Find a team for the Physical AI Sprint.">
+<meta name="description" content="Find a team for the Physical AI Sprint — 1 teams, 1 looking for members.">
 <meta name="color-scheme" content="light dark">
 <title>Team Directory</title>
 <link rel="canonical" href="https://physical-ai-sprint.vercel.app/teams.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Team Directory">
-<meta property="og:description" content="Find a team for the Physical AI Sprint.">
+<meta property="og:description" content="Find a team for the Physical AI Sprint — 1 teams, 1 looking for members.">
 <meta property="og:url" content="https://physical-ai-sprint.vercel.app/teams.html">
 
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Team Directory">
-<meta name="twitter:description" content="Find a team for the Physical AI Sprint.">
+<meta name="twitter:description" content="Find a team for the Physical AI Sprint — 1 teams, 1 looking for members.">
 
 <style>
 /* ==========================================================================
@@ -414,13 +414,76 @@ code { font-family: var(--f-mono); font-size: .86em; }
 </header>
 
 <div class="wrap">
-  <div class="empty">
-    <h3>No teams posted yet</h3>
-    <p>Be the first. Post what you want to build and let people come to you — a team of one looking for three others is exactly what this is for.</p>
-    <div class="actions" style="justify-content:center">
-      <a class="btn" href="https://github.com/opencolin/physical-ai-sprint-handbook/issues/new?template=team.yml&labels=team" target="_blank" rel="noopener noreferrer">Create a team</a>
+  <div class="controls">
+    <input type="search" id="q" placeholder="Search teams, skills, people…" aria-label="Search teams">
+    <div class="filters" role="group" aria-label="Filter teams">
+      <button data-filter="all" aria-pressed="true">All</button>
+      <button data-filter="yes" aria-pressed="false">Has room</button>
     </div>
+    <span class="count"><b id="shown">1</b> teams · 1 with room · 1 people</span>
   </div>
+
+  <div class="grid teams" id="grid">
+      <article class="tcard" data-open="yes" data-search="practice makes perfect practice makes perfect   colin lowenberg opencolin">
+        <div class="tcard-top">
+          <h3>Practice Makes Perfect</h3>
+          <span class="chip track-both">Looking for teammates</span>
+        </div>
+        <p class="tag">Practice Makes Perfect</p>
+        
+        
+        <ul class="roster">
+          <li><a href="https://github.com/opencolin" target="_blank" rel="noopener noreferrer"><img src="https://github.com/opencolin.png?size=44" alt="" loading="lazy">Colin Lowenberg</a></li>
+        </ul>
+        <div class="tcard-foot">
+          <a class="btn ghost" href="https://github.com/opencolin/physical-ai-sprint-handbook/issues/1" target="_blank" rel="noopener noreferrer">Ask to join</a>
+          
+          
+        </div>
+      </article>
+  </div>
+
+  <div class="empty" id="noresults" hidden>
+    <h3>Nothing matches</h3>
+    <p>Try a different skill or clear the filter — or post your own team.</p>
+  </div>
+
+  <script>
+  (function () {
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.tcard'));
+    var q = document.getElementById('q');
+    var shown = document.getElementById('shown');
+    var none = document.getElementById('noresults');
+    var grid = document.getElementById('grid');
+    var filter = 'all';
+
+    function apply() {
+      var term = q.value.trim().toLowerCase();
+      var n = 0;
+      cards.forEach(function (c) {
+        var okOpen = filter === 'all' || c.getAttribute('data-open') === filter;
+        var okTerm = !term || c.getAttribute('data-search').indexOf(term) !== -1;
+        var on = okOpen && okTerm;
+        c.hidden = !on;
+        if (on) n++;
+      });
+      shown.textContent = n;
+      none.hidden = n !== 0;
+      grid.hidden = n === 0;
+    }
+
+    q.addEventListener('input', apply);
+    Array.prototype.forEach.call(document.querySelectorAll('.filters button'), function (b) {
+      b.addEventListener('click', function () {
+        filter = b.getAttribute('data-filter');
+        Array.prototype.forEach.call(document.querySelectorAll('.filters button'), function (o) {
+          o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
+        });
+        apply();
+      });
+    });
+  })();
+  </script>
 
   <h2>How it works</h2>
   <ol class="steps">

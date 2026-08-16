@@ -1,3 +1,22 @@
 {
-  "teams": []
+  "teams": [
+    {
+      "slug": "practice-makes-perfect",
+      "name": "Practice Makes Perfect",
+      "pitch": "Practice Makes Perfect",
+      "open": true,
+      "looking": [],
+      "have": [],
+      "members": [
+        {
+          "name": "Colin Lowenberg",
+          "github": "opencolin"
+        }
+      ],
+      "contact": "",
+      "issue": 1,
+      "comments": 0,
+      "updated": "2026-08-16T07:06:59Z"
+    }
+  ]
 }
