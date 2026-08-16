@@ -29,13 +29,37 @@
 const REPO = process.env.EDIT_REPO || 'buildspacetv/sprint';
 const BRANCH = process.env.EDIT_BRANCH || 'main';
 
-// Content lives in exactly these places. Everything else is off limits.
+// Only the two files the site actually marks as editable. build.js and
+// agent-files.js were here and should not have been: the workflow runs
+// `node build.js`, so write access to them is write access to CI.
 const WRITABLE = [
   /^index\.html$/,
   /^src\/pages-extra\.js$/,
-  /^src\/agent-files\.js$/,
-  /^build\.js$/,
 ];
+
+/**
+ * The prose being replaced lives inside JavaScript template literals, so a
+ * value containing a backtick or "${" would close the literal and everything
+ * after it becomes code — which the deploy workflow then executes. Editing a
+ * paragraph must not be a way to run something in CI, so these characters are
+ * refused outright rather than escaped: no legitimate sentence on this site
+ * needs them, and escaping is the kind of thing that gets subtly wrong.
+ */
+const UNSAFE_IN_SOURCE = [
+  ['`', 'a backtick'],
+  ['${', 'a ${ ... } placeholder'],
+  ['\\', 'a backslash'],
+  ['</script', 'a closing script tag'],
+];
+
+function unsafeReason(value, filePath) {
+  for (const [needle, human] of UNSAFE_IN_SOURCE) {
+    if (value.includes(needle)) return human;
+  }
+  // index.html is served as-is, so markup in a prose edit is markup on the page.
+  if (/^index\.html$/.test(filePath) && /[<>]/.test(value)) return 'an angle bracket';
+  return null;
+}
 
 const MAX_FIELD = 20000;
 
@@ -155,6 +179,12 @@ async function writeFile(res, filePath, oldText, newText, editor) {
     return fail(res, 403, 'path_not_writable',
       `${filePath} cannot be edited from the browser.`,
       'Only content files are writable here. Use the GitHub editor for anything else.');
+  }
+  const unsafe = unsafeReason(newText, filePath);
+  if (unsafe) {
+    return fail(res, 400, 'unsafe_content',
+      `Text edited here cannot contain ${unsafe}.`,
+      'Use "Edit this page" to open the file on GitHub, where the change can be reviewed before it goes live.');
   }
   if (!oldText) {
     return fail(res, 400, 'missing_old_text',

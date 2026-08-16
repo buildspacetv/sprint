@@ -63,3 +63,40 @@ test('the write allowlist covers content and excludes infrastructure', () => {
   assert.ok(!allowed('vercel.json'));
   assert.ok(!allowed('../../etc/passwd'));
 });
+
+/* ------------------------------------------- source-injection guard */
+
+const unsafeReason = new Function(
+  `${src.match(/const UNSAFE_IN_SOURCE = \[[\s\S]*?\];/)[0]}
+   ${src.match(/function unsafeReason[\s\S]*?\n}/)[0]}
+   return unsafeReason;`)();
+
+test('a prose edit cannot break out of the template literal it lives in', () => {
+  // The workflow runs `node build.js`, which requires this file — so a value
+  // that closes the literal is arbitrary code execution in CI, not a typo.
+  assert.ok(unsafeReason('hello `; require("child_process").execSync("id"); `', 'src/pages-extra.js'));
+  assert.ok(unsafeReason('hello ${process.env.EDIT_GITHUB_TOKEN}', 'src/pages-extra.js'));
+  assert.ok(unsafeReason('back\\slash', 'src/pages-extra.js'));
+  assert.ok(unsafeReason('oops </script>', 'src/pages-extra.js'));
+});
+
+test('ordinary prose is allowed through', () => {
+  assert.equal(unsafeReason('A one-day hackathon, free to attend — apply on Luma.', 'src/pages-extra.js'), null);
+  assert.equal(unsafeReason("Teams of 1 to 5. You don't need to arrive with a team.", 'src/pages-extra.js'), null);
+  assert.equal(unsafeReason('Cost: $0 USD (100% free)', 'src/pages-extra.js'), null,
+    'a bare $ is fine — only ${ is a placeholder');
+});
+
+test('markup is refused in the handbook, which is served as written', () => {
+  assert.ok(unsafeReason('<b>bold</b>', 'index.html'));
+  assert.equal(unsafeReason('plain sentence', 'index.html'), null);
+});
+
+test('the allowlist no longer includes anything the workflow executes', () => {
+  const WRITABLE = new Function(`${src.match(/const WRITABLE = \[[\s\S]*?\];/)[0]}; return WRITABLE;`)();
+  const allowed = (p) => WRITABLE.some((re) => re.test(p));
+  assert.ok(!allowed('build.js'), 'the workflow runs `node build.js`');
+  assert.ok(!allowed('src/agent-files.js'));
+  assert.ok(allowed('src/pages-extra.js'), 'the one file the site actually edits');
+  assert.ok(allowed('index.html'));
+});
