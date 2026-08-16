@@ -400,6 +400,39 @@
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; scroll-behavior: auto !important; animation: none !important; }
   }
+  /* ---------- calls to action ---------- */
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 0; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--f-display); font-size: 1rem; letter-spacing: .02em;
+    padding: 9px 18px; border-radius: 6px; text-decoration: none;
+    border: 1px solid var(--accent); background: var(--accent); color: #fff;
+  }
+  :root[data-theme="dark"] .btn:not(.ghost) { color: #0C1115; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn:not(.ghost) { color: #0C1115; } }
+  .btn:hover { filter: brightness(1.08); }
+  .btn.ghost { background: transparent; color: var(--accent-ink); }
+  .btn.ghost:hover { background: var(--accent-soft); filter: none; }
+
+  /* ---------- hosts ---------- */
+  .hosts { margin: 26px 0 0; }
+  .hosts-label { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
+  .hosts-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 9px; }
+  .hosts-row span {
+    font-family: var(--f-display); font-size: 1.02rem; letter-spacing: .02em;
+    padding: 5px 13px; border: 1px solid var(--line-2); border-radius: 5px;
+    background: var(--paper); color: var(--ink);
+  }
+
+  .card .detail { margin-top: 7px; padding-top: 7px; border-top: 1px solid var(--line); font-size: .86rem; color: var(--ink-3); }
+  .sched-note { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; color: var(--warn); margin: 18px 0 -6px; }
+  .sched div.after::before { background: var(--surface-2); border-style: dashed; }
+
+  /* ---------- footer ---------- */
+  .foot { border-top: 1px solid var(--line); margin-top: 70px; padding: 30px 0 0; display: flex; flex-direction: column; gap: 14px; }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: .9rem; }
+  .foot-fine { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .06em; color: var(--ink-3); }
+
   html { scroll-behavior: smooth; }
 </style>
 </head>
@@ -435,6 +468,7 @@
     <nav class="nav" id="nav" aria-label="Handbook sections">
       <div class="nav-group">The event</div>
       <ul>
+        <li><a href="#expect"><span class="n">·</span>What to expect</a></li>
         <li><a href="#challenge"><span class="n">01</span>The challenge</a></li>
         <li><a href="#format"><span class="n">02</span>Format</a></li>
         <li><a href="#schedule"><span class="n">03</span>Schedule</a></li>
@@ -450,6 +484,14 @@
         <li><a href="#getting-started"><span class="n">05</span>Getting started guides</a></li>
         <li><a href="#judging"><span class="n">06</span>Judging</a></li>
         <li><a href="#rules"><span class="n">07</span>Ground rules</a></li>
+      </ul>
+
+      <div class="nav-group">Attending</div>
+      <ul>
+        <li><a href="#prizes"><span class="n">·</span>Prizes</a></li>
+        <li><a href="#bring"><span class="n">·</span>What to bring</a></li>
+        <li><a href="#attend"><span class="n">·</span>Who should attend</a></li>
+        <li><a href="#notes"><span class="n">·</span>Important notes</a></li>
       </ul>
 
       <div class="nav-group">The guides</div>
@@ -518,27 +560,63 @@
       <div class="hero-inner">
         <div class="eyebrow">A hackathon alongside Actuate SF</div>
         <h1>The Physical AI Sprint</h1>
-        <p class="lede">Design and demonstrate a Physical AI task — in simulation, in the real world, or across both. You get the robots, the world, the building blocks, and a single day.</p>
+        <p class="lede">Get warmed up for Actuate the best way possible — by building. Join Nebius, NVIDIA, Antioch, and Toloka for a day of workshops and building at the intersection of AI and the physical world. Start with technical workshops on the tools and challenge space, then form a team — or work solo — and build a working prototype.</p>
         <div class="hero-meta">
           <span class="chip">100–125 participants</span>
           <span class="chip">Teams of 4–5</span>
           <span class="chip">One day</span>
           <span class="chip">Antioch + SO-101 + Unitree</span>
         </div>
+        <div class="actions">
+          <a class="btn" href="https://builderbase.com/event/the-physical-ai-sprint-hackathon/register">Apply to attend</a>
+          <a class="btn ghost" href="https://discord.com/invite/nN58zxSTFR">Join the Discord</a>
+        </div>
+        <div class="hosts">
+          <div class="hosts-label">Brought to you by</div>
+          <div class="hosts-row">
+            <span>Nebius</span><span>NVIDIA</span><span>Antioch</span><span>Toloka</span>
+          </div>
+        </div>
       </div>
     </header>
 
     <div class="wrap">
 
+      <!-- ============ what to expect ============ -->
+      <section id="expect">
+        <h2>What to expect</h2>
+        <p>We'll begin with technical workshops designed to help you get familiar with the tools, infrastructure, and challenge space. Then, you'll form a team — or work independently — and spend the rest of the day building a working prototype.</p>
+        <ul class="list">
+          <li>Robotics workshops</li>
+          <li>A focused physical AI challenge</li>
+          <li>Access to tools, infrastructure, and technical support</li>
+          <li>Project demos and judging</li>
+          <li>Prizes for the strongest submissions</li>
+        </ul>
+      </section>
+
       <!-- ============ 01 ============ -->
       <section id="challenge">
         <h2><span class="num">01</span>The challenge</h2>
+        <p class="eyebrow" style="margin-bottom:10px">The perception–reasoning–action loop</p>
         <p>Modern AI excels at generating text and pixels. Physical AI requires closing the loop between the digital mind and a physical embodiment, integrating three pillars:</p>
 
         <div class="cards three">
-          <div class="card"><span class="tag">Perception</span><p>Interpret camera and sensor data into a live understanding of a scene.</p></div>
-          <div class="card"><span class="tag">Reasoning</span><p>Turn goals into multi-step behavior and adapt when the world changes.</p></div>
-          <div class="card"><span class="tag">Action</span><p>Translate plans into robot motion that actually works.</p></div>
+          <div class="card">
+            <span class="tag">Perception · sense</span>
+            <p>Interpret camera and sensor data into a live understanding of a scene.</p>
+            <p class="detail">Ingesting multi-modal sensor data — RGB-D video, LiDAR, IMU readings, tactile feedback, spatial audio — into a real-time, dynamic understanding of the physical surroundings.</p>
+          </div>
+          <div class="card">
+            <span class="tag">Reasoning · think</span>
+            <p>Turn goals into multi-step behavior and adapt when the world changes.</p>
+            <p class="detail">Leveraging foundation models, spatial computing, and decision-making frameworks to analyze constraints, anticipate outcomes, plan multi-step tasks, and adapt to unexpected real-world changes.</p>
+          </div>
+          <div class="card">
+            <span class="tag">Action · act</span>
+            <p>Translate plans into robot motion that actually works.</p>
+            <p class="detail">Translating high-level plans into precise physical outputs: robotic manipulation, autonomous navigation, drone flight dynamics, or interactive IoT actuator responses.</p>
+          </div>
         </div>
 
         <p>Your goal: design and demonstrate a Physical AI task in simulation, in the real world, or across both. You have several robot modalities, the Antioch simulation platform for building and testing, and a single day. The brief is deliberately open-ended: we provide the robots, the world, and the building blocks, and you decide what the system does and how it thinks. In short, build some cool stuff.</p>
@@ -566,6 +644,7 @@
       <!-- ============ 03 ============ -->
       <section id="schedule">
         <h2><span class="num">03</span>Schedule</h2>
+        <p class="sched-note">Subject to change</p>
         <div class="sched">
           <div><time>8:00 am</time><b>Doors open and check-in, grab breakfast</b></div>
           <div><time>9:00 am</time><b>Welcome and challenge briefing</b></div>
@@ -576,6 +655,7 @@
           <div class="key"><time>3:30 pm</time><b>Submission deadline</b></div>
           <div><time>4:30 pm</time><b>Demos and judging (top 6 live demos)</b></div>
           <div class="key"><time>5:30 pm</time><b>Winners announced</b></div>
+          <div class="after"><time>6–9 pm</time><b>Happy hour</b></div>
         </div>
       </section>
 
@@ -694,6 +774,51 @@
           <li>Unless you are confident you can pull it off quickly, avoid fine-tuning pre-trained policies or VLA models. Training a small imitation policy from scratch on your own demonstrations fits comfortably in the day (<a href="#g3">Guide 3</a> shows the path); wrangling a large pre-trained model usually does not.</li>
           <li>Make it awesome.</li>
         </ul>
+      </section>
+
+      <!-- ============ prizes ============ -->
+      <section id="prizes">
+        <h2>Prizes</h2>
+        <p>Prizes for the strongest submissions, awarded after the top 6 teams demo to the full group. Judging criteria are in <a href="#judging">section 06</a>.</p>
+        <div class="note">
+          <div class="note-head">Details pending</div>
+          <div class="note-body">The event page lists a Prizes section but does not yet publish the specific awards. Nothing further is confirmed, so nothing more is stated here.</div>
+        </div>
+      </section>
+
+      <!-- ============ what to bring ============ -->
+      <section id="bring">
+        <h2>What to bring</h2>
+        <p>Bring your laptop, charger, and anything else you rely on for a full day of building. Required setup instructions and recommended tools are shared with registered participants before the event — the four <a href="#g1">guides</a> in this handbook cover the setup you can do in advance.</p>
+      </section>
+
+      <!-- ============ who should attend ============ -->
+      <section id="attend">
+        <h2>Who should attend</h2>
+        <p>This event is designed for:</p>
+        <ul class="list">
+          <li>Robotics engineers</li>
+          <li>Machine learning engineers</li>
+          <li>Computer vision engineers</li>
+          <li>Research engineers and applied scientists</li>
+          <li>Data and infrastructure engineers working with robotics or physical AI</li>
+          <li>Technical founders and builders exploring embodied intelligence</li>
+        </ul>
+        <p>You don't need to arrive with a team. We'll help participants connect and form teams before and at the event.</p>
+      </section>
+
+      <!-- ============ important notes ============ -->
+      <section id="notes">
+        <h2>Important notes</h2>
+        <ul class="list">
+          <li><b>Space is limited</b>, and all attendees must apply and be approved to attend.</li>
+          <li><b>This is a hands-on technical event.</b> Participants should be comfortable writing code and building independently or as part of a small team.</li>
+          <li><b>Please register individually</b>, even if you plan to attend with a team.</li>
+        </ul>
+        <div class="actions">
+          <a class="btn" href="https://builderbase.com/event/the-physical-ai-sprint-hackathon/register">Apply now</a>
+          <a class="btn ghost" href="https://discord.com/invite/nN58zxSTFR">Join the Discord</a>
+        </div>
         <hr class="rule">
       </section>
 
@@ -1296,6 +1421,23 @@ robot = Articulation(UNITREE_GO2_CFG.replace(prim_path="/World/robot"))</code></
         </div>
         <p class="srcline">Scenarios referenced here: <code>src/unitree_go2w_probe.py</code>, <code>src/unitree_go2w_bake.py</code>, <code>src/unitree_go2w_policy.py</code>, <code>src/unitree_go2w_follow.py</code>, <code>src/unitree_g1_policy.py</code>, and <code>src/unitree_stand.py</code> for the Isaac Lab bake pattern.</p>
       </section>
+
+      <footer class="foot">
+        <div class="hosts">
+          <div class="hosts-label">Brought to you by</div>
+          <div class="hosts-row">
+            <span>Nebius</span><span>NVIDIA</span><span>Antioch</span><span>Toloka</span>
+          </div>
+        </div>
+        <div class="foot-links">
+          <a href="https://builderbase.com/event/the-physical-ai-sprint-hackathon/register">Apply</a>
+          <a href="https://discord.com/invite/nN58zxSTFR">Discord</a>
+          <a href="https://builderbase.com/event/the-physical-ai-sprint-hackathon">Event page</a>
+          <a href="https://nebius.com/careers">Nebius careers</a>
+          <a href="https://docs.nebius.com/legal/privacy">Privacy</a>
+        </div>
+        <p class="foot-fine">© 2026 The Physical AI Sprint Hackathon. All rights reserved.</p>
+      </footer>
 
     </div>
   </main>
