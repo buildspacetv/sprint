@@ -528,6 +528,7 @@ function discoveryFiles(teams, projects) {
           type: 'skill-md',
           mediaType: 'skill-md',
           description: 'Answer questions about the Physical AI Sprint: date, schedule, hosts, tracks, robots available, judging criteria, what to bring, and how to register.',
+          whenToUse: 'Use when a user asks about the Physical AI Sprint hackathon itself — when it is, what it costs, who is hosting, what robots are available, how projects are judged, what to bring, or who should attend.',
           url: `${SITE}/agents.md`,
         },
         {
@@ -535,6 +536,7 @@ function discoveryFiles(teams, projects) {
           type: 'skill-md',
           mediaType: 'skill-md',
           description: 'Read the hackathon team directory and project showcase over the public read-only JSON API, including which teams still have room for members.',
+          whenToUse: 'Use when a user asks which teams are attending, which teams still have room or need a particular skill, or what projects were built and which robots they used. Fetch /api/teams.json or /api/projects.json — no authentication is required.',
           url: `${SITE}/llms.txt`,
         },
       ],

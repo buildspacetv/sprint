@@ -1766,7 +1766,7 @@ robot = Articulation(UNITREE_GO2_CFG.replace(prim_path="/World/robot"))</code></
 
 <div class="scrim" id="scrim"></div>
 <div class="finder" id="finder" role="dialog" aria-modal="true" aria-label="Search">
-  <input id="q" type="text" placeholder="Search sections, steps, and troubleshooting symptoms…" autocomplete="off" spellcheck="false">
+  <input id="q" type="text" placeholder="Search sections, steps, and troubleshooting symptoms…" autocomplete="off" spellcheck="false" aria-label="Search the handbook" toolname="search_handbook" tooldescription="Search the Physical AI Sprint handbook by section, setup step, or hardware troubleshooting symptom (for example 'black frames' or 'port not found') and return matching entries with links.">
   <ul class="results" id="results"></ul>
 </div>
 
@@ -1976,6 +1976,31 @@ robot = Articulation(UNITREE_GO2_CFG.replace(prim_path="/World/robot"))</code></
   Array.prototype.forEach.call(document.querySelectorAll("[data-find]"), function (b) {
     b.addEventListener("click", openFinder);
   });
+
+  // WebMCP: expose the handbook search as a callable tool for browser-resident
+  // agents. Same index the dialog uses — sections plus every troubleshooting
+  // symptom across the four guides.
+  var mc = document.modelContext || navigator.modelContext;
+  if (mc && typeof mc.registerTool === "function") {
+    mc.registerTool({
+      name: "search_handbook",
+      description: "Search the Physical AI Sprint handbook by section, setup step, or hardware troubleshooting symptom, and return matching entries with links.",
+      inputSchema: {
+        type: "object",
+        properties: { query: { type: "string", description: "Text to search for, e.g. 'black frames' or 'calibration'." } },
+        required: ["query"]
+      },
+      execute: function (args) {
+        var t = String((args && args.query) || "").toLowerCase();
+        var hits = index.filter(function (it) {
+          return (it.title + " " + it.sub + " " + it.kind).toLowerCase().indexOf(t) !== -1;
+        }).slice(0, 20).map(function (it) {
+          return { kind: it.kind, title: it.title, detail: it.sub || undefined, url: location.origin + "/#" + it.id };
+        });
+        return { content: [{ type: "text", text: JSON.stringify({ count: hits.length, results: hits }) }] };
+      }
+    });
+  }
   scrim.addEventListener("click", closeFinder);
   q.addEventListener("input", function () { render(q.value); });
   q.addEventListener("keydown", function (e) {
