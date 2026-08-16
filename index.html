@@ -403,7 +403,16 @@
   }
 
 
-  .nav { flex: 1; overflow-y: auto; padding: 14px 12px 40px; }
+  .rail-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .railclose {
+    display: none; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+    border-radius: 6px; padding: 7px 9px; cursor: pointer; place-items: center; flex: none;
+  }
+
+  .nav {
+    flex: 1; overflow-y: auto; padding: 14px 12px 40px;
+    -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+  }
   .nav-group { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); padding: 14px 10px 6px; }
   .nav ul { list-style: none; margin: 0; padding: 0; }
   .nav a {
@@ -641,15 +650,24 @@
     .topbar .searchbtn { width: auto; margin-left: auto; }
     .menu { border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 6px; padding: 7px 9px; cursor: pointer; display: grid; place-items: center; }
     .rail {
-      position: fixed; inset: 0 auto 0 0; width: 288px; transform: translateX(-100%);
-      transition: transform .25s ease; box-shadow: var(--shadow);
+      position: fixed; inset: 0 auto 0 0; width: 320px; transform: translateX(-100%);
+      height: 100dvh; transition: transform .25s ease; box-shadow: var(--shadow);
+      z-index: 60; /* over the sticky topbar (50), which it now covers */
     }
     .rail.open { transform: none; }
-    .rail-head { padding-top: 16px; }
+    .rail-head { padding-top: 16px; flex: none; }
+    /* The drawer covers the topbar, so it carries its own way out. */
+    .railclose { display: grid; }
+    .nav { padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
+    body.nav-open { overflow: hidden; }
     .wrap, .hero { padding-left: 20px; padding-right: 20px; }
     .hero { padding-top: 44px; padding-bottom: 38px; }
     .meta div, .keys div, .sched div { grid-template-columns: 1fr; gap: 2px; }
     body { font-size: 16.5px; }
+  }
+  /* Phones: the drawer takes the whole screen rather than a peeking column. */
+  @media (max-width: 640px) {
+    .rail { width: 100%; }
   }
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; scroll-behavior: auto !important; animation: none !important; }
@@ -704,9 +722,14 @@
 <div class="shell">
   <aside class="rail" id="rail">
     <div class="rail-head">
-      <div class="wordmark">
-        <b>The Physical AI Sprint</b>
-        <span>Hackathon handbook</span>
+      <div class="rail-top">
+        <div class="wordmark">
+          <b>The Physical AI Sprint</b>
+          <span>Hackathon handbook</span>
+        </div>
+        <button class="railclose" id="railClose" aria-label="Close navigation">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
       </div>
       <button class="searchbtn" data-find>
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><circle cx="5" cy="5" r="4" stroke="currentColor"/><path d="M8 8l3.5 3.5" stroke="currentColor"/></svg>
@@ -725,7 +748,7 @@
 
       <div class="nav-group">The event</div>
       <ul>
-        <li><a href="#expect"><span class="n">·</span>What to expect</a></li>
+        <li><a href="#expect"><span class="n">00</span>What to expect</a></li>
         <li><a href="#challenge"><span class="n">01</span>The challenge</a></li>
         <li><a href="#format"><span class="n">02</span>Format</a></li>
         <li><a href="#schedule"><span class="n">03</span>Schedule</a></li>
@@ -746,10 +769,10 @@
 
       <div class="nav-group">Attending</div>
       <ul>
-        <li><a href="#prizes"><span class="n">·</span>Prizes</a></li>
-        <li><a href="#bring"><span class="n">·</span>What to bring</a></li>
-        <li><a href="#attend"><span class="n">·</span>Who should attend</a></li>
-        <li><a href="#notes"><span class="n">·</span>Important notes</a></li>
+        <li><a href="#prizes"><span class="n">08</span>Prizes</a></li>
+        <li><a href="#bring"><span class="n">09</span>What to bring</a></li>
+        <li><a href="#attend"><span class="n">10</span>Who should attend</a></li>
+        <li><a href="#notes"><span class="n">11</span>Important notes</a></li>
       </ul>
 
       <div class="nav-group">The guides</div>
@@ -842,7 +865,7 @@
 
       <!-- ============ what to expect ============ -->
       <section id="expect">
-        <h2>What to expect</h2>
+        <h2><span class="num">00</span>What to expect</h2>
         <p>We'll begin with technical workshops designed to help you get familiar with the tools, infrastructure, and challenge space. Then, you'll form a team — or work independently — and spend the rest of the day building a working prototype.</p>
         <ul class="list">
           <li>Robotics workshops</li>
@@ -1111,7 +1134,7 @@ print(resp.choices[0].message.content)</code></pre></div>
 
       <!-- ============ prizes ============ -->
       <section id="prizes">
-        <h2>Prizes</h2>
+        <h2><span class="num">08</span>Prizes</h2>
         <p>Prizes for the strongest submissions, awarded after the top 6 teams demo to the full group. Judging criteria are in <a href="#judging">section 06</a>.</p>
         <div class="note">
           <div class="note-head">Details pending</div>
@@ -1121,13 +1144,13 @@ print(resp.choices[0].message.content)</code></pre></div>
 
       <!-- ============ what to bring ============ -->
       <section id="bring">
-        <h2>What to bring</h2>
+        <h2><span class="num">09</span>What to bring</h2>
         <p>Bring your laptop, charger, and anything else you rely on for a full day of building. Required setup instructions and recommended tools are shared with registered participants before the event — the four <a href="#g1">guides</a> in this handbook cover the setup you can do in advance.</p>
       </section>
 
       <!-- ============ who should attend ============ -->
       <section id="attend">
-        <h2>Who should attend</h2>
+        <h2><span class="num">10</span>Who should attend</h2>
         <p>This event is designed for:</p>
         <ul class="list">
           <li>Robotics engineers</li>
@@ -1142,7 +1165,7 @@ print(resp.choices[0].message.content)</code></pre></div>
 
       <!-- ============ important notes ============ -->
       <section id="notes">
-        <h2>Important notes</h2>
+        <h2><span class="num">11</span>Important notes</h2>
         <ul class="list">
           <li><b>Space is limited</b>, and all attendees must apply and be approved to attend.</li>
           <li><b>This is a hands-on technical event.</b> Participants should be comfortable writing code and building independently or as part of a small team.</li>
@@ -1895,10 +1918,24 @@ robot = Articulation(UNITREE_GO2_CFG.replace(prim_path="/World/robot"))</code></
   /* ---- mobile drawer ---- */
   var rail = document.getElementById("rail");
   var menuBtn = document.getElementById("menuBtn");
-  function closeRail() { rail.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); }
+  function closeRail() {
+    rail.classList.remove("open");
+    document.body.classList.remove("nav-open");
+    menuBtn.setAttribute("aria-expanded", "false");
+  }
   menuBtn.addEventListener("click", function () {
     var open = rail.classList.toggle("open");
+    document.body.classList.toggle("nav-open", open);
     menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  document.getElementById("railClose").addEventListener("click", closeRail);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && rail.classList.contains("open")) closeRail();
+  });
+  // Rotating or resizing past the breakpoint leaves the rail static again; the
+  // body must not stay locked behind a drawer that is no longer a drawer.
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 980) closeRail();
   });
   navLinks.forEach(function (a) { a.addEventListener("click", closeRail); });
 
