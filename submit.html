@@ -255,6 +255,33 @@ code { font-family: var(--f-mono); font-size: .86em; }
   color: var(--ink-3); display: inline-flex; align-items: center; gap: 5px;
 }
 
+/* ---------- team directory cards ---------- */
+.grid.teams { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+.tcard {
+  display: flex; flex-direction: column; gap: 10px;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+  padding: 16px 18px 15px;
+}
+.tcard[data-open="yes"] { border-left: 3px solid var(--ok); }
+.tcard-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.tcard-top h3 { margin: 0; font-size: 1.16rem; line-height: 1.2; }
+.tcard .tag { margin: 0; font-size: .94rem; color: var(--ink-2); }
+.skills { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; }
+.skills-label { font-family: var(--f-mono); font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-right: 3px; }
+.roster { list-style: none; margin: 2px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.roster li { margin: 0; }
+.roster a, .roster span {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .86rem; color: var(--ink-2); text-decoration: none;
+  padding: 3px 9px 3px 3px; border: 1px solid var(--line); border-radius: 99px; background: var(--paper);
+}
+.roster a:hover { border-color: var(--accent); color: var(--accent-ink); }
+.roster span { padding-left: 9px; }
+.roster img { width: 20px; height: 20px; border-radius: 99px; background: var(--surface-2); }
+.tcard-foot { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-top: auto; padding-top: 10px; }
+.tcard-foot .btn { padding: 6px 13px; font-size: .92rem; }
+.badge { font-family: var(--f-mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+
 /* ---------- team ---------- */
 .avatars { display: flex; align-items: center; }
 .avatars img {
@@ -367,6 +394,7 @@ code { font-family: var(--f-mono); font-size: .86em; }
   </a>
   <nav>
     <a href="/">Handbook</a>
+    <a href="/teams.html">Teams</a>
     <a href="/showcase.html">Showcase</a>
     <a href="/submit.html" aria-current="page">Submit</a>
   </nav>
@@ -443,6 +471,7 @@ code { font-family: var(--f-mono); font-size: .86em; }
     <div class="foot-links">
       <a href="https://luma.com/nkknxvrz">Apply</a>
       <a href="https://discord.com/invite/nN58zxSTFR">Discord</a>
+      <a href="/teams.html">Teams</a>
       <a href="/showcase.html">Showcase</a>
       <a href="/submit.html">Submit a project</a>
       <a href="https://github.com/opencolin/physical-ai-sprint-handbook">Repo</a>

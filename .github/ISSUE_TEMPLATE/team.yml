@@ -1,0 +1,77 @@
+name: Create a team
+description: List your team in the directory so people can find and join you
+title: "[Team] "
+labels: ["team"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        You do not need a full team to post — a team of one looking for three
+        others is exactly what this directory is for.
+
+        People join by **commenting on this issue**. Edit it any time; the
+        directory updates itself.
+
+  - type: input
+    id: name
+    attributes:
+      label: Team name
+      placeholder: The Gripper Gang
+    validations:
+      required: true
+
+  - type: textarea
+    id: pitch
+    attributes:
+      label: What you want to build
+      description: A couple of sentences. Rough ideas are fine — most teams change direction anyway.
+      placeholder: Something around natural-language tasking for the SO-101, probably sim-first.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: status
+    attributes:
+      label: Are you looking for teammates?
+      options:
+        - "Yes — we have room"
+        - "No — we are full"
+    validations:
+      required: true
+
+  - type: input
+    id: looking
+    attributes:
+      label: Skills you are looking for
+      description: Comma separated.
+      placeholder: computer vision, ROS, anything perception
+    validations:
+      required: false
+
+  - type: input
+    id: have
+    attributes:
+      label: Skills already on the team
+      description: Comma separated.
+      placeholder: RL, backend, a bit of Isaac Sim
+    validations:
+      required: false
+
+  - type: textarea
+    id: members
+    attributes:
+      label: Members
+      description: One person per line, as `Name @githubhandle`. Add people as they join.
+      placeholder: |
+        Ada Lovelace @ada
+    validations:
+      required: true
+
+  - type: input
+    id: contact
+    attributes:
+      label: Where to reach you
+      description: Discord handle is easiest — the event Discord is where most coordination happens.
+      placeholder: "@ada on Discord"
+    validations:
+      required: false

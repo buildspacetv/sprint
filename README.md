@@ -11,6 +11,7 @@ because generated pages are committed to the repo.
 | Path | Source | Notes |
 | --- | --- | --- |
 | `/` | `index.html` | The handbook. Hand-maintained, self-contained. |
+| `/teams.html` | generated | Team directory: post a team, find one with room, search by skill or person. |
 | `/showcase.html` | generated | Grid of all submitted projects, with search and track filter. |
 | `/submit.html` | generated | How to submit; links to the GitHub issue form. |
 | `/projects/<slug>.html` | generated | One page per project. |
@@ -21,7 +22,8 @@ which cannot load external stylesheets, so it has to stay self-contained.
 
 ## How submissions work
 
-There is no database. Submissions are GitHub issues.
+There is no database. Both submissions and teams are GitHub issues, distinguished
+by label: `submission` for projects, `team` for the directory.
 
 ```
 team files an issue  ->  GitHub Action  ->  data/projects.json  ->  build.js
@@ -34,9 +36,10 @@ team files an issue  ->  GitHub Action  ->  data/projects.json  ->  build.js
    It is a GitHub issue form, so they get auth, structured fields, and
    drag-and-drop upload for photos and video that GitHub hosts.
 2. `.github/workflows/submissions.yml` fires on any issue event.
-3. `scripts/sync-issues.js` reads every **open** issue labelled `submission`,
-   parses the form fields out of the issue body, and writes `data/projects.json`.
-4. `build.js` regenerates the showcase and project pages.
+3. `scripts/sync-issues.js` reads every **open** issue labelled `submission` or
+   `team`, parses the form fields out of the issue body, and writes
+   `data/projects.json` and `data/teams.json`.
+4. `build.js` regenerates the showcase, the team directory, and the project pages.
 5. The workflow commits the result, which triggers the Vercel deploy.
 
 Editing an issue updates its project page. To pull a project from the showcase,
@@ -82,11 +85,20 @@ If you add a field, run it through those same helpers.
 
 ```
 index.html                                  handbook (hand-maintained)
-showcase.html  submit.html  projects/*.html generated — do not edit by hand
+showcase.html  teams.html  submit.html  projects/*.html    generated — do not edit
 build.js                                    the generator
 src/styles.css                              design system for generated pages
-data/projects.json                          source of truth
-scripts/sync-issues.js                      issues -> projects.json
+data/projects.json  data/teams.json         source of truth
+scripts/sync-issues.js                      issues -> projects.json + teams.json
 .github/ISSUE_TEMPLATE/project-submission.yml
+.github/ISSUE_TEMPLATE/team.yml
 .github/workflows/submissions.yml
 ```
+
+## Team directory
+
+A team is an open issue labelled `team`. People join by **commenting on it** —
+the conversation stays in one place and the roster is edited into the issue body.
+Marking a team full drops it out of the "has room" filter. Closing the issue
+removes the team from the directory.
+

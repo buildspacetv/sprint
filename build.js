@@ -137,6 +137,7 @@ ${css}
   </a>
   <nav>
     <a href="/"${current === 'handbook' ? ' aria-current="page"' : ''}>Handbook</a>
+    <a href="/teams.html"${current === 'teams' ? ' aria-current="page"' : ''}>Teams</a>
     <a href="/showcase.html"${current === 'showcase' ? ' aria-current="page"' : ''}>Showcase</a>
     <a href="/submit.html"${current === 'submit' ? ' aria-current="page"' : ''}>Submit</a>
   </nav>
@@ -149,6 +150,7 @@ ${body}
     <div class="foot-links">
       <a href="${APPLY}">Apply</a>
       <a href="${DISCORD}">Discord</a>
+      <a href="/teams.html">Teams</a>
       <a href="/showcase.html">Showcase</a>
       <a href="/submit.html">Submit a project</a>
       <a href="${REPO}">Repo</a>
@@ -397,6 +399,138 @@ ${shareBlock(p, url)}
   });
 }
 
+/* --------------------------------------------------------- team directory */
+
+const TEAM_URL = `${REPO}/issues/new?template=team.yml&labels=team`;
+
+function teamCard(t) {
+  const members = (t.members || []).map((m) => ({ name: m.name || ghUser(m.github) || 'Unnamed', user: ghUser(m.github) }));
+  return `      <article class="tcard" data-open="${t.open ? 'yes' : 'no'}" data-search="${esc([t.name, t.pitch, (t.looking || []).join(' '), (t.have || []).join(' '), members.map((m) => `${m.name} ${m.user || ''}`).join(' ')].join(' ').toLowerCase())}">
+        <div class="tcard-top">
+          <h3>${esc(t.name)}</h3>
+          <span class="chip ${t.open ? 'track-both' : ''}">${t.open ? 'Looking for teammates' : 'Full'}</span>
+        </div>
+        <p class="tag">${esc(t.pitch)}</p>
+        ${(t.looking || []).length ? `<div class="skills"><span class="skills-label">Looking for</span>${t.looking.map((s) => `<span class="chip">${esc(s)}</span>`).join('')}</div>` : ''}
+        ${(t.have || []).length ? `<div class="skills"><span class="skills-label">On the team</span>${t.have.map((s) => `<span class="chip">${esc(s)}</span>`).join('')}</div>` : ''}
+        <ul class="roster">
+${members.map((m) => (m.user
+    ? `          <li><a href="https://github.com/${esc(m.user)}" target="_blank" rel="noopener noreferrer"><img src="https://github.com/${esc(m.user)}.png?size=44" alt="" loading="lazy">${esc(m.name)}</a></li>`
+    : `          <li><span>${esc(m.name)}</span></li>`)).join('\n')}
+        </ul>
+        <div class="tcard-foot">
+          <a class="btn ghost" href="${REPO}/issues/${esc(t.issue)}" target="_blank" rel="noopener noreferrer">${t.open ? 'Ask to join' : 'View team'}</a>
+          ${t.contact ? `<span class="badge">${esc(t.contact)}</span>` : ''}
+          ${t.comments ? `<span class="badge">${esc(t.comments)} comment${t.comments === 1 ? '' : 's'}</span>` : ''}
+        </div>
+      </article>`;
+}
+
+function teamsPage(teams) {
+  const open = teams.filter((t) => t.open).length;
+  const people = teams.reduce((n, t) => n + (t.members || []).length, 0);
+
+  const body = `
+<header class="pagehead">
+  <div class="pagehead-in">
+    <p class="eyebrow">Team directory</p>
+    <h1>Find a team</h1>
+    <p class="lede">You do not need to arrive with a team. Post what you want to build, or find a team with room and ask to join. Teams are 4 or 5 people.</p>
+    <div class="actions">
+      <a class="btn" href="${TEAM_URL}" target="_blank" rel="noopener noreferrer">Create a team</a>
+      <a class="btn ghost" href="${DISCORD}" target="_blank" rel="noopener noreferrer">Join the Discord</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+${teams.length === 0 ? `  <div class="empty">
+    <h3>No teams posted yet</h3>
+    <p>Be the first. Post what you want to build and let people come to you — a team of one looking for three others is exactly what this is for.</p>
+    <div class="actions" style="justify-content:center">
+      <a class="btn" href="${TEAM_URL}" target="_blank" rel="noopener noreferrer">Create a team</a>
+    </div>
+  </div>` : `  <div class="controls">
+    <input type="search" id="q" placeholder="Search teams, skills, people…" aria-label="Search teams">
+    <div class="filters" role="group" aria-label="Filter teams">
+      <button data-filter="all" aria-pressed="true">All</button>
+      <button data-filter="yes" aria-pressed="false">Has room</button>
+    </div>
+    <span class="count"><b id="shown">${teams.length}</b> teams · ${open} with room · ${people} people</span>
+  </div>
+
+  <div class="grid teams" id="grid">
+${teams.map(teamCard).join('\n')}
+  </div>
+
+  <div class="empty" id="noresults" hidden>
+    <h3>Nothing matches</h3>
+    <p>Try a different skill or clear the filter — or post your own team.</p>
+  </div>
+
+  <script>
+  (function () {
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.tcard'));
+    var q = document.getElementById('q');
+    var shown = document.getElementById('shown');
+    var none = document.getElementById('noresults');
+    var grid = document.getElementById('grid');
+    var filter = 'all';
+
+    function apply() {
+      var term = q.value.trim().toLowerCase();
+      var n = 0;
+      cards.forEach(function (c) {
+        var okOpen = filter === 'all' || c.getAttribute('data-open') === filter;
+        var okTerm = !term || c.getAttribute('data-search').indexOf(term) !== -1;
+        var on = okOpen && okTerm;
+        c.hidden = !on;
+        if (on) n++;
+      });
+      shown.textContent = n;
+      none.hidden = n !== 0;
+      grid.hidden = n === 0;
+    }
+
+    q.addEventListener('input', apply);
+    Array.prototype.forEach.call(document.querySelectorAll('.filters button'), function (b) {
+      b.addEventListener('click', function () {
+        filter = b.getAttribute('data-filter');
+        Array.prototype.forEach.call(document.querySelectorAll('.filters button'), function (o) {
+          o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
+        });
+        apply();
+      });
+    });
+  })();
+  </script>`}
+
+  <h2>How it works</h2>
+  <ol class="steps">
+    <li>
+      <h3>Post your team</h3>
+      <p>Even solo. Say what you want to build and which skills you are missing.</p>
+    </li>
+    <li>
+      <h3>People ask to join</h3>
+      <p>Joining is a comment on your team's issue, so the conversation stays in one place.</p>
+    </li>
+    <li>
+      <h3>Add them to the list</h3>
+      <p>Edit the issue to add members. Mark the team full when you hit 4 or 5 and it stops showing under "has room".</p>
+    </li>
+  </ol>
+</div>`;
+
+  return page({
+    title: 'Team Directory',
+    description: `Find a team for the Physical AI Sprint${teams.length ? ` — ${teams.length} teams, ${open} looking for members` : ''}.`,
+    body,
+    current: 'teams',
+    canonical: `${SITE}/teams.html`,
+  });
+}
+
 /* ------------------------------------------------------------ submit page */
 
 function submitPage() {
@@ -505,13 +639,24 @@ function main() {
     }
   }
 
+  let teams = [];
+  const teamsPath = path.join(ROOT, 'data', 'teams.json');
+  if (fs.existsSync(teamsPath)) {
+    const rawT = JSON.parse(fs.readFileSync(teamsPath, 'utf8'));
+    teams = (Array.isArray(rawT) ? rawT : (rawT.teams || []))
+      .filter((t) => t && t.name)
+      .map((t) => ({ ...t, slug: safeSlug(t.slug), issue: Number.isInteger(Number(t.issue)) ? Number(t.issue) : null }))
+      .sort((a, b) => (b.open ? 1 : 0) - (a.open ? 1 : 0) || String(a.name).localeCompare(String(b.name)));
+  }
+
+  fs.writeFileSync(path.join(ROOT, 'teams.html'), teamsPage(teams));
   fs.writeFileSync(path.join(ROOT, 'showcase.html'), showcase(projects));
   fs.writeFileSync(path.join(ROOT, 'submit.html'), submitPage());
   for (const p of projects) {
     fs.writeFileSync(path.join(outDir, `${p.slug}.html`), projectPage(p));
   }
 
-  console.log(`built showcase.html, submit.html, and ${projects.length} project page(s)`);
+  console.log(`built showcase.html, submit.html, teams.html (${teams.length} team(s)), and ${projects.length} project page(s)`);
 }
 
 main();

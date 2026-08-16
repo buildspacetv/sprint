@@ -12,6 +12,7 @@ on:
       - 'build.js'
       - 'src/styles.css'
       - 'data/projects.json'
+      - 'data/teams.json'
       - 'scripts/sync-issues.js'
 
 concurrency:
@@ -46,7 +47,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/projects.json showcase.html submit.html projects
+          git add data/projects.json data/teams.json showcase.html submit.html teams.html projects
           if git diff --staged --quiet; then
             echo "nothing to commit"
           else
