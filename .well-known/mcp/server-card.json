@@ -1,0 +1,39 @@
+{
+  "name": "physical-ai-sprint",
+  "displayName": "The Physical AI Sprint",
+  "title": "The Physical AI Sprint",
+  "description": "Read-only MCP server for The Physical AI Sprint hackathon: which teams are attending and which still have room, what projects were built and on which robots, and the event details including schedule and judging criteria.",
+  "version": "1.0.0",
+  "serverUrl": "https://www.buildspace.tv/api/mcp",
+  "transport": "streamable-http",
+  "protocolVersion": "2025-06-18",
+  "documentation": "https://www.buildspace.tv/developers.html",
+  "icon": "https://www.buildspace.tv/icon.svg",
+  "logo": "https://www.buildspace.tv/icon.svg",
+  "provider": {
+    "name": "The Physical AI Sprint",
+    "url": "https://www.buildspace.tv"
+  },
+  "authentication": {
+    "type": "none",
+    "description": "Public read-only data; no credential required."
+  },
+  "tools": [
+    {
+      "name": "list_teams",
+      "description": "List the teams taking part, with rosters, the skills they have, and the skills they are looking for. Can filter to teams that still have room."
+    },
+    {
+      "name": "get_team",
+      "description": "Get a single team by slug, including its full roster and the thread where people ask to join."
+    },
+    {
+      "name": "list_projects",
+      "description": "List submitted projects with track, robots used, media, and team. Can filter by track or robot."
+    },
+    {
+      "name": "get_event_details",
+      "description": "Get the date, schedule, hosts, tracks, robots available, judging criteria, and registration link."
+    }
+  ]
+}

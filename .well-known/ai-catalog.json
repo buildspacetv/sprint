@@ -10,6 +10,24 @@
   },
   "entries": [
     {
+      "identifier": "urn:air:www.buildspace.tv:mcp:server",
+      "displayName": "Physical AI Sprint MCP server",
+      "description": "Read-only MCP server exposing the hackathon teams, projects, and event details as callable tools over Streamable HTTP.",
+      "type": "application/mcp",
+      "mediaType": "application/mcp",
+      "url": "https://www.buildspace.tv/api/mcp",
+      "trustManifest": {
+        "verifiableIdentity": {
+          "domain": "www.buildspace.tv",
+          "method": "dns-origin"
+        },
+        "source": {
+          "repository": "https://github.com/buildspacetv/sprint",
+          "license": "CC BY 4.0"
+        }
+      }
+    },
+    {
       "identifier": "urn:air:buildspace.tv:api:openapi",
       "displayName": "Physical AI Sprint API",
       "description": "Read-only JSON API over the hackathon teams and projects. No authentication required.",

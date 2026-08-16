@@ -465,6 +465,18 @@ function discoveryFiles(teams, projects) {
       },
       entries: [
         {
+          identifier: 'urn:air:www.buildspace.tv:mcp:server',
+          displayName: 'Physical AI Sprint MCP server',
+          description: 'Read-only MCP server exposing the hackathon teams, projects, and event details as callable tools over Streamable HTTP.',
+          type: 'application/mcp',
+          mediaType: 'application/mcp',
+          url: `${SITE}/api/mcp`,
+          trustManifest: {
+            verifiableIdentity: { domain: 'www.buildspace.tv', method: 'dns-origin' },
+            source: { repository: REPO, license: 'CC BY 4.0' },
+          },
+        },
+        {
           identifier: 'urn:air:buildspace.tv:api:openapi',
           displayName: 'Physical AI Sprint API',
           description: 'Read-only JSON API over the hackathon teams and projects. No authentication required.',
@@ -578,6 +590,41 @@ function discoveryFiles(teams, projects) {
       ],
     }),
 
+    // Referenced by the MCP server card and the site's favicon.
+    'icon.svg': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="The Physical AI Sprint">
+  <rect width="64" height="64" rx="12" fill="#1F3FBF"/>
+  <g fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M16 48V34l12-9 9 11"/>
+    <circle cx="16" cy="48" r="3.5" fill="#fff" stroke="none"/>
+    <circle cx="28" cy="25" r="3.5" fill="#fff" stroke="none"/>
+    <path d="M37 36l9-7"/>
+    <rect x="43" y="22" width="11" height="9" rx="2"/>
+  </g>
+</svg>
+`,
+
+    '.well-known/mcp/server-card.json': json({
+      name: 'physical-ai-sprint',
+      displayName: 'The Physical AI Sprint',
+      title: 'The Physical AI Sprint',
+      description: 'Read-only MCP server for The Physical AI Sprint hackathon: which teams are attending and which still have room, what projects were built and on which robots, and the event details including schedule and judging criteria.',
+      version: '1.0.0',
+      serverUrl: `${SITE}/api/mcp`,
+      transport: 'streamable-http',
+      protocolVersion: '2025-06-18',
+      documentation: `${SITE}/developers.html`,
+      icon: `${SITE}/icon.svg`,
+      logo: `${SITE}/icon.svg`,
+      provider: { name: 'The Physical AI Sprint', url: SITE },
+      authentication: { type: 'none', description: 'Public read-only data; no credential required.' },
+      tools: [
+        { name: 'list_teams', description: 'List the teams taking part, with rosters, the skills they have, and the skills they are looking for. Can filter to teams that still have room.' },
+        { name: 'get_team', description: 'Get a single team by slug, including its full roster and the thread where people ask to join.' },
+        { name: 'list_projects', description: 'List submitted projects with track, robots used, media, and team. Can filter by track or robot.' },
+        { name: 'get_event_details', description: 'Get the date, schedule, hosts, tracks, robots available, judging criteria, and registration link.' },
+      ],
+    }),
+
     // RFC 9727. No file extension by design; vercel.json sets the media type.
     '.well-known/api-catalog': json({
       linkset: [
@@ -649,6 +696,12 @@ them to the GitHub issue forms linked from the site.
 - [/api/projects.json](${SITE}/api/projects.json): every submitted project
 - [/developers.html](${SITE}/developers.html): developer portal with worked examples
 - [/auth.md](${SITE}/auth.md): authentication (there is none, and why)
+
+## MCP
+
+- [${SITE}/api/mcp](${SITE}/api/mcp): MCP server over Streamable HTTP. Four read-only tools:
+  list_teams, get_team, list_projects, get_event_details. No authentication.
+- [/.well-known/mcp/server-card.json](${SITE}/.well-known/mcp/server-card.json): server card
 
 ## Pages
 

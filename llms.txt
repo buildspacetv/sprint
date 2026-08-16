@@ -37,6 +37,12 @@ them to the GitHub issue forms linked from the site.
 - [/developers.html](https://www.buildspace.tv/developers.html): developer portal with worked examples
 - [/auth.md](https://www.buildspace.tv/auth.md): authentication (there is none, and why)
 
+## MCP
+
+- [https://www.buildspace.tv/api/mcp](https://www.buildspace.tv/api/mcp): MCP server over Streamable HTTP. Four read-only tools:
+  list_teams, get_team, list_projects, get_event_details. No authentication.
+- [/.well-known/mcp/server-card.json](https://www.buildspace.tv/.well-known/mcp/server-card.json): server card
+
 ## Pages
 
 - [Handbook](https://www.buildspace.tv/): The full hackathon guide: challenge, schedule, judging, and four setup guides for the SO-101, Antioch, and Unitree robots.
