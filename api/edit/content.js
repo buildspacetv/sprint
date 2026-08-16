@@ -173,13 +173,13 @@ async function writeFile(res, filePath, oldText, newText, editor) {
 
   if (count === 0) {
     return fail(res, 409, 'text_not_found',
-      'That text does not appear in the source file as written.',
-      'The page probably builds this value from data rather than a literal. Use "Edit this page" to open the file on GitHub.');
+      'This text cannot be changed here.',
+      'The site puts it together from other information rather than storing these exact words. Use "Edit this page" to open the file on GitHub.');
   }
   if (count > 1) {
     return fail(res, 409, 'text_ambiguous',
-      `That text appears ${count} times in ${filePath}, so it is not clear which one to change.`,
-      'Use "Edit this page" to open the file on GitHub and edit the right one.');
+      `These exact words appear ${count} times on the site, so it is not clear which one you meant.`,
+      'Use "Edit this page" to open the file on GitHub and change the right one.');
   }
 
   const updated = content.replace(oldText, newText);
@@ -195,8 +195,8 @@ async function writeFile(res, filePath, oldText, newText, editor) {
   });
   if (put.status === 409) {
     return fail(res, 409, 'conflict',
-      'Someone else changed this file while you were editing.',
-      'Reload the page and make the change again.');
+      'Someone else changed this page while you were editing.',
+      'Reload to see their version, then make your change again.');
   }
   if (!put.ok) {
     return fail(res, 502, 'github_error', `GitHub returned ${put.status} writing ${filePath}.`,

@@ -211,10 +211,10 @@ for p in projects:
  * closes or "Leave edit mode" is pressed.
  */
 function editPage(page, teams, projects) {
-  const row = (href, name, source, note) => `        <tr>
+  const row = (href, name, what, how) => `        <tr>
           <td class="team"><a href="${href}?edit=1">${name}</a></td>
-          <td><code>${source}</code></td>
-          <td>${note}</td>
+          <td>${what}</td>
+          <td>${how}</td>
         </tr>`;
 
   const body = `
@@ -222,61 +222,60 @@ function editPage(page, teams, projects) {
   <div class="pagehead-in">
     <p class="eyebrow">Edit mode</p>
     <h1>Edit the site</h1>
-    <p class="lede">Open any page in edit mode and every editable region gets a link to the thing that actually produces it — a file, or the GitHub issue behind it. Edit mode stays on as you click around, and ends when you close the tab.</p>
+    <p class="lede">Open a page, click the text you want to change, and type. Press Publish and it is live in a couple of minutes.</p>
     <div class="actions">
       <a class="btn" href="/?edit=1">Start with the handbook</a>
-      <a class="btn ghost" href="${REPO}">Open the repo</a>
+      <a class="btn ghost" href="/teams.html?edit=1">Or the team directory</a>
     </div>
   </div>
 </header>
 
 <div class="wrap narrow">
-  <div class="note warn">
-    <div class="note-head">Never edit the HTML of a generated page</div>
-    <div class="note-body">Most pages here are build output committed to the repo. GitHub will let you edit them and the page will look right — then the next build regenerates the file and your change is gone, silently. Edit mode exists to stop that: it points every page at its real source and says so on the page.</div>
-  </div>
+  <h2>Two kinds of text</h2>
+  <p><b>Most text you can change right here.</b> Click it, type, publish. Team pitches, project descriptions, and the wording on pages like About and Privacy all work this way.</p>
+  <p><b>Some text opens GitHub instead.</b> Headings, layout, and the setup guides are written in code rather than stored as content. Edit mode marks those and takes you straight to the right file — and to the exact line, so you are not hunting. You need a GitHub account with access to the repo.</p>
+  <p>You never have to work out which is which. Every page tells you, and anything you can click and type into is editable here.</p>
 
   <h2>Pages</h2>
   <div class="tablewrap">
     <table class="fields">
-      <thead><tr><th>Page</th><th>Real source</th><th>How to edit</th></tr></thead>
+      <thead><tr><th>Page</th><th>What is on it</th><th>Editing</th></tr></thead>
       <tbody>
-${row('/', 'Handbook', 'index.html', 'Hand-written. Sections deep-link to the exact line in the browser editor.')}
-${row('/about.html', 'About', 'src/pages-extra.js', 'Prose lives in the generator.')}
-${row('/contact.html', 'Contact', 'src/pages-extra.js', 'Prose lives in the generator.')}
-${row('/privacy.html', 'Privacy', 'src/pages-extra.js', 'Prose lives in the generator.')}
-${row('/developers.html', 'Developers', 'src/pages-extra.js', 'Prose lives in the generator.')}
-${row('/teams.html', 'Team directory', 'build.js', 'Page furniture only — each team comes from its own issue.')}
-${row('/showcase.html', 'Project showcase', 'build.js', 'Page furniture only — each project comes from its own issue.')}
-${row('/submit.html', 'Submit', 'build.js', 'Prose lives in the generator.')}
+${row('/', 'Handbook', 'The challenge, schedule, judging, and the four setup guides.', 'Opens GitHub, at the line you clicked')}
+${row('/about.html', 'About', 'What the event is and who runs it.', 'Edit here')}
+${row('/privacy.html', 'Privacy', 'What data the site holds.', 'Edit here')}
+${row('/contact.html', 'Contact', 'How to reach the organizers.', 'Opens GitHub')}
+${row('/developers.html', 'Developers', 'The JSON API and how to call it.', 'Opens GitHub')}
+${row('/teams.html', 'Team directory', 'The list itself. Each team is edited on its own page.', 'Opens GitHub')}
+${row('/showcase.html', 'Project showcase', 'The grid itself. Each project is edited on its own page.', 'Opens GitHub')}
+${row('/submit.html', 'Submit', 'Instructions for submitting a project.', 'Opens GitHub')}
       </tbody>
     </table>
   </div>
 
   <h2>Teams and projects</h2>
-  <p data-edit-file="src/pages-extra.js">These are not files. Each one is a GitHub issue, rendered at build time — so editing the issue is editing the page, and the site rebuilds itself within a couple of minutes.</p>
+  <p>Each team and project page shows what that team filled in when they signed up. Editing the page edits their entry, and the page updates itself — so this is how you fix a typo in someone's write-up without asking them to do it.</p>
 ${teams.length || projects.length ? `  <div class="tablewrap">
     <table class="fields">
-      <thead><tr><th>Page</th><th>Issue</th></tr></thead>
+      <thead><tr><th>Page</th><th>Their entry</th></tr></thead>
       <tbody>
 ${teams.map((t) => `        <tr><td class="team"><a href="/teams/${t.slug}.html?edit=1">${t.name}</a></td><td><a href="${REPO}/issues/${t.issue}">#${t.issue}</a></td></tr>`).join('\n')}
 ${projects.map((p) => `        <tr><td class="team"><a href="/projects/${p.slug}.html?edit=1">${p.title}</a></td><td><a href="${REPO}/issues/${p.issue}">#${p.issue}</a></td></tr>`).join('\n')}
       </tbody>
     </table>
-  </div>` : `  <div class="empty"><h3>Nothing submitted yet</h3><p>Teams and projects appear here as they are created.</p></div>`}
+  </div>` : `  <div class="empty"><h3>Nothing submitted yet</h3><p>Teams and projects appear here as they sign up.</p></div>`}
 
   <h2>What you need</h2>
   <ul class="list">
-    <li>A GitHub account with push access to <a href="${REPO}">the repo</a>. Without it GitHub offers you a fork and a pull request, which is the right outcome for an outside contributor.</li>
-    <li>Nothing else — there is no CMS, no password, and no separate login.</li>
+    <li><b>To edit here:</b> the passcode an organizer gave you. You enter it once.</li>
+    <li><b>To edit on GitHub:</b> a GitHub account with access to <a href="${REPO}">the repo</a>. Without access, GitHub offers to send your change as a suggestion instead.</li>
   </ul>
 
-  <h2>How a change goes live</h2>
-  <ol class="list">
-    <li>Edit the file or the issue on GitHub and commit.</li>
-    <li>The build regenerates the affected pages and commits the result.</li>
-    <li>Vercel deploys. Roughly a minute or two end to end.</li>
-  </ol>
+  <h2>If it will not let you</h2>
+  <p>Occasionally a piece of text cannot be changed here, because the site assembles it from other information rather than storing it as words — a count, a date, a team name repeated from elsewhere. Edit mode says so and points you at the file. Change it there and it updates everywhere it appears.</p>
+
+  <h2>Leaving edit mode</h2>
+  <p>Press <b>Leave edit mode</b> in the purple bar, or close the tab. It never shows for anyone visiting the site normally.</p>
 </div>`;
 
   return page({

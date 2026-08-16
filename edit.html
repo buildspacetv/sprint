@@ -434,74 +434,74 @@ code { font-family: var(--f-mono); font-size: .86em; }
   <div class="pagehead-in">
     <p class="eyebrow">Edit mode</p>
     <h1>Edit the site</h1>
-    <p class="lede">Open any page in edit mode and every editable region gets a link to the thing that actually produces it — a file, or the GitHub issue behind it. Edit mode stays on as you click around, and ends when you close the tab.</p>
+    <p class="lede">Open a page, click the text you want to change, and type. Press Publish and it is live in a couple of minutes.</p>
     <div class="actions">
       <a class="btn" href="/?edit=1">Start with the handbook</a>
-      <a class="btn ghost" href="https://github.com/buildspacetv/sprint">Open the repo</a>
+      <a class="btn ghost" href="/teams.html?edit=1">Or the team directory</a>
     </div>
   </div>
 </header>
 
 <div class="wrap narrow">
-  <div class="note warn">
-    <div class="note-head">Never edit the HTML of a generated page</div>
-    <div class="note-body">Most pages here are build output committed to the repo. GitHub will let you edit them and the page will look right — then the next build regenerates the file and your change is gone, silently. Edit mode exists to stop that: it points every page at its real source and says so on the page.</div>
-  </div>
+  <h2>Two kinds of text</h2>
+  <p><b>Most text you can change right here.</b> Click it, type, publish. Team pitches, project descriptions, and the wording on pages like About and Privacy all work this way.</p>
+  <p><b>Some text opens GitHub instead.</b> Headings, layout, and the setup guides are written in code rather than stored as content. Edit mode marks those and takes you straight to the right file — and to the exact line, so you are not hunting. You need a GitHub account with access to the repo.</p>
+  <p>You never have to work out which is which. Every page tells you, and anything you can click and type into is editable here.</p>
 
   <h2>Pages</h2>
   <div class="tablewrap">
     <table class="fields">
-      <thead><tr><th>Page</th><th>Real source</th><th>How to edit</th></tr></thead>
+      <thead><tr><th>Page</th><th>What is on it</th><th>Editing</th></tr></thead>
       <tbody>
         <tr>
           <td class="team"><a href="/?edit=1">Handbook</a></td>
-          <td><code>index.html</code></td>
-          <td>Hand-written. Sections deep-link to the exact line in the browser editor.</td>
+          <td>The challenge, schedule, judging, and the four setup guides.</td>
+          <td>Opens GitHub, at the line you clicked</td>
         </tr>
         <tr>
           <td class="team"><a href="/about.html?edit=1">About</a></td>
-          <td><code>src/pages-extra.js</code></td>
-          <td>Prose lives in the generator.</td>
-        </tr>
-        <tr>
-          <td class="team"><a href="/contact.html?edit=1">Contact</a></td>
-          <td><code>src/pages-extra.js</code></td>
-          <td>Prose lives in the generator.</td>
+          <td>What the event is and who runs it.</td>
+          <td>Edit here</td>
         </tr>
         <tr>
           <td class="team"><a href="/privacy.html?edit=1">Privacy</a></td>
-          <td><code>src/pages-extra.js</code></td>
-          <td>Prose lives in the generator.</td>
+          <td>What data the site holds.</td>
+          <td>Edit here</td>
+        </tr>
+        <tr>
+          <td class="team"><a href="/contact.html?edit=1">Contact</a></td>
+          <td>How to reach the organizers.</td>
+          <td>Opens GitHub</td>
         </tr>
         <tr>
           <td class="team"><a href="/developers.html?edit=1">Developers</a></td>
-          <td><code>src/pages-extra.js</code></td>
-          <td>Prose lives in the generator.</td>
+          <td>The JSON API and how to call it.</td>
+          <td>Opens GitHub</td>
         </tr>
         <tr>
           <td class="team"><a href="/teams.html?edit=1">Team directory</a></td>
-          <td><code>build.js</code></td>
-          <td>Page furniture only — each team comes from its own issue.</td>
+          <td>The list itself. Each team is edited on its own page.</td>
+          <td>Opens GitHub</td>
         </tr>
         <tr>
           <td class="team"><a href="/showcase.html?edit=1">Project showcase</a></td>
-          <td><code>build.js</code></td>
-          <td>Page furniture only — each project comes from its own issue.</td>
+          <td>The grid itself. Each project is edited on its own page.</td>
+          <td>Opens GitHub</td>
         </tr>
         <tr>
           <td class="team"><a href="/submit.html?edit=1">Submit</a></td>
-          <td><code>build.js</code></td>
-          <td>Prose lives in the generator.</td>
+          <td>Instructions for submitting a project.</td>
+          <td>Opens GitHub</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <h2>Teams and projects</h2>
-  <p data-edit-file="src/pages-extra.js">These are not files. Each one is a GitHub issue, rendered at build time — so editing the issue is editing the page, and the site rebuilds itself within a couple of minutes.</p>
+  <p>Each team and project page shows what that team filled in when they signed up. Editing the page edits their entry, and the page updates itself — so this is how you fix a typo in someone's write-up without asking them to do it.</p>
   <div class="tablewrap">
     <table class="fields">
-      <thead><tr><th>Page</th><th>Issue</th></tr></thead>
+      <thead><tr><th>Page</th><th>Their entry</th></tr></thead>
       <tbody>
         <tr><td class="team"><a href="/teams/practice-makes-perfect.html?edit=1">Practice Makes Perfect</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/1">#1</a></td></tr>
 
@@ -511,16 +511,15 @@ code { font-family: var(--f-mono); font-size: .86em; }
 
   <h2>What you need</h2>
   <ul class="list">
-    <li>A GitHub account with push access to <a href="https://github.com/buildspacetv/sprint">the repo</a>. Without it GitHub offers you a fork and a pull request, which is the right outcome for an outside contributor.</li>
-    <li>Nothing else — there is no CMS, no password, and no separate login.</li>
+    <li><b>To edit here:</b> the passcode an organizer gave you. You enter it once.</li>
+    <li><b>To edit on GitHub:</b> a GitHub account with access to <a href="https://github.com/buildspacetv/sprint">the repo</a>. Without access, GitHub offers to send your change as a suggestion instead.</li>
   </ul>
 
-  <h2>How a change goes live</h2>
-  <ol class="list">
-    <li>Edit the file or the issue on GitHub and commit.</li>
-    <li>The build regenerates the affected pages and commits the result.</li>
-    <li>Vercel deploys. Roughly a minute or two end to end.</li>
-  </ol>
+  <h2>If it will not let you</h2>
+  <p>Occasionally a piece of text cannot be changed here, because the site assembles it from other information rather than storing it as words — a count, a date, a team name repeated from elsewhere. Edit mode says so and points you at the file. Change it there and it updates everywhere it appears.</p>
+
+  <h2>Leaving edit mode</h2>
+  <p>Press <b>Leave edit mode</b> in the purple bar, or close the tab. It never shows for anyone visiting the site normally.</p>
 </div>
 </main>
 

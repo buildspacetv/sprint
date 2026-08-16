@@ -100,8 +100,8 @@
     '<b>Edit mode</b>' +
     '<span class="em-src">' + label.replace(/[<>&]/g, '') + '</span>' +
     '<span class="em-spacer"></span>' +
-    '<button type="button" id="emToggle" aria-pressed="true">Highlight editable</button>' +
-    '<a id="emView" target="_blank" rel="noopener">View source</a>' +
+    '<button type="button" id="emToggle" aria-pressed="true">Show what I can edit</button>' +
+    '<a id="emView" target="_blank" rel="noopener">View on GitHub</a>' +
     '<a id="emEdit" target="_blank" rel="noopener">Edit this page</a>' +
     '<button type="button" id="emLeave">Leave edit mode</button>';
   document.body.insertBefore(bar, document.body.firstChild);
@@ -120,9 +120,11 @@
   if (kind === 'generator' || kind === 'issue') {
     var note = document.createElement('div');
     note.className = 'em-note';
+    // Say what the reader can do, not how the build works. The routing is the
+    // tool's problem; the reader only needs to know where their change lands.
     note.innerHTML = kind === 'issue'
-      ? '<b>This page is generated from a GitHub issue.</b> Edit the issue and the page rebuilds itself — editing the HTML would be overwritten on the next build.'
-      : '<b>This page is generated.</b> Its wording lives in <code>' + target.replace(/[<>&]/g, '') + '</code>; the HTML file is build output and is overwritten on every build.';
+      ? '<b>This page shows what a team filled in.</b> Anything you can click and type into here edits their entry, and the page updates itself.'
+      : '<b>The wording on this page is written in code.</b> Click any highlighted text to change it here, or use <b>Edit this page</b> to open the file on GitHub.';
     bar.insertAdjacentElement('afterend', note);
   }
 
@@ -186,7 +188,7 @@
     original = el.innerText.trim();
     el.setAttribute('contenteditable', 'plaintext-only');
     el.focus();
-    msg('Editing — publish when you are done');
+    msg('Type your change, then press Publish');
     showBar(true);
   }
 
@@ -234,7 +236,7 @@
         original = next;
         endEdit(false);
         showBar(true);
-        msg('Published — the site rebuilds in a couple of minutes.');
+        msg('Published. It will be live in a couple of minutes.');
         setTimeout(function () { showBar(false); }, 6000);
         return;
       }
