@@ -1,3 +1,20 @@
 {
-  "projects": []
+  "projects": [
+    {
+      "slug": "nemocode",
+      "title": "NemoCode",
+      "tagline": "Connect your coding agent to NVIDIA Nemotron and Cosmos models.",
+      "track": "sim",
+      "robots": [],
+      "description": "Sets up a relay so you can connect Claude Code and Codex to the NVIDIA Nemotron and Cosmos models hosted by Nebius Token Factory",
+      "video": null,
+      "images": [],
+      "repo": null,
+      "teamRef": "",
+      "team": [],
+      "issue": 3,
+      "submitted": "2026-08-16T19:28:56Z",
+      "updated": "2026-08-16T19:28:56Z"
+    }
+  ]
 }

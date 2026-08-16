@@ -46,6 +46,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.buildspace.tv/projects/nemocode.html</loc>
+    <lastmod>2026-08-17</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.buildspace.tv/llms.txt</loc>
     <lastmod>2026-08-17</lastmod>
     <priority>0.5</priority>

@@ -110,7 +110,7 @@ checkpoints, and troubleshooting tables is at https://www.buildspace.tv/.
 Teams and project submissions are public data, available as JSON:
 
 - Teams: https://www.buildspace.tv/api/teams.json (1 registered, 1 looking for members)
-- Projects: https://www.buildspace.tv/api/projects.json (0 submitted)
+- Projects: https://www.buildspace.tv/api/projects.json (1 submitted)
 - Full API: https://www.buildspace.tv/openapi.json
 
 ## Links

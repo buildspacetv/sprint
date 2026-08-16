@@ -7,8 +7,8 @@ last-updated: 2026-08-17
 
 # Project showcase
 
-0 projects submitted.
+1 project submitted.
 
-_No projects submitted yet. The deadline is 3:30pm on event day._
+- **[NemoCode](https://www.buildspace.tv/projects/nemocode.html)** — Connect your coding agent to NVIDIA Nemotron and Cosmos models. _(sim)_
 
 Structured data: [https://www.buildspace.tv/api/projects.json](https://www.buildspace.tv/api/projects.json).
