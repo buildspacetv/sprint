@@ -101,6 +101,22 @@ function avatar(handle, size) {
   return u ? `https://github.com/${u}.png?size=${size}` : null;
 }
 
+/**
+ * Resolve a project's free-text team reference to a directory entry.
+ * Matching is explicit (name or issue number) rather than inferred from
+ * overlapping GitHub handles: people help on more than one team, and a wrong
+ * auto-join on a public showcase page is worse than an unlinked one.
+ */
+function resolveTeam(project, teams) {
+  const ref = String(project.teamRef || '').trim();
+  if (!ref) return null;
+  const num = ref.match(/^#?(\d+)$/);
+  if (num) return teams.find((t) => t.issue === Number(num[1])) || null;
+  const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]+/g, '');
+  const key = norm(ref);
+  return teams.find((t) => norm(t.name) === key) || null;
+}
+
 /* ------------------------------------------------------------ page shell */
 
 function page({ title, description, body, current, ogImage, canonical }) {
@@ -337,7 +353,7 @@ function shareBlock(p, url) {
   </script>`;
 }
 
-function projectPage(p) {
+function projectPage(p, teamEntry) {
   const t = track(p.track);
   const url = `${SITE}/projects/${p.slug}.html`;
   const repo = safeUrl(p.repo);
@@ -381,6 +397,8 @@ ${team.map((m) => {
 
   <dl class="facts">
     <div><dt>Track</dt><dd>${esc(t.label)}</dd></div>
+    ${teamEntry ? `<div><dt>Team</dt><dd><a href="/teams.html#team-${esc(teamEntry.slug)}">${esc(teamEntry.name)}</a></dd></div>`
+           : (p.teamRef ? `<div><dt>Team</dt><dd>${esc(p.teamRef)}</dd></div>` : '')}
     ${(p.robots || []).length ? `<div><dt>Robots</dt><dd>${esc(p.robots.join(', '))}</dd></div>` : ''}
     ${repo ? `<div><dt>Code</dt><dd><a href="${esc(repo)}" target="_blank" rel="noopener noreferrer">${esc(repo.replace(/^https:\/\//, ''))}</a></dd></div>` : ''}
     ${p.issue ? `<div><dt>Submission</dt><dd><a href="${REPO}/issues/${esc(p.issue)}" target="_blank" rel="noopener noreferrer">Issue #${esc(p.issue)}</a></dd></div>` : ''}
@@ -403,9 +421,9 @@ ${shareBlock(p, url)}
 
 const TEAM_URL = `${REPO}/issues/new?template=team.yml&labels=team`;
 
-function teamCard(t) {
+function teamCard(t, built) {
   const members = (t.members || []).map((m) => ({ name: m.name || ghUser(m.github) || 'Unnamed', user: ghUser(m.github) }));
-  return `      <article class="tcard" data-open="${t.open ? 'yes' : 'no'}" data-search="${esc([t.name, t.pitch, (t.looking || []).join(' '), (t.have || []).join(' '), members.map((m) => `${m.name} ${m.user || ''}`).join(' ')].join(' ').toLowerCase())}">
+  return `      <article class="tcard" id="team-${esc(t.slug)}" data-open="${t.open ? 'yes' : 'no'}" data-search="${esc([t.name, t.pitch, (t.looking || []).join(' '), (t.have || []).join(' '), members.map((m) => `${m.name} ${m.user || ''}`).join(' ')].join(' ').toLowerCase())}">
         <div class="tcard-top">
           <h3>${esc(t.name)}</h3>
           <span class="chip ${t.open ? 'track-both' : ''}">${t.open ? 'Looking for teammates' : 'Full'}</span>
@@ -418,6 +436,7 @@ ${members.map((m) => (m.user
     ? `          <li><a href="https://github.com/${esc(m.user)}" target="_blank" rel="noopener noreferrer"><img src="https://github.com/${esc(m.user)}.png?size=44" alt="" loading="lazy">${esc(m.name)}</a></li>`
     : `          <li><span>${esc(m.name)}</span></li>`)).join('\n')}
         </ul>
+        ${(built || []).length ? `<p class="built"><span class="skills-label">Built</span>${built.map((b) => `<a href="/projects/${esc(b.slug)}.html">${esc(b.title)}</a>`).join(', ')}</p>` : ''}
         <div class="tcard-foot">
           <a class="btn ghost" href="${REPO}/issues/${esc(t.issue)}" target="_blank" rel="noopener noreferrer">${t.open ? 'Ask to join' : 'View team'}</a>
           ${t.contact ? `<span class="badge">${esc(t.contact)}</span>` : ''}
@@ -426,7 +445,7 @@ ${members.map((m) => (m.user
       </article>`;
 }
 
-function teamsPage(teams) {
+function teamsPage(teams, builtBy) {
   const open = teams.filter((t) => t.open).length;
   const people = teams.reduce((n, t) => n + (t.members || []).length, 0);
 
@@ -460,7 +479,7 @@ ${teams.length === 0 ? `  <div class="empty">
   </div>
 
   <div class="grid teams" id="grid">
-${teams.map(teamCard).join('\n')}
+${teams.map((t) => teamCard(t, builtBy.get(t.slug))).join('\n')}
   </div>
 
   <div class="empty" id="noresults" hidden>
@@ -564,8 +583,8 @@ function submitPage() {
       <p>Drag photos and video files straight into the photo and video fields. GitHub uploads and hosts them for you — no Drive links, no file size wrangling. A YouTube, Vimeo, or Loom link works too.</p>
     </li>
     <li>
-      <h3>List your team</h3>
-      <p>One teammate per line as <code>Name @githubhandle</code>. Their avatar and profile link appear on your project page.</p>
+      <h3>Link your team</h3>
+      <p>Name your team from the <a href="/teams.html">team directory</a> and the roster comes across automatically — no retyping, and the two can't drift apart. No directory entry? List members one per line as <code>Name @githubhandle</code>.</p>
     </li>
     <li>
       <h3>Submit</h3>
@@ -586,7 +605,8 @@ function submitPage() {
         <tr><td>Demo video</td><td>Upload a file or paste a YouTube, Vimeo, or Loom link. Embeds on your page.</td></tr>
         <tr><td>Photos</td><td>Drag in as many as you like. The first becomes your showcase cover and link preview.</td></tr>
         <tr><td>Code</td><td>Optional repo link.</td></tr>
-        <tr><td>Team</td><td>One per line, <code>Name @handle</code>.</td></tr>
+        <tr><td>Team</td><td>Your team's name from the <a href="/teams.html">directory</a>, or its issue number. Links the two together.</td></tr>
+        <tr><td>Team members</td><td>One per line, <code>Name @handle</code>. Leave blank to reuse the roster from your team entry.</td></tr>
       </tbody>
     </table>
   </div>
@@ -649,14 +669,26 @@ function main() {
       .sort((a, b) => (b.open ? 1 : 0) - (a.open ? 1 : 0) || String(a.name).localeCompare(String(b.name)));
   }
 
-  fs.writeFileSync(path.join(ROOT, 'teams.html'), teamsPage(teams));
+  // Link the two directions, and let a project inherit its roster from the
+  // team entry so nobody types the same people twice (and the two cannot drift).
+  const teamOf = new Map();
+  const builtBy = new Map();
+  for (const p of projects) {
+    const t = resolveTeam(p, teams);
+    if (!t) continue;
+    teamOf.set(p.slug, t);
+    builtBy.set(t.slug, [...(builtBy.get(t.slug) || []), p]);
+    if (!(p.team || []).length && (t.members || []).length) p.team = t.members;
+  }
+
+  fs.writeFileSync(path.join(ROOT, 'teams.html'), teamsPage(teams, builtBy));
   fs.writeFileSync(path.join(ROOT, 'showcase.html'), showcase(projects));
   fs.writeFileSync(path.join(ROOT, 'submit.html'), submitPage());
   for (const p of projects) {
-    fs.writeFileSync(path.join(outDir, `${p.slug}.html`), projectPage(p));
+    fs.writeFileSync(path.join(outDir, `${p.slug}.html`), projectPage(p, teamOf.get(p.slug)));
   }
 
-  console.log(`built showcase.html, submit.html, teams.html (${teams.length} team(s)), and ${projects.length} project page(s)`);
+  console.log(`built ${teams.length} team(s), ${projects.length} project(s), ${teamOf.size} linked`);
 }
 
 main();

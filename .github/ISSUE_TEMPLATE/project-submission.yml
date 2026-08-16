@@ -85,13 +85,22 @@ body:
     validations:
       required: false
 
-  - type: textarea
-    id: team
+  - type: input
+    id: team_ref
     attributes:
       label: Team
-      description: One person per line, as `Name @githubhandle`. Their avatar and profile link go on your project page.
+      description: Your team's name from the team directory, or its issue number. Links your project to your team entry.
+      placeholder: The Gripper Gang
+    validations:
+      required: false
+
+  - type: textarea
+    id: members
+    attributes:
+      label: Team members
+      description: One person per line, as `Name @githubhandle`. Leave blank to reuse the roster from your team directory entry.
       placeholder: |
         Ada Lovelace @ada
         Grace Hopper @ghopper
     validations:
-      required: true
+      required: false

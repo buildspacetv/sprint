@@ -102,3 +102,25 @@ the conversation stays in one place and the roster is edited into the issue body
 Marking a team full drops it out of the "has room" filter. Closing the issue
 removes the team from the directory.
 
+### How teams and projects link
+
+The submission form has a **Team** field taking a team name or issue number.
+`resolveTeam()` matches it at build time and links both directions: the project
+page gets a Team row pointing at `teams.html#team-<slug>`, and the team card
+gets a "Built" row pointing at the project. If the project's members field is
+blank, the roster is **inherited** from the team entry, so nobody types the same
+people twice and the two rosters cannot drift.
+
+Matching is explicit — name or issue number — never inferred from overlapping
+GitHub handles. People help on more than one team, and a wrong auto-join on a
+public showcase page is worse than an unlinked one. An unmatched reference is
+still displayed as plain text rather than dropped.
+
+### Labels must exist
+
+An issue template's `labels:` are **silently dropped** if the label does not
+already exist in the repo. That failed once here: a team form arrived unlabelled,
+the sync found nothing, and the site looked broken while every workflow run
+reported success. The workflow now recreates `team` and `submission` on every
+run (idempotent), so this cannot recur.
+

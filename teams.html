@@ -278,6 +278,8 @@ code { font-family: var(--f-mono); font-size: .86em; }
 .roster a:hover { border-color: var(--accent); color: var(--accent-ink); }
 .roster span { padding-left: 9px; }
 .roster img { width: 20px; height: 20px; border-radius: 99px; background: var(--surface-2); }
+.tcard:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.built { margin: 0; font-size: .9rem; display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; }
 .tcard-foot { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-top: auto; padding-top: 10px; }
 .tcard-foot .btn { padding: 6px 13px; font-size: .92rem; }
 .badge { font-family: var(--f-mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
@@ -424,7 +426,7 @@ code { font-family: var(--f-mono); font-size: .86em; }
   </div>
 
   <div class="grid teams" id="grid">
-      <article class="tcard" data-open="yes" data-search="practice makes perfect practice makes perfect   colin lowenberg opencolin">
+      <article class="tcard" id="team-practice-makes-perfect" data-open="yes" data-search="practice makes perfect practice makes perfect   colin lowenberg opencolin">
         <div class="tcard-top">
           <h3>Practice Makes Perfect</h3>
           <span class="chip track-both">Looking for teammates</span>
@@ -435,6 +437,7 @@ code { font-family: var(--f-mono); font-size: .86em; }
         <ul class="roster">
           <li><a href="https://github.com/opencolin" target="_blank" rel="noopener noreferrer"><img src="https://github.com/opencolin.png?size=44" alt="" loading="lazy">Colin Lowenberg</a></li>
         </ul>
+        
         <div class="tcard-foot">
           <a class="btn ghost" href="https://github.com/opencolin/physical-ai-sprint-handbook/issues/1" target="_blank" rel="noopener noreferrer">Ask to join</a>
           

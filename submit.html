@@ -278,6 +278,8 @@ code { font-family: var(--f-mono); font-size: .86em; }
 .roster a:hover { border-color: var(--accent); color: var(--accent-ink); }
 .roster span { padding-left: 9px; }
 .roster img { width: 20px; height: 20px; border-radius: 99px; background: var(--surface-2); }
+.tcard:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.built { margin: 0; font-size: .9rem; display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; }
 .tcard-foot { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-top: auto; padding-top: 10px; }
 .tcard-foot .btn { padding: 6px 13px; font-size: .92rem; }
 .badge { font-family: var(--f-mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
@@ -430,8 +432,8 @@ code { font-family: var(--f-mono); font-size: .86em; }
       <p>Drag photos and video files straight into the photo and video fields. GitHub uploads and hosts them for you — no Drive links, no file size wrangling. A YouTube, Vimeo, or Loom link works too.</p>
     </li>
     <li>
-      <h3>List your team</h3>
-      <p>One teammate per line as <code>Name @githubhandle</code>. Their avatar and profile link appear on your project page.</p>
+      <h3>Link your team</h3>
+      <p>Name your team from the <a href="/teams.html">team directory</a> and the roster comes across automatically — no retyping, and the two can't drift apart. No directory entry? List members one per line as <code>Name @githubhandle</code>.</p>
     </li>
     <li>
       <h3>Submit</h3>
@@ -452,7 +454,8 @@ code { font-family: var(--f-mono); font-size: .86em; }
         <tr><td>Demo video</td><td>Upload a file or paste a YouTube, Vimeo, or Loom link. Embeds on your page.</td></tr>
         <tr><td>Photos</td><td>Drag in as many as you like. The first becomes your showcase cover and link preview.</td></tr>
         <tr><td>Code</td><td>Optional repo link.</td></tr>
-        <tr><td>Team</td><td>One per line, <code>Name @handle</code>.</td></tr>
+        <tr><td>Team</td><td>Your team's name from the <a href="/teams.html">directory</a>, or its issue number. Links the two together.</td></tr>
+        <tr><td>Team members</td><td>One per line, <code>Name @handle</code>. Leave blank to reuse the roster from your team entry.</td></tr>
       </tbody>
     </table>
   </div>
