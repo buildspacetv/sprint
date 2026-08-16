@@ -745,7 +745,7 @@
             <li><a href="#antioch">The Antioch platform</a></li>
             <li><a href="#hardware">Robot hardware</a></li>
             <li><a href="#assets">Sim-ready assets</a></li>
-            <li><a href="#models">Kimi K3 on Token Factory</a></li>
+            <li><a href="#models">NVIDIA Nemotron on Token Factory</a></li>
             <li><a href="#support">Support</a></li>
           </ul>
         </li>
@@ -973,8 +973,8 @@
           <li>Vials and vial racks</li>
         </ul>
 
-        <h3 id="models">Frontier models: Kimi K3 on Nebius Token Factory</h3>
-        <p>Nebius Token Factory serves open-weight frontier models over an OpenAI-compatible API. Kimi K3 is Moonshot AI's open-weight flagship — a mixture-of-experts model with a 1M-token context window, built for agentic work. New accounts get $25 in Token Factory credits plus $25 in Tavily credits for live web search.</p>
+        <h3 id="models">Frontier models: NVIDIA Nemotron on Nebius Token Factory</h3>
+        <p>Nebius Token Factory serves open-weight frontier models over an OpenAI-compatible API. Use NVIDIA Nemotron 3 Super: an open hybrid Mamba-Transformer mixture-of-experts model — 120B parameters with 12B active per token — with a 1M-token context window, built for agentic work like long-horizon planning, tool calling, and instruction following. New accounts get $25 in Token Factory credits plus $25 in Tavily credits for live web search.</p>
 
         <h4>In your robot's reasoning layer</h4>
         <p>This is the pillar that is easiest to underbuild. Any OpenAI client works — point it at Token Factory and use it for natural-language tasking, multi-step planning, or deciding what to do when a grasp fails.</p>
@@ -987,7 +987,7 @@ client = OpenAI(
 )
 
 plan = client.chat.completions.create(
-    model="moonshotai/Kimi-K3",
+    model="nvidia/nemotron-3-super-120b-a12b",
     messages=[
         {"role": "system", "content": "Turn goals into SO-101 pick-and-place steps."},
         {"role": "user", "content": "Put the green cube in the tray, then reset."},
@@ -996,7 +996,7 @@ plan = client.chat.completions.create(
 print(plan.choices[0].message.content)</code></pre></div>
 
         <h4>In your coding agent</h4>
-        <p><a href="https://kimirelay.com">kimirelay</a> routes Claude Code, Codex CLI, OpenCode, or Pi Code through Token Factory for a single run, without editing your real agent config — useful when you are building fast and would rather not spend your own subscription limits on it.</p>
+        <p><a href="https://kimirelay.com">kimirelay</a> routes Claude Code, Codex CLI, OpenCode, or Pi Code through Token Factory for a single run, without editing your real agent config — useful when you are building fast and would rather not spend your own subscription limits on it. It relays to whichever Token Factory model you name, so pass <code>--model nvidia/nemotron-3-super-120b-a12b</code> to run the agent on Nemotron.</p>
         <div class="term"><pre><code>curl -fsSL https://kimirelay.com/install.sh | sh
 kimirelay configure    # your Nebius key, plus an optional Tavily key for web search
 klaude                 # or kodex, openkode, kpi</code></pre></div>
@@ -1015,12 +1015,12 @@ klaude                 # or kodex, openkode, kpi</code></pre></div>
 
         <div class="note warn">
           <div class="note-head">Put <code>--model</code> before the harness</div>
-          <div class="note-body">The short aliases expand to <code>kimirelay &lt;harness&gt;</code>, so a flag placed after the harness name is passed through to the agent and silently dropped — you get the default model instead of the one you asked for. <code>kimirelay --model moonshotai/Kimi-K2.6 codex exec "…"</code> works; <code>kodex --model …</code> does not.</div>
+          <div class="note-body">The short aliases expand to <code>kimirelay &lt;harness&gt;</code>, so a flag placed after the harness name is passed through to the agent and silently dropped — you get the relay's default model instead of the one you asked for. <code>kimirelay --model nvidia/nemotron-3-super-120b-a12b codex exec "…"</code> works; <code>kodex --model …</code> does not.</div>
         </div>
 
         <div class="note">
-          <div class="note-head">If K3 is unavailable</div>
-          <div class="note-body">Nebius capacity for Kimi K3 can be intermittent. <code>moonshotai/Kimi-K2.7-Code</code> (coding, 262K context) and <code>moonshotai/Kimi-K2.6</code> (vision + reasoning) are the fallbacks. Keys: <a href="https://tokenfactory.nebius.com/?modals=create-api-key">tokenfactory.nebius.com</a>. Relay docs: <a href="https://kimirelay.com">kimirelay.com</a>.</div>
+          <div class="note-head">If Nemotron 3 Super is unavailable</div>
+          <div class="note-body">Nebius capacity for any one model can be intermittent, and the lineup moves. <code>GET https://api.tokenfactory.nebius.com/v1/models</code> returns exactly what is being served right now, with the IDs to paste into <code>model=</code> — the lighter Nemotron 3 Nano is the fallback when Super is saturated. Keys: <a href="https://tokenfactory.nebius.com/?modals=create-api-key">tokenfactory.nebius.com</a>. Relay docs: <a href="https://kimirelay.com">kimirelay.com</a>.</div>
         </div>
 
         <h3 id="support">Support</h3>
