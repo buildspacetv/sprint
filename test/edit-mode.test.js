@@ -130,3 +130,84 @@ test('no page renders edit chrome without the script deciding to', () => {
     assert.ok(!html.includes('em-pill'), `${p} has no pre-rendered edit pills`);
   }
 });
+
+/* ------------------------------------------------- executing the script */
+
+/**
+ * A DOM small enough to run the script against. The browser preview was not
+ * usable in this environment, so activation is verified by execution rather
+ * than by reading the source.
+ */
+function fakeDom(hostname, search, metas) {
+  const made = [];
+  const el = (tag) => {
+    const e = {
+      tagName: tag, children: [], attrs: {}, style: {}, classList: {
+        _s: new Set(),
+        add(c) { this._s.add(c); }, remove(c) { this._s.delete(c); },
+        contains(c) { return this._s.has(c); },
+        toggle(c) { if (this._s.has(c)) { this._s.delete(c); return false; } this._s.add(c); return true; },
+      },
+      setAttribute(k, v) { this.attrs[k] = String(v); },
+      getAttribute(k) { return this.attrs[k] === undefined ? null : this.attrs[k]; },
+      hasAttribute(k) { return this.attrs[k] !== undefined; },
+      appendChild(c) { this.children.push(c); return c; },
+      insertBefore(c) { this.children.unshift(c); return c; },
+      insertAdjacentElement(_, c) { made.push(c); return c; },
+      addEventListener() {},
+      querySelector() { return null; },
+      querySelectorAll() { return []; },
+      set innerHTML(v) { this._html = v; },
+      get innerHTML() { return this._html || ''; },
+      set textContent(v) { this._text = v; },
+      get textContent() { return this._text || ''; },
+    };
+    made.push(e);
+    return e;
+  };
+  const byId = {};
+  const doc = {
+    head: el('head'),
+    body: Object.assign(el('body'), { firstChild: null }),
+    createElement: el,
+    querySelector(sel) {
+      const m = /meta\[name="([^"]+)"\]/.exec(sel);
+      if (m) return metas[m[1]] === undefined ? null : { getAttribute: () => metas[m[1]] };
+      return null;
+    },
+    querySelectorAll() { return []; },
+    getElementById(id) { return byId[id] || (byId[id] = el('a')); },
+  };
+  return { doc, made, byId };
+}
+
+function runScript(hostname, metas, search = '') {
+  const { doc, byId } = fakeDom(hostname, search, metas);
+  const fn = new Function('document', 'location', 'fetch', 'window', editModeScript());
+  fn(doc, { hostname, search, pathname: '/teams.html' }, () => ({ then: () => ({ then: () => ({ catch() {} }), catch() {} }) }), {});
+  return { doc, byId, activated: doc.body.children.length > 0 };
+}
+
+test('the script does nothing on the public host', () => {
+  const r = runScript('www.buildspace.tv', { 'edit-kind': 'file', 'edit-target': 'index.html' });
+  assert.equal(r.activated, false, 'no edit bar may appear on the live site');
+});
+
+test('the script activates on the edit host and targets the declared source', () => {
+  const r = runScript('edit.buildspace.tv', {
+    'edit-kind': 'generator', 'edit-target': 'build.js', 'edit-label': 'build.js — teamsPage()',
+  });
+  assert.equal(r.activated, true);
+  assert.equal(r.byId.emEdit.href, `https://github.com/${REPO_SLUG}/edit/main/build.js`);
+});
+
+test('an issue-backed page sends the editor to the issue', () => {
+  const r = runScript('edit.buildspace.tv', { 'edit-kind': 'issue', 'edit-target': '7' });
+  assert.equal(r.byId.emEdit.href, `https://github.com/${REPO_SLUG}/issues/7`);
+  assert.equal(r.byId.emView.href, `https://github.com/${REPO_SLUG}/issues/7`, 'view source also goes to the issue');
+});
+
+test('the ?edit=1 override works for local testing', () => {
+  const r = runScript('localhost', { 'edit-kind': 'file', 'edit-target': 'index.html' }, '?edit=1');
+  assert.equal(r.activated, true);
+});
