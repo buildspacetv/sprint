@@ -14,7 +14,7 @@ const path = require('path');
 
 const TOKEN = process.env.GITHUB_TOKEN;
 const REPO = process.env.GITHUB_REPOSITORY;
-if (!REPO) {
+if (!REPO && require.main === module) {
   console.error('GITHUB_REPOSITORY is required (owner/name)');
   process.exit(1);
 }
@@ -70,11 +70,13 @@ function extractUrls(text, exts) {
   return list;
 }
 
-const TRACKS = {
+// Null-prototype, for the same reason as build.js: issue bodies are editable
+// after creation, so the dropdown does not constrain what lands here.
+const TRACKS = Object.assign(Object.create(null), {
   'sim only': 'sim',
   'hardware only': 'hardware',
   'sim and real': 'both',
-};
+});
 
 function slugify(s, taken) {
   let base = String(s).toLowerCase()
@@ -95,7 +97,15 @@ function parseTeam(text) {
     if (!raw) return null;
     const m = raw.match(/@([A-Za-z0-9-]{1,39})|github\.com\/([A-Za-z0-9-]{1,39})/);
     const handle = m ? (m[1] || m[2]) : null;
-    let name = raw.replace(/\(?https?:\/\/\S+\)?/g, '').replace(/@[A-Za-z0-9-]+/g, '').replace(/[-–—,|]+$/, '').trim();
+    // Strip the URL and handle first, then trim BOTH ends of whatever
+    // separator is left. Trimming last would miss "Ada — " (trailing space
+    // defeats an end-anchored match) and render the dash in the roster.
+    let name = raw
+      .replace(/\(?https?:\/\/\S+\)?/g, '')
+      .replace(/@[A-Za-z0-9-]+/g, '')
+      .replace(/^[\s\-–—,|·:]+/, '')
+      .replace(/[\s\-–—,|·:]+$/, '')
+      .trim();
     if (!name) name = handle || raw;
     return { name, github: handle };
   }).filter(Boolean);
@@ -198,4 +208,8 @@ async function main() {
   console.log(`${projects.length} submission(s) synced`);
 }
 
-main().catch((err) => { console.error(err); process.exit(1); });
+if (require.main === module) {
+  main().catch((err) => { console.error(err); process.exit(1); });
+}
+
+module.exports = { parseIssueForm, extractUrls, parseTeam, slugify, TRACKS };

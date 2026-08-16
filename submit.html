@@ -121,6 +121,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 }
 img, video { max-width: 100%; }
 
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--accent); color: #fff; padding: 10px 16px;
+  font-family: var(--f-display); border-radius: 0 0 6px 0; text-decoration: none;
+}
+.skip:focus { left: 0; }
+
 /* ---------- top bar ---------- */
 .bar {
   position: sticky; top: 0; z-index: 40;
@@ -376,8 +383,14 @@ code { font-family: var(--f-mono); font-size: .86em; }
 .foot-fine { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .06em; color: var(--ink-3); margin: 0; }
 
 @media (max-width: 720px) {
-  .bar { padding: 10px 16px; gap: 12px; }
-  .bar nav a { padding: 5px 9px; font-size: .92rem; }
+  /* The nav wrapped to a second row, making the sticky bar 95px tall — 12% of
+     a phone viewport, permanently. Drop the date line and tighten the nav so
+     it fits one row. */
+  .bar { padding: 8px 14px; gap: 10px; }
+  .bar .mark span { display: none; }
+  .bar .mark b { font-size: 1rem; }
+  .bar nav { gap: 1px; }
+  .bar nav a { padding: 5px 7px; font-size: .88rem; }
   .wrap, .pagehead { padding-left: 16px; padding-right: 16px; }
   .pagehead { padding-top: 40px; padding-bottom: 30px; }
   .facts div { grid-template-columns: 1fr; gap: 2px; }
@@ -388,6 +401,8 @@ code { font-family: var(--f-mono); font-size: .86em; }
 </style>
 </head>
 <body>
+
+<a class="skip" href="#content">Skip to content</a>
 
 <header class="bar">
   <a class="mark" href="/">
@@ -402,6 +417,7 @@ code { font-family: var(--f-mono); font-size: .86em; }
   </nav>
 </header>
 
+<main id="content">
 
 <header class="pagehead narrow">
   <div class="pagehead-in">
@@ -468,6 +484,7 @@ code { font-family: var(--f-mono); font-size: .86em; }
   <h2>Changing or removing a submission</h2>
   <p>Edit your issue and the page rebuilds. To pull a project down, close the issue or remove its <code>submission</code> label — it disappears from the showcase on the next build.</p>
 </div>
+</main>
 
 <div class="wrap">
   <footer class="foot">

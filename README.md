@@ -55,7 +55,18 @@ GITHUB_TOKEN=$(gh auth token) \
   node scripts/sync-issues.js       # pull live submissions first
 ```
 
-No dependencies, no package.json — plain Node 18+.
+```bash
+node --test                         # run the test suite
+```
+
+No dependencies and no `package.json` — plain Node 18+. The absence of a
+`package.json` is deliberate: Vercel auto-detects one and would start running a
+build step on a project that currently deploys as pure static files.
+
+The suite covers the escaping and parsing helpers, because every value they
+touch comes from a public GitHub issue and lands in HTML on our own origin.
+CI runs it before every build, so a regression fails the workflow instead of
+publishing.
 
 ## Media handling
 

@@ -54,6 +54,11 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: node scripts/sync-issues.js
 
+      # The generator escapes untrusted issue content into HTML; a regression
+      # here is a stored XSS, so fail the build rather than publish it.
+      - name: Run tests
+        run: node --test
+
       - name: Generate showcase and project pages
         run: node build.js
 

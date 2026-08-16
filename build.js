@@ -56,11 +56,15 @@ function safeUrl(u) {
   return s;
 }
 
-const TRACKS = {
+// Null-prototype: a plain object literal would return Object.prototype for the
+// key "__proto__", which is truthy, so the `||` fallback below never fires and
+// the page renders `class="chip undefined">undefined`. Issue bodies are
+// user-editable after creation, so this key is reachable.
+const TRACKS = Object.assign(Object.create(null), {
   'sim': { label: 'Sim only', cls: 'track-sim' },
   'hardware': { label: 'Hardware only', cls: 'track-hardware' },
   'both': { label: 'Sim and real', cls: 'track-both' },
-};
+});
 const track = (t) => TRACKS[t] || { label: 'Unspecified', cls: '' };
 
 /** Turn plain text into paragraphs. Input is untrusted, so escape first. */
@@ -146,6 +150,8 @@ ${css}
 </head>
 <body>
 
+<a class="skip" href="#content">Skip to content</a>
+
 <header class="bar">
   <a class="mark" href="/">
     <b>The Physical AI Sprint</b>
@@ -159,7 +165,9 @@ ${css}
   </nav>
 </header>
 
+<main id="content">
 ${body}
+</main>
 
 <div class="wrap">
   <footer class="foot">
@@ -691,4 +699,10 @@ function main() {
   console.log(`built ${teams.length} team(s), ${projects.length} project(s), ${teamOf.size} linked`);
 }
 
-main();
+// Only build when run directly, so the helpers above can be unit tested.
+if (require.main === module) main();
+
+module.exports = {
+  esc, jsonForScript, safeSlug, safeUrl, prose, videoEmbed, ghUser, avatar,
+  track, resolveTeam, coverFor,
+};

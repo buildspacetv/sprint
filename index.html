@@ -130,6 +130,13 @@
     outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px;
   }
 
+  .skip {
+    position: absolute; left: -9999px; top: 0; z-index: 100;
+    background: var(--accent); color: #fff; padding: 10px 16px;
+    font-family: var(--f-display); border-radius: 0 0 6px 0; text-decoration: none;
+  }
+  .skip:focus { left: 0; }
+
   /* ---------- shell ---------- */
   .shell { display: grid; grid-template-columns: 286px minmax(0,1fr); }
 
@@ -466,6 +473,7 @@
   <button class="searchbtn" data-find>Search <kbd>/</kbd></button>
 </div>
 
+<a class="skip" href="#challenge">Skip to content</a>
 <div class="shell">
   <aside class="rail" id="rail">
     <div class="rail-head">
@@ -908,7 +916,7 @@ klaude                 # or kodex, openkode, kpi</code></pre></div>
         <dl class="meta">
           <div><dt>Total time</dt><dd>About 45 minutes, most of it calibration.</dd></div>
           <div><dt>Tested against</dt><dd>lerobot 0.4.4, Python 3.10, macOS on Apple Silicon.</dd></div>
-          <div><dt>Vendor manual</dt><dd>Assembly and servo wiring: SO-ARM101 user manual (<a href="https://docs.hiwonder.com">docs.hiwonder.com</a>)</dd></div>
+          <div><dt>Vendor manual</dt><dd>Assembly and servo wiring: SO-ARM101 user manual (<a href="https://www.hiwonder.com">hiwonder.com</a>)</dd></div>
         </dl>
 
         <h3 id="g1-s0">Step 0 · What you need</h3>
@@ -1584,6 +1592,11 @@ robot = Articulation(UNITREE_GO2_CFG.replace(prim_path="/World/robot"))</code></
   ckpts.forEach(function (c) {
     var key = "pais-ck-" + c.getAttribute("data-ck");
     var box = c.querySelector("input");
+    // Without this every checkbox announces simply as "Checkpoint", 21 times
+    // over, with nothing to tell them apart. Name each one after its step.
+    var head = c.previousElementSibling;
+    while (head && !/^H[234]$/.test(head.tagName)) head = head.previousElementSibling;
+    if (head) box.setAttribute("aria-label", "Checkpoint: " + head.textContent.trim());
     if (store.get(key) === "1") { box.checked = true; c.classList.add("done"); }
     box.addEventListener("change", function () {
       c.classList.toggle("done", box.checked);
