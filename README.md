@@ -136,3 +136,56 @@ the sync found nothing, and the site looked broken while every workflow run
 reported success. The workflow now recreates `team` and `submission` on every
 run (idempotent), so this cannot recur.
 
+## Judging
+
+Unlisted tool at `/judge` (and `judge.buildspace.tv` once that DNS exists),
+built from the Hackathon Judging workbook: four criteria scored 1-10 and
+weighted equally, five judges, and the workbook's rule that a category left
+blank means "did not see this team" and is excluded from the average rather
+than counted as zero.
+
+### Backend
+
+Scores are stored in a **secret GitHub Gist**, not a file on `main`. Every score
+would otherwise be a commit to the deployed branch, and Vercel builds on every
+push — five judges scoring thirty teams is ~150 commits and ~150 redeploys in
+the two hours when the showcase matters most. A Gist is the same GitHub, same
+token, same audit trail, but cannot trigger a build.
+
+| Endpoint | Method | Purpose |
+| --- | --- | --- |
+| `/api/judging/scores` | GET, POST | Read all rows; upsert one judge's scores for one team |
+| `/api/judging/tally` | GET | Combined leaderboard across all judges |
+
+Auth is a shared passcode in the `x-judge-key` header — this is a public URL
+during a public event. Every response is JSON, including errors.
+
+### Environment variables
+
+Set these on the Vercel project, then redeploy:
+
+| Variable | Value |
+| --- | --- |
+| `JUDGING_GITHUB_TOKEN` | A GitHub token with the `gist` scope |
+| `JUDGING_GIST_ID` | The secret gist's id |
+| `JUDGE_KEY` | A passcode you give the judges |
+
+Alternatives, picked automatically if present instead: `JUDGING_BRANCH` (repo
+file on a non-deployed branch) or `KV_REST_API_URL` + `KV_REST_API_TOKEN`
+(Upstash / Vercel KV). Until one storage backend and `JUDGE_KEY` are set, both
+endpoints return `503 not_configured` and say what is missing.
+
+### Local-first by design
+
+The client writes every score to `localStorage` before sending it, queues
+failed sends, and retries. Nothing about scoring depends on the network — a
+judging tool that stops working because the connection did is worse than one
+that never had a backend. Judges can still export CSV/JSON at any point.
+
+### The static JSON API lives in `apidata/`
+
+Adding functions under `api/` makes Vercel treat that directory as the
+functions root and stop serving static files from it. The public
+`/api/*.json` documents are therefore generated into `apidata/` and rewritten
+onto their `/api/*` paths in `vercel.json`. Vercel matches the filesystem
+before rewrites, so `/api/judging/*` still resolves to the function.
