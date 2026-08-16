@@ -1,0 +1,56 @@
+name: Sync Google Doc
+
+# Polls a published Google Doc and rebuilds only when its content actually
+# changed. Kept separate from the submissions workflow so a doc problem can
+# never block a team submitting a project on event day.
+on:
+  schedule:
+    # Every 15 minutes. GitHub's scheduler has a ~5 minute floor and runs late
+    # under load, so treat this as "within a quarter hour", not "on the minute".
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: doc-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    # DOC_URL is a repository variable, not a secret: a published doc is public
+    # by definition, and keeping it visible makes it obvious what feeds the site.
+    if: vars.DOC_URL != ''
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch the doc
+        env:
+          DOC_URL: ${{ vars.DOC_URL }}
+        run: node scripts/sync-doc.js
+
+      # Nothing below runs if the fetch found no change, because data/doc.json
+      # is byte-identical and the commit step exits early.
+      - name: Rebuild
+        run: node build.js
+
+      - name: Run tests
+        run: node --test
+
+      - name: Commit if the doc changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data/doc.json *.html teams projects apidata *.md *.txt sitemap.xml
+          if git diff --staged --quiet; then
+            echo "Doc unchanged — nothing to deploy."
+          else
+            git commit -m "Update from Google Doc [skip ci]"
+            git push
+          fi
