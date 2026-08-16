@@ -96,6 +96,30 @@ const TOOLS = [
     inputSchema: { type: 'object', properties: {}, required: [] },
     annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true },
   },
+  {
+    name: 'search_hackathon',
+    title: 'Search teams, projects and the event',
+    description: 'Search across everything at once: team names and pitches, the skills teams are seeking, project titles and descriptions, the robots used, and people by name or GitHub handle. Use this when you do not know whether the answer is a team, a project, or a person.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: {
+          type: 'string',
+          minLength: 1,
+          description: 'Free text to search for, e.g. "computer vision", "SO-101", or a person\'s GitHub handle.',
+        },
+        limit: {
+          type: 'integer',
+          minimum: 1,
+          maximum: 50,
+          default: 20,
+          description: 'Maximum number of matches to return. Defaults to 20.',
+        },
+      },
+      required: ['query'],
+    },
+    annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true },
+  },
 ];
 
 const text = (value) => ({
@@ -143,6 +167,39 @@ async function callTool(name, args) {
       projects = projects.filter((p) => (p.robots || []).some((r) => r.toLowerCase().includes(q)));
     }
     return text({ count: projects.length, projects });
+  }
+
+  if (name === 'search_hackathon') {
+    const q = typeof a.query === 'string' ? a.query.trim().toLowerCase() : '';
+    if (!q) return { isError: true, ...text('The "query" argument is required and must not be empty.') };
+    const limit = Number.isInteger(a.limit) ? Math.min(Math.max(a.limit, 1), 50) : 20;
+
+    const [teams, projects] = await Promise.all([load('teams'), load('projects')]);
+    const hits = [];
+
+    for (const t of teams.data) {
+      const hay = [t.name, t.pitch, (t.skillsWanted || []).join(' '), (t.skillsPresent || []).join(' '),
+        (t.members || []).map((m) => `${m.name} ${m.github || ''}`).join(' ')].join(' ').toLowerCase();
+      if (hay.includes(q)) {
+        hits.push({ kind: 'team', name: t.name, slug: t.slug, url: t.url,
+          lookingForMembers: t.lookingForMembers, summary: t.pitch || null });
+      }
+    }
+    for (const p of projects.data) {
+      const hay = [p.title, p.tagline, p.description, (p.robots || []).join(' '),
+        (p.team || []).map((m) => `${m.name} ${m.github || ''}`).join(' ')].join(' ').toLowerCase();
+      if (hay.includes(q)) {
+        hits.push({ kind: 'project', name: p.title, slug: p.slug, url: p.url,
+          track: p.track, robots: p.robots, summary: p.tagline || null });
+      }
+    }
+
+    return text({
+      query: a.query,
+      count: hits.length,
+      truncated: hits.length > limit,
+      results: hits.slice(0, limit),
+    });
   }
 
   if (name === 'get_event_details') return text(await load('event'));

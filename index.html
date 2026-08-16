@@ -172,7 +172,7 @@
       "inLanguage": "en",
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "proficiencyLevel": "Intermediate",
-      "keywords": "physical AI, robotics, LeRobot SO-101, Unitree Go2-W, Unitree G1, Isaac Sim, Isaac Lab, imitation learning, ACT policy, hackathon"
+      "keywords": "physical AI, robotics, LeRobot SO-101, Unitree Go2-W, Unitree G1, Isaac Sim, Isaac Lab, imitation learning, ACT policy, NVIDIA Nemotron, NVIDIA Cosmos Reason, hackathon"
     },
     {
       "@type": "BreadcrumbList",
@@ -745,7 +745,7 @@
             <li><a href="#antioch">The Antioch platform</a></li>
             <li><a href="#hardware">Robot hardware</a></li>
             <li><a href="#assets">Sim-ready assets</a></li>
-            <li><a href="#models">Kimi K3 on Token Factory</a></li>
+            <li><a href="#models">Nemotron &amp; Cosmos</a></li>
             <li><a href="#support">Support</a></li>
           </ul>
         </li>
@@ -973,21 +973,51 @@
           <li>Vials and vial racks</li>
         </ul>
 
-        <h3 id="models">Frontier models: Kimi K3 on Nebius Token Factory</h3>
-        <p>Nebius Token Factory serves open-weight frontier models over an OpenAI-compatible API. Kimi K3 is Moonshot AI's open-weight flagship — a mixture-of-experts model with a 1M-token context window, built for agentic work. New accounts get $25 in Token Factory credits plus $25 in Tavily credits for live web search.</p>
+        <h3 id="models">Frontier models: Nemotron and Cosmos from NVIDIA</h3>
+        <p>NVIDIA serves both families over an OpenAI-compatible API, so any OpenAI client works — point it at <code>https://integrate.api.nvidia.com/v1</code> and use your own key from <a href="https://build.nvidia.com">build.nvidia.com</a>. The two families do different jobs, and the split maps onto the challenge's own pillars.</p>
 
-        <h4>In your robot's reasoning layer</h4>
-        <p>This is the pillar that is easiest to underbuild. Any OpenAI client works — point it at Token Factory and use it for natural-language tasking, multi-step planning, or deciding what to do when a grasp fails.</p>
-        <div class="term" data-tag="python"><pre><code>import os
+        <div class="cards two">
+          <div class="card">
+            <span class="tag">Perception + reasoning</span>
+            <h4>Cosmos Reason</h4>
+            <p>A vision-language model that understands the physical world by reasoning over video and images — the closest thing here to a model built for this exact challenge.</p>
+            <p class="detail"><code>nvidia/cosmos-reason2-8b</code></p>
+          </div>
+          <div class="card">
+            <span class="tag">Planning + tool calling</span>
+            <h4>Nemotron</h4>
+            <p>Open reasoning models for the planning layer. The flagship is a hybrid Mamba-Transformer MoE with a 1M-token context, built for agentic reasoning, planning, and tool calling.</p>
+            <p class="detail"><code>nvidia/nemotron-3-super-120b-a12b</code></p>
+          </div>
+        </div>
+
+        <h4>Ask Cosmos Reason what it sees</h4>
+        <p>This is the pillar that is easiest to underbuild. Hand it a wrist-camera frame and ask it to reason about the scene before you plan a motion.</p>
+        <div class="term" data-tag="python"><pre><code>import base64, os
 from openai import OpenAI
 
 client = OpenAI(
-    base_url="https://api.tokenfactory.nebius.com/v1/",
-    api_key=os.environ["NEBIUS_API_KEY"],
+    base_url="https://integrate.api.nvidia.com/v1",
+    api_key=os.environ["NVIDIA_API_KEY"],
 )
 
-plan = client.chat.completions.create(
-    model="moonshotai/Kimi-K3",
+frame = base64.b64encode(open("wrist.jpg", "rb").read()).decode()
+
+resp = client.chat.completions.create(
+    model="nvidia/cosmos-reason2-8b",
+    messages=[{
+        "role": "user",
+        "content": [
+            {"type": "text", "text": "Is the green cube graspable from this angle? If not, say what to change."},
+            {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{frame}"}},
+        ],
+    }],
+)
+print(resp.choices[0].message.content)</code></pre></div>
+
+        <h4>Turn a goal into steps with Nemotron</h4>
+        <div class="term" data-tag="python"><pre><code>plan = client.chat.completions.create(
+    model="nvidia/nemotron-3-super-120b-a12b",
     messages=[
         {"role": "system", "content": "Turn goals into SO-101 pick-and-place steps."},
         {"role": "user", "content": "Put the green cube in the tray, then reset."},
@@ -995,32 +1025,9 @@ plan = client.chat.completions.create(
 )
 print(plan.choices[0].message.content)</code></pre></div>
 
-        <h4>In your coding agent</h4>
-        <p><a href="https://kimirelay.com">kimirelay</a> routes Claude Code, Codex CLI, OpenCode, or Pi Code through Token Factory for a single run, without editing your real agent config — useful when you are building fast and would rather not spend your own subscription limits on it.</p>
-        <div class="term"><pre><code>curl -fsSL https://kimirelay.com/install.sh | sh
-kimirelay configure    # your Nebius key, plus an optional Tavily key for web search
-klaude                 # or kodex, openkode, kpi</code></pre></div>
-
-        <div class="tablewrap">
-          <table>
-            <thead><tr><th>Command</th><th>Launches</th></tr></thead>
-            <tbody>
-              <tr><td><code>klaude</code></td><td>Claude Code</td></tr>
-              <tr><td><code>kodex</code></td><td>Codex CLI</td></tr>
-              <tr><td><code>openkode</code></td><td>OpenCode</td></tr>
-              <tr><td><code>kpi</code></td><td>Pi Code</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="note warn">
-          <div class="note-head">Put <code>--model</code> before the harness</div>
-          <div class="note-body">The short aliases expand to <code>kimirelay &lt;harness&gt;</code>, so a flag placed after the harness name is passed through to the agent and silently dropped — you get the default model instead of the one you asked for. <code>kimirelay --model moonshotai/Kimi-K2.6 codex exec "…"</code> works; <code>kodex --model …</code> does not.</div>
-        </div>
-
-        <div class="note">
-          <div class="note-head">If K3 is unavailable</div>
-          <div class="note-body">Nebius capacity for Kimi K3 can be intermittent. <code>moonshotai/Kimi-K2.7-Code</code> (coding, 262K context) and <code>moonshotai/Kimi-K2.6</code> (vision + reasoning) are the fallbacks. Keys: <a href="https://tokenfactory.nebius.com/?modals=create-api-key">tokenfactory.nebius.com</a>. Relay docs: <a href="https://kimirelay.com">kimirelay.com</a>.</div>
+        <div class="note info">
+          <div class="note-head">Picking a size</div>
+          <div class="note-body">The catalogue carries the whole Nemotron range, from <code>nvidia/nvidia-nemotron-nano-9b-v2</code> for something small and fast in a control loop up to <code>nvidia/nemotron-3-ultra-550b-a55b</code>. <code>nvidia/nemotron-nano-12b-v2-vl</code> is the vision-language option if you want one model for both jobs. The live list is at <a href="https://integrate.api.nvidia.com/v1/models">integrate.api.nvidia.com/v1/models</a>, and NVIDIA engineers are on site all day.</div>
         </div>
 
         <h3 id="support">Support</h3>

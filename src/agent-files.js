@@ -928,8 +928,10 @@ and shared across all teams, so simulation is the dependable path.
 - **Sim-ready assets** — a calibrated SO-101 digital twin, the Unitree lineup in the Isaac
   asset library, ready-made environments, and props.
 - **Physical assets** — blocks of various size, shape, and color; vials and vial racks.
-- **Frontier models** — Kimi K3 on Nebius Token Factory over an OpenAI-compatible API, for
-  the reasoning layer or for routing a coding agent through kimirelay.
+- **Frontier models** — NVIDIA Nemotron and Cosmos Reason over an OpenAI-compatible API at
+  https://integrate.api.nvidia.com/v1 . Cosmos Reason is a vision-language model that
+  reasons about the physical world from video and images; Nemotron covers planning and
+  tool calling.
 - **Support** — engineers from the host companies on hand all day.
 
 ### Judging
