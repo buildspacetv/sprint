@@ -6,10 +6,11 @@
  * back into the public nav, is excluded from the sitemap and llms.txt, and is
  * served noindex. It lives at judge.buildspace.tv via a host rewrite.
  *
- * There is no backend, so scores are stored in the judge's own browser and
- * exported as CSV or JSON at the end. That constraint is stated on the page
- * itself in the strongest terms available — a judge who assumes their scores
- * were submitted, and closes the tab, loses an afternoon of judging.
+ * Local-first with server sync: every score is written to localStorage before
+ * it is sent, and a failed send never blocks scoring. A judging tool that stops
+ * working because the network did is worse than one that never had a backend,
+ * so the server is treated as a replica of the judge's own copy, not the
+ * source of truth during the event.
  */
 
 const fs = require('fs');
@@ -167,7 +168,8 @@ ${JUDGES.map((j) => `    <option value="${esc(j.name)}">${esc(j.name)} — ${esc
   </select>
   <div class="tabs" role="tablist">
     <button role="tab" data-panel="score" aria-selected="true">Score</button>
-    <button role="tab" data-panel="board" aria-selected="false">Leaderboard</button>
+    <button role="tab" data-panel="board" aria-selected="false">My scores</button>
+    <button role="tab" data-panel="tally" aria-selected="false">Combined</button>
     <button role="tab" data-panel="rubric" aria-selected="false">Rubric</button>
   </div>
   <span class="prog" id="prog">—</span>
@@ -175,17 +177,29 @@ ${JUDGES.map((j) => `    <option value="${esc(j.name)}">${esc(j.name)} — ${esc
 
 <main class="jwrap">
 
-  <div class="note alert" id="localWarning">
-    <div class="note-head">Your scores are saved in this browser only</div>
+  <div class="note info" id="syncBox">
+    <div class="note-head"><span id="syncHead">Scores sync to the server</span></div>
     <div class="note-body">
-      There is no server behind this page. Nothing is submitted, and no one else can see
-      what you enter. Scores persist in <b>this browser on this device</b>, so use the same
-      one all afternoon, and <b>press Export before you finish</b> — hand the file to an
-      organizer to be combined with the other judges' scores.
+      <p id="syncMsg">Every score you enter is saved in this browser first, then synced so the
+      organizers can combine all five judges. If the connection drops, keep scoring — nothing
+      is lost, and it syncs when it comes back.</p>
       <div class="actions">
-        <button class="btn" id="exportCsv" type="button">Export CSV</button>
+        <button class="btn" id="syncNow" type="button">Sync now</button>
+        <button class="btn ghost" id="exportCsv" type="button">Export CSV</button>
         <button class="btn ghost" id="exportJson" type="button">Export JSON</button>
         <button class="btn ghost" id="printBtn" type="button">Print / PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="note warn" id="keyBox" hidden>
+    <div class="note-head">Judging passcode</div>
+    <div class="note-body">
+      <p>Enter the passcode an organizer gave you. It is stored in this browser so you only do this once.</p>
+      <div class="actions">
+        <input type="password" id="judgeKey" placeholder="Passcode" autocomplete="off"
+          style="font-family:var(--f-mono);padding:9px 12px;border:1px solid var(--line-2);border-radius:6px;background:var(--paper);color:var(--ink)">
+        <button class="btn" id="saveKey" type="button">Save</button>
       </div>
     </div>
   </div>
@@ -207,6 +221,29 @@ ${CRITERIA.map((c) => `          <th>${esc(c.label)}</th>`).join('\n')}
         <tbody id="lbBody"></tbody>
       </table>
     </div>
+  </section>
+
+  <section class="panel-j" id="panel-tally" hidden>
+    <h2>Combined leaderboard</h2>
+    <p class="lede">Every judge's scores, averaged. Category means exclude blanks, and OVERALL is
+    the mean of the four category means so the categories stay equally weighted. The top six are
+    highlighted.</p>
+    <div class="actions">
+      <button class="btn" id="refreshTally" type="button">Refresh</button>
+      <button class="btn ghost" id="exportTally" type="button">Export combined CSV</button>
+    </div>
+    <p class="prog" id="tallyMeta" style="margin-top:14px"></p>
+    <div class="tablewrap" style="margin-top:8px">
+      <table class="lb">
+        <thead><tr>
+          <th>Rank</th><th>Team</th>
+${CRITERIA.map((c) => `          <th>${esc(c.label)}</th>`).join('\n')}
+          <th>Overall</th><th>Judges</th>
+        </tr></thead>
+        <tbody id="tallyBody"><tr><td colspan="8">Not loaded yet.</td></tr></tbody>
+      </table>
+    </div>
+    <div id="tallyNotes"></div>
   </section>
 
   <section class="panel-j" id="panel-rubric" hidden>
@@ -351,7 +388,7 @@ ${JUDGES.map((j) => `          <tr><td class="team">${esc(j.name)}</td><td>${esc
               var cur = entry(t.n);
               cur.scores[c.id] = cur.scores[c.id] === v ? undefined : v;
               if (cur.scores[c.id] === undefined) delete cur.scores[c.id];
-              save(); refreshCard(card, t);
+              save(); refreshCard(card, t); queue(t.n);
             });
             scale.appendChild(b);
           })(i);
@@ -363,7 +400,7 @@ ${JUDGES.map((j) => `          <tr><td class="team">${esc(j.name)}</td><td>${esc
         clr.setAttribute('aria-label', 'Clear ' + c.label + ' for ' + t.name);
         clr.addEventListener('click', function () {
           delete entry(t.n).scores[c.id];
-          save(); refreshCard(card, t);
+          save(); refreshCard(card, t); queue(t.n);
         });
         scale.appendChild(clr);
         wrap.appendChild(lab); wrap.appendChild(hint); wrap.appendChild(scale);
@@ -380,7 +417,7 @@ ${JUDGES.map((j) => `          <tr><td class="team">${esc(j.name)}</td><td>${esc
       ta.id = 'notes-' + t.n;
       ta.value = e.notes || '';
       ta.placeholder = 'What stood out, what you would ask them, anything for the top-six discussion.';
-      ta.addEventListener('input', function () { entry(t.n).notes = ta.value; save(); });
+      ta.addEventListener('input', function () { entry(t.n).notes = ta.value; save(); queue(t.n); });
       nw.appendChild(nl); nw.appendChild(ta);
       card.appendChild(nw);
 
@@ -475,6 +512,131 @@ ${JUDGES.map((j) => `          <tr><td class="team">${esc(j.name)}</td><td>${esc
 
   document.getElementById('printBtn').addEventListener('click', function () { window.print(); });
 
+  /* ---- server sync (local-first: the queue drains when it can) ---- */
+  var keyBox = document.getElementById('keyBox');
+  var syncHead = document.getElementById('syncHead');
+  var syncMsg = document.getElementById('syncMsg');
+  var syncBox = document.getElementById('syncBox');
+  var judgeKey = store.get('pais-judge-key') || '';
+  var pending = {};   // team -> true, waiting to be pushed
+  var syncing = false;
+
+  try { pending = JSON.parse(store.get('pais-judge-pending') || '{}'); } catch (e) { pending = {}; }
+  function savePending() { store.set('pais-judge-pending', JSON.stringify(pending)); }
+
+  function showKeyBox(show) { keyBox.hidden = !show; }
+  if (!judgeKey) showKeyBox(true);
+  document.getElementById('saveKey').addEventListener('click', function () {
+    judgeKey = document.getElementById('judgeKey').value.trim();
+    store.set('pais-judge-key', judgeKey);
+    showKeyBox(!judgeKey);
+    sync();
+  });
+
+  function setSync(state, text) {
+    syncBox.className = 'note ' + (state === 'error' ? 'warn' : state === 'ok' ? 'info' : 'info');
+    syncHead.textContent = state === 'ok' ? 'Synced' : state === 'error' ? 'Not synced — your scores are safe locally' : 'Scores sync to the server';
+    if (text) syncMsg.textContent = text;
+  }
+
+  function queue(teamN) { pending[teamN] = true; savePending(); scheduleSync(); }
+
+  var syncTimer;
+  function scheduleSync() { clearTimeout(syncTimer); syncTimer = setTimeout(sync, 800); }
+
+  async function sync() {
+    if (syncing || !judge || !judgeKey) return;
+    var ids = Object.keys(pending);
+    if (!ids.length) return;
+    syncing = true;
+    var failed = 0;
+    for (var i = 0; i < ids.length; i++) {
+      var n = ids[i];
+      var t = TEAMS.filter(function (x) { return String(x.n) === String(n); })[0];
+      var e = data[n];
+      if (!t || !e) { delete pending[n]; continue; }
+      try {
+        var res = await fetch('/api/judging/scores', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-judge-key': judgeKey },
+          body: JSON.stringify({ judge: judge, team: t.n, teamName: t.name, scores: e.scores, notes: e.notes || '' })
+        });
+        if (res.status === 401) {
+          setSync('error', 'That passcode was not accepted. Your scores are still saved in this browser — fix the passcode and press Sync now.');
+          showKeyBox(true); syncing = false; return;
+        }
+        if (!res.ok) { failed++; continue; }
+        delete pending[n];
+      } catch (err) { failed++; }
+    }
+    savePending();
+    syncing = false;
+    var left = Object.keys(pending).length;
+    if (left === 0) {
+      setSync('ok', 'All your scores are on the server. Keep going — each change syncs automatically.');
+    } else {
+      setSync('error', left + ' change' + (left === 1 ? '' : 's') + ' still to sync. Everything is saved in this browser, so keep scoring; press Sync now to retry, or export as a backup.');
+    }
+  }
+
+  document.getElementById('syncNow').addEventListener('click', sync);
+  window.addEventListener('online', sync);
+
+  /* ---- combined tally ---- */
+  var tallyBody = document.getElementById('tallyBody');
+  var tallyMeta = document.getElementById('tallyMeta');
+  var tallyNotes = document.getElementById('tallyNotes');
+  var lastTally = null;
+
+  async function loadTally() {
+    if (!judgeKey) { tallyBody.innerHTML = '<tr><td colspan="8">Enter the judging passcode first.</td></tr>'; return; }
+    tallyMeta.textContent = 'loading…';
+    try {
+      var res = await fetch('/api/judging/tally', { headers: { 'x-judge-key': judgeKey } });
+      var body = await res.json();
+      if (!res.ok) {
+        tallyMeta.textContent = '';
+        tallyBody.innerHTML = '<tr><td colspan="8">' + escapeHtml((body.error && body.error.message) || 'Could not load.') + '</td></tr>';
+        return;
+      }
+      lastTally = body;
+      tallyMeta.textContent = body.teamCount + ' teams · ' + body.judges.length + ' judge(s) reporting · updated ' +
+        new Date(body.generatedAt).toLocaleTimeString();
+      tallyBody.innerHTML = body.teams.map(function (t) {
+        return '<tr' + (t.rank <= 6 ? ' class="top"' : '') + '>' +
+          '<td class="rank">' + t.rank + '</td>' +
+          '<td class="team">' + escapeHtml(t.teamName) + '</td>' +
+          CRITERIA.map(function (c) {
+            var cat = t.categories[c.id] || {};
+            return '<td class="n">' + (cat.mean === null || cat.mean === undefined ? '—' : cat.mean) + '</td>';
+          }).join('') +
+          '<td class="overall">' + (t.overall === null ? '—' : t.overall) + '</td>' +
+          '<td class="n">' + t.judgeCount + '</td>' +
+          '</tr>';
+      }).join('') || '<tr><td colspan="8">No scores yet.</td></tr>';
+      tallyNotes.innerHTML = body.teams.filter(function (t) { return t.notes.length; }).map(function (t) {
+        return '<h3>' + escapeHtml(t.teamName) + '</h3>' + t.notes.map(function (n) {
+          return '<p><b>' + escapeHtml(n.judge) + ':</b> ' + escapeHtml(n.notes) + '</p>';
+        }).join('');
+      }).join('');
+    } catch (err) {
+      tallyMeta.textContent = '';
+      tallyBody.innerHTML = '<tr><td colspan="8">Could not reach the server.</td></tr>';
+    }
+  }
+  document.getElementById('refreshTally').addEventListener('click', loadTally);
+  document.getElementById('exportTally').addEventListener('click', function () {
+    if (!lastTally) { loadTally(); return; }
+    var q = function (s) { return '"' + String(s == null ? '' : s).replace(/"/g, '""') + '"'; };
+    var lines = [['Rank', 'Team'].concat(CRITERIA.map(function (c) { return c.label; })).concat(['Overall', 'Judges']).map(q).join(',')];
+    lastTally.teams.forEach(function (t) {
+      lines.push([q(t.rank), q(t.teamName)]
+        .concat(CRITERIA.map(function (c) { var m = (t.categories[c.id] || {}).mean; return q(m === null || m === undefined ? '' : m); }))
+        .concat([q(t.overall === null ? '' : t.overall), q(t.judgeCount)]).join(','));
+    });
+    download('judging-combined.csv', 'text/csv;charset=utf-8', lines.join('\n'));
+  });
+
   /* ---- tabs ---- */
   Array.prototype.forEach.call(document.querySelectorAll('.tabs button'), function (b) {
     b.addEventListener('click', function () {
@@ -482,6 +644,7 @@ ${JUDGES.map((j) => `          <tr><td class="team">${esc(j.name)}</td><td>${esc
         var on = o === b;
         o.setAttribute('aria-selected', on ? 'true' : 'false');
         document.getElementById('panel-' + o.getAttribute('data-panel')).hidden = !on;
+        if (on && o.getAttribute('data-panel') === 'tally') loadTally();
       });
     });
   });
@@ -494,8 +657,8 @@ ${JUDGES.map((j) => `          <tr><td class="team">${esc(j.name)}</td><td>${esc
 
   // Last line of defence for the local-only storage model.
   window.addEventListener('beforeunload', function (e) {
-    var any = TEAMS.some(function (t) { return scoredCount(t.n) > 0; });
-    if (any && !sessionStorage.getItem('pais-exported')) {
+    var unsynced = Object.keys(pending).length > 0;
+    if (unsynced && !sessionStorage.getItem('pais-exported')) {
       e.preventDefault();
       e.returnValue = '';
     }
@@ -507,6 +670,7 @@ ${JUDGES.map((j) => `          <tr><td class="team">${esc(j.name)}</td><td>${esc
   });
 
   load(); renderCards(); renderBoard();
+  if (judgeKey) sync();
 })();
 </script>
 </body>

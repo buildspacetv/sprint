@@ -104,6 +104,10 @@
   ],
   "rewrites": [
     {
+      "source": "/judge",
+      "destination": "/judge.html"
+    },
+    {
       "source": "/",
       "has": [
         {

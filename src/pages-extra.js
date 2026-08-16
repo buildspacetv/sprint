@@ -41,6 +41,7 @@ function aboutPage(page) {
   </div>
 </div>`;
   return page({
+    edit: { kind: 'file', target: 'src/pages-extra.js', label: 'src/pages-extra.js — aboutPage()' },
     title: 'About', description: 'What The Physical AI Sprint is, who runs it, what teams work with, and how judging works.',
     body, current: 'about', canonical: `${SITE}/about.html`,
   });
@@ -73,6 +74,7 @@ function contactPage(page) {
   <p>If you are building against this site's data, the <a href="/developers.html">developer portal</a> documents the read-only JSON API, and <a href="/auth.md">auth.md</a> explains why no credential is required. The API needs no key and has no rate limit, so there is nobody to email for access.</p>
 </div>`;
   return page({
+    edit: { kind: 'file', target: 'src/pages-extra.js', label: 'src/pages-extra.js — contactPage()' },
     title: 'Contact', description: 'How to reach the Physical AI Sprint organizers, find a team, or report a problem with the site.',
     body, current: 'contact', canonical: `${SITE}/contact.html`,
   });
@@ -110,6 +112,7 @@ function privacyPage(page) {
   <p>The handbook and event content are available under CC BY 4.0, and the source is public at <a href="${REPO}">${REPO.replace('https://', '')}</a>. Project and team content belongs to the people who submitted it.</p>
 </div>`;
   return page({
+    edit: { kind: 'file', target: 'src/pages-extra.js', label: 'src/pages-extra.js — privacyPage()' },
     title: 'Privacy', description: 'What data the Physical AI Sprint site holds, where it comes from, and how to remove yours.',
     body, current: 'privacy', canonical: `${SITE}/privacy.html`,
   });
@@ -194,6 +197,7 @@ for p in projects:
   <p>Event and handbook content is CC BY 4.0. Team and project content belongs to the people who submitted it. Source: <a href="${REPO}">${REPO.replace('https://', '')}</a>.</p>
 </div>`;
   return page({
+    edit: { kind: 'file', target: 'src/pages-extra.js', label: 'src/pages-extra.js — developersPage()' },
     title: 'Developers', description: 'Read-only JSON API over the Physical AI Sprint teams and projects. No authentication, no rate limit, OpenAPI 3.1 spec.',
     body, current: 'developers', canonical: `${SITE}/developers.html`,
   });

@@ -24,6 +24,7 @@ const css = fs.readFileSync(path.join(ROOT, 'src', 'styles.css'), 'utf8');
 const agentFiles = require('./src/agent-files.js');
 const extraPages = require('./src/pages-extra.js');
 const { judgePage } = require('./src/judge.js');
+const editMode = require('./src/edit-mode.js');
 
 /* ---------------------------------------------------------------- helpers */
 
@@ -205,7 +206,7 @@ const graph = (...nodes) => jsonForScript({ '@context': 'https://schema.org', '@
 
 /* ------------------------------------------------------------ page shell */
 
-function page({ title, description, body, current, ogImage, canonical, jsonLd }) {
+function page({ title, description, body, current, ogImage, canonical, jsonLd, edit }) {
   // /teams.html advertises /teams.html.md, which is generated alongside it.
   const mdTwin = canonical && /\.html$/.test(canonical) ? new URL(canonical).pathname + '.md' : null;
   const desc = description || 'The Physical AI Sprint — a one-day hackathon at the intersection of AI and the physical world.';
@@ -229,6 +230,7 @@ ${img ? `<meta property="og:image" content="${esc(img)}">` : ''}
 <meta name="twitter:description" content="${esc(desc)}">
 ${img ? `<meta name="twitter:image" content="${esc(img)}">` : ''}
 ${mdTwin ? `<link rel="alternate" type="text/markdown" href="${mdTwin}" title="Markdown version">` : ''}
+${edit ? editMode.editMeta(edit) : ''}
 <link rel="alternate" type="application/json" href="/api/index.json" title="JSON API">
 <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
 ${jsonLd ? `<script type="application/ld+json">\n${jsonLd}\n</script>` : ''}
@@ -276,6 +278,7 @@ ${body}
   </footer>
 </div>
 
+<script src="/edit-mode.js" defer></script>
 </body>
 </html>
 `;
@@ -295,7 +298,7 @@ function coverFor(p) {
 function card(p) {
   const t = track(p.track);
   const people = (p.team || []).map((m) => avatar(m.github, 52)).filter(Boolean).slice(0, 5);
-  return `      <a class="pcard" href="/projects/${esc(p.slug)}.html" data-track="${esc(p.track || '')}" data-search="${esc([p.title, p.tagline, (p.robots || []).join(' '), (p.team || []).map((m) => `${m.name} ${m.github}`).join(' ')].join(' ').toLowerCase())}">
+  return `      <a class="pcard" href="/projects/${esc(p.slug)}.html" ${p.issue ? editMode.editAttrs({ kind: 'issue', target: p.issue, label: `edit project #${p.issue}` }) : ''} data-track="${esc(p.track || '')}" data-search="${esc([p.title, p.tagline, (p.robots || []).join(' '), (p.team || []).map((m) => `${m.name} ${m.github}`).join(' ')].join(' ').toLowerCase())}">
         <div class="cover">${coverFor(p)}</div>
         <div class="body">
           <h3>${esc(p.title)}</h3>
@@ -424,6 +427,7 @@ ${projects.map(card).join('\n')}
         })),
       },
     }),
+    edit: { kind: 'generator', target: 'build.js', label: 'build.js — showcase()' },
     title: 'Project Showcase',
     description: `Projects built at the Physical AI Sprint hackathon${projects.length ? ` — ${projects.length} submitted` : ''}.`,
     body,
@@ -554,6 +558,7 @@ ${shareBlock({ title: p.title, text: `${p.title} — ${p.tagline || 'built at Th
         ...(m.user ? { sameAs: `https://github.com/${m.user}` } : {}),
       })),
     }),
+    edit: p.issue ? { kind: 'issue', target: p.issue, label: `project issue #${p.issue}` } : { kind: 'generator', target: 'build.js', label: 'build.js — projectPage()' },
     title: `${p.title} — Physical AI Sprint`,
     description: p.tagline || `A project built at The Physical AI Sprint hackathon.`,
     body,
@@ -569,7 +574,7 @@ const TEAM_URL = `${REPO}/issues/new?template=team.yml&labels=team`;
 
 function teamCard(t, built) {
   const members = (t.members || []).map((m) => ({ name: m.name || ghUser(m.github) || 'Unnamed', user: ghUser(m.github) }));
-  return `      <article class="tcard" id="team-${esc(t.slug)}" data-open="${t.open ? 'yes' : 'no'}" data-search="${esc([t.name, t.pitch, (t.looking || []).join(' '), (t.have || []).join(' '), members.map((m) => `${m.name} ${m.user || ''}`).join(' ')].join(' ').toLowerCase())}">
+  return `      <article class="tcard" id="team-${esc(t.slug)}" ${t.issue ? editMode.editAttrs({ kind: 'issue', target: t.issue, label: `edit team #${t.issue}` }) : ''} data-open="${t.open ? 'yes' : 'no'}" data-search="${esc([t.name, t.pitch, (t.looking || []).join(' '), (t.have || []).join(' '), members.map((m) => `${m.name} ${m.user || ''}`).join(' ')].join(' ').toLowerCase())}">
         <div class="tcard-top">
           <h3><a href="/teams/${esc(t.slug)}.html">${esc(t.name)}</a></h3>
           <span class="chip ${t.open ? 'track-both' : ''}">${t.open ? 'Looking for teammates' : 'Full'}</span>
@@ -728,6 +733,7 @@ ${teams.map((t) => teamCard(t, builtBy.get(t.slug))).join('\n')}
         })),
       },
     }),
+    edit: { kind: 'generator', target: 'build.js', label: 'build.js — teamsPage()' },
     title: 'Team Directory',
     description: `Find a team for the Physical AI Sprint${teams.length ? ` — ${teams.length} teams, ${open} looking for members` : ''}.`,
     body,
@@ -817,6 +823,7 @@ ${shareBlock({
         ...(ghUser(m.github) ? { sameAs: `https://github.com/${ghUser(m.github)}` } : {}),
       })),
     }),
+    edit: t.issue ? { kind: 'issue', target: t.issue, label: `team issue #${t.issue}` } : { kind: 'generator', target: 'build.js', label: 'build.js — teamPage()' },
     title: `${t.name} — Physical AI Sprint`,
     description: t.pitch || `A team at The Physical AI Sprint hackathon.`,
     body,
@@ -910,6 +917,7 @@ function submitPage() {
         acceptedAnswer: { '@type': 'Answer', text: a },
       })),
     }),
+    edit: { kind: 'generator', target: 'build.js', label: 'build.js — submitPage()' },
     title: 'Submit a Project',
     description: 'Submit your Physical AI Sprint project — a GitHub issue form with photo and video upload. Deadline 3:30pm.',
     body,
@@ -1014,7 +1022,18 @@ function main() {
   // llms.txt, and served noindex — it is for the five judges, not the public.
   fs.writeFileSync(path.join(ROOT, 'judge.html'), judgePage(teams, apiProjects));
   const mdTwins = agentFiles.markdownTwins(teams, projects);
+  // Edit mode: one inert script served everywhere, plus a map of index.html's
+  // section ids to line numbers so handbook sections deep-link to the line.
+  const indexLines = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8').split('\n');
+  const sections = {};
+  indexLines.forEach((ln, i) => {
+    const m = ln.match(/id="([a-z0-9-]+)"/i);
+    if (m && !sections[m[1]]) sections[m[1]] = i + 1;
+  });
+
   const generated = {
+    'edit-mode.js': editMode.editModeScript(),
+    'edit-map.json': JSON.stringify({ file: 'index.html', sections }, null, 2) + '\n',
     ...mdTwins,
     'robots.txt': agentFiles.robots(),
     'sitemap.xml': agentFiles.sitemap(teams, projects),
