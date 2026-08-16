@@ -74,7 +74,17 @@
     '  font-family: var(--f-mono), monospace; font-size: .62rem; letter-spacing: .1em;',
     '  text-transform: uppercase; box-shadow: 0 2px 8px rgba(0,0,0,.25); }',
     'body.em-on [data-edit-kind]:hover > .em-pill, .em-pill:focus { display: inline-flex; }',
-    '@media print { .em-bar, .em-note, .em-pill { display: none !important; } }'
+    '@media print { .em-bar, .em-note, .em-pill, .em-save { display: none !important; } }',
+    'body.em-on [data-edit-field], body.em-on [data-edit-file] { outline: 1px dashed rgba(124,77,255,.5); outline-offset: 4px; border-radius: 3px; }',
+    '[data-edit-field][contenteditable], [data-edit-file][contenteditable] { outline: 2px solid var(--edit-accent) !important; background: rgba(124,77,255,.06); }',
+    '.em-save { position: fixed; right: 18px; bottom: 18px; z-index: 95; display: none; gap: 8px;',
+    '  padding: 10px 12px; border-radius: 10px; background: var(--edit-accent); color: #fff;',
+    '  font-family: var(--f-display), system-ui, sans-serif; box-shadow: 0 6px 24px rgba(0,0,0,.3); }',
+    '.em-save.on { display: flex; align-items: center; }',
+    '.em-save button { font: inherit; font-size: .9rem; padding: 6px 12px; border-radius: 6px; cursor: pointer;',
+    '  border: 1px solid rgba(255,255,255,.5); background: rgba(255,255,255,.18); color: #fff; }',
+    '.em-save button.primary { background: #fff; color: var(--edit-accent); border-color: #fff; }',
+    '.em-save .em-msg { font-size: .82rem; max-width: 40ch; }'
   ].join('\n');
   document.head.appendChild(css);
 
@@ -141,6 +151,127 @@
     });
   }
   addPills();
+
+  /* --------------------------------------------------- inline editing (v2) */
+
+  // Only regions the build marked as round-trippable are editable. Everything
+  // else stays read-only and keeps the "edit the source on GitHub" path, which
+  // is the honest answer for text the generator computes rather than stores.
+  var KEY = 'pais-edit-key';
+  var NAME = 'pais-edit-name';
+  function key() { try { return sessionStorage.getItem(KEY) || ''; } catch (e) { return ''; } }
+  function editorName() { try { return localStorage.getItem(NAME) || ''; } catch (e) { return ''; } }
+
+  var savebar = document.createElement('div');
+  savebar.className = 'em-save';
+  savebar.innerHTML =
+    '<span class="em-msg" id="emMsg">Edited</span>' +
+    '<button type="button" id="emCancel">Discard</button>' +
+    '<button type="button" class="primary" id="emPublish">Publish</button>';
+  document.body.appendChild(savebar);
+
+  var active = null;      // the element being edited
+  var original = '';      // its text when editing started
+
+  function msg(text) { document.getElementById('emMsg').textContent = text; }
+  function showBar(on) { savebar.classList.toggle('on', !!on); }
+
+  function fieldsOf(el) {
+    return { issue: el.getAttribute('data-edit-field'), file: el.getAttribute('data-edit-file') };
+  }
+
+  function beginEdit(el) {
+    if (active && active !== el) return;
+    active = el;
+    original = el.innerText.trim();
+    el.setAttribute('contenteditable', 'plaintext-only');
+    el.focus();
+    msg('Editing — publish when you are done');
+    showBar(true);
+  }
+
+  function endEdit(restore) {
+    if (!active) return;
+    if (restore) active.innerText = original;
+    active.removeAttribute('contenteditable');
+    active = null;
+    showBar(false);
+  }
+
+  async function publish() {
+    if (!active) return;
+    var el = active;
+    var next = el.innerText.trim();
+    if (next === original) { endEdit(false); return; }
+
+    var f = fieldsOf(el);
+    var k = key();
+    if (!k) {
+      k = window.prompt('Edit passcode (an organizer has it):') || '';
+      if (!k) { msg('Cancelled — nothing published.'); return; }
+      try { sessionStorage.setItem(KEY, k); } catch (e) {}
+    }
+    var who = editorName();
+    if (!who) {
+      who = window.prompt('Your name, for the edit history:') || '';
+      try { if (who) localStorage.setItem(NAME, who); } catch (e) {}
+    }
+
+    msg('Publishing…');
+    var payload = f.issue
+      ? { target: f.issue, value: next, editor: who }
+      : { target: 'file:' + f.file, value: next, oldText: original, editor: who };
+
+    try {
+      var res = await fetch('/api/edit/content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-edit-key': k },
+        body: JSON.stringify(payload),
+      });
+      var data = await res.json().catch(function () { return {}; });
+
+      if (res.ok) {
+        original = next;
+        endEdit(false);
+        showBar(true);
+        msg('Published — the site rebuilds in a couple of minutes.');
+        setTimeout(function () { showBar(false); }, 6000);
+        return;
+      }
+
+      if (res.status === 401) { try { sessionStorage.removeItem(KEY); } catch (e) {} }
+      var err = (data && data.error) || {};
+      // Failures are shown verbatim rather than softened: "text_not_found"
+      // means this text is computed, not stored, and the editor needs to know
+      // that rather than retrying the same edit.
+      msg((err.message || 'That did not save.') + (err.resolution ? ' ' + err.resolution : ''));
+    } catch (e) {
+      msg('Could not reach the edit API. Your text is still on screen — copy it before reloading.');
+    }
+  }
+
+  document.getElementById('emPublish').addEventListener('click', publish);
+  document.getElementById('emCancel').addEventListener('click', function () {
+    endEdit(true);
+  });
+
+  function wireEditables() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-edit-field], [data-edit-file]'), function (el) {
+      if (el.getAttribute('data-em-wired')) return;
+      el.setAttribute('data-em-wired', '1');
+      el.setAttribute('title', 'Click to edit');
+      el.addEventListener('click', function (ev) {
+        if (el.getAttribute('contenteditable')) return;
+        ev.preventDefault();
+        beginEdit(el);
+      });
+      el.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Escape') { ev.preventDefault(); endEdit(true); }
+        if (ev.key === 'Enter' && (ev.metaKey || ev.ctrlKey)) { ev.preventDefault(); publish(); }
+      });
+    });
+  }
+  wireEditables();
 
   /* ------------------------------------------ handbook section deep links */
 

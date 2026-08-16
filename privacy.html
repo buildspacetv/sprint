@@ -444,8 +444,8 @@ code { font-family: var(--f-mono); font-size: .86em; }
   <p>One thing is stored locally in your own browser: the checkpoint progress in the handbook guides uses <code>localStorage</code> so your place survives a refresh. It never leaves your device and is not readable by us. Clearing site data removes it.</p>
 
   <h2>What data is published, and who supplied it</h2>
-  <p>The team directory and project showcase display information that people submitted themselves through public GitHub issue forms. That means a name, a GitHub handle, an optional contact handle, and whatever a team wrote about their project. It was public on GitHub the moment it was filed; this site renders it, it does not originate it.</p>
-  <p>Member avatars are loaded directly from GitHub's own avatar URLs, so GitHub sees those image requests.</p>
+  <p data-edit-file="src/pages-extra.js">The team directory and project showcase display information that people submitted themselves through public GitHub issue forms. That means a name, a GitHub handle, an optional contact handle, and whatever a team wrote about their project. It was public on GitHub the moment it was filed; this site renders it, it does not originate it.</p>
+  <p data-edit-file="src/pages-extra.js">Member avatars are loaded directly from GitHub's own avatar URLs, so GitHub sees those image requests.</p>
 
   <h2>Removing your information</h2>
   <p>Because every entry maps to a GitHub issue, removal is under your control: edit the issue to remove a detail, or close the issue to drop the entry entirely. The next build removes the corresponding page — including deleting a stale team or project page, not just unlinking it. If you would rather not do it yourself, open an issue on <a href="https://github.com/buildspacetv/sprint/issues">the repository</a> and an organizer will.</p>

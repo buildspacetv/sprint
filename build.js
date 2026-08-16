@@ -509,7 +509,7 @@ function projectPage(p, teamEntry) {
   <div class="pagehead-in">
     <p class="eyebrow"><a class="back" href="/showcase.html">← All projects</a></p>
     <h1>${esc(p.title)}</h1>
-    <p class="lede">${esc(p.tagline || '')}</p>
+    <p class="lede"${p.issue ? ` data-edit-field="issue:${p.issue}#One-line summary"` : ''}>${esc(p.tagline || '')}</p>
     <div class="actions">
       <span class="chip ${t.cls}">${esc(t.label)}</span>
       ${(p.robots || []).map((r) => `<span class="chip">${esc(r)}</span>`).join('\n      ')}
@@ -520,7 +520,7 @@ function projectPage(p, teamEntry) {
 <div class="wrap narrow">
 ${videoEmbed(p.video)}
 
-${p.description ? `  <div class="prose">\n${prose(p.description)}\n  </div>` : ''}
+${p.description ? `  <div class="prose"${p.issue ? ` data-edit-field="issue:${p.issue}#Description" data-edit-multiline="1"` : ''}>\n${prose(p.description)}\n  </div>` : ''}
 
 ${images.length ? `  <h2>Photos</h2>
   <div class="gallery">
@@ -768,7 +768,7 @@ function teamPage(t, built) {
   <div class="pagehead-in">
     <p class="eyebrow"><a class="back" href="/teams.html">← All teams</a></p>
     <h1>${esc(t.name)}</h1>
-    <p class="lede">${esc(t.pitch || '')}</p>
+    <p class="lede"${t.issue ? ` data-edit-field="issue:${t.issue}#What you want to build"` : ''}>${esc(t.pitch || '')}</p>
     <div class="actions">
       <span class="chip ${t.open ? 'track-both' : ''}">${t.open ? 'Looking for teammates' : 'Full'}</span>
       ${(t.looking || []).map((s) => `<span class="chip">${esc(s)}</span>`).join('\n      ')}

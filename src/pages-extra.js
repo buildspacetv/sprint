@@ -20,17 +20,17 @@ function aboutPage(page) {
 
 <div class="wrap narrow">
   <h2>What it is</h2>
-  <p>The Physical AI Sprint gathers 100 to 125 engineers into teams of 1 to 5 for a single day of building. The brief is deliberately open-ended: we provide the robots, the simulation platform, and the building blocks, and each team decides what their system does and how it thinks.</p>
-  <p>The framing is the perception–reasoning–action loop. Modern AI is very good at generating text and pixels; Physical AI requires closing the loop between a digital mind and a physical embodiment. A project has to interpret sensor data into an understanding of a scene, turn a goal into multi-step behavior that adapts when the world changes, and translate that plan into motion that actually works on hardware or in physics.</p>
+  <p data-edit-file="src/pages-extra.js">The Physical AI Sprint gathers 100 to 125 engineers into teams of 1 to 5 for a single day of building. The brief is deliberately open-ended: we provide the robots, the simulation platform, and the building blocks, and each team decides what their system does and how it thinks.</p>
+  <p data-edit-file="src/pages-extra.js">The framing is the perception–reasoning–action loop. Modern AI is very good at generating text and pixels; Physical AI requires closing the loop between a digital mind and a physical embodiment. A project has to interpret sensor data into an understanding of a scene, turn a goal into multi-step behavior that adapts when the world changes, and translate that plan into motion that actually works on hardware or in physics.</p>
 
   <h2>Who runs it</h2>
   <p>The event is hosted by <strong>Nebius</strong>, with <strong>NVIDIA</strong>, <strong>Antioch</strong>, and <strong>Toloka</strong>. Engineers from each are on site for the full day answering platform, hardware, and training questions — the guides in the handbook exist so that those conversations can be about robotics rather than about environment setup.</p>
 
   <h2>What teams work with</h2>
-  <p>Ten LeRobot SO-101 leader/follower arm pairs, two Unitree Go2-W wheeled quadrupeds, and one Unitree G1 humanoid, shared between teams and staffed by the hosts. Alongside the hardware, the Antioch cloud simulation platform runs the NVIDIA Isaac stack on GPU machines, so a team with no local GPU can still build and test a full loop. Because hardware is limited and shared, simulation is the dependable path, and the strongest projects usually run most of their loop in sim even when they touch a real robot.</p>
+  <p data-edit-file="src/pages-extra.js">Ten LeRobot SO-101 leader/follower arm pairs, two Unitree Go2-W wheeled quadrupeds, and one Unitree G1 humanoid, shared between teams and staffed by the hosts. Alongside the hardware, the Antioch cloud simulation platform runs the NVIDIA Isaac stack on GPU machines, so a team with no local GPU can still build and test a full loop. Because hardware is limited and shared, simulation is the dependable path, and the strongest projects usually run most of their loop in sim even when they touch a real robot.</p>
 
   <h2>How judging works</h2>
-  <p>Judging runs science-fair style: judges circulate and view projects at team stations, then the top six demo to the full group before winners are announced. Projects are scored on ambition, functionality, creativity, and architectural quality, unweighted — how hard the problem is, whether it works end-to-end when demonstrated, how original the approach is, and how cleanly the system separates perception, reasoning, and action.</p>
+  <p data-edit-file="src/pages-extra.js">Judging runs science-fair style: judges circulate and view projects at team stations, then the top six demo to the full group before winners are announced. Projects are scored on ambition, functionality, creativity, and architectural quality, unweighted — how hard the problem is, whether it works end-to-end when demonstrated, how original the approach is, and how cleanly the system separates perception, reasoning, and action.</p>
 
   <h2>This site</h2>
   <p>The handbook, team directory, and project showcase are a static site with no database. Teams and submissions are GitHub issues, synced into JSON and rendered into pages by a build script, so everything published here has a traceable source. The whole thing is open source at <a href="${REPO}">${REPO.replace('https://', '')}</a>, and the same data is available as a <a href="/developers.html">read-only JSON API</a>.</p>
@@ -96,8 +96,8 @@ function privacyPage(page) {
   <p>One thing is stored locally in your own browser: the checkpoint progress in the handbook guides uses <code>localStorage</code> so your place survives a refresh. It never leaves your device and is not readable by us. Clearing site data removes it.</p>
 
   <h2>What data is published, and who supplied it</h2>
-  <p>The team directory and project showcase display information that people submitted themselves through public GitHub issue forms. That means a name, a GitHub handle, an optional contact handle, and whatever a team wrote about their project. It was public on GitHub the moment it was filed; this site renders it, it does not originate it.</p>
-  <p>Member avatars are loaded directly from GitHub's own avatar URLs, so GitHub sees those image requests.</p>
+  <p data-edit-file="src/pages-extra.js">The team directory and project showcase display information that people submitted themselves through public GitHub issue forms. That means a name, a GitHub handle, an optional contact handle, and whatever a team wrote about their project. It was public on GitHub the moment it was filed; this site renders it, it does not originate it.</p>
+  <p data-edit-file="src/pages-extra.js">Member avatars are loaded directly from GitHub's own avatar URLs, so GitHub sees those image requests.</p>
 
   <h2>Removing your information</h2>
   <p>Because every entry maps to a GitHub issue, removal is under your control: edit the issue to remove a detail, or close the issue to drop the entry entirely. The next build removes the corresponding page — including deleting a stale team or project page, not just unlinking it. If you would rather not do it yourself, open an issue on <a href="${REPO}/issues">the repository</a> and an organizer will.</p>
@@ -254,7 +254,7 @@ ${row('/submit.html', 'Submit', 'build.js', 'Prose lives in the generator.')}
   </div>
 
   <h2>Teams and projects</h2>
-  <p>These are not files. Each one is a GitHub issue, rendered at build time — so editing the issue is editing the page, and the site rebuilds itself within a couple of minutes.</p>
+  <p data-edit-file="src/pages-extra.js">These are not files. Each one is a GitHub issue, rendered at build time — so editing the issue is editing the page, and the site rebuilds itself within a couple of minutes.</p>
 ${teams.length || projects.length ? `  <div class="tablewrap">
     <table class="fields">
       <thead><tr><th>Page</th><th>Issue</th></tr></thead>
