@@ -165,7 +165,11 @@ function breadcrumbs(trail) {
   };
 }
 
-const graph = (...nodes) => JSON.stringify({ '@context': 'https://schema.org', '@graph': nodes }, null, 2);
+// JSON-LD is injected into a <script> block and carries user-supplied names,
+// so it needs the same treatment as any other script payload: JSON.stringify
+// does not escape "</script>", and a team called "</script><img onerror=...>"
+// would break straight out of the element.
+const graph = (...nodes) => jsonForScript({ '@context': 'https://schema.org', '@graph': nodes });
 
 /* ------------------------------------------------------------ page shell */
 
