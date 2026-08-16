@@ -9,11 +9,16 @@ on:
   push:
     branches: [main]
     paths:
+      # Anything that changes what a page says must rebuild the page. This
+      # list was five specific files and missed src/pages-extra.js, so an edit
+      # made through /edit wrote to source, never rebuilt, and reported itself
+      # as published. Watch the directories instead of naming files.
       - 'build.js'
-      - 'src/styles.css'
-      - 'data/projects.json'
-      - 'data/teams.json'
-      - 'scripts/sync-issues.js'
+      - 'src/**'
+      - 'content/**'
+      - 'data/**'
+      - 'scripts/**'
+      - 'index.html'
 
 concurrency:
   group: submissions
