@@ -74,7 +74,21 @@ jobs:
           git add -A data/projects.json data/teams.json apidata showcase.html submit.html teams.html judge.html projects teams *.md *.txt sitemap.xml openapi.json .well-known about.html contact.html privacy.html developers.html about contact privacy developers
           if git diff --staged --quiet; then
             echo "nothing to commit"
-          else
-            git commit -m "Rebuild showcase from submissions [skip ci]"
-            git push
+            exit 0
           fi
+          git commit -m "Rebuild showcase from submissions [skip ci]"
+          # Two submissions landing close together, or a human pushing at the
+          # same time, means this push can be rejected. Giving up there loses
+          # a team's project page silently, so rebase onto whatever landed and
+          # try again rather than failing the run.
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              echo "pushed on attempt $attempt"
+              exit 0
+            fi
+            echo "push rejected, rebasing (attempt $attempt)"
+            git pull --rebase --autostash origin main || exit 1
+            sleep $((attempt * 3))
+          done
+          echo "::error::Could not push the rebuild after 5 attempts"
+          exit 1
