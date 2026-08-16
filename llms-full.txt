@@ -115,4 +115,4 @@ Teams and project submissions are public data, available as JSON:
 
 - Register: https://luma.com/nkknxvrz
 - Discord: https://discord.com/invite/nN58zxSTFR
-- Source: https://github.com/opencolin/physical-ai-sprint-handbook
+- Source: https://github.com/buildspacetv/sprint

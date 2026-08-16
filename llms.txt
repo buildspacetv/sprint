@@ -59,4 +59,4 @@ them to the GitHub issue forms linked from the site.
 
 - [/llms-full.txt](https://www.buildspace.tv/llms-full.txt): the whole handbook as one markdown document
 - [/pricing.md](https://www.buildspace.tv/pricing.md): cost to attend (free)
-- [Source repository](https://github.com/opencolin/physical-ai-sprint-handbook)
+- [Source repository](https://github.com/buildspacetv/sprint)

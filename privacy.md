@@ -18,7 +18,7 @@ issue forms — a name, a GitHub handle, an optional contact handle, and what th
 about their project. It was public on GitHub the moment it was filed.
 
 **Removing your information:** edit or close the GitHub issue behind the entry and the next
-build removes the page. Or open an issue at [https://github.com/opencolin/physical-ai-sprint-handbook/issues](https://github.com/opencolin/physical-ai-sprint-handbook/issues).
+build removes the page. Or open an issue at [https://github.com/buildspacetv/sprint/issues](https://github.com/buildspacetv/sprint/issues).
 
 Registration is on Luma and chat is on Discord, both outside this site with their own
 policies. Hosting is Vercel, which processes standard request logs.

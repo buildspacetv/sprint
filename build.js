@@ -15,7 +15,7 @@ const path = require('path');
 
 const ROOT = __dirname;
 const SITE = 'https://www.buildspace.tv';
-const REPO = 'https://github.com/opencolin/physical-ai-sprint-handbook';
+const REPO = 'https://github.com/buildspacetv/sprint';
 const APPLY = 'https://luma.com/nkknxvrz';
 const DISCORD = 'https://discord.com/invite/nN58zxSTFR';
 const SUBMIT_URL = `${REPO}/issues/new?template=project-submission.yml&labels=submission`;
