@@ -205,6 +205,8 @@ const graph = (...nodes) => jsonForScript({ '@context': 'https://schema.org', '@
 /* ------------------------------------------------------------ page shell */
 
 function page({ title, description, body, current, ogImage, canonical, jsonLd }) {
+  // /teams.html advertises /teams.html.md, which is generated alongside it.
+  const mdTwin = canonical && /\.html$/.test(canonical) ? new URL(canonical).pathname + '.md' : null;
   const desc = description || 'The Physical AI Sprint — a one-day hackathon at the intersection of AI and the physical world.';
   const img = safeUrl(ogImage);
   return `<!doctype html>
@@ -225,6 +227,7 @@ ${img ? `<meta property="og:image" content="${esc(img)}">` : ''}
 <meta name="twitter:title" content="${esc(title)}">
 <meta name="twitter:description" content="${esc(desc)}">
 ${img ? `<meta name="twitter:image" content="${esc(img)}">` : ''}
+${mdTwin ? `<link rel="alternate" type="text/markdown" href="${mdTwin}" title="Markdown version">` : ''}
 <link rel="alternate" type="application/json" href="/api/index.json" title="JSON API">
 <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
 ${jsonLd ? `<script type="application/ld+json">\n${jsonLd}\n</script>` : ''}

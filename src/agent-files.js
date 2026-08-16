@@ -1072,7 +1072,7 @@ function markdownTwins(teams, projects) {
     ? projects.map((p) => `- **[${p.title}](${SITE}/projects/${p.slug}.html)** — ${p.tagline || 'no summary given'}${p.track ? ` _(${p.track})_` : ''}`).join('\n')
     : '_No projects submitted yet. The deadline is 3:30pm on event day._';
 
-  return {
+  const twins = {
     'index.md': fm('The Physical AI Sprint', 'A one-day Physical AI hackathon on ' + EVENT_DATE + ' alongside Actuate SF.', SITE + '/') +
 `# The Physical AI Sprint
 
@@ -1191,6 +1191,15 @@ policies. Hosting is Vercel, which processes standard request logs.
 Full detail: [${SITE}/privacy.html](${SITE}/privacy.html).
 `,
   };
+
+  // Agents append .md to the URL they already have, which for these pages is
+  // /teams.html — so serve the .html.md shape as well as the bare /teams.md.
+  for (const [name, body] of Object.entries({ ...twins })) {
+    const stem = name.replace(/\.md$/, '');
+    if (stem === 'index') continue;
+    twins[`${stem}.html.md`] = body;
+  }
+  return twins;
 }
 
 module.exports = { markdownTwins, apiFiles, openapi, discoveryFiles, textFiles, robots, sitemap, HTML_PAGES, SITE, REPO, APPLY, DISCORD, EVENT_DATE };
