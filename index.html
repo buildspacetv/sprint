@@ -64,6 +64,46 @@
       "inLanguage": "en"
     },
     {
+      "@type": "WebAPI",
+      "@id": "https://physical-ai-sprint.vercel.app/#api",
+      "name": "Physical AI Sprint API",
+      "description": "Read-only JSON API over the hackathon teams and projects. No authentication, no rate limit.",
+      "url": "https://physical-ai-sprint.vercel.app/developers.html",
+      "documentation": "https://physical-ai-sprint.vercel.app/developers.html",
+      "provider": {
+        "@id": "https://physical-ai-sprint.vercel.app/#organization"
+      },
+      "potentialAction": {
+        "@type": "ConsumeAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://physical-ai-sprint.vercel.app/api/teams.json",
+          "httpMethod": "GET",
+          "contentType": "application/json"
+        }
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://physical-ai-sprint.vercel.app/#service",
+      "name": "The Physical AI Sprint hackathon",
+      "serviceType": "Hackathon",
+      "description": "A one-day Physical AI hackathon: robot hardware, cloud simulation, workshops, and judging, free to attend.",
+      "provider": {
+        "@id": "https://physical-ai-sprint.vercel.app/#organization"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "San Francisco"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "USD",
+        "url": "https://luma.com/nkknxvrz"
+      }
+    },
+    {
       "@type": "Event",
       "@id": "https://physical-ai-sprint.vercel.app/#event",
       "name": "The Physical AI Sprint Hackathon",

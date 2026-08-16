@@ -20,6 +20,11 @@
       "description": "Production"
     }
   ],
+  "x-api-versioning": {
+    "policy": "Additive only. New fields may appear; existing fields will not change meaning or type. A breaking change would ship at a new path (/api/v2/...) and the current paths would keep working until a Sunset header announced their retirement at least 90 days ahead.",
+    "currentVersion": "1.0.0",
+    "deprecationSignal": "HTTP Sunset and Deprecation response headers, plus a note in /developers.html."
+  },
   "externalDocs": {
     "description": "Developer portal",
     "url": "https://physical-ai-sprint.vercel.app/developers.html"
@@ -53,7 +58,52 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiIndex"
+                  "type": "object",
+                  "properties": {
+                    "object": {
+                      "type": "string",
+                      "const": "index",
+                      "description": "Always \"index\"."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "What this API is."
+                    },
+                    "openapi": {
+                      "type": "string",
+                      "format": "uri",
+                      "description": "This specification."
+                    },
+                    "docs": {
+                      "type": "string",
+                      "format": "uri",
+                      "description": "Human documentation."
+                    },
+                    "endpoints": {
+                      "type": "array",
+                      "description": "Available endpoints.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "method": {
+                            "type": "string",
+                            "enum": [
+                              "GET"
+                            ],
+                            "description": "HTTP method."
+                          },
+                          "path": {
+                            "type": "string",
+                            "description": "Path relative to the server."
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "What it returns."
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -63,7 +113,38 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "required": [
+                        "code",
+                        "message"
+                      ],
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Machine-readable error code.",
+                          "example": "not_found"
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Human-readable explanation."
+                        },
+                        "resolution": {
+                          "type": "string",
+                          "description": "What to do about it."
+                        },
+                        "documentation": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -85,7 +166,113 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Event"
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Event name."
+                    },
+                    "tagline": {
+                      "type": "string",
+                      "description": "One-line description."
+                    },
+                    "date": {
+                      "type": "string",
+                      "format": "date",
+                      "description": "Event date.",
+                      "example": "2026-08-17"
+                    },
+                    "startTime": {
+                      "type": "string",
+                      "description": "Doors open, local time.",
+                      "example": "08:00"
+                    },
+                    "endTime": {
+                      "type": "string",
+                      "description": "End of happy hour, local time.",
+                      "example": "21:00"
+                    },
+                    "timezone": {
+                      "type": "string",
+                      "description": "IANA timezone.",
+                      "example": "America/Los_Angeles"
+                    },
+                    "free": {
+                      "type": "boolean",
+                      "description": "Whether attendance is free."
+                    },
+                    "registrationUrl": {
+                      "type": "string",
+                      "format": "uri",
+                      "description": "Where to register."
+                    },
+                    "discordUrl": {
+                      "type": "string",
+                      "format": "uri",
+                      "description": "Event chat."
+                    },
+                    "hosts": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Hosting organizations."
+                    },
+                    "teamSize": {
+                      "type": "string",
+                      "description": "Allowed team size.",
+                      "example": "4-5"
+                    },
+                    "capacity": {
+                      "type": "string",
+                      "description": "Expected attendance."
+                    },
+                    "tracks": {
+                      "type": "array",
+                      "description": "Project tracks.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "enum": [
+                              "sim",
+                              "hardware",
+                              "both"
+                            ],
+                            "description": "Track identifier."
+                          },
+                          "label": {
+                            "type": "string",
+                            "description": "Display name."
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "What the track means."
+                          }
+                        }
+                      }
+                    },
+                    "robots": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Robot hardware available."
+                    },
+                    "judging": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Judging criteria."
+                    },
+                    "submissionDeadline": {
+                      "type": "string",
+                      "description": "Local time submissions close.",
+                      "example": "15:30"
+                    }
+                  }
                 }
               }
             }
@@ -95,7 +282,38 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "required": [
+                        "code",
+                        "message"
+                      ],
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Machine-readable error code.",
+                          "example": "not_found"
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Human-readable explanation."
+                        },
+                        "resolution": {
+                          "type": "string",
+                          "description": "What to do about it."
+                        },
+                        "documentation": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -117,7 +335,112 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TeamList"
+                  "type": "object",
+                  "required": [
+                    "object",
+                    "count",
+                    "data"
+                  ],
+                  "properties": {
+                    "object": {
+                      "type": "string",
+                      "const": "list",
+                      "description": "Always \"list\"."
+                    },
+                    "count": {
+                      "type": "integer",
+                      "description": "Number of teams returned."
+                    },
+                    "generatedAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "When this document was generated."
+                    },
+                    "docs": {
+                      "type": "string",
+                      "format": "uri",
+                      "description": "Human documentation."
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "slug",
+                          "name"
+                        ],
+                        "properties": {
+                          "slug": {
+                            "type": "string",
+                            "description": "Stable identifier, also the page path segment."
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Team name."
+                          },
+                          "pitch": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "description": "What the team wants to build."
+                          },
+                          "lookingForMembers": {
+                            "type": "boolean",
+                            "description": "True when the team still has room."
+                          },
+                          "skillsWanted": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "Skills the team is looking for."
+                          },
+                          "skillsPresent": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "Skills already on the team."
+                          },
+                          "members": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string",
+                                  "description": "Display name as the team wrote it."
+                                },
+                                "github": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ],
+                                  "description": "GitHub handle, or null if none was given."
+                                }
+                              }
+                            },
+                            "description": "Team roster."
+                          },
+                          "url": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "The team page."
+                          },
+                          "threadUrl": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "uri",
+                            "description": "GitHub issue where people ask to join."
+                          }
+                        }
+                      },
+                      "description": "The teams."
+                    }
+                  }
                 }
               }
             }
@@ -127,7 +450,38 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "required": [
+                        "code",
+                        "message"
+                      ],
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Machine-readable error code.",
+                          "example": "not_found"
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Human-readable explanation."
+                        },
+                        "resolution": {
+                          "type": "string",
+                          "description": "What to do about it."
+                        },
+                        "documentation": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -149,7 +503,144 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProjectList"
+                  "type": "object",
+                  "required": [
+                    "object",
+                    "count",
+                    "data"
+                  ],
+                  "properties": {
+                    "object": {
+                      "type": "string",
+                      "const": "list",
+                      "description": "Always \"list\"."
+                    },
+                    "count": {
+                      "type": "integer",
+                      "description": "Number of projects returned."
+                    },
+                    "generatedAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "When this document was generated."
+                    },
+                    "docs": {
+                      "type": "string",
+                      "format": "uri",
+                      "description": "Human documentation."
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "slug",
+                          "title"
+                        ],
+                        "properties": {
+                          "slug": {
+                            "type": "string",
+                            "description": "Stable identifier, also the page path segment."
+                          },
+                          "title": {
+                            "type": "string",
+                            "description": "Project name."
+                          },
+                          "tagline": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "description": "One-line summary."
+                          },
+                          "track": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "enum": [
+                              "sim",
+                              "hardware",
+                              "both",
+                              null
+                            ],
+                            "description": "Which track the project ran in."
+                          },
+                          "robots": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "Robots used."
+                          },
+                          "description": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "description": "Full project write-up."
+                          },
+                          "video": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "uri",
+                            "description": "Demo video URL."
+                          },
+                          "images": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "format": "uri"
+                            },
+                            "description": "Photo URLs."
+                          },
+                          "repo": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "uri",
+                            "description": "Source repository."
+                          },
+                          "team": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string",
+                                  "description": "Display name as the team wrote it."
+                                },
+                                "github": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ],
+                                  "description": "GitHub handle, or null if none was given."
+                                }
+                              }
+                            },
+                            "description": "Who built it."
+                          },
+                          "teamSlug": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "description": "Slug of the team that built it, when linked."
+                          },
+                          "url": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "The project page."
+                          }
+                        }
+                      },
+                      "description": "The projects."
+                    }
+                  }
                 }
               }
             }
@@ -159,7 +650,38 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "required": [
+                        "code",
+                        "message"
+                      ],
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Machine-readable error code.",
+                          "example": "not_found"
+                        },
+                        "message": {
+                          "type": "string",
+                          "description": "Human-readable explanation."
+                        },
+                        "resolution": {
+                          "type": "string",
+                          "description": "What to do about it."
+                        },
+                        "documentation": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -222,6 +744,7 @@
       },
       "ApiIndex": {
         "type": "object",
+        "mediaType": "object",
         "properties": {
           "object": {
             "type": "string",
@@ -240,8 +763,10 @@
           },
           "endpoints": {
             "type": "array",
+            "mediaType": "array",
             "items": {
               "type": "object",
+              "mediaType": "object",
               "properties": {
                 "method": {
                   "type": "string",
@@ -262,6 +787,7 @@
       },
       "Event": {
         "type": "object",
+        "mediaType": "object",
         "properties": {
           "name": {
             "type": "string"
@@ -312,8 +838,10 @@
           },
           "tracks": {
             "type": "array",
+            "mediaType": "array",
             "items": {
               "type": "object",
+              "mediaType": "object",
               "properties": {
                 "id": {
                   "type": "string",
@@ -352,6 +880,7 @@
       },
       "Team": {
         "type": "object",
+        "mediaType": "object",
         "required": [
           "slug",
           "name"
@@ -410,6 +939,7 @@
       },
       "Project": {
         "type": "object",
+        "mediaType": "object",
         "required": [
           "slug",
           "title"
@@ -493,6 +1023,7 @@
       },
       "TeamList": {
         "type": "object",
+        "mediaType": "object",
         "properties": {
           "object": {
             "type": "string",
@@ -519,6 +1050,7 @@
       },
       "ProjectList": {
         "type": "object",
+        "mediaType": "object",
         "properties": {
           "object": {
             "type": "string",

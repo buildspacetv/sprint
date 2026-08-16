@@ -34,6 +34,28 @@
           "type": "application/json",
           "title": "Endpoint index"
         }
+      ],
+      "item": [
+        {
+          "href": "https://physical-ai-sprint.vercel.app/api/index.json",
+          "type": "application/json",
+          "title": "Endpoint index"
+        },
+        {
+          "href": "https://physical-ai-sprint.vercel.app/api/event.json",
+          "type": "application/json",
+          "title": "Event details"
+        },
+        {
+          "href": "https://physical-ai-sprint.vercel.app/api/teams.json",
+          "type": "application/json",
+          "title": "Teams"
+        },
+        {
+          "href": "https://physical-ai-sprint.vercel.app/api/projects.json",
+          "type": "application/json",
+          "title": "Projects"
+        }
       ]
     }
   ]

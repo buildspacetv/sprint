@@ -147,6 +147,36 @@ const ORG = {
   },
 };
 
+// The JSON API is a real entity worth describing: schema.org/WebAPI is the
+// accurate type for it. Deliberately not labelled SoftwareApplication or
+// Product — a hackathon handbook is neither, and mislabelling it to satisfy a
+// checker would be exactly the sort of thing agents get burned by.
+const WEBAPI = {
+  '@type': 'WebAPI',
+  '@id': `${SITE}/#api`,
+  name: 'Physical AI Sprint API',
+  description: 'Read-only JSON API over the hackathon teams and projects. No authentication, no rate limit.',
+  url: `${SITE}/developers.html`,
+  documentation: `${SITE}/developers.html`,
+  provider: { '@id': `${SITE}/#organization` },
+  termsOfService: `${SITE}/privacy.html`,
+  potentialAction: {
+    '@type': 'ConsumeAction',
+    target: { '@type': 'EntryPoint', urlTemplate: `${SITE}/api/teams.json`, httpMethod: 'GET', contentType: 'application/json' },
+  },
+};
+
+const SERVICE = {
+  '@type': 'Service',
+  '@id': `${SITE}/#service`,
+  name: 'The Physical AI Sprint hackathon',
+  serviceType: 'Hackathon',
+  description: 'A one-day Physical AI hackathon: robot hardware, cloud simulation, workshops, and judging, free to attend.',
+  provider: { '@id': `${SITE}/#organization` },
+  areaServed: { '@type': 'City', name: 'San Francisco' },
+  offers: { '@type': 'Offer', price: 0, priceCurrency: 'USD', url: APPLY },
+};
+
 const WEBSITE = {
   '@type': 'WebSite',
   '@id': `${SITE}/#website`,
@@ -169,6 +199,7 @@ function breadcrumbs(trail) {
 // so it needs the same treatment as any other script payload: JSON.stringify
 // does not escape "</script>", and a team called "</script><img onerror=...>"
 // would break straight out of the element.
+const BASE = () => [ORG, WEBSITE, WEBAPI, SERVICE];
 const graph = (...nodes) => jsonForScript({ '@context': 'https://schema.org', '@graph': nodes });
 
 /* ------------------------------------------------------------ page shell */
@@ -292,7 +323,9 @@ ${projects.length === 0 ? `  <div class="empty">
       <a class="btn" href="/submit.html">Submit your project</a>
     </div>
   </div>` : `  <div class="controls">
-    <input type="search" id="q" placeholder="Search projects, teams, robots…" aria-label="Search projects">
+    <input type="search" id="q" placeholder="Search projects, teams, robots…" aria-label="Search projects"
+      toolname="search_projects"
+      tooldescription="Filter the submitted hackathon projects by title, tagline, robot used, or team member name.">
     <div class="filters" role="group" aria-label="Filter by track">
       <button data-filter="all" aria-pressed="true">All</button>
       <button data-filter="sim" aria-pressed="false">Sim</button>
@@ -313,6 +346,8 @@ ${projects.map(card).join('\n')}
 
   <script>
   (function () {
+    var TOOL_NAME = 'search_projects';
+    var TOOL_DESC = 'Filter the submitted hackathon projects by title, tagline, robot used, or team member name.';
     var cards = Array.prototype.slice.call(document.querySelectorAll('.pcard'));
     var q = document.getElementById('q');
     var shown = document.getElementById('shown');
@@ -336,6 +371,28 @@ ${projects.map(card).join('\n')}
     }
 
     q.addEventListener('input', apply);
+
+    // WebMCP: expose the same filter as a callable tool for browser-resident
+    // agents. Guarded because the API only exists in recent Chrome.
+    var mc = window.document.modelContext || window.navigator.modelContext;
+    if (mc && typeof mc.registerTool === 'function') {
+      mc.registerTool({
+        name: TOOL_NAME,
+        description: TOOL_DESC,
+        inputSchema: {
+          type: 'object',
+          properties: { query: { type: 'string', description: 'Text to filter by.' } },
+          required: ['query'],
+        },
+        async execute(args) {
+          q.value = (args && args.query) || '';
+          apply();
+          var hits = cards.filter(function (c) { return !c.hidden; })
+            .map(function (c) { return { name: c.querySelector('h3').textContent.trim(), url: (c.getAttribute('href') || (c.querySelector('a') || {}).getAttribute && c.querySelector('a').getAttribute('href')) || null }; });
+          return { content: [{ type: 'text', text: JSON.stringify({ count: hits.length, results: hits }) }] };
+        },
+      });
+    }
     Array.prototype.forEach.call(document.querySelectorAll('.filters button'), function (b) {
       b.addEventListener('click', function () {
         filter = b.getAttribute('data-filter');
@@ -350,7 +407,7 @@ ${projects.map(card).join('\n')}
 </div>`;
 
   return page({
-    jsonLd: graph(ORG, WEBSITE, breadcrumbs([['Handbook', '/'], ['Showcase', '/showcase.html']]), {
+    jsonLd: graph(...BASE(), breadcrumbs([['Handbook', '/'], ['Showcase', '/showcase.html']]), {
       '@type': 'CollectionPage',
       name: 'Project Showcase',
       url: `${SITE}/showcase.html`,
@@ -478,7 +535,7 @@ ${shareBlock({ title: p.title, text: `${p.title} — ${p.tagline || 'built at Th
 </div>`;
 
   return page({
-    jsonLd: graph(ORG, WEBSITE, breadcrumbs([['Handbook', '/'], ['Showcase', '/showcase.html'], [p.title, `/projects/${p.slug}.html`]]), {
+    jsonLd: graph(...BASE(), breadcrumbs([['Handbook', '/'], ['Showcase', '/showcase.html'], [p.title, `/projects/${p.slug}.html`]]), {
       '@type': 'CreativeWork',
       name: p.title,
       url,
@@ -556,7 +613,9 @@ ${teams.length === 0 ? `  <div class="empty">
       <a class="btn" href="${TEAM_URL}" target="_blank" rel="noopener noreferrer">Create a team</a>
     </div>
   </div>` : `  <div class="controls">
-    <input type="search" id="q" placeholder="Search teams, skills, people…" aria-label="Search teams">
+    <input type="search" id="q" placeholder="Search teams, skills, people…" aria-label="Search teams"
+      toolname="search_teams"
+      tooldescription="Filter hackathon teams by name, what they are building, the skills they want, or a member's name.">
     <div class="filters" role="group" aria-label="Filter teams">
       <button data-filter="all" aria-pressed="true">All</button>
       <button data-filter="yes" aria-pressed="false">Has room</button>
@@ -575,6 +634,8 @@ ${teams.map((t) => teamCard(t, builtBy.get(t.slug))).join('\n')}
 
   <script>
   (function () {
+    var TOOL_NAME = 'search_teams';
+    var TOOL_DESC = 'Filter hackathon teams by name, what they are building, the skills they want, or a member name.';
     var cards = Array.prototype.slice.call(document.querySelectorAll('.tcard'));
     var q = document.getElementById('q');
     var shown = document.getElementById('shown');
@@ -598,6 +659,28 @@ ${teams.map((t) => teamCard(t, builtBy.get(t.slug))).join('\n')}
     }
 
     q.addEventListener('input', apply);
+
+    // WebMCP: expose the same filter as a callable tool for browser-resident
+    // agents. Guarded because the API only exists in recent Chrome.
+    var mc = window.document.modelContext || window.navigator.modelContext;
+    if (mc && typeof mc.registerTool === 'function') {
+      mc.registerTool({
+        name: TOOL_NAME,
+        description: TOOL_DESC,
+        inputSchema: {
+          type: 'object',
+          properties: { query: { type: 'string', description: 'Text to filter by.' } },
+          required: ['query'],
+        },
+        async execute(args) {
+          q.value = (args && args.query) || '';
+          apply();
+          var hits = cards.filter(function (c) { return !c.hidden; })
+            .map(function (c) { return { name: c.querySelector('h3').textContent.trim(), url: (c.getAttribute('href') || (c.querySelector('a') || {}).getAttribute && c.querySelector('a').getAttribute('href')) || null }; });
+          return { content: [{ type: 'text', text: JSON.stringify({ count: hits.length, results: hits }) }] };
+        },
+      });
+    }
     Array.prototype.forEach.call(document.querySelectorAll('.filters button'), function (b) {
       b.addEventListener('click', function () {
         filter = b.getAttribute('data-filter');
@@ -628,7 +711,7 @@ ${teams.map((t) => teamCard(t, builtBy.get(t.slug))).join('\n')}
 </div>`;
 
   return page({
-    jsonLd: graph(ORG, WEBSITE, breadcrumbs([['Handbook', '/'], ['Teams', '/teams.html']]), {
+    jsonLd: graph(...BASE(), breadcrumbs([['Handbook', '/'], ['Teams', '/teams.html']]), {
       '@type': 'CollectionPage',
       name: 'Team Directory',
       url: `${SITE}/teams.html`,
@@ -719,7 +802,7 @@ ${shareBlock({
 </div>`;
 
   return page({
-    jsonLd: graph(ORG, WEBSITE, breadcrumbs([['Handbook', '/'], ['Teams', '/teams.html'], [t.name, `/teams/${t.slug}.html`]]), {
+    jsonLd: graph(...BASE(), breadcrumbs([['Handbook', '/'], ['Teams', '/teams.html'], [t.name, `/teams/${t.slug}.html`]]), {
       '@type': 'Organization',
       name: t.name,
       url,
@@ -810,7 +893,7 @@ function submitPage() {
 </div>`;
 
   return page({
-    jsonLd: graph(ORG, WEBSITE, breadcrumbs([['Handbook', '/'], ['Submit', '/submit.html']]), {
+    jsonLd: graph(...BASE(), breadcrumbs([['Handbook', '/'], ['Submit', '/submit.html']]), {
       '@type': 'FAQPage',
       mainEntity: [
         ['How do I submit a project?', 'Open the GitHub issue form linked from the submit page, fill in the fields, and drag your photos and video straight into the form. Your project page builds and appears in the showcase within a couple of minutes.'],
@@ -905,10 +988,19 @@ function main() {
   }
 
   // Trust anchors + developer portal.
-  fs.writeFileSync(path.join(ROOT, 'about.html'), extraPages.aboutPage(page));
-  fs.writeFileSync(path.join(ROOT, 'contact.html'), extraPages.contactPage(page));
-  fs.writeFileSync(path.join(ROOT, 'privacy.html'), extraPages.privacyPage(page));
-  fs.writeFileSync(path.join(ROOT, 'developers.html'), extraPages.developersPage(page, teams, projects));
+  const anchors = {
+    about: extraPages.aboutPage(page),
+    contact: extraPages.contactPage(page),
+    privacy: extraPages.privacyPage(page),
+    developers: extraPages.developersPage(page, teams, projects),
+  };
+  for (const [name, html] of Object.entries(anchors)) {
+    fs.writeFileSync(path.join(ROOT, `${name}.html`), html);
+    // Also serve the extensionless path — agents (and Ora) probe /about, not
+    // /about.html, and a static host will not rewrite one to the other.
+    fs.mkdirSync(path.join(ROOT, name), { recursive: true });
+    fs.writeFileSync(path.join(ROOT, name, 'index.html'), html);
+  }
 
   // Machine-readable surface. Projects carry their resolved team slug so the
   // API expresses the same link the pages do.

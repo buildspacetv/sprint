@@ -155,7 +155,94 @@ function openapi() {
   };
   const notFound = {
     description: 'No such endpoint.',
-    content: { 'application/json': { schema: { $ref: '#/components/schemas/Error' } } },
+    content: { 'application/json': { schema: errorSchema } },
+  };
+
+  const personSchema = person;
+  const teamSchema = {
+    type: 'object', required: ['slug', 'name'],
+    properties: {
+      slug: { type: 'string', description: 'Stable identifier, also the page path segment.' },
+      name: { type: 'string', description: 'Team name.' },
+      pitch: { type: ['string', 'null'], description: 'What the team wants to build.' },
+      lookingForMembers: { type: 'boolean', description: 'True when the team still has room.' },
+      skillsWanted: { type: 'array', items: { type: 'string' }, description: 'Skills the team is looking for.' },
+      skillsPresent: { type: 'array', items: { type: 'string' }, description: 'Skills already on the team.' },
+      members: { type: 'array', items: personSchema, description: 'Team roster.' },
+      url: { type: 'string', format: 'uri', description: 'The team page.' },
+      threadUrl: { type: ['string', 'null'], format: 'uri', description: 'GitHub issue where people ask to join.' },
+    },
+  };
+  const projectSchema = {
+    type: 'object', required: ['slug', 'title'],
+    properties: {
+      slug: { type: 'string', description: 'Stable identifier, also the page path segment.' },
+      title: { type: 'string', description: 'Project name.' },
+      tagline: { type: ['string', 'null'], description: 'One-line summary.' },
+      track: { type: ['string', 'null'], enum: ['sim', 'hardware', 'both', null], description: 'Which track the project ran in.' },
+      robots: { type: 'array', items: { type: 'string' }, description: 'Robots used.' },
+      description: { type: ['string', 'null'], description: 'Full project write-up.' },
+      video: { type: ['string', 'null'], format: 'uri', description: 'Demo video URL.' },
+      images: { type: 'array', items: { type: 'string', format: 'uri' }, description: 'Photo URLs.' },
+      repo: { type: ['string', 'null'], format: 'uri', description: 'Source repository.' },
+      team: { type: 'array', items: personSchema, description: 'Who built it.' },
+      teamSlug: { type: ['string', 'null'], description: 'Slug of the team that built it, when linked.' },
+      url: { type: 'string', format: 'uri', description: 'The project page.' },
+    },
+  };
+  const listOf = (item, what) => ({
+    type: 'object',
+    required: ['object', 'count', 'data'],
+    properties: {
+      object: { type: 'string', const: 'list', description: 'Always "list".' },
+      count: { type: 'integer', description: `Number of ${what} returned.` },
+      generatedAt: { type: 'string', format: 'date-time', description: 'When this document was generated.' },
+      docs: { type: 'string', format: 'uri', description: 'Human documentation.' },
+      data: { type: 'array', items: item, description: `The ${what}.` },
+    },
+  });
+  const teamListSchema = listOf(teamSchema, 'teams');
+  const projectListSchema = listOf(projectSchema, 'projects');
+  const eventSchema = {
+    type: 'object',
+    properties: {
+      name: { type: 'string', description: 'Event name.' },
+      tagline: { type: 'string', description: 'One-line description.' },
+      date: { type: 'string', format: 'date', description: 'Event date.', example: EVENT_DATE },
+      startTime: { type: 'string', description: 'Doors open, local time.', example: '08:00' },
+      endTime: { type: 'string', description: 'End of happy hour, local time.', example: '21:00' },
+      timezone: { type: 'string', description: 'IANA timezone.', example: 'America/Los_Angeles' },
+      free: { type: 'boolean', description: 'Whether attendance is free.' },
+      registrationUrl: { type: 'string', format: 'uri', description: 'Where to register.' },
+      discordUrl: { type: 'string', format: 'uri', description: 'Event chat.' },
+      hosts: { type: 'array', items: { type: 'string' }, description: 'Hosting organizations.' },
+      teamSize: { type: 'string', description: 'Allowed team size.', example: '4-5' },
+      capacity: { type: 'string', description: 'Expected attendance.' },
+      tracks: { type: 'array', description: 'Project tracks.', items: {
+        type: 'object', properties: {
+          id: { type: 'string', enum: ['sim', 'hardware', 'both'], description: 'Track identifier.' },
+          label: { type: 'string', description: 'Display name.' },
+          description: { type: 'string', description: 'What the track means.' },
+        } } },
+      robots: { type: 'array', items: { type: 'string' }, description: 'Robot hardware available.' },
+      judging: { type: 'array', items: { type: 'string' }, description: 'Judging criteria.' },
+      submissionDeadline: { type: 'string', description: 'Local time submissions close.', example: '15:30' },
+    },
+  };
+  const apiIndexSchema = {
+    type: 'object',
+    properties: {
+      object: { type: 'string', const: 'index', description: 'Always "index".' },
+      description: { type: 'string', description: 'What this API is.' },
+      openapi: { type: 'string', format: 'uri', description: 'This specification.' },
+      docs: { type: 'string', format: 'uri', description: 'Human documentation.' },
+      endpoints: { type: 'array', description: 'Available endpoints.', items: {
+        type: 'object', properties: {
+          method: { type: 'string', enum: ['GET'], description: 'HTTP method.' },
+          path: { type: 'string', description: 'Path relative to the server.' },
+          description: { type: 'string', description: 'What it returns.' },
+        } } },
+    },
   };
 
   return json({
@@ -178,6 +265,11 @@ function openapi() {
       license: { name: 'CC BY 4.0', url: 'https://creativecommons.org/licenses/by/4.0/' },
     },
     servers: [{ url: SITE, description: 'Production' }],
+    'x-api-versioning': {
+      policy: 'Additive only. New fields may appear; existing fields will not change meaning or type. A breaking change would ship at a new path (/api/v2/...) and the current paths would keep working until a Sunset header announced their retirement at least 90 days ahead.',
+      currentVersion: '1.0.0',
+      deprecationSignal: 'HTTP Sunset and Deprecation response headers, plus a note in /developers.html.',
+    },
     externalDocs: { description: 'Developer portal', url: `${SITE}/developers.html` },
     tags: [
       { name: 'event', description: 'Event-level facts.' },
@@ -192,7 +284,7 @@ function openapi() {
           description: 'Returns the endpoint index, including the OpenAPI URL and documentation link.',
           tags: ['event'],
           responses: {
-            200: { description: 'The endpoint index.', content: { 'application/json': { schema: { $ref: '#/components/schemas/ApiIndex' } } } },
+            200: { description: 'The endpoint index.', content: { 'application/json': { schema: apiIndexSchema } } },
             404: notFound,
           },
         },
@@ -204,7 +296,7 @@ function openapi() {
           description: 'Date, timings, hosts, tracks, robots available, judging criteria, and registration links.',
           tags: ['event'],
           responses: {
-            200: { description: 'Event details.', content: { 'application/json': { schema: { $ref: '#/components/schemas/Event' } } } },
+            200: { description: 'Event details.', content: { 'application/json': { schema: eventSchema } } },
             404: notFound,
           },
         },
@@ -216,7 +308,7 @@ function openapi() {
           description: 'Every registered team, with its roster, the skills it has, and the skills it is looking for. `lookingForMembers` is true when the team still has room.',
           tags: ['teams'],
           responses: {
-            200: { description: 'A list of teams.', content: { 'application/json': { schema: { $ref: '#/components/schemas/TeamList' } } } },
+            200: { description: 'A list of teams.', content: { 'application/json': { schema: teamListSchema } } },
             404: notFound,
           },
         },
@@ -228,7 +320,7 @@ function openapi() {
           description: 'Every project submitted to the showcase, with its track, robots used, media, repository, and team.',
           tags: ['projects'],
           responses: {
-            200: { description: 'A list of projects.', content: { 'application/json': { schema: { $ref: '#/components/schemas/ProjectList' } } } },
+            200: { description: 'A list of projects.', content: { 'application/json': { schema: projectListSchema } } },
             404: notFound,
           },
         },
@@ -240,6 +332,7 @@ function openapi() {
         Person: person,
         ApiIndex: {
           type: 'object',
+          mediaType: 'object',
           properties: {
             object: { type: 'string', const: 'index' },
             description: { type: 'string' },
@@ -247,8 +340,10 @@ function openapi() {
             docs: { type: 'string', format: 'uri' },
             endpoints: {
               type: 'array',
+          mediaType: 'array',
               items: {
                 type: 'object',
+          mediaType: 'object',
                 properties: {
                   method: { type: 'string', enum: ['GET'] },
                   path: { type: 'string' },
@@ -260,6 +355,7 @@ function openapi() {
         },
         Event: {
           type: 'object',
+          mediaType: 'object',
           properties: {
             name: { type: 'string' },
             tagline: { type: 'string' },
@@ -275,8 +371,10 @@ function openapi() {
             capacity: { type: 'string' },
             tracks: {
               type: 'array',
+          mediaType: 'array',
               items: {
                 type: 'object',
+          mediaType: 'object',
                 properties: {
                   id: { type: 'string', enum: ['sim', 'hardware', 'both'] },
                   label: { type: 'string' },
@@ -291,6 +389,7 @@ function openapi() {
         },
         Team: {
           type: 'object',
+          mediaType: 'object',
           required: ['slug', 'name'],
           properties: {
             slug: { type: 'string', description: 'Stable identifier, also the page path segment.' },
@@ -306,6 +405,7 @@ function openapi() {
         },
         Project: {
           type: 'object',
+          mediaType: 'object',
           required: ['slug', 'title'],
           properties: {
             slug: { type: 'string' },
@@ -324,6 +424,7 @@ function openapi() {
         },
         TeamList: {
           type: 'object',
+          mediaType: 'object',
           properties: {
             object: { type: 'string', const: 'list' },
             count: { type: 'integer' },
@@ -334,6 +435,7 @@ function openapi() {
         },
         ProjectList: {
           type: 'object',
+          mediaType: 'object',
           properties: {
             object: { type: 'string', const: 'list' },
             count: { type: 'integer' },
@@ -353,6 +455,7 @@ function discoveryFiles(teams, projects) {
   return {
     '.well-known/ai-catalog.json': json({
       $schema: 'https://agenticresourcediscovery.org/schema/v1/catalog.json',
+      specVersion: '1.0',
       version: '1.0',
       updated: EVENT_DATE,
       provider: {
@@ -362,9 +465,10 @@ function discoveryFiles(teams, projects) {
       },
       entries: [
         {
-          id: 'urn:air:physical-ai-sprint.vercel.app:api:openapi',
+          identifier: 'urn:air:physical-ai-sprint.vercel.app:api:openapi',
           displayName: 'Physical AI Sprint API',
           description: 'Read-only JSON API over the hackathon teams and projects. No authentication required.',
+          type: 'application/vnd.oai.openapi+json',
           mediaType: 'application/vnd.oai.openapi+json',
           url: `${SITE}/openapi.json`,
           trustManifest: {
@@ -373,9 +477,10 @@ function discoveryFiles(teams, projects) {
           },
         },
         {
-          id: 'urn:air:physical-ai-sprint.vercel.app:doc:handbook',
+          identifier: 'urn:air:physical-ai-sprint.vercel.app:doc:handbook',
           displayName: 'Physical AI Sprint Handbook',
           description: 'Full participant handbook: challenge brief, schedule, judging criteria, and four hardware and simulation setup guides.',
+          type: 'text/markdown',
           mediaType: 'text/markdown',
           url: `${SITE}/llms-full.txt`,
           trustManifest: {
@@ -384,9 +489,10 @@ function discoveryFiles(teams, projects) {
           },
         },
         {
-          id: 'urn:air:physical-ai-sprint.vercel.app:data:teams',
+          identifier: 'urn:air:physical-ai-sprint.vercel.app:data:teams',
           displayName: 'Team directory data',
           description: 'Every team at the event, which teams still have room, and the skills they are looking for.',
+          type: 'application/json',
           mediaType: 'application/json',
           url: `${SITE}/api/teams.json`,
           trustManifest: {
@@ -395,9 +501,10 @@ function discoveryFiles(teams, projects) {
           },
         },
         {
-          id: 'urn:air:physical-ai-sprint.vercel.app:data:projects',
+          identifier: 'urn:air:physical-ai-sprint.vercel.app:data:projects',
           displayName: 'Project showcase data',
           description: 'Every project submitted to the showcase with track, robots used, media, and team roster.',
+          type: 'application/json',
           mediaType: 'application/json',
           url: `${SITE}/api/projects.json`,
           trustManifest: {
@@ -413,16 +520,20 @@ function discoveryFiles(teams, projects) {
       version: '0.2.0',
       name: 'The Physical AI Sprint',
       description: 'Skills for answering questions about the Physical AI Sprint hackathon and reading its team and project data.',
+      whenToUse: 'Use these skills when a user asks about The Physical AI Sprint hackathon specifically: its date and schedule, how to register, which teams exist and which still have room for members, what projects were built, how judging works, or first-time setup for the LeRobot SO-101 arm, the Antioch simulation platform, or Unitree robots. Do not use them as a general robotics reference — the guides are pinned to specific tool versions for this one event.',
+      instructions: 'All data is available without authentication at /api/*.json; see /openapi.json for the specification and /agents.md for what this site cannot do (it is read-only: registration happens on Luma and submissions happen through GitHub issue forms).',
       skills: [
         {
           name: 'physical-ai-sprint-event',
           type: 'skill-md',
+          mediaType: 'skill-md',
           description: 'Answer questions about the Physical AI Sprint: date, schedule, hosts, tracks, robots available, judging criteria, what to bring, and how to register.',
           url: `${SITE}/agents.md`,
         },
         {
           name: 'physical-ai-sprint-api',
           type: 'skill-md',
+          mediaType: 'skill-md',
           description: 'Read the hackathon team directory and project showcase over the public read-only JSON API, including which teams still have room for members.',
           url: `${SITE}/llms.txt`,
         },
@@ -481,6 +592,12 @@ function discoveryFiles(teams, projects) {
             { href: `${SITE}/.well-known/ai-catalog.json`, type: 'application/json', title: 'Agentic Resource Discovery catalog' },
           ],
           status: [{ href: `${SITE}/api/index.json`, type: 'application/json', title: 'Endpoint index' }],
+          item: [
+            { href: `${SITE}/api/index.json`, type: 'application/json', title: 'Endpoint index' },
+            { href: `${SITE}/api/event.json`, type: 'application/json', title: 'Event details' },
+            { href: `${SITE}/api/teams.json`, type: 'application/json', title: 'Teams' },
+            { href: `${SITE}/api/projects.json`, type: 'application/json', title: 'Projects' },
+          ],
         },
       ],
     }),
@@ -605,14 +722,9 @@ Full description: [openapi.json](${SITE}/openapi.json).
   what a team should plan around.
 `;
 
-  const auth = `---
-title: Authentication
-description: How agents authenticate against the Physical AI Sprint API.
-canonical: ${SITE}/auth.md
-last-updated: ${EVENT_DATE}
----
+  const auth = `# Authentication
 
-# Authentication
+<!-- canonical: ${SITE}/auth.md · last-updated: ${EVENT_DATE} -->
 
 ## Discover
 

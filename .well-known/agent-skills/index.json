@@ -3,16 +3,20 @@
   "version": "0.2.0",
   "name": "The Physical AI Sprint",
   "description": "Skills for answering questions about the Physical AI Sprint hackathon and reading its team and project data.",
+  "whenToUse": "Use these skills when a user asks about The Physical AI Sprint hackathon specifically: its date and schedule, how to register, which teams exist and which still have room for members, what projects were built, how judging works, or first-time setup for the LeRobot SO-101 arm, the Antioch simulation platform, or Unitree robots. Do not use them as a general robotics reference — the guides are pinned to specific tool versions for this one event.",
+  "instructions": "All data is available without authentication at /api/*.json; see /openapi.json for the specification and /agents.md for what this site cannot do (it is read-only: registration happens on Luma and submissions happen through GitHub issue forms).",
   "skills": [
     {
       "name": "physical-ai-sprint-event",
       "type": "skill-md",
+      "mediaType": "skill-md",
       "description": "Answer questions about the Physical AI Sprint: date, schedule, hosts, tracks, robots available, judging criteria, what to bring, and how to register.",
       "url": "https://physical-ai-sprint.vercel.app/agents.md"
     },
     {
       "name": "physical-ai-sprint-api",
       "type": "skill-md",
+      "mediaType": "skill-md",
       "description": "Read the hackathon team directory and project showcase over the public read-only JSON API, including which teams still have room for members.",
       "url": "https://physical-ai-sprint.vercel.app/llms.txt"
     }

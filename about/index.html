@@ -3,24 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Find a team for the Physical AI Sprint — 1 teams, 1 looking for members.">
+<meta name="description" content="What The Physical AI Sprint is, who runs it, what teams work with, and how judging works.">
 <meta name="color-scheme" content="light dark">
-<title>Team Directory</title>
-<link rel="canonical" href="https://physical-ai-sprint.vercel.app/teams.html">
+<title>About</title>
+<link rel="canonical" href="https://physical-ai-sprint.vercel.app/about.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Team Directory">
-<meta property="og:description" content="Find a team for the Physical AI Sprint — 1 teams, 1 looking for members.">
-<meta property="og:url" content="https://physical-ai-sprint.vercel.app/teams.html">
+<meta property="og:title" content="About">
+<meta property="og:description" content="What The Physical AI Sprint is, who runs it, what teams work with, and how judging works.">
+<meta property="og:url" content="https://physical-ai-sprint.vercel.app/about.html">
 
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Team Directory">
-<meta name="twitter:description" content="Find a team for the Physical AI Sprint — 1 teams, 1 looking for members.">
+<meta name="twitter:title" content="About">
+<meta name="twitter:description" content="What The Physical AI Sprint is, who runs it, what teams work with, and how judging works.">
 
 <link rel="alternate" type="application/json" href="/api/index.json" title="JSON API">
 <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://physical-ai-sprint.vercel.app/#organization","name":"The Physical AI Sprint","url":"https://physical-ai-sprint.vercel.app","description":"A one-day Physical AI hackathon alongside Actuate SF, hosted by Nebius with NVIDIA, Antioch, and Toloka.","sameAs":["https://github.com/opencolin/physical-ai-sprint-handbook","https://luma.com/nkknxvrz","https://discord.com/invite/nN58zxSTFR","https://nebius.com"],"contactPoint":{"@type":"ContactPoint","contactType":"organizer","url":"https://physical-ai-sprint.vercel.app/contact.html","email":"hello@dabl.club","availableLanguage":["en"]},"address":{"@type":"PostalAddress","addressLocality":"San Francisco","addressRegion":"CA","addressCountry":"US"}},{"@type":"WebSite","@id":"https://physical-ai-sprint.vercel.app/#website","url":"https://physical-ai-sprint.vercel.app","name":"The Physical AI Sprint","publisher":{"@id":"https://physical-ai-sprint.vercel.app/#organization"},"inLanguage":"en"},{"@type":"WebAPI","@id":"https://physical-ai-sprint.vercel.app/#api","name":"Physical AI Sprint API","description":"Read-only JSON API over the hackathon teams and projects. No authentication, no rate limit.","url":"https://physical-ai-sprint.vercel.app/developers.html","documentation":"https://physical-ai-sprint.vercel.app/developers.html","provider":{"@id":"https://physical-ai-sprint.vercel.app/#organization"},"termsOfService":"https://physical-ai-sprint.vercel.app/privacy.html","potentialAction":{"@type":"ConsumeAction","target":{"@type":"EntryPoint","urlTemplate":"https://physical-ai-sprint.vercel.app/api/teams.json","httpMethod":"GET","contentType":"application/json"}}},{"@type":"Service","@id":"https://physical-ai-sprint.vercel.app/#service","name":"The Physical AI Sprint hackathon","serviceType":"Hackathon","description":"A one-day Physical AI hackathon: robot hardware, cloud simulation, workshops, and judging, free to attend.","provider":{"@id":"https://physical-ai-sprint.vercel.app/#organization"},"areaServed":{"@type":"City","name":"San Francisco"},"offers":{"@type":"Offer","price":0,"priceCurrency":"USD","url":"https://luma.com/nkknxvrz"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Handbook","item":"https://physical-ai-sprint.vercel.app/"},{"@type":"ListItem","position":2,"name":"Teams","item":"https://physical-ai-sprint.vercel.app/teams.html"}]},{"@type":"CollectionPage","name":"Team Directory","url":"https://physical-ai-sprint.vercel.app/teams.html","isPartOf":{"@id":"https://physical-ai-sprint.vercel.app/#website"},"mainEntity":{"@type":"ItemList","numberOfItems":1,"itemListElement":[{"@type":"ListItem","position":1,"name":"Practice Makes Perfect","url":"https://physical-ai-sprint.vercel.app/teams/practice-makes-perfect.html"}]}}]}
-</script>
+
 <style>
 /* ==========================================================================
    The Physical AI Sprint — shared design system
@@ -419,7 +417,7 @@ code { font-family: var(--f-mono); font-size: .86em; }
   </a>
   <nav>
     <a href="/">Handbook</a>
-    <a href="/teams.html" aria-current="page">Teams</a>
+    <a href="/teams.html">Teams</a>
     <a href="/showcase.html">Showcase</a>
     <a href="/submit.html">Submit</a>
     <a href="/developers.html">API</a>
@@ -428,133 +426,35 @@ code { font-family: var(--f-mono); font-size: .86em; }
 
 <main id="content">
 
-<header class="pagehead">
+<header class="pagehead narrow">
   <div class="pagehead-in">
-    <p class="eyebrow">Team directory</p>
-    <h1>Find a team</h1>
-    <p class="lede">You do not need to arrive with a team. Post what you want to build, or find a team with room and ask to join. Teams are 4 or 5 people.</p>
-    <div class="actions">
-      <a class="btn" href="https://github.com/opencolin/physical-ai-sprint-handbook/issues/new?template=team.yml&labels=team" target="_blank" rel="noopener noreferrer">Create a team</a>
-      <a class="btn ghost" href="https://discord.com/invite/nN58zxSTFR" target="_blank" rel="noopener noreferrer">Join the Discord</a>
-    </div>
+    <p class="eyebrow">About</p>
+    <h1>About the Sprint</h1>
+    <p class="lede">A one-day hackathon at the intersection of AI and the physical world, held 2026-08-17 alongside Actuate SF.</p>
   </div>
 </header>
 
-<div class="wrap">
-  <div class="controls">
-    <input type="search" id="q" placeholder="Search teams, skills, people…" aria-label="Search teams"
-      toolname="search_teams"
-      tooldescription="Filter hackathon teams by name, what they are building, the skills they want, or a member's name.">
-    <div class="filters" role="group" aria-label="Filter teams">
-      <button data-filter="all" aria-pressed="true">All</button>
-      <button data-filter="yes" aria-pressed="false">Has room</button>
-    </div>
-    <span class="count"><b id="shown">1</b> teams · 1 with room · 1 people</span>
+<div class="wrap narrow">
+  <h2>What it is</h2>
+  <p>The Physical AI Sprint gathers 100 to 125 engineers into teams of 4 or 5 for a single day of building. The brief is deliberately open-ended: we provide the robots, the simulation platform, and the building blocks, and each team decides what their system does and how it thinks.</p>
+  <p>The framing is the perception–reasoning–action loop. Modern AI is very good at generating text and pixels; Physical AI requires closing the loop between a digital mind and a physical embodiment. A project has to interpret sensor data into an understanding of a scene, turn a goal into multi-step behavior that adapts when the world changes, and translate that plan into motion that actually works on hardware or in physics.</p>
+
+  <h2>Who runs it</h2>
+  <p>The event is hosted by <strong>Nebius</strong>, with <strong>NVIDIA</strong>, <strong>Antioch</strong>, and <strong>Toloka</strong>. Engineers from each are on site for the full day answering platform, hardware, and training questions — the guides in the handbook exist so that those conversations can be about robotics rather than about environment setup.</p>
+
+  <h2>What teams work with</h2>
+  <p>Ten LeRobot SO-101 leader/follower arm pairs, two Unitree Go2-W wheeled quadrupeds, and one Unitree G1 humanoid, shared between teams and staffed by the hosts. Alongside the hardware, the Antioch cloud simulation platform runs the NVIDIA Isaac stack on GPU machines, so a team with no local GPU can still build and test a full loop. Because hardware is limited and shared, simulation is the dependable path, and the strongest projects usually run most of their loop in sim even when they touch a real robot.</p>
+
+  <h2>How judging works</h2>
+  <p>Judging runs science-fair style: judges circulate and view projects at team stations, then the top six demo to the full group before winners are announced. Projects are scored on ambition, functionality, creativity, and architectural quality, unweighted — how hard the problem is, whether it works end-to-end when demonstrated, how original the approach is, and how cleanly the system separates perception, reasoning, and action.</p>
+
+  <h2>This site</h2>
+  <p>The handbook, team directory, and project showcase are a static site with no database. Teams and submissions are GitHub issues, synced into JSON and rendered into pages by a build script, so everything published here has a traceable source. The whole thing is open source at <a href="https://github.com/opencolin/physical-ai-sprint-handbook">github.com/opencolin/physical-ai-sprint-handbook</a>, and the same data is available as a <a href="/developers.html">read-only JSON API</a>.</p>
+
+  <div class="actions">
+    <a class="btn" href="https://luma.com/nkknxvrz">Apply to attend</a>
+    <a class="btn ghost" href="/contact.html">Contact</a>
   </div>
-
-  <div class="grid teams" id="grid">
-      <article class="tcard" id="team-practice-makes-perfect" data-open="yes" data-search="practice makes perfect practice makes perfect   colin lowenberg opencolin">
-        <div class="tcard-top">
-          <h3><a href="/teams/practice-makes-perfect.html">Practice Makes Perfect</a></h3>
-          <span class="chip track-both">Looking for teammates</span>
-        </div>
-        <p class="tag">Practice Makes Perfect</p>
-        
-        
-        <ul class="roster">
-          <li><a href="https://github.com/opencolin" target="_blank" rel="noopener noreferrer"><img src="https://github.com/opencolin.png?size=44" alt="" loading="lazy">Colin Lowenberg</a></li>
-        </ul>
-        
-        <div class="tcard-foot">
-          <a class="btn ghost" href="/teams/practice-makes-perfect.html">View team</a>
-          <a class="btn ghost" href="https://github.com/opencolin/physical-ai-sprint-handbook/issues/1" target="_blank" rel="noopener noreferrer">Ask to join</a>
-          
-          
-        </div>
-      </article>
-  </div>
-
-  <div class="empty" id="noresults" hidden>
-    <h3>Nothing matches</h3>
-    <p>Try a different skill or clear the filter — or post your own team.</p>
-  </div>
-
-  <script>
-  (function () {
-    var TOOL_NAME = 'search_teams';
-    var TOOL_DESC = 'Filter hackathon teams by name, what they are building, the skills they want, or a member name.';
-    var cards = Array.prototype.slice.call(document.querySelectorAll('.tcard'));
-    var q = document.getElementById('q');
-    var shown = document.getElementById('shown');
-    var none = document.getElementById('noresults');
-    var grid = document.getElementById('grid');
-    var filter = 'all';
-
-    function apply() {
-      var term = q.value.trim().toLowerCase();
-      var n = 0;
-      cards.forEach(function (c) {
-        var okOpen = filter === 'all' || c.getAttribute('data-open') === filter;
-        var okTerm = !term || c.getAttribute('data-search').indexOf(term) !== -1;
-        var on = okOpen && okTerm;
-        c.hidden = !on;
-        if (on) n++;
-      });
-      shown.textContent = n;
-      none.hidden = n !== 0;
-      grid.hidden = n === 0;
-    }
-
-    q.addEventListener('input', apply);
-
-    // WebMCP: expose the same filter as a callable tool for browser-resident
-    // agents. Guarded because the API only exists in recent Chrome.
-    var mc = window.document.modelContext || window.navigator.modelContext;
-    if (mc && typeof mc.registerTool === 'function') {
-      mc.registerTool({
-        name: TOOL_NAME,
-        description: TOOL_DESC,
-        inputSchema: {
-          type: 'object',
-          properties: { query: { type: 'string', description: 'Text to filter by.' } },
-          required: ['query'],
-        },
-        async execute(args) {
-          q.value = (args && args.query) || '';
-          apply();
-          var hits = cards.filter(function (c) { return !c.hidden; })
-            .map(function (c) { return { name: c.querySelector('h3').textContent.trim(), url: (c.getAttribute('href') || (c.querySelector('a') || {}).getAttribute && c.querySelector('a').getAttribute('href')) || null }; });
-          return { content: [{ type: 'text', text: JSON.stringify({ count: hits.length, results: hits }) }] };
-        },
-      });
-    }
-    Array.prototype.forEach.call(document.querySelectorAll('.filters button'), function (b) {
-      b.addEventListener('click', function () {
-        filter = b.getAttribute('data-filter');
-        Array.prototype.forEach.call(document.querySelectorAll('.filters button'), function (o) {
-          o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
-        });
-        apply();
-      });
-    });
-  })();
-  </script>
-
-  <h2>How it works</h2>
-  <ol class="steps">
-    <li>
-      <h3>Post your team</h3>
-      <p>Even solo. Say what you want to build and which skills you are missing.</p>
-    </li>
-    <li>
-      <h3>People ask to join</h3>
-      <p>Joining is a comment on your team's issue, so the conversation stays in one place.</p>
-    </li>
-    <li>
-      <h3>Add them to the list</h3>
-      <p>Edit the issue to add members. Mark the team full when you hit 4 or 5 and it stops showing under "has room".</p>
-    </li>
-  </ol>
 </div>
 </main>
 

@@ -1,11 +1,6 @@
----
-title: Authentication
-description: How agents authenticate against the Physical AI Sprint API.
-canonical: https://physical-ai-sprint.vercel.app/auth.md
-last-updated: 2026-08-17
----
-
 # Authentication
+
+<!-- canonical: https://physical-ai-sprint.vercel.app/auth.md · last-updated: 2026-08-17 -->
 
 ## Discover
 
