@@ -62,7 +62,7 @@ function apiFiles(teams, projects) {
   });
 
   return {
-    'api/event.json': json({
+    'apidata/event.json': json({
       name: 'The Physical AI Sprint',
       tagline: 'A one-day hackathon at the intersection of AI and the physical world, alongside Actuate SF.',
       date: EVENT_DATE,
@@ -86,7 +86,7 @@ function apiFiles(teams, projects) {
       links: { handbook: SITE, teams: `${SITE}/api/teams.json`, projects: `${SITE}/api/projects.json` },
     }),
 
-    'api/teams.json': json({
+    'apidata/teams.json': json({
       object: 'list',
       count: teams.length,
       generatedAt: stamp,
@@ -94,7 +94,7 @@ function apiFiles(teams, projects) {
       data: teams.map(publicTeam),
     }),
 
-    'api/projects.json': json({
+    'apidata/projects.json': json({
       object: 'list',
       count: projects.length,
       generatedAt: stamp,
@@ -102,7 +102,7 @@ function apiFiles(teams, projects) {
       data: projects.map(publicProject),
     }),
 
-    'api/index.json': json({
+    'apidata/index.json': json({
       object: 'index',
       description: 'Read-only JSON API for The Physical AI Sprint. No authentication, no rate limit, CORS open.',
       openapi: `${SITE}/openapi.json`,
@@ -116,7 +116,7 @@ function apiFiles(teams, projects) {
 
     // A static host cannot branch on path, so this is the documented JSON body
     // agents get for an unknown /api/ path via the vercel.json rewrite.
-    'api/404.json': json({
+    'apidata/404.json': json({
       error: {
         code: 'not_found',
         message: 'No such endpoint. This API is read-only and has three endpoints.',
@@ -949,7 +949,7 @@ Teams and project submissions are public data, available as JSON:
     'agents.md': agents,
     'auth.md': auth,
     'pricing.md': pricing,
-    'api/llms.txt': `# Physical AI Sprint API
+    'apidata/llms.txt': `# Physical AI Sprint API
 
 > Read-only JSON over the hackathon's teams and projects. No auth, no rate limit.
 

@@ -104,6 +104,30 @@
   ],
   "rewrites": [
     {
+      "source": "/api/index.json",
+      "destination": "/apidata/index.json"
+    },
+    {
+      "source": "/api/event.json",
+      "destination": "/apidata/event.json"
+    },
+    {
+      "source": "/api/teams.json",
+      "destination": "/apidata/teams.json"
+    },
+    {
+      "source": "/api/projects.json",
+      "destination": "/apidata/projects.json"
+    },
+    {
+      "source": "/api/404.json",
+      "destination": "/apidata/404.json"
+    },
+    {
+      "source": "/api/llms.txt",
+      "destination": "/apidata/llms.txt"
+    },
+    {
       "source": "/judge",
       "destination": "/judge.html"
     },
