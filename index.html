@@ -486,6 +486,12 @@
     </div>
 
     <nav class="nav" id="nav" aria-label="Handbook sections">
+      <div class="nav-group">Projects</div>
+      <ul>
+        <li><a href="/showcase.html"><span class="n">→</span>Project showcase</a></li>
+        <li><a href="/submit.html"><span class="n">→</span>Submit a project</a></li>
+      </ul>
+
       <div class="nav-group">The event</div>
       <ul>
         <li><a href="#expect"><span class="n">·</span>What to expect</a></li>
@@ -1452,6 +1458,8 @@ robot = Articulation(UNITREE_GO2_CFG.replace(prim_path="/World/robot"))</code></
         <div class="foot-links">
           <a href="https://luma.com/nkknxvrz">Apply</a>
           <a href="https://discord.com/invite/nN58zxSTFR">Discord</a>
+          <a href="/showcase.html">Showcase</a>
+          <a href="/submit.html">Submit a project</a>
           <a href="https://nebius.com/careers">Nebius careers</a>
           <a href="https://docs.nebius.com/legal/privacy">Privacy</a>
         </div>
@@ -1546,9 +1554,12 @@ robot = Articulation(UNITREE_GO2_CFG.replace(prim_path="/World/robot"))</code></
 
   /* ---- nav scroll spy ---- */
   var navLinks = Array.prototype.slice.call(document.querySelectorAll("#nav a"));
+  // Only in-page anchors participate in scroll spy; the rail also holds links
+  // to other pages, and passing those to querySelector would throw.
+  var spyLinks = navLinks.filter(function (a) { return (a.getAttribute("href") || "").charAt(0) === "#"; });
   var byHash = {};
-  navLinks.forEach(function (a) { byHash[a.getAttribute("href")] = a; });
-  var targets = navLinks
+  spyLinks.forEach(function (a) { byHash[a.getAttribute("href")] = a; });
+  var targets = spyLinks
     .map(function (a) { return document.querySelector(a.getAttribute("href")); })
     .filter(Boolean);
 
@@ -1567,7 +1578,7 @@ robot = Articulation(UNITREE_GO2_CFG.replace(prim_path="/World/robot"))</code></
   targets.forEach(function (el) { spy.observe(el); });
 
   function setCurrent(id) {
-    navLinks.forEach(function (a) { a.classList.remove("here"); });
+    spyLinks.forEach(function (a) { a.classList.remove("here"); });
     Array.prototype.forEach.call(document.querySelectorAll("#nav li"), function (li) { li.classList.remove("current"); });
     var link = byHash["#" + id];
     if (!link) return;

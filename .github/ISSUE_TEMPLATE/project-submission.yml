@@ -1,0 +1,97 @@
+name: Project submission
+description: Submit your project to The Physical AI Sprint showcase
+title: "[Project] "
+labels: ["submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        One submission per team — whoever files this is fine, list everyone below.
+
+        **Media:** drag image and video files straight into the photo and video boxes.
+        GitHub uploads and hosts them. You can edit this issue any time before judging
+        and your project page will update itself.
+
+  - type: input
+    id: title
+    attributes:
+      label: Project name
+      placeholder: Vial Sorter 9000
+    validations:
+      required: true
+
+  - type: input
+    id: tagline
+    attributes:
+      label: One-line summary
+      description: What it does, in a sentence. This is the card text in the showcase.
+      placeholder: A pick-and-place cell that re-plans when the vial rack gets shuffled.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: track
+    attributes:
+      label: Track
+      options:
+        - Sim only
+        - Hardware only
+        - Sim and real
+    validations:
+      required: true
+
+  - type: input
+    id: robots
+    attributes:
+      label: Robots used
+      description: Comma separated.
+      placeholder: SO-101, Go2-W
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What you built, how it works, and what you would do next. Judges read this.
+      placeholder: |
+        The perception stack runs YOLO on the wrist camera to locate vials...
+    validations:
+      required: true
+
+  - type: textarea
+    id: video
+    attributes:
+      label: Demo video
+      description: Drag a video file in here, or paste a YouTube, Vimeo, or Loom link.
+      placeholder: https://youtu.be/...
+    validations:
+      required: false
+
+  - type: textarea
+    id: photos
+    attributes:
+      label: Photos
+      description: Drag image files in here. The first one becomes your showcase cover and link preview.
+    validations:
+      required: false
+
+  - type: input
+    id: repo
+    attributes:
+      label: Code
+      description: Link to your repo, if it is public.
+      placeholder: https://github.com/your-team/your-project
+    validations:
+      required: false
+
+  - type: textarea
+    id: team
+    attributes:
+      label: Team
+      description: One person per line, as `Name @githubhandle`. Their avatar and profile link go on your project page.
+      placeholder: |
+        Ada Lovelace @ada
+        Grace Hopper @ghopper
+    validations:
+      required: true
