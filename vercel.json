@@ -8,36 +8,75 @@
           "key": "Link",
           "value": "</sitemap.xml>; rel=\"sitemap\", </llms.txt>; rel=\"alternate\"; type=\"text/plain\", </openapi.json>; rel=\"service-desc\"; type=\"application/vnd.oai.openapi+json\", </.well-known/api-catalog>; rel=\"api-catalog\", </developers.html>; rel=\"service-doc\""
         },
-        { "key": "Vary", "value": "Accept, Accept-Encoding" }
+        {
+          "key": "Vary",
+          "value": "Accept, Accept-Encoding"
+        }
+      ]
+    },
+    {
+      "source": "/judge.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
       ]
     },
     {
       "source": "/api/(.*)",
       "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET, OPTIONS" },
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, OPTIONS"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
       ]
     },
     {
       "source": "/openapi.json",
       "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Content-Type", "value": "application/vnd.oai.openapi+json; charset=utf-8" }
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/vnd.oai.openapi+json; charset=utf-8"
+        }
       ]
     },
     {
       "source": "/(.*).md",
       "headers": [
-        { "key": "Content-Type", "value": "text/markdown; charset=utf-8" },
-        { "key": "Access-Control-Allow-Origin", "value": "*" }
+        {
+          "key": "Content-Type",
+          "value": "text/markdown; charset=utf-8"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
       ]
     },
     {
       "source": "/(.*).txt",
       "headers": [
-        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-        { "key": "Access-Control-Allow-Origin", "value": "*" }
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
       ]
     },
     {
@@ -47,12 +86,42 @@
           "key": "Content-Type",
           "value": "application/linkset+json;profile=\"https://www.rfc-editor.org/info/rfc9727\""
         },
-        { "key": "Access-Control-Allow-Origin", "value": "*" }
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
       ]
     },
     {
       "source": "/.well-known/(.*)",
-      "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "judge.buildspace.tv"
+        }
+      ],
+      "destination": "/judge.html"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "judge.buildteam.app"
+        }
+      ],
+      "destination": "/judge.html"
     }
   ]
 }

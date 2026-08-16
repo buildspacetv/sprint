@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="color-scheme" content="light dark">
+<title>Judging — Physical AI Sprint</title>
+<style>
+/* ==========================================================================
+   The Physical AI Sprint — shared design system
+   Single source of truth for every generated page. build.js inlines this
+   file into each output page, so the pages stay self-contained.
+   index.html keeps its own copy of these tokens on purpose: it is also
+   published as a standalone Artifact, which cannot load external CSS.
+   ========================================================================== */
+
+:root {
+  --paper:      #EDEFF1;
+  --surface:    #F8FAFB;
+  --surface-2:  #E1E6EA;
+  --ink:        #10151A;
+  --ink-2:      #414D58;
+  --ink-3:      #5F6C77;
+  --line:       #CBD3D9;
+  --line-2:     #A8B4BE;
+  --accent:     #1F3FBF;
+  --accent-ink: #1F3FBF;
+  --accent-soft: rgba(31,63,191,.10);
+  --ok:         #0B6B57;
+  --ok-soft:    rgba(11,107,87,.10);
+  --warn:       #8C5906;
+  --warn-soft:  rgba(140,89,6,.11);
+  --alert:      #A62D1B;
+  --alert-soft: rgba(166,45,27,.10);
+  --term-bg:    #0B1116;
+  --term-ink:   #D2DCE3;
+  --term-line:  #22303A;
+  --term-dim:   #7A8B97;
+  --shadow:     0 1px 2px rgba(16,21,26,.06), 0 8px 24px -12px rgba(16,21,26,.18);
+
+  --f-display: "Avenir Next Condensed", "Roboto Condensed", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --f-body: Charter, "Bitstream Charter", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --f-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:      #0C1115;
+    --surface:    #131A20;
+    --surface-2:  #1B242B;
+    --ink:        #E7EDF1;
+    --ink-2:      #A7B4BF;
+    --ink-3:      #74838F;
+    --line:       #24303A;
+    --line-2:     #38454F;
+    --accent:     #86A2FF;
+    --accent-ink: #A5B9FF;
+    --accent-soft: rgba(134,162,255,.13);
+    --ok:         #4CC7A2;
+    --ok-soft:    rgba(76,199,162,.12);
+    --warn:       #E2A84E;
+    --warn-soft:  rgba(226,168,78,.12);
+    --alert:      #F2735E;
+    --alert-soft: rgba(242,115,94,.12);
+    --term-bg:    #070C10;
+    --term-ink:   #CBD7DF;
+    --term-line:  #1D2A33;
+    --term-dim:   #6C7D89;
+    --shadow:     0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"] {
+  --paper:      #0C1115;
+  --surface:    #131A20;
+  --surface-2:  #1B242B;
+  --ink:        #E7EDF1;
+  --ink-2:      #A7B4BF;
+  --ink-3:      #74838F;
+  --line:       #24303A;
+  --line-2:     #38454F;
+  --accent:     #86A2FF;
+  --accent-ink: #A5B9FF;
+  --accent-soft: rgba(134,162,255,.13);
+  --ok:         #4CC7A2;
+  --ok-soft:    rgba(76,199,162,.12);
+  --warn:       #E2A84E;
+  --warn-soft:  rgba(226,168,78,.12);
+  --alert:      #F2735E;
+  --alert-soft: rgba(242,115,94,.12);
+  --term-bg:    #070C10;
+  --term-ink:   #CBD7DF;
+  --term-line:  #1D2A33;
+  --term-dim:   #6C7D89;
+  --shadow:     0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px;
+}
+img, video { max-width: 100%; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--accent); color: #fff; padding: 10px 16px;
+  font-family: var(--f-display); border-radius: 0 0 6px 0; text-decoration: none;
+}
+.skip:focus { left: 0; }
+
+/* ---------- top bar ---------- */
+.bar {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; gap: 22px;
+  padding: 12px 28px;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+}
+.bar .mark { display: flex; flex-direction: column; gap: 1px; text-decoration: none; color: var(--ink); }
+.bar .mark b {
+  font-family: var(--f-display); font-weight: 600; font-size: 1.1rem;
+  letter-spacing: .01em; text-transform: uppercase; line-height: 1.05;
+}
+.bar .mark span { font-family: var(--f-mono); font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+.bar nav { margin-left: auto; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.bar nav a {
+  font-family: var(--f-display); font-size: .98rem; letter-spacing: .015em;
+  padding: 6px 12px; border-radius: 6px; text-decoration: none; color: var(--ink-2);
+}
+.bar nav a:hover { background: var(--surface-2); color: var(--ink); }
+.bar nav a[aria-current="page"] { background: var(--accent-soft); color: var(--accent-ink); }
+
+/* ---------- shared layout ---------- */
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px 120px; }
+.wrap.narrow { max-width: 780px; }
+
+.pagehead {
+  padding: 62px 28px 40px; border-bottom: 1px solid var(--line);
+  background:
+    repeating-linear-gradient(0deg, var(--accent-soft) 0 1px, transparent 1px 46px),
+    repeating-linear-gradient(90deg, var(--accent-soft) 0 1px, transparent 1px 46px),
+    var(--surface);
+  margin-bottom: 42px;
+}
+.pagehead-in { max-width: 1120px; margin: 0 auto; }
+.pagehead.narrow .pagehead-in { max-width: 780px; }
+.eyebrow { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent-ink); margin: 0; }
+h1 {
+  font-family: var(--f-display); font-weight: 600;
+  font-size: clamp(2.1rem, 5vw, 3.2rem); line-height: 1; letter-spacing: -.005em;
+  text-transform: uppercase; text-wrap: balance; margin: 13px 0 16px;
+}
+h2 {
+  font-family: var(--f-display); font-weight: 600; text-transform: uppercase;
+  font-size: 1.6rem; line-height: 1.1; margin: 46px 0 6px; text-wrap: balance;
+}
+h3 { font-family: var(--f-display); font-weight: 600; font-size: 1.16rem; margin: 30px 0 4px; letter-spacing: .01em; }
+p { margin: 12px 0; }
+.lede { font-size: 1.1rem; color: var(--ink-2); max-width: 62ch; margin: 0; }
+
+ul.list, ol.list { margin: 12px 0; padding-left: 1.15em; display: flex; flex-direction: column; gap: 7px; }
+ul.list li::marker { color: var(--ink-3); }
+ol.list li::marker { font-family: var(--f-mono); font-size: .82rem; color: var(--accent-ink); }
+
+code { font-family: var(--f-mono); font-size: .86em; }
+:not(pre) > code { background: var(--surface-2); padding: 1px 5px; border-radius: 4px; color: var(--ink); word-break: break-word; }
+
+.chip {
+  font-family: var(--f-mono); font-size: .68rem; letter-spacing: .06em;
+  padding: 3px 9px; border: 1px solid var(--line-2); border-radius: 99px;
+  color: var(--ink-2); background: var(--paper); white-space: nowrap;
+}
+.chip.track-sim { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); }
+.chip.track-hardware { border-color: var(--warn); color: var(--warn); background: var(--warn-soft); }
+.chip.track-both { border-color: var(--ok); color: var(--ok); background: var(--ok-soft); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--f-display); font-size: 1rem; letter-spacing: .02em;
+  padding: 9px 18px; border-radius: 6px; text-decoration: none;
+  border: 1px solid var(--accent); background: var(--accent); color: #fff;
+}
+:root[data-theme="dark"] .btn:not(.ghost) { color: #0C1115; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn:not(.ghost) { color: #0C1115; } }
+.btn:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; color: var(--accent-ink); }
+.btn.ghost:hover { background: var(--accent-soft); filter: none; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 0; }
+
+.note {
+  margin: 20px 0; border: 1px solid var(--line); border-left: 3px solid var(--line-2);
+  border-radius: 0 8px 8px 0; background: var(--surface); padding: 12px 16px 14px;
+}
+.note-head { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
+.note-body { margin-top: 5px; font-size: .95rem; color: var(--ink-2); }
+.note-body > :first-child { margin-top: 0; }
+.note.info { border-left-color: var(--accent); background: var(--accent-soft); }
+.note.info .note-head { color: var(--accent-ink); }
+.note.warn { border-left-color: var(--warn); background: var(--warn-soft); }
+.note.warn .note-head { color: var(--warn); }
+
+/* ---------- showcase controls ---------- */
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 26px; }
+.controls input[type="search"] {
+  flex: 1 1 240px; min-width: 0;
+  font-family: var(--f-body); font-size: .96rem; color: var(--ink);
+  padding: 9px 13px; border: 1px solid var(--line); border-radius: 7px;
+  background: var(--surface);
+}
+.controls input[type="search"]::placeholder { color: var(--ink-3); }
+.filters { display: flex; gap: 4px; padding: 3px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.filters button {
+  font-family: var(--f-mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase;
+  padding: 6px 12px; border: 0; border-radius: 5px; background: transparent; color: var(--ink-3); cursor: pointer;
+}
+.filters button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+:root[data-theme="dark"] .filters button[aria-pressed="true"] { color: #0C1115; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .filters button[aria-pressed="true"] { color: #0C1115; } }
+.count { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-left: auto; }
+
+/* ---------- project grid ---------- */
+.grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+.pcard {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+  overflow: hidden; text-decoration: none; color: inherit;
+  transition: border-color .15s, transform .15s;
+}
+.pcard:hover { border-color: var(--line-2); transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) { .pcard:hover { transform: none; } }
+.pcard .cover {
+  aspect-ratio: 16 / 9; background: var(--surface-2);
+  display: grid; place-items: center; overflow: hidden; border-bottom: 1px solid var(--line);
+}
+.pcard .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pcard .cover .ph { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+.pcard .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.pcard h3 { margin: 0; font-size: 1.14rem; line-height: 1.2; }
+.pcard .tag { margin: 0; font-size: .92rem; color: var(--ink-2); flex: 1; }
+.pcard .meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pcard .badge {
+  font-family: var(--f-mono); font-size: .6rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-3); display: inline-flex; align-items: center; gap: 5px;
+}
+
+/* ---------- team directory cards ---------- */
+.grid.teams { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+.tcard {
+  display: flex; flex-direction: column; gap: 10px;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+  padding: 16px 18px 15px;
+}
+.tcard[data-open="yes"] { border-left: 3px solid var(--ok); }
+.tcard-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.tcard-top h3 { margin: 0; font-size: 1.16rem; line-height: 1.2; }
+.tcard .tag { margin: 0; font-size: .94rem; color: var(--ink-2); }
+.skills { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; }
+.skills-label { font-family: var(--f-mono); font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-right: 3px; }
+.roster { list-style: none; margin: 2px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.roster li { margin: 0; }
+.roster a, .roster span {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .86rem; color: var(--ink-2); text-decoration: none;
+  padding: 3px 9px 3px 3px; border: 1px solid var(--line); border-radius: 99px; background: var(--paper);
+}
+.roster a:hover { border-color: var(--accent); color: var(--accent-ink); }
+.roster span { padding-left: 9px; }
+.roster img { width: 20px; height: 20px; border-radius: 99px; background: var(--surface-2); }
+.tcard:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.built { margin: 0; font-size: .9rem; display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; }
+.tcard-foot { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-top: auto; padding-top: 10px; }
+.tcard-foot .btn { padding: 6px 13px; font-size: .92rem; }
+.badge { font-family: var(--f-mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+
+/* ---------- team ---------- */
+.avatars { display: flex; align-items: center; }
+.avatars img {
+  width: 26px; height: 26px; border-radius: 99px; display: block;
+  border: 1.5px solid var(--surface); background: var(--surface-2); margin-left: -7px;
+}
+.avatars img:first-child { margin-left: 0; }
+
+.team { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); margin: 16px 0; padding: 0; list-style: none; }
+.team li { margin: 0; }
+.team a, .team .nolink {
+  display: flex; align-items: center; gap: 11px; padding: 9px 12px;
+  border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
+  text-decoration: none; color: inherit;
+}
+.team a:hover { border-color: var(--line-2); }
+.team .nolink { color: var(--ink-3); }
+.tcard-top h3 a { color: inherit; text-decoration: none; }
+.tcard-top h3 a:hover { color: var(--accent-ink); }
+.team img { width: 34px; height: 34px; border-radius: 99px; flex: none; background: var(--surface-2); }
+.team .who { display: flex; flex-direction: column; min-width: 0; }
+.team .nm { font-family: var(--f-display); font-size: 1rem; letter-spacing: .01em; }
+.team .gh { font-family: var(--f-mono); font-size: .7rem; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; }
+
+/* ---------- project page media ---------- */
+.videowrap {
+  position: relative; aspect-ratio: 16 / 9; margin: 22px 0;
+  border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #000;
+}
+.videowrap iframe, .videowrap video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+
+.gallery { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 20px 0; }
+.gallery a { display: block; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; background: var(--surface-2); }
+.gallery img { width: 100%; display: block; aspect-ratio: 4 / 3; object-fit: cover; }
+
+.facts { border: 1px solid var(--line); border-radius: 9px; overflow: hidden; margin: 22px 0; }
+.facts div { display: grid; grid-template-columns: 132px 1fr; gap: 14px; padding: 9px 15px; border-bottom: 1px solid var(--line); font-size: .93rem; }
+.facts div:last-child { border-bottom: 0; }
+.facts dt { font-family: var(--f-mono); font-size: .63rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin: 3px 0 0; }
+.facts dd { margin: 0; color: var(--ink-2); }
+
+.prose p { max-width: 68ch; }
+.back { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; }
+
+.empty {
+  border: 1px dashed var(--line-2); border-radius: 10px; padding: 54px 28px;
+  text-align: center; color: var(--ink-2); background: var(--surface);
+}
+.empty h3 { margin: 0 0 6px; }
+.empty p { margin: 0 auto; max-width: 46ch; }
+
+/* ---------- steps ---------- */
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 22px 0; display: flex; flex-direction: column; gap: 16px; }
+.steps li {
+  counter-increment: s; position: relative; padding-left: 46px;
+}
+.steps li::before {
+  content: counter(s, decimal-leading-zero); position: absolute; left: 0; top: 1px;
+  font-family: var(--f-mono); font-size: .74rem; letter-spacing: .06em; color: var(--accent-ink);
+  border: 1px solid var(--line); border-radius: 6px; padding: 3px 7px; background: var(--surface);
+}
+.steps h3 { margin: 0 0 3px; }
+.steps p { margin: 0; color: var(--ink-2); font-size: .96rem; }
+
+.fields { width: 100%; border-collapse: collapse; font-size: .93rem; margin: 16px 0; }
+.fields th {
+  text-align: left; font-family: var(--f-mono); font-weight: 500; font-size: .62rem;
+  letter-spacing: .15em; text-transform: uppercase; color: var(--ink-3);
+  padding: 9px 12px; border-bottom: 1px solid var(--line);
+}
+.fields td { padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-2); }
+.fields td:first-child { color: var(--ink); font-family: var(--f-display); font-size: 1rem; white-space: nowrap; }
+.fields tr:last-child td { border-bottom: 0; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
+
+/* ---------- share ---------- */
+.share { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 26px 0 0; padding-top: 20px; border-top: 1px solid var(--line); }
+.share-label { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); margin-right: 4px; }
+.share a, .share button {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--f-display); font-size: .92rem; letter-spacing: .015em;
+  padding: 7px 13px; border: 1px solid var(--line-2); border-radius: 6px;
+  background: var(--surface); color: var(--ink-2); text-decoration: none; cursor: pointer;
+}
+.share a:hover, .share button:hover { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); }
+.share svg { width: 14px; height: 14px; flex: none; fill: currentColor; }
+.share button.done { border-color: var(--ok); color: var(--ok); background: var(--ok-soft); }
+#nativeShare[hidden] { display: none; }
+
+/* ---------- footer ---------- */
+.foot { border-top: 1px solid var(--line); margin-top: 70px; padding: 28px 0 0; display: flex; flex-direction: column; gap: 12px; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: .9rem; }
+.foot-fine { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .06em; color: var(--ink-3); margin: 0; }
+
+@media (max-width: 720px) {
+  /* The nav wrapped to a second row, making the sticky bar 95px tall — 12% of
+     a phone viewport, permanently. Drop the date line and tighten the nav so
+     it fits one row. */
+  .bar { padding: 8px 14px; gap: 10px; }
+  .bar .mark span { display: none; }
+  .bar .mark b { font-size: 1rem; }
+  .bar nav { gap: 1px; }
+  .bar nav a { padding: 5px 7px; font-size: .88rem; }
+  .wrap, .pagehead { padding-left: 16px; padding-right: 16px; }
+  .pagehead { padding-top: 40px; padding-bottom: 30px; }
+  .facts div { grid-template-columns: 1fr; gap: 2px; }
+  .count { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+
+  /* ---------- judging tool ---------- */
+  .jbar {
+    position: sticky; top: 0; z-index: 40;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    padding: 10px 20px; background: var(--surface); border-bottom: 1px solid var(--line);
+  }
+  .jbar .who { display: flex; flex-direction: column; gap: 1px; margin-right: auto; }
+  .jbar .who b { font-family: var(--f-display); font-size: 1.05rem; text-transform: uppercase; letter-spacing: .01em; }
+  .jbar .who span { font-family: var(--f-mono); font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+  .jbar select {
+    font-family: var(--f-body); font-size: .95rem; color: var(--ink);
+    padding: 7px 11px; border: 1px solid var(--line-2); border-radius: 6px; background: var(--paper);
+  }
+  .jbar .prog { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+  .jbar .saved { color: var(--ok); }
+
+  .tabs { display: flex; gap: 3px; padding: 3px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+  .tabs button {
+    font-family: var(--f-mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase;
+    padding: 6px 13px; border: 0; border-radius: 5px; background: transparent; color: var(--ink-3); cursor: pointer;
+  }
+  .tabs button[aria-selected="true"] { background: var(--accent); color: #fff; }
+  :root[data-theme="dark"] .tabs button[aria-selected="true"] { color: #0C1115; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tabs button[aria-selected="true"] { color: #0C1115; } }
+
+  .jwrap { max-width: 1100px; margin: 0 auto; padding: 26px 20px 120px; }
+
+  .tcard-j {
+    border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+    padding: 15px 17px 16px; margin-bottom: 14px;
+  }
+  .tcard-j.done { border-left: 3px solid var(--ok); }
+  .tcard-j header { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+  .tcard-j h2 { font-size: 1.2rem; margin: 0; text-transform: none; }
+  .tcard-j .num { font-family: var(--f-mono); font-size: .68rem; color: var(--ink-3); }
+  .tcard-j .avg { margin-left: auto; font-family: var(--f-mono); font-size: .78rem; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .tcard-j .detail { margin: 0 0 10px; font-size: .92rem; color: var(--ink-2); }
+
+  .crit { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin-top: 10px; }
+  .crit > div { display: flex; flex-direction: column; gap: 5px; }
+  .crit label { font-family: var(--f-mono); font-size: .62rem; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3); }
+  .crit .hint { font-size: .8rem; color: var(--ink-3); line-height: 1.35; }
+  .scale { display: flex; flex-wrap: wrap; gap: 3px; }
+  .scale button {
+    width: 30px; height: 30px; padding: 0; cursor: pointer;
+    font-family: var(--f-mono); font-size: .76rem; font-variant-numeric: tabular-nums;
+    border: 1px solid var(--line-2); border-radius: 5px; background: var(--paper); color: var(--ink-2);
+  }
+  .scale button:hover { border-color: var(--accent); color: var(--accent-ink); }
+  .scale button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+  :root[data-theme="dark"] .scale button[aria-pressed="true"] { color: #0C1115; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .scale button[aria-pressed="true"] { color: #0C1115; } }
+  .scale button.clear { width: auto; padding: 0 9px; font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+
+  .notes { margin-top: 12px; display: flex; flex-direction: column; gap: 5px; }
+  .notes label { font-family: var(--f-mono); font-size: .62rem; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-3); }
+  .notes textarea {
+    font-family: var(--f-body); font-size: .94rem; color: var(--ink); line-height: 1.5;
+    padding: 9px 11px; border: 1px solid var(--line); border-radius: 7px; background: var(--paper);
+    resize: vertical; min-height: 52px;
+  }
+
+  table.lb { width: 100%; border-collapse: collapse; font-size: .93rem; }
+  table.lb th {
+    text-align: left; font-family: var(--f-mono); font-weight: 500; font-size: .6rem;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3);
+    padding: 9px 10px; border-bottom: 1px solid var(--line); white-space: nowrap;
+  }
+  table.lb td { padding: 9px 10px; border-bottom: 1px solid var(--line); color: var(--ink-2); }
+  table.lb td.n { font-family: var(--f-mono); font-variant-numeric: tabular-nums; text-align: right; }
+  table.lb td.team { color: var(--ink); font-family: var(--f-display); font-size: 1.02rem; }
+  table.lb tr.top td { background: var(--ok-soft); }
+  table.lb td.overall { font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 600; }
+  .rank { font-family: var(--f-mono); color: var(--ink-3); }
+
+  .panel-j[hidden] { display: none; }
+  @media print {
+    .jbar, .tabs, .actions, .scale button.clear { display: none !important; }
+    .tcard-j { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header class="jbar">
+  <div class="who">
+    <b>Physical AI Sprint — Judging</b>
+    <span>Monday, August 17, 2026</span>
+  </div>
+  <label class="prog" for="judge">Judge</label>
+  <select id="judge" aria-label="Which judge are you?">
+    <option value="">Select your name…</option>
+    <option value="Harry Mellsop">Harry Mellsop — Co-founder, Antioch</option>
+    <option value="Alex Langshur">Alex Langshur — Co-founder, Antioch</option>
+    <option value="Dhruv Diddi">Dhruv Diddi — Principal, Physical AI Builder Ecosystem, Nebius</option>
+    <option value="Edith Llontop">Edith Llontop — Robotics Technical Marketing Engineer, NVIDIA</option>
+    <option value="Irina Mira">Irina Mira — VP of Physical AI, Toloka</option>
+    <option value="Other">Other / guest judge</option>
+  </select>
+  <div class="tabs" role="tablist">
+    <button role="tab" data-panel="score" aria-selected="true">Score</button>
+    <button role="tab" data-panel="board" aria-selected="false">Leaderboard</button>
+    <button role="tab" data-panel="rubric" aria-selected="false">Rubric</button>
+  </div>
+  <span class="prog" id="prog">—</span>
+</header>
+
+<main class="jwrap">
+
+  <div class="note alert" id="localWarning">
+    <div class="note-head">Your scores are saved in this browser only</div>
+    <div class="note-body">
+      There is no server behind this page. Nothing is submitted, and no one else can see
+      what you enter. Scores persist in <b>this browser on this device</b>, so use the same
+      one all afternoon, and <b>press Export before you finish</b> — hand the file to an
+      organizer to be combined with the other judges' scores.
+      <div class="actions">
+        <button class="btn" id="exportCsv" type="button">Export CSV</button>
+        <button class="btn ghost" id="exportJson" type="button">Export JSON</button>
+        <button class="btn ghost" id="printBtn" type="button">Print / PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="panel-j" id="panel-score">
+    <div id="cards"></div>
+  </section>
+
+  <section class="panel-j" id="panel-board" hidden>
+    <h2>Your leaderboard</h2>
+    <p class="lede">Averages of the scores you personally entered, ranked by overall. This is your own tab only — the organizers combine all five judges after the fact.</p>
+    <div class="tablewrap" style="margin-top:18px">
+      <table class="lb">
+        <thead><tr>
+          <th>Rank</th><th>Team</th>
+          <th>Ambition</th>
+          <th>Functionality</th>
+          <th>Creativity</th>
+          <th>Architectural quality</th>
+          <th>Overall</th><th>Scored</th>
+        </tr></thead>
+        <tbody id="lbBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="panel-j" id="panel-rubric" hidden>
+    <h2>Rubric</h2>
+    <p class="lede">Every category is scored 1–10 and weighted equally.</p>
+    <div class="tablewrap" style="margin-top:18px">
+      <table class="lb">
+        <thead><tr><th>Category</th><th>What judges look for</th></tr></thead>
+        <tbody>
+          <tr><td class="team">Ambition</td><td>How hard the problem is and how much of the loop you take on.</td></tr>
+          <tr><td class="team">Functionality</td><td>Does it work end-to-end when demonstrated.</td></tr>
+          <tr><td class="team">Creativity</td><td>Originality in the task, approach, or demo.</td></tr>
+          <tr><td class="team">Architectural quality</td><td>How well the system is put together: clean boundaries between perception, planning, and control.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>How to score</h2>
+    <ul class="list">
+      <li>Score every team you see on all four categories, 1–10.</li>
+      <li><b>Leave a category blank rather than scoring 0</b> if you did not see that team — a blank is excluded from the average, a 0 drags it down.</li>
+      <li>Notes are for you: they are exported alongside your scores and are useful when the room argues about the top six.</li>
+      <li>Judging is science-fair style at team stations. The top six then demo to the full group.</li>
+    </ul>
+
+    <h2>Judges</h2>
+    <div class="tablewrap">
+      <table class="lb">
+        <thead><tr><th>Name</th><th>Role</th></tr></thead>
+        <tbody>
+          <tr><td class="team">Harry Mellsop</td><td>Co-founder, Antioch</td></tr>
+          <tr><td class="team">Alex Langshur</td><td>Co-founder, Antioch</td></tr>
+          <tr><td class="team">Dhruv Diddi</td><td>Principal, Physical AI Builder Ecosystem, Nebius</td></tr>
+          <tr><td class="team">Edith Llontop</td><td>Robotics Technical Marketing Engineer, NVIDIA</td></tr>
+          <tr><td class="team">Irina Mira</td><td>VP of Physical AI, Toloka</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var CRITERIA = [{"id":"ambition","label":"Ambition","hint":"How hard the problem is and how much of the loop you take on."},{"id":"functionality","label":"Functionality","hint":"Does it work end-to-end when demonstrated."},{"id":"creativity","label":"Creativity","hint":"Originality in the task, approach, or demo."},{"id":"architecture","label":"Architectural quality","hint":"How well the system is put together: clean boundaries between perception, planning, and control."}];
+  var TEAMS = [{"n":1,"name":"Practice Makes Perfect","detail":"Practice Makes Perfect","url":"/teams/practice-makes-perfect.html","project":""}];
+  var LIVE_TEAMS = true;
+
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+
+  var judgeSel = document.getElementById('judge');
+  var judge = store.get('pais-judge') || '';
+  if (judge) judgeSel.value = judge;
+
+  var data = {};
+  function key() { return 'pais-scores-' + (judge || 'unset'); }
+  function load() {
+    try { data = JSON.parse(store.get(key()) || '{}'); } catch (e) { data = {}; }
+    if (!data || typeof data !== 'object') data = {};
+  }
+  function save() { store.set(key(), JSON.stringify(data)); flashSaved(); }
+
+  var progEl = document.getElementById('prog');
+  var savedTimer;
+  function flashSaved() {
+    progEl.classList.add('saved');
+    clearTimeout(savedTimer);
+    savedTimer = setTimeout(function () { progEl.classList.remove('saved'); renderProgress(); }, 900);
+    progEl.textContent = 'saved';
+  }
+  function entry(n) { return data[n] || (data[n] = { scores: {}, notes: '' }); }
+  function scoredCount(n) {
+    var e = data[n]; if (!e) return 0;
+    return CRITERIA.filter(function (c) { return typeof e.scores[c.id] === 'number'; }).length;
+  }
+  function avg(n) {
+    var e = data[n]; if (!e) return null;
+    var vals = CRITERIA.map(function (c) { return e.scores[c.id]; }).filter(function (v) { return typeof v === 'number'; });
+    if (!vals.length) return null;
+    return vals.reduce(function (a, b) { return a + b; }, 0) / vals.length;
+  }
+  function renderProgress() {
+    if (!judge) { progEl.textContent = 'select a judge'; return; }
+    var done = TEAMS.filter(function (t) { return scoredCount(t.n) === CRITERIA.length; }).length;
+    var started = TEAMS.filter(function (t) { return scoredCount(t.n) > 0; }).length;
+    progEl.textContent = done + ' complete · ' + started + ' started · ' + TEAMS.length + ' teams';
+  }
+
+  /* ---- score cards ---- */
+  var cards = document.getElementById('cards');
+  function renderCards() {
+    cards.innerHTML = '';
+    if (!judge) {
+      cards.innerHTML = '<div class="empty"><h3>Select your name to begin</h3>' +
+        '<p>Your scores are kept separately per judge, so pick the same name each time you come back.</p></div>';
+      return;
+    }
+    if (!LIVE_TEAMS) {
+      var n = document.createElement('div');
+      n.className = 'note warn';
+      n.innerHTML = '<div class="note-head">Placeholder team list</div><div class="note-body">' +
+        'No teams have registered in the directory yet, so these are the workbook\'s numbered slots. ' +
+        'Once teams register, this page lists them by name automatically.</div>';
+      cards.appendChild(n);
+    }
+    TEAMS.forEach(function (t) {
+      var e = entry(t.n);
+      var card = document.createElement('article');
+      card.className = 'tcard-j' + (scoredCount(t.n) === CRITERIA.length ? ' done' : '');
+
+      var head = document.createElement('header');
+      head.innerHTML = '<span class="num">' + String(t.n).padStart(2, '0') + '</span>' +
+        '<h2>' + (t.url ? '<a href="' + t.url + '" target="_blank" rel="noopener">' + escapeHtml(t.name) + '</a>' : escapeHtml(t.name)) + '</h2>' +
+        (t.project ? '<span class="num">' + escapeHtml(t.project) + '</span>' : '') +
+        '<span class="avg" data-avg="' + t.n + '"></span>';
+      card.appendChild(head);
+
+      if (t.detail) {
+        var d = document.createElement('p');
+        d.className = 'detail';
+        d.textContent = t.detail;
+        card.appendChild(d);
+      }
+
+      var grid = document.createElement('div');
+      grid.className = 'crit';
+      CRITERIA.forEach(function (c) {
+        var wrap = document.createElement('div');
+        var lab = document.createElement('label');
+        lab.textContent = c.label;
+        var hint = document.createElement('span');
+        hint.className = 'hint';
+        hint.textContent = c.hint;
+        var scale = document.createElement('div');
+        scale.className = 'scale';
+        scale.setAttribute('role', 'group');
+        scale.setAttribute('aria-label', c.label + ' score for ' + t.name);
+        for (var i = 1; i <= 10; i++) {
+          (function (v) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.textContent = v;
+            b.setAttribute('aria-label', c.label + ' ' + v + ' out of 10 for ' + t.name);
+            b.setAttribute('aria-pressed', e.scores[c.id] === v ? 'true' : 'false');
+            b.addEventListener('click', function () {
+              var cur = entry(t.n);
+              cur.scores[c.id] = cur.scores[c.id] === v ? undefined : v;
+              if (cur.scores[c.id] === undefined) delete cur.scores[c.id];
+              save(); refreshCard(card, t);
+            });
+            scale.appendChild(b);
+          })(i);
+        }
+        var clr = document.createElement('button');
+        clr.type = 'button';
+        clr.className = 'clear';
+        clr.textContent = 'not seen';
+        clr.setAttribute('aria-label', 'Clear ' + c.label + ' for ' + t.name);
+        clr.addEventListener('click', function () {
+          delete entry(t.n).scores[c.id];
+          save(); refreshCard(card, t);
+        });
+        scale.appendChild(clr);
+        wrap.appendChild(lab); wrap.appendChild(hint); wrap.appendChild(scale);
+        grid.appendChild(wrap);
+      });
+      card.appendChild(grid);
+
+      var nw = document.createElement('div');
+      nw.className = 'notes';
+      var nl = document.createElement('label');
+      nl.textContent = 'Notes';
+      nl.setAttribute('for', 'notes-' + t.n);
+      var ta = document.createElement('textarea');
+      ta.id = 'notes-' + t.n;
+      ta.value = e.notes || '';
+      ta.placeholder = 'What stood out, what you would ask them, anything for the top-six discussion.';
+      ta.addEventListener('input', function () { entry(t.n).notes = ta.value; save(); });
+      nw.appendChild(nl); nw.appendChild(ta);
+      card.appendChild(nw);
+
+      cards.appendChild(card);
+      refreshCard(card, t);
+    });
+    renderProgress();
+  }
+
+  function refreshCard(card, t) {
+    var a = avg(t.n);
+    var el = card.querySelector('[data-avg]');
+    if (el) el.textContent = a === null ? '' : a.toFixed(2) + ' avg · ' + scoredCount(t.n) + '/' + CRITERIA.length;
+    card.classList.toggle('done', scoredCount(t.n) === CRITERIA.length);
+    Array.prototype.forEach.call(card.querySelectorAll('.scale'), function (scale, ci) {
+      var c = CRITERIA[ci]; if (!c) return;
+      var val = (data[t.n] || { scores: {} }).scores[c.id];
+      Array.prototype.forEach.call(scale.querySelectorAll('button:not(.clear)'), function (b, bi) {
+        b.setAttribute('aria-pressed', val === bi + 1 ? 'true' : 'false');
+      });
+    });
+    renderProgress();
+    renderBoard();
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  /* ---- leaderboard ---- */
+  var lbBody = document.getElementById('lbBody');
+  function renderBoard() {
+    var rows = TEAMS.map(function (t) {
+      var e = data[t.n] || { scores: {} };
+      return { t: t, e: e, overall: avg(t.n), n: scoredCount(t.n) };
+    }).filter(function (r) { return r.n > 0; })
+      .sort(function (a, b) { return (b.overall || 0) - (a.overall || 0); });
+
+    if (!rows.length) {
+      lbBody.innerHTML = '<tr><td colspan="' + (CRITERIA.length + 4) + '">No scores yet.</td></tr>';
+      return;
+    }
+    lbBody.innerHTML = rows.map(function (r, i) {
+      return '<tr' + (i < 6 ? ' class="top"' : '') + '>' +
+        '<td class="rank">' + (i + 1) + '</td>' +
+        '<td class="team">' + escapeHtml(r.t.name) + '</td>' +
+        CRITERIA.map(function (c) {
+          var v = r.e.scores[c.id];
+          return '<td class="n">' + (typeof v === 'number' ? v : '—') + '</td>';
+        }).join('') +
+        '<td class="overall">' + (r.overall === null ? '—' : r.overall.toFixed(2)) + '</td>' +
+        '<td class="n">' + r.n + '/' + CRITERIA.length + '</td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  /* ---- export ---- */
+  function download(name, mime, text) {
+    var blob = new Blob([text], { type: mime });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+  function stamp() { return (judge || 'judge').toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
+
+  document.getElementById('exportCsv').addEventListener('click', function () {
+    var q = function (s) { return '"' + String(s == null ? '' : s).replace(/"/g, '""') + '"'; };
+    var head = ['Judge', '#', 'Team'].concat(CRITERIA.map(function (c) { return c.label; })).concat(['Overall', 'Notes']);
+    var lines = [head.map(q).join(',')];
+    TEAMS.forEach(function (t) {
+      var e = data[t.n]; if (!e || (!scoredCount(t.n) && !e.notes)) return;
+      var a = avg(t.n);
+      lines.push([q(judge), q(t.n), q(t.name)]
+        .concat(CRITERIA.map(function (c) { var v = e.scores[c.id]; return q(typeof v === 'number' ? v : ''); }))
+        .concat([q(a === null ? '' : a.toFixed(2)), q(e.notes || '')]).join(','));
+    });
+    download('judging-' + stamp() + '.csv', 'text/csv;charset=utf-8', lines.join('\n'));
+  });
+
+  document.getElementById('exportJson').addEventListener('click', function () {
+    var out = { judge: judge, criteria: CRITERIA.map(function (c) { return c.id; }), teams: [] };
+    TEAMS.forEach(function (t) {
+      var e = data[t.n]; if (!e || (!scoredCount(t.n) && !e.notes)) return;
+      out.teams.push({ number: t.n, team: t.name, scores: e.scores, overall: avg(t.n), notes: e.notes || '' });
+    });
+    download('judging-' + stamp() + '.json', 'application/json', JSON.stringify(out, null, 2));
+  });
+
+  document.getElementById('printBtn').addEventListener('click', function () { window.print(); });
+
+  /* ---- tabs ---- */
+  Array.prototype.forEach.call(document.querySelectorAll('.tabs button'), function (b) {
+    b.addEventListener('click', function () {
+      Array.prototype.forEach.call(document.querySelectorAll('.tabs button'), function (o) {
+        var on = o === b;
+        o.setAttribute('aria-selected', on ? 'true' : 'false');
+        document.getElementById('panel-' + o.getAttribute('data-panel')).hidden = !on;
+      });
+    });
+  });
+
+  judgeSel.addEventListener('change', function () {
+    judge = judgeSel.value;
+    store.set('pais-judge', judge);
+    load(); renderCards(); renderBoard();
+  });
+
+  // Last line of defence for the local-only storage model.
+  window.addEventListener('beforeunload', function (e) {
+    var any = TEAMS.some(function (t) { return scoredCount(t.n) > 0; });
+    if (any && !sessionStorage.getItem('pais-exported')) {
+      e.preventDefault();
+      e.returnValue = '';
+    }
+  });
+  ['exportCsv', 'exportJson'].forEach(function (id) {
+    document.getElementById(id).addEventListener('click', function () {
+      try { sessionStorage.setItem('pais-exported', '1'); } catch (err) {}
+    });
+  });
+
+  load(); renderCards(); renderBoard();
+})();
+</script>
+</body>
+</html>

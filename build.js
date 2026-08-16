@@ -23,6 +23,7 @@ const SUBMIT_URL = `${REPO}/issues/new?template=project-submission.yml&labels=su
 const css = fs.readFileSync(path.join(ROOT, 'src', 'styles.css'), 'utf8');
 const agentFiles = require('./src/agent-files.js');
 const extraPages = require('./src/pages-extra.js');
+const { judgePage } = require('./src/judge.js');
 
 /* ---------------------------------------------------------------- helpers */
 
@@ -1008,6 +1009,10 @@ function main() {
   // Machine-readable surface. Projects carry their resolved team slug so the
   // API expresses the same link the pages do.
   const apiProjects = projects.map((p) => ({ ...p, teamSlug: (teamOf.get(p.slug) || {}).slug || null }));
+
+  // Unlisted judging tool. Deliberately not in the nav, the sitemap, or
+  // llms.txt, and served noindex — it is for the five judges, not the public.
+  fs.writeFileSync(path.join(ROOT, 'judge.html'), judgePage(teams, apiProjects));
   const mdTwins = agentFiles.markdownTwins(teams, projects);
   const generated = {
     ...mdTwins,
