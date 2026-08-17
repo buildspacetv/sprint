@@ -394,7 +394,32 @@ code { font-family: var(--f-mono); font-size: .86em; }
 .foot-links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: .9rem; }
 .foot-fine { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .06em; color: var(--ink-3); margin: 0; }
 
+/* ---------- bottom-left corner ----------
+   The links that are always available rather than part of the reading path:
+   the API docs, the repo, and the redeploy button. Fixed, because "where do I
+   find the API" should have the same answer on every page and at any scroll
+   position. */
+.corner {
+  position: fixed; left: 16px; bottom: 16px; z-index: 30;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  max-width: min(92vw, 420px);
+  padding: 7px 13px; border: 1px solid var(--line-2); border-radius: 99px;
+  background: var(--surface); box-shadow: var(--shadow);
+  font-family: var(--f-mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase;
+}
+.corner a, .corner button { color: var(--ink-3); text-decoration: none; }
+.corner button { font: inherit; text-transform: inherit; letter-spacing: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+.corner a:hover, .corner button:hover:not(:disabled) { color: var(--ink); }
+.corner button:disabled { opacity: .55; cursor: default; }
+.corner-msg:empty { display: none; }
+.corner-msg {
+  flex-basis: 100%; font-size: .62rem; letter-spacing: .03em;
+  text-transform: none; color: var(--ink-3);
+}
+
 @media (max-width: 720px) {
+  .corner { left: 10px; bottom: calc(10px + env(safe-area-inset-bottom)); gap: 10px; }
+
   /* The nav wrapped to a second row, making the sticky bar 95px tall — 12% of
      a phone viewport, permanently. Drop the date line and tighten the nav so
      it fits one row. */
@@ -426,7 +451,6 @@ code { font-family: var(--f-mono); font-size: .86em; }
     <a href="/teams.html">Teams</a>
     <a href="/showcase.html">Showcase</a>
     <a href="/submit.html" aria-current="page">Submit</a>
-    <a href="/developers.html">API</a>
   </nav>
 </header>
 
@@ -511,12 +535,55 @@ code { font-family: var(--f-mono); font-size: .86em; }
       <a href="/about.html">About</a>
       <a href="/contact.html">Contact</a>
       <a href="/privacy.html">Privacy</a>
-      <a href="https://github.com/buildspacetv/sprint">Repo</a>
+      <a href="https://github.com/buildspacetv/sprint">GitHub</a>
     </div>
     <p class="foot-fine">© 2026 The Physical AI Sprint Hackathon. All rights reserved.</p>
   </footer>
 </div>
 
+<div class="corner">
+  <a href="/developers.html">API</a>
+  <a href="https://github.com/buildspacetv/sprint">GitHub</a>
+  <button type="button" data-refresh>Refresh</button>
+  <span class="corner-msg" role="status"></span>
+</div>
+
 <script src="/edit-mode.js" defer></script>
+<script>
+(function () {
+  var KEY = 'pais-edit-key';
+  var btn = document.querySelector('[data-refresh]');
+  var out = document.querySelector('.corner-msg');
+  if (!btn) return;
+  function say(t) { if (out) out.textContent = t || ''; }
+  btn.addEventListener('click', function () {
+    var k = '';
+    try { k = sessionStorage.getItem(KEY) || ''; } catch (e) {}
+    if (!k) {
+      k = window.prompt('Edit passcode (an organizer has it):') || '';
+      if (!k) { say('Cancelled — nothing was triggered.'); return; }
+      try { sessionStorage.setItem(KEY, k); } catch (e) {}
+    }
+    btn.disabled = true;
+    say('Asking Vercel to rebuild…');
+    fetch('/api/redeploy', { method: 'POST', headers: { 'x-edit-key': k } })
+      .then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (d) {
+          return { ok: res.ok, status: res.status, data: d };
+        });
+      })
+      .then(function (r) {
+        if (r.ok) { say('Queued — the new build is usually live in a couple of minutes.'); return; }
+        if (r.status === 401) { try { sessionStorage.removeItem(KEY); } catch (e) {} }
+        say((r.data.error && r.data.error.message) || 'Could not start a redeploy.');
+      })
+      .catch(function () { say('Network error — nothing was triggered.'); })
+      .then(function () {
+        btn.disabled = false;
+        setTimeout(function () { say(''); }, 8000);
+      });
+  });
+})();
+</script>
 </body>
 </html>
