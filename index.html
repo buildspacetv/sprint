@@ -669,6 +669,26 @@
   @media (max-width: 640px) {
     .rail { width: 100%; }
   }
+  /* Desktop: the reading column runs half again as wide and half again as
+     large. Everything in the content area is sized in rem, so lifting the root
+     scales the whole type ramp together; the rail is pinned back to the same
+     pixel sizes it had at a 16px root, because only the right side grows. */
+  @media (min-width: 981px) {
+    html { font-size: 24px; }
+    body { font-size: 25px; }
+    .wrap { max-width: 1170px; padding: 0 66px 140px; }
+    .hero { padding: 76px 66px 54px; }
+    .hero-inner { max-width: 1170px; }
+
+    .rail .wordmark b { font-size: 20.5px; }
+    .rail .wordmark span { font-size: 10.5px; }
+    .rail .searchbtn { font-size: 11.8px; }
+    .rail kbd { font-size: 10.9px; }
+    .nav-group { font-size: 10.2px; }
+    .nav a { font-size: 15.4px; }
+    .nav a .n { font-size: 10.5px; }
+    .sub a { font-size: 13.4px; }
+  }
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; scroll-behavior: auto !important; animation: none !important; }
   }
