@@ -9,6 +9,6 @@ last-updated: 2026-08-17
 
 1 project submitted.
 
-- **[NemoCode](https://www.buildspace.tv/projects/nemocode.html)** — Connect your coding agent to NVIDIA Nemotron and Cosmos models on Nebius Token Factory — one install, four harnesses, zero edits to your real tool config. _(sim)_
+- **[NemoCode](https://www.buildspace.tv/projects/nemocode.html)** — Connect your coding agent to NVIDIA Nemotron and Cosmos on Nebius Token Factory — one install, four harnesses, config-free. _(sim)_
 
 Structured data: [https://www.buildspace.tv/api/projects.json](https://www.buildspace.tv/api/projects.json).
