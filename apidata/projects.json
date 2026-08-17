@@ -10,10 +10,10 @@
       "tagline": "Connect your coding agent to NVIDIA Nemotron and Cosmos models.",
       "track": "sim",
       "robots": [],
-      "description": "Sets up a relay so you can connect Claude Code and Codex to the NVIDIA Nemotron and Cosmos models hosted by Nebius Token Factory",
+      "description": "NemoCode is a local relay that lets the coding agents you already use run on NVIDIA Nemotron and Cosmos models served through Nebius Token Factory — without touching your existing tool configuration.\n\n**How it works.** It is an MIT-licensed CLI router. Install once, then launch your agent with a short command. For Claude Code and Codex CLI it routes the agent's API traffic through a local translation proxy; for OpenCode and Pi Code it injects ephemeral per-run configuration. Your subscription, login, and config files stay exactly as they were — settings are applied for a single run and nothing durable is written.\n\n**Install.**\n\n    curl -fsSL https://nemocode.org/install.sh | sh\n\nmacOS and Linux. Installs Bun if you do not already have it, and keeps itself up to date.\n\n**Supported harnesses.** Claude Code, Codex CLI, OpenCode, and Pi Code — each with its own launch command.\n\n**Why route through it.** One key powers every agent, the model list is pulled live so anything the provider serves is one command away, and per-session cost is metered and printed when you exit. Inference is served from SOC 2-compliant data centers in Paris, France, with zero data retention supported. New Token Factory accounts start with $25 in credits plus $25 in Tavily credits for live web search.\n\n**Relevance to the Sprint.** The reasoning layer of a Physical AI system has to come from somewhere. This makes NVIDIA's models available inside the tools teams are already building with, so the same agent that writes the control code can also run on an open model.\n\nSite: https://nemocode.org · Docs for agents: https://nemocode.org/llms.txt",
       "video": null,
       "images": [],
-      "repo": null,
+      "repo": "https://github.com/opencolin/kimi-relay",
       "team": [],
       "teamSlug": null,
       "url": "https://www.buildspace.tv/projects/nemocode.html"
