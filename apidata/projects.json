@@ -7,14 +7,21 @@
     {
       "slug": "nemocode",
       "title": "NemoCode",
-      "tagline": "Connect your coding agent to NVIDIA Nemotron and Cosmos models.",
+      "tagline": "Connect your coding agent to NVIDIA Nemotron and Cosmos models on Nebius Token Factory — one install, four harnesses, zero edits to your real tool config.",
       "track": "sim",
       "robots": [],
-      "description": "NemoCode is a local relay that lets the coding agents you already use run on NVIDIA Nemotron and Cosmos models served through Nebius Token Factory — without touching your existing tool configuration.\n\n**How it works.** It is an MIT-licensed CLI router. Install once, then launch your agent with a short command. For Claude Code and Codex CLI it routes the agent's API traffic through a local translation proxy; for OpenCode and Pi Code it injects ephemeral per-run configuration. Your subscription, login, and config files stay exactly as they were — settings are applied for a single run and nothing durable is written.\n\n**Install.**\n\n    curl -fsSL https://nemocode.org/install.sh | sh\n\nmacOS and Linux. Installs Bun if you do not already have it, and keeps itself up to date.\n\n**Supported harnesses.** Claude Code, Codex CLI, OpenCode, and Pi Code — each with its own launch command.\n\n**Why route through it.** One key powers every agent, the model list is pulled live so anything the provider serves is one command away, and per-session cost is metered and printed when you exit. Inference is served from SOC 2-compliant data centers in Paris, France, with zero data retention supported. New Token Factory accounts start with $25 in credits plus $25 in Tavily credits for live web search.\n\n**Relevance to the Sprint.** The reasoning layer of a Physical AI system has to come from somewhere. This makes NVIDIA's models available inside the tools teams are already building with, so the same agent that writes the control code can also run on an open model.\n\nSite: https://nemocode.org · Docs for agents: https://nemocode.org/llms.txt",
+      "description": "NemoCode is a local relay that routes the coding agents you already run — Claude Code, Codex CLI, OpenCode, and Pi Code — through Nebius Token Factory, so you can build on open models without touching your existing setup or spending your own subscription limits.\n\n**Install once, launch anything.** One command drops `kimirelay` plus the short launchers `klaude`, `kodex`, `openkode`, and `kpi` onto your PATH, installing Bun if you don't already have it:\n\n```\ncurl -fsSL https://nemocode.org/install.sh | sh\n```\n\n`kimirelay configure` then asks for your Nebius Token Factory key and an optional Tavily key for live web search.\n\n**How it routes.** Each harness gets the treatment it needs: Claude Code goes through a local Anthropic-to-Nebius translation proxy, Codex CLI through a Responses-to-chat proxy with headless `exec` support and sessions that stay resumable, while OpenCode and Pi Code get an ephemeral per-run config injection. Nothing is written to your real agent config — close the session and your setup is exactly as it was.\n\n**Any model Token Factory serves.** The catalogue is fetched live from Nebius (`GET /v1/models?verbose=true`) at startup and cached locally, with each model's vision support read from the API rather than a hand-maintained list, so every served model is one flag away. The flag goes *before* the harness — `kimirelay --model <id> codex exec \"task\"` — because the short aliases expand to `kimirelay <harness>` and a flag placed after the harness name is passed through to the agent and silently dropped.\n\n**Also in the box:** Tavily-backed `web_search` emulation that streams real citation blocks into the agent, per-session cost tracking metered against each model's real per-token rates and printed on exit, and a self-updating binary that keeps itself current from the release site.\n\nMIT licensed, and a friendly fork of [nebius-tf-relay](https://github.com/shivaylamba/nebius-tf-relay), whose daemon, wire-format translation, and installer this builds on.\n\nSite: https://nemocode.org · Agent-readable docs: https://nemocode.org/llms.txt",
       "video": null,
-      "images": [],
+      "images": [
+        "https://nemocode.org/nebius-token-factory.png"
+      ],
       "repo": "https://github.com/opencolin/kimi-relay",
-      "team": [],
+      "team": [
+        {
+          "name": "opencolin",
+          "github": "opencolin"
+        }
+      ],
       "teamSlug": null,
       "url": "https://www.buildspace.tv/projects/nemocode.html"
     }
