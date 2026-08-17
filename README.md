@@ -182,6 +182,38 @@ failed sends, and retries. Nothing about scoring depends on the network — a
 judging tool that stops working because the connection did is worse than one
 that never had a backend. Judges can still export CSV/JSON at any point.
 
+## The bottom-left corner
+
+Every page carries the same three items in the bottom-left: **API**, **GitHub**,
+and **Refresh**. On the handbook they are the last row of the sticky rail; on
+the generated pages they are a fixed pill, because those pages have no rail. The
+API link used to live in the top-right nav, where it competed with the four
+links people actually navigate by.
+
+**Refresh** POSTs to `/api/redeploy`, which triggers a Vercel deploy hook. The
+site rebuilds itself on every issue event, so this is for the case automation
+cannot see: a changed env var, a Vercel setting, a build that failed on a flake.
+
+It is authorized with the editor's passcode (`x-edit-key`, the same
+`sessionStorage` key edit mode uses) for the reason every other write endpoint
+here is: this is a public URL during a public event, and an open build trigger
+is a way to burn build minutes from a browser tab. The hook URL is a bearer
+secret — anyone holding it can deploy — so it stays server-side and is never
+sent to the client. A 60-second cooldown turns an impatient double-click into
+one build; it is per-instance, so treat it as courtesy rather than a guarantee.
+
+| Variable | Value |
+| --- | --- |
+| `VERCEL_DEPLOY_HOOK_URL` | A deploy hook from Vercel → Settings → Git → Deploy Hooks |
+| `EDIT_KEY` | The organizer passcode, shared with edit mode |
+
+Until both are set the endpoint returns `503 not_configured` naming the missing
+one, and the button reports it in place.
+
+Note that `index.html` carries its own copy of the corner markup, styles, and
+script: it is published as a standalone Artifact and cannot load site CSS or JS.
+Change `build.js`'s `CORNER_SCRIPT` and the handbook's copy together.
+
 ### The static JSON API lives in `apidata/`
 
 Adding functions under `api/` makes Vercel treat that directory as the

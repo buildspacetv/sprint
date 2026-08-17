@@ -206,6 +206,52 @@ const graph = (...nodes) => jsonForScript({ '@context': 'https://schema.org', '@
 
 /* ------------------------------------------------------------ page shell */
 
+/**
+ * The bottom-left corner's one piece of behaviour: ask /api/redeploy for a
+ * rebuild. The passcode is the editor's, read from the same sessionStorage key,
+ * so an organizer who has already published an edit is not asked twice. A 401
+ * clears the stored key, because the common cause is a typo the first time.
+ *
+ * index.html carries its own copy of this — it is a standalone artifact that
+ * cannot load site scripts — so the two must be changed together.
+ */
+const CORNER_SCRIPT = `
+(function () {
+  var KEY = 'pais-edit-key';
+  var btn = document.querySelector('[data-refresh]');
+  var out = document.querySelector('.corner-msg');
+  if (!btn) return;
+  function say(t) { if (out) out.textContent = t || ''; }
+  btn.addEventListener('click', function () {
+    var k = '';
+    try { k = sessionStorage.getItem(KEY) || ''; } catch (e) {}
+    if (!k) {
+      k = window.prompt('Edit passcode (an organizer has it):') || '';
+      if (!k) { say('Cancelled — nothing was triggered.'); return; }
+      try { sessionStorage.setItem(KEY, k); } catch (e) {}
+    }
+    btn.disabled = true;
+    say('Asking Vercel to rebuild…');
+    fetch('/api/redeploy', { method: 'POST', headers: { 'x-edit-key': k } })
+      .then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (d) {
+          return { ok: res.ok, status: res.status, data: d };
+        });
+      })
+      .then(function (r) {
+        if (r.ok) { say('Queued — the new build is usually live in a couple of minutes.'); return; }
+        if (r.status === 401) { try { sessionStorage.removeItem(KEY); } catch (e) {} }
+        say((r.data.error && r.data.error.message) || 'Could not start a redeploy.');
+      })
+      .catch(function () { say('Network error — nothing was triggered.'); })
+      .then(function () {
+        btn.disabled = false;
+        setTimeout(function () { say(''); }, 8000);
+      });
+  });
+})();
+`;
+
 function page({ title, description, body, current, ogImage, canonical, jsonLd, edit }) {
   // /teams.html advertises /teams.html.md, which is generated alongside it.
   const mdTwin = canonical && /\.html$/.test(canonical) ? new URL(canonical).pathname + '.md' : null;
@@ -252,7 +298,6 @@ ${css}
     <a href="/teams.html"${current === 'teams' ? ' aria-current="page"' : ''}>Teams</a>
     <a href="/showcase.html"${current === 'showcase' ? ' aria-current="page"' : ''}>Showcase</a>
     <a href="/submit.html"${current === 'submit' ? ' aria-current="page"' : ''}>Submit</a>
-    <a href="/developers.html"${current === 'developers' ? ' aria-current="page"' : ''}>API</a>
   </nav>
 </header>
 
@@ -272,13 +317,21 @@ ${body}
       <a href="/about.html">About</a>
       <a href="/contact.html">Contact</a>
       <a href="/privacy.html">Privacy</a>
-      <a href="${REPO}">Repo</a>
+      <a href="${REPO}">GitHub</a>
     </div>
     <p class="foot-fine">© 2026 The Physical AI Sprint Hackathon. All rights reserved.</p>
   </footer>
 </div>
 
+<div class="corner">
+  <a href="/developers.html">API</a>
+  <a href="${REPO}">GitHub</a>
+  <button type="button" data-refresh>Refresh</button>
+  <span class="corner-msg" role="status"></span>
+</div>
+
 <script src="/edit-mode.js" defer></script>
+<script>${CORNER_SCRIPT}</script>
 </body>
 </html>
 `;

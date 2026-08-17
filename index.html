@@ -413,6 +413,25 @@
     flex: 1; overflow-y: auto; padding: 14px 12px 40px;
     -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
   }
+
+  /* The rail's last row: the links that are always available rather than part
+     of the reading path, plus the redeploy button. It sits below the scrolling
+     nav, so it stays in the bottom-left corner at any scroll position. */
+  .rail-foot {
+    flex: none; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    padding: 10px 22px calc(10px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--line);
+    font-family: var(--f-mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase;
+  }
+  .rail-foot a, .rail-foot button { color: var(--ink-3); text-decoration: none; }
+  .rail-foot button { font: inherit; text-transform: inherit; letter-spacing: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  .rail-foot a:hover, .rail-foot button:hover:not(:disabled) { color: var(--ink); }
+  .rail-foot button:disabled { opacity: .55; cursor: default; }
+  .corner-msg:empty { display: none; }
+  .corner-msg {
+    flex-basis: 100%; font-size: .62rem; letter-spacing: .03em;
+    text-transform: none; color: var(--ink-3);
+  }
   .nav-group { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); padding: 14px 10px 6px; }
   .nav ul { list-style: none; margin: 0; padding: 0; }
   .nav a {
@@ -688,6 +707,8 @@
     .nav a { font-size: 15.4px; }
     .nav a .n { font-size: 10.5px; }
     .sub a { font-size: 13.4px; }
+    .rail-foot { font-size: 10.6px; }
+    .rail-foot .corner-msg { font-size: 10px; }
   }
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; scroll-behavior: auto !important; animation: none !important; }
@@ -854,6 +875,13 @@
         </li>
       </ul>
     </nav>
+
+    <div class="rail-foot">
+      <a href="/developers.html">API</a>
+      <a href="https://github.com/buildspacetv/sprint">GitHub</a>
+      <button type="button" data-refresh>Refresh</button>
+      <span class="corner-msg" role="status"></span>
+    </div>
   </aside>
 
   <main>
@@ -1958,6 +1986,46 @@ robot = Articulation(UNITREE_GO2_CFG.replace(prim_path="/World/robot"))</code></
     if (window.innerWidth > 980) closeRail();
   });
   navLinks.forEach(function (a) { a.addEventListener("click", closeRail); });
+
+  /* ---- redeploy button ----
+     A copy of the corner script build.js emits for the generated pages; this
+     file is a standalone artifact and cannot load site scripts, so the two are
+     kept in step by hand. The passcode is the editor's, from the same
+     sessionStorage key, so publishing an edit and refreshing do not each ask. */
+  (function () {
+    var KEY = "pais-edit-key";
+    var btn = document.querySelector("[data-refresh]");
+    var out = document.querySelector(".corner-msg");
+    if (!btn) return;
+    function say(t) { if (out) out.textContent = t || ""; }
+    btn.addEventListener("click", function () {
+      var k = "";
+      try { k = sessionStorage.getItem(KEY) || ""; } catch (e) {}
+      if (!k) {
+        k = window.prompt("Edit passcode (an organizer has it):") || "";
+        if (!k) { say("Cancelled — nothing was triggered."); return; }
+        try { sessionStorage.setItem(KEY, k); } catch (e) {}
+      }
+      btn.disabled = true;
+      say("Asking Vercel to rebuild…");
+      fetch("/api/redeploy", { method: "POST", headers: { "x-edit-key": k } })
+        .then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (d) {
+            return { ok: res.ok, status: res.status, data: d };
+          });
+        })
+        .then(function (r) {
+          if (r.ok) { say("Queued — the new build is usually live in a couple of minutes."); return; }
+          if (r.status === 401) { try { sessionStorage.removeItem(KEY); } catch (e) {} }
+          say((r.data.error && r.data.error.message) || "Could not start a redeploy.");
+        })
+        .catch(function () { say("Network error — nothing was triggered."); })
+        .then(function () {
+          btn.disabled = false;
+          setTimeout(function () { say(""); }, 8000);
+        });
+    });
+  })();
 
   /* ---- search index ---- */
   var index = [];
