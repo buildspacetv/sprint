@@ -46,7 +46,6 @@ them to the GitHub issue forms linked from the site.
 ## Pages
 
 - [Handbook](https://www.buildspace.tv/): The full hackathon guide: challenge, schedule, judging, and four setup guides for the SO-101, Antioch, and Unitree robots.
-- [Team directory](https://www.buildspace.tv/teams.html): Every team, who has room, and what skills they are looking for.
 - [Project showcase](https://www.buildspace.tv/showcase.html): Every project submitted, searchable and filterable by track.
 - [Submit a project](https://www.buildspace.tv/submit.html): How to submit a project to the showcase.
 - [Developers](https://www.buildspace.tv/developers.html): The read-only JSON API over teams and projects.

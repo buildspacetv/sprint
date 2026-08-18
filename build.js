@@ -55,10 +55,14 @@ function safeSlug(s) {
 function safeUrl(u) {
   if (!u) return null;
   const s = String(u).trim();
+  if (/^\/[^/]/.test(s)) return s;
   if (!/^https:\/\//i.test(s)) return null;
   try { new URL(s); } catch { return null; }
   return s;
 }
+
+/** og:image must be absolute; a site-relative path means nothing to a crawler. */
+const absolute = (u) => (u && u.startsWith('/') ? `${SITE}${u}` : u);
 
 // Null-prototype: a plain object literal would return Object.prototype for the
 // key "__proto__", which is truthy, so the `||` fallback below never fires and
@@ -98,8 +102,9 @@ function videoEmbed(url) {
   const u = safeUrl(url);
   if (!u) return '';
   let m;
-  if ((m = u.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/))) {
-    return `<div class="videowrap"><iframe src="https://www.youtube.com/embed/${esc(m[1])}" title="Project video" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`;
+  if ((m = u.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|live\/|shorts\/|v\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/))) {
+    const portrait = /youtube\.com\/shorts\//.test(u) ? ' portrait' : '';
+    return `<div class="videowrap${portrait}"><iframe src="https://www.youtube.com/embed/${esc(m[1])}" title="Project video" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`;
   }
   if ((m = u.match(/vimeo\.com\/(?:video\/)?(\d+)/))) {
     return `<div class="videowrap"><iframe src="https://player.vimeo.com/video/${esc(m[1])}" title="Project video" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`;
@@ -107,10 +112,26 @@ function videoEmbed(url) {
   if ((m = u.match(/loom\.com\/share\/([A-Za-z0-9]+)/))) {
     return `<div class="videowrap"><iframe src="https://www.loom.com/embed/${esc(m[1])}" title="Project video" allowfullscreen loading="lazy"></iframe></div>`;
   }
-  if (/\.(mp4|webm|mov)(\?|$)/i.test(u)) {
+  if ((m = u.match(/docs\.google\.com\/presentation\/d\/([A-Za-z0-9_-]+)/))) {
+    return `<div class="videowrap"><iframe src="https://docs.google.com/presentation/d/${esc(m[1])}/embed" title="Project slides" allowfullscreen loading="lazy"></iframe></div>`;
+  }
+  if ((m = u.match(/drive\.google\.com\/file\/d\/([A-Za-z0-9_-]+)/))) {
+    return `<div class="videowrap"><iframe src="https://drive.google.com/file/d/${esc(m[1])}/preview" title="Project video" allow="autoplay" allowfullscreen loading="lazy"></iframe></div>`;
+  }
+  // Google Photos serves a 720p MP4 transcode of any clip at =m22, which is
+  // what a share link resolves to once the media URL is known.
+  if (/\.(mp4|webm|mov)(\?|$)/i.test(u) || /googleusercontent\.com\/.+=m\d+$/.test(u)) {
     return `<div class="videowrap"><video src="${esc(u)}" controls playsinline preload="metadata"></video></div>`;
   }
-  return `<p><a href="${esc(u)}">Watch the demo video</a></p>`;
+  const host = new URL(u).hostname.replace(/^www\./, '');
+  const label =
+    /docs\.google\.com\/presentation/.test(u) ? 'Open the slide deck' :
+    /drive\.google\.com\/drive\/folders/.test(u) ? 'Open the demo folder on Google Drive' :
+    /drive\.google\.com/.test(u) ? 'Watch the demo on Google Drive' :
+    /photos\.app\.goo\.gl|photos\.google\.com/.test(u) ? 'See the photo album' :
+    /github\.com/.test(u) ? 'See the demo on GitHub' :
+    `Open the demo on ${host}`;
+  return `<p><a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a></p>`;
 }
 
 function ghUser(handle) {
@@ -310,7 +331,6 @@ ${css}
   </a>
   <nav>
     <a href="/"${current === 'handbook' ? ' aria-current="page"' : ''}>Handbook</a>
-    <a href="/teams.html"${current === 'teams' ? ' aria-current="page"' : ''}>Teams</a>
     <a href="/showcase.html"${current === 'showcase' ? ' aria-current="page"' : ''}>Showcase</a>
     <a href="/submit.html"${current === 'submit' ? ' aria-current="page"' : ''}>Submit</a>
   </nav>
@@ -325,7 +345,6 @@ ${body}
     <div class="foot-links">
       <a href="${APPLY}">Apply</a>
       <a href="${DISCORD}">Discord</a>
-      <a href="/teams.html">Teams</a>
       <a href="/showcase.html">Showcase</a>
       <a href="/submit.html">Submit a project</a>
       <a href="/developers.html">API</a>
@@ -586,7 +605,10 @@ function projectPage(p, teamEntry) {
 </header>
 
 <div class="wrap narrow">
-${videoEmbed(p.video)}
+${(p.videos && p.videos.length
+    ? p.videos.map((v, i) => `${p.videos.length > 1 ? `  <h3 class="cliphead">Clip ${i + 1} of ${p.videos.length}</h3>` : ''}\n${videoEmbed(v)}`).join('\n')
+    : videoEmbed(p.video))}
+${p.videoSource ? `  <p class="srcline">Clips hosted on Google Photos — <a href="${esc(safeUrl(p.videoSource) || '#')}" target="_blank" rel="noopener noreferrer">open the original album</a> if a player fails to load.</p>` : ''}
 ${p.video && !p.repo && p.linkNote ? `  <p class="srcline">${esc(p.linkNote)}</p>` : ''}
 
 ${p.description ? `  <div class="prose"${p.issue ? ` data-edit-field="issue:${p.issue}#Description" data-edit-multiline="1"` : ''}>\n${prose(p.description)}\n  </div>` : ''}
@@ -634,7 +656,7 @@ ${shareBlock({ title: p.title, text: `${p.title} — ${p.tagline || 'built at Th
     description: p.tagline || `A project built at The Physical AI Sprint hackathon.`,
     body,
     current: 'showcase',
-    ogImage: cover,
+    ogImage: absolute(cover),
     canonical: url,
   });
 }
@@ -899,7 +921,7 @@ ${shareBlock({
     description: t.pitch || `A team at The Physical AI Sprint hackathon.`,
     body,
     current: 'teams',
-    ogImage: cover,
+    ogImage: absolute(cover),
     canonical: url,
   });
 }
@@ -938,7 +960,7 @@ function submitPage() {
     </li>
     <li>
       <h3>Link your team</h3>
-      <p>Name your team from the <a href="/teams.html">team directory</a> and the roster comes across automatically — no retyping, and the two can't drift apart. No directory entry? List members one per line as <code>Name @githubhandle</code>.</p>
+      <p>Name your team and the roster comes across automatically if it is already on file — no retyping. Otherwise List members one per line as <code>Name @githubhandle</code>.</p>
     </li>
     <li>
       <h3>Submit</h3>
@@ -959,7 +981,7 @@ function submitPage() {
         <tr><td>Demo video</td><td>Upload a file or paste a YouTube, Vimeo, or Loom link. Embeds on your page.</td></tr>
         <tr><td>Photos</td><td>Drag in as many as you like. The first becomes your showcase cover and link preview.</td></tr>
         <tr><td>Code</td><td>Optional repo link.</td></tr>
-        <tr><td>Team</td><td>Your team's name from the <a href="/teams.html">directory</a>, or its issue number. Links the two together.</td></tr>
+        <tr><td>Team</td><td>Your team's name, or its issue number. Links the two together.</td></tr>
         <tr><td>Team members</td><td>One per line, <code>Name @handle</code>. Leave blank to reuse the roster from your team entry.</td></tr>
       </tbody>
     </table>

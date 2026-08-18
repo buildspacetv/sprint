@@ -1,6 +1,6 @@
 {
   "_source": "Physical AI Sprint Submission (Responses) — Google Form export, 2026-08-17.",
-  "_note": "Team email addresses from the form are deliberately omitted; the two unlabelled scratch columns (judging notes) are not published either. Later re-submissions of the same project by the same team are folded into one entry, counted in resubmissions.",
+  "_note": "Team email addresses from the form are deliberately omitted; the two unlabelled scratch columns (judging notes) are not published either. Later re-submissions of the same project by the same team are folded into one entry, counted in resubmissions. Desk Duster links a Google Photos album rather than one clip: its four videos are embedded from the =m22 (720p MP4) transcode Google serves, with the album kept as a fallback link.",
   "projects": [
     {
       "slug": "bruno-the-librarian",
@@ -400,8 +400,10 @@
       "track": null,
       "robots": [],
       "description": "Our project cleans desks. We removed dust from surfaces while watching out for edges and picking up any items that may come in the way. Our approach has a robotics arm mounted on a mobile base with a camera. The goal is to get such a small and mobile unit to be deployed on several counter tops for autonomous cleaning. We were successfully able to build the unit and control all parts. However integration of the whole system is still in progress.",
-      "video": "https://photos.app.goo.gl/DZwLXMJ8UJbm714fA",
-      "images": [],
+      "video": "https://lh3.googleusercontent.com/pw/AP1GczNjd5leM182316qBs3Vt9wsLixO0yHSRZdAHV6WWBem0QuOnatShvxxUBXqqHFxj8nLqgCI1LTWsTIt2WE_o7iOqQ0VpFOTMEriJw8Q-9AbvgsP2C5jgpC0KYRN5BrLFclp5e1EFuoB5ybz7hvZjVUT=m22",
+      "images": [
+        "/img/desk-duster-cover.jpg"
+      ],
       "repo": null,
       "team": [
         {
@@ -422,7 +424,14 @@
       "source": "form",
       "submittedAt": "2026-08-17T16:06:38-07:00",
       "resubmissions": 0,
-      "linkNote": null
+      "linkNote": null,
+      "videos": [
+        "https://lh3.googleusercontent.com/pw/AP1GczNjd5leM182316qBs3Vt9wsLixO0yHSRZdAHV6WWBem0QuOnatShvxxUBXqqHFxj8nLqgCI1LTWsTIt2WE_o7iOqQ0VpFOTMEriJw8Q-9AbvgsP2C5jgpC0KYRN5BrLFclp5e1EFuoB5ybz7hvZjVUT=m22",
+        "https://lh3.googleusercontent.com/pw/AP1GczOK6duEza_ycO0K78D0QYxkkEjhr2Ovn7WtTiHp8N0TvWKA8Lfiq9bPvsuOQgYDb0m4hQEszdgFM0YDFlZX8iBqEScFyZW6qbFvtJUH-0L3TZSjp6im=m22",
+        "https://lh3.googleusercontent.com/pw/AP1GczNc14NjfeMBRQepfubOqvmnxiTpiIV_34hekvJqzHoiUveFTkC4WQV3gZCXZN2S04MAkLjcYZB87WD0oasWucHZL36BqQ8czRqVQbR4Vb207UNGxNez-7XBmmKV6P2_k1R_N5mhxBjFufiY2m3IS1kz5g=m22",
+        "https://lh3.googleusercontent.com/pw/AP1GczMEhdzxIpiQNuLY8Uq2fw0udsEEZH07nYFWQFfKWgzIwySniA0fNhRSngrIbRI5h-c4ONirMSho04XkRLSD0HV2T-ChSfVx9vSnkg3-pEvcWNvo6KTwkMq_7CifSUVQqwugfugiXqT-9IO9JXPRFkQR=m22"
+      ],
+      "videoSource": "https://photos.app.goo.gl/DZwLXMJ8UJbm714fA"
     },
     {
       "slug": "within-reach",

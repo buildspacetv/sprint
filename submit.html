@@ -330,6 +330,11 @@ code { font-family: var(--f-mono); font-size: .86em; }
   border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #000;
 }
 .videowrap iframe, .videowrap video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+/* Shorts are shot vertical: a 16:9 frame would be two black bars and a sliver
+   of video. Cap the height so a portrait clip cannot run past the fold. */
+.videowrap.portrait { aspect-ratio: 9 / 16; max-width: min(420px, 100%); max-height: 78vh; margin-inline: auto; }
+
+.cliphead { font-family: var(--f-display); font-weight: 600; font-size: .95rem; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); margin: 26px 0 -8px; }
 
 .gallery { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 20px 0; }
 .gallery a { display: block; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; background: var(--surface-2); }
@@ -448,7 +453,6 @@ code { font-family: var(--f-mono); font-size: .86em; }
   </a>
   <nav>
     <a href="/">Handbook</a>
-    <a href="/teams.html">Teams</a>
     <a href="/showcase.html">Showcase</a>
     <a href="/submit.html" aria-current="page">Submit</a>
   </nav>
@@ -486,7 +490,7 @@ code { font-family: var(--f-mono); font-size: .86em; }
     </li>
     <li>
       <h3>Link your team</h3>
-      <p>Name your team from the <a href="/teams.html">team directory</a> and the roster comes across automatically — no retyping, and the two can't drift apart. No directory entry? List members one per line as <code>Name @githubhandle</code>.</p>
+      <p>Name your team and the roster comes across automatically if it is already on file — no retyping. Otherwise List members one per line as <code>Name @githubhandle</code>.</p>
     </li>
     <li>
       <h3>Submit</h3>
@@ -507,7 +511,7 @@ code { font-family: var(--f-mono); font-size: .86em; }
         <tr><td>Demo video</td><td>Upload a file or paste a YouTube, Vimeo, or Loom link. Embeds on your page.</td></tr>
         <tr><td>Photos</td><td>Drag in as many as you like. The first becomes your showcase cover and link preview.</td></tr>
         <tr><td>Code</td><td>Optional repo link.</td></tr>
-        <tr><td>Team</td><td>Your team's name from the <a href="/teams.html">directory</a>, or its issue number. Links the two together.</td></tr>
+        <tr><td>Team</td><td>Your team's name, or its issue number. Links the two together.</td></tr>
         <tr><td>Team members</td><td>One per line, <code>Name @handle</code>. Leave blank to reuse the roster from your team entry.</td></tr>
       </tbody>
     </table>
@@ -528,7 +532,6 @@ code { font-family: var(--f-mono); font-size: .86em; }
     <div class="foot-links">
       <a href="https://luma.com/nkknxvrz">Apply</a>
       <a href="https://discord.com/invite/nN58zxSTFR">Discord</a>
-      <a href="/teams.html">Teams</a>
       <a href="/showcase.html">Showcase</a>
       <a href="/submit.html">Submit a project</a>
       <a href="/developers.html">API</a>
