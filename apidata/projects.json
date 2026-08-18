@@ -135,8 +135,10 @@
       "track": null,
       "robots": [],
       "description": "Our project cleans desks. We removed dust from surfaces while watching out for edges and picking up any items that may come in the way. Our approach has a robotics arm mounted on a mobile base with a camera. The goal is to get such a small and mobile unit to be deployed on several counter tops for autonomous cleaning. We were successfully able to build the unit and control all parts. However integration of the whole system is still in progress.",
-      "video": "https://photos.app.goo.gl/DZwLXMJ8UJbm714fA",
-      "images": [],
+      "video": "https://lh3.googleusercontent.com/pw/AP1GczNjd5leM182316qBs3Vt9wsLixO0yHSRZdAHV6WWBem0QuOnatShvxxUBXqqHFxj8nLqgCI1LTWsTIt2WE_o7iOqQ0VpFOTMEriJw8Q-9AbvgsP2C5jgpC0KYRN5BrLFclp5e1EFuoB5ybz7hvZjVUT=m22",
+      "images": [
+        "/img/desk-duster-cover.jpg"
+      ],
       "repo": null,
       "team": [
         {

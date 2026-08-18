@@ -17,7 +17,7 @@ creativity, and architectural quality.
 
 - [Full handbook](https://www.buildspace.tv/) — challenge, schedule, judging, and four setup guides
 - [Everything as one markdown document](https://www.buildspace.tv/llms-full.txt)
-- [Team directory](https://www.buildspace.tv/teams.html) · [Project showcase](https://www.buildspace.tv/showcase.html)
+- [Project showcase](https://www.buildspace.tv/showcase.html)
 - [API](https://www.buildspace.tv/developers.html) · [Register](https://luma.com/nkknxvrz) · [Discord](https://discord.com/invite/nN58zxSTFR)
 
 ## Schedule

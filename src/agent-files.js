@@ -20,7 +20,6 @@ const EVENT_DATE = '2026-08-17';
 
 const HTML_PAGES = [
   ['/', 'Handbook', 'The full hackathon guide: challenge, schedule, judging, and four setup guides for the SO-101, Antioch, and Unitree robots.'],
-  ['/teams.html', 'Team directory', 'Every team, who has room, and what skills they are looking for.'],
   ['/showcase.html', 'Project showcase', 'Every project submitted, searchable and filterable by track.'],
   ['/submit.html', 'Submit a project', 'How to submit a project to the showcase.'],
   ['/developers.html', 'Developers', 'The read-only JSON API over teams and projects.'],
@@ -1148,7 +1147,7 @@ creativity, and architectural quality.
 
 - [Full handbook](${SITE}/) — challenge, schedule, judging, and four setup guides
 - [Everything as one markdown document](${SITE}/llms-full.txt)
-- [Team directory](${SITE}/teams.html) · [Project showcase](${SITE}/showcase.html)
+- [Project showcase](${SITE}/showcase.html)
 - [API](${SITE}/developers.html) · [Register](${APPLY}) · [Discord](${DISCORD})
 
 ## Schedule
