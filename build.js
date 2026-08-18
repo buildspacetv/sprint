@@ -71,6 +71,21 @@ const TRACKS = Object.assign(Object.create(null), {
 });
 const track = (t) => TRACKS[t] || { label: 'Unspecified', cls: '' };
 
+/**
+ * Format a form submission's timestamp. The stamps carry the event's own UTC
+ * offset, so they are read off the string rather than through Date(), which
+ * would re-interpret them in whatever zone the build machine happens to run in.
+ */
+function submittedAt(stamp) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(String(stamp || ''));
+  if (!m) return null;
+  const [, y, mo, d, hh, mm] = m;
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const h24 = Number(hh);
+  const h12 = h24 % 12 === 0 ? 12 : h24 % 12;
+  return `${months[Number(mo) - 1]} ${Number(d)}, ${y} at ${h12}:${mm}${h24 < 12 ? 'am' : 'pm'}`;
+}
+
 /** Turn plain text into paragraphs. Input is untrusted, so escape first. */
 function prose(text) {
   if (!text) return '';
@@ -357,7 +372,7 @@ function card(p) {
           <h3>${esc(p.title)}</h3>
           <p class="tag">${esc(p.tagline || '')}</p>
           <div class="meta">
-            <span class="chip ${t.cls}">${esc(t.label)}</span>
+            ${p.track ? `<span class="chip ${t.cls}">${esc(t.label)}</span>` : ''}
             ${people.length ? `<span class="avatars">${people.map((a) => `<img src="${esc(a)}" alt="" loading="lazy">`).join('')}</span>` : ''}
             ${(p.team || []).length ? `<span class="badge">${p.team.length} member${p.team.length === 1 ? '' : 's'}</span>` : ''}
           </div>
@@ -564,7 +579,7 @@ function projectPage(p, teamEntry) {
     <h1>${esc(p.title)}</h1>
     <p class="lede"${p.issue ? ` data-edit-field="issue:${p.issue}#One-line summary"` : ''}>${esc(p.tagline || '')}</p>
     <div class="actions">
-      <span class="chip ${t.cls}">${esc(t.label)}</span>
+      ${p.track ? `<span class="chip ${t.cls}">${esc(t.label)}</span>` : ''}
       ${(p.robots || []).map((r) => `<span class="chip">${esc(r)}</span>`).join('\n      ')}
     </div>
   </div>
@@ -572,6 +587,7 @@ function projectPage(p, teamEntry) {
 
 <div class="wrap narrow">
 ${videoEmbed(p.video)}
+${p.video && !p.repo && p.linkNote ? `  <p class="srcline">${esc(p.linkNote)}</p>` : ''}
 
 ${p.description ? `  <div class="prose"${p.issue ? ` data-edit-field="issue:${p.issue}#Description" data-edit-multiline="1"` : ''}>\n${prose(p.description)}\n  </div>` : ''}
 
@@ -584,12 +600,14 @@ ${team.length ? `  <h2>Team</h2>
 ${roster(p.team)}` : ''}
 
   <dl class="facts">
-    <div><dt>Track</dt><dd>${esc(t.label)}</dd></div>
+    ${p.track ? `<div><dt>Track</dt><dd>${esc(t.label)}</dd></div>` : ''}
     ${teamEntry ? `<div><dt>Team</dt><dd><a href="/teams/${esc(teamEntry.slug)}.html">${esc(teamEntry.name)}</a></dd></div>`
            : (p.teamRef ? `<div><dt>Team</dt><dd>${esc(p.teamRef)}</dd></div>` : '')}
     ${(p.robots || []).length ? `<div><dt>Robots</dt><dd>${esc(p.robots.join(', '))}</dd></div>` : ''}
     ${repo ? `<div><dt>Code</dt><dd><a href="${esc(repo)}" target="_blank" rel="noopener noreferrer">${esc(repo.replace(/^https:\/\//, ''))}</a></dd></div>` : ''}
-    ${p.issue ? `<div><dt>Submission</dt><dd><a href="${REPO}/issues/${esc(p.issue)}" target="_blank" rel="noopener noreferrer">Issue #${esc(p.issue)}</a></dd></div>` : ''}
+    ${p.issue ? `<div><dt>Submission</dt><dd><a href="${REPO}/issues/${esc(p.issue)}" target="_blank" rel="noopener noreferrer">Issue #${esc(p.issue)}</a></dd></div>`
+           : (p.source === 'form' ? `<div><dt>Submission</dt><dd>Demo-day form${p.resubmissions ? ` · revised ${p.resubmissions === 1 ? 'once' : `${p.resubmissions} times`}` : ''}</dd></div>` : '')}
+    ${submittedAt(p.submittedAt) ? `<div><dt>Submitted</dt><dd>${esc(submittedAt(p.submittedAt))}</dd></div>` : ''}
   </dl>
 
 ${shareBlock({ title: p.title, text: `${p.title} — ${p.tagline || 'built at The Physical AI Sprint'}`, url })}
@@ -989,6 +1007,16 @@ function main() {
     projects = Array.isArray(raw) ? raw : (raw.projects || []);
   }
 
+  // The showcase has two sources. Issues are the live one, rewritten by the
+  // sync workflow on every issue event; data/submissions.json is the demo-day
+  // form export, which no workflow touches. They are kept in separate files
+  // for exactly that reason: a sync run would otherwise wipe the form entries.
+  const subsPath = path.join(ROOT, 'data', 'submissions.json');
+  if (fs.existsSync(subsPath)) {
+    const rawS = JSON.parse(fs.readFileSync(subsPath, 'utf8'));
+    projects = projects.concat(Array.isArray(rawS) ? rawS : (rawS.projects || []));
+  }
+
   // Normalize before rendering: slugs become file paths, and the issue number
   // is interpolated into a URL, so neither may carry arbitrary text.
   projects = projects
@@ -996,6 +1024,15 @@ function main() {
     .map((p) => ({ ...p, slug: safeSlug(p.slug), issue: Number.isInteger(Number(p.issue)) ? Number(p.issue) : null }))
     .filter((p) => p.slug)
     .sort((a, b) => String(a.title).localeCompare(String(b.title)));
+
+  // A project can arrive from both sources. The issue is the editable one, so
+  // it wins the slug and the form entry is dropped rather than shadowing it.
+  const bySlug = new Map();
+  for (const p of projects) {
+    const seen = bySlug.get(p.slug);
+    if (!seen || (!seen.issue && p.issue)) bySlug.set(p.slug, p);
+  }
+  projects = [...bySlug.values()].sort((a, b) => String(a.title).localeCompare(String(b.title)));
 
   const outDir = path.join(ROOT, 'projects');
   fs.mkdirSync(outDir, { recursive: true });

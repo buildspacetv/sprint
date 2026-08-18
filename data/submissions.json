@@ -1,0 +1,482 @@
+{
+  "_source": "Physical AI Sprint Submission (Responses) — Google Form export, 2026-08-17.",
+  "_note": "Team email addresses from the form are deliberately omitted; the two unlabelled scratch columns (judging notes) are not published either. Later re-submissions of the same project by the same team are folded into one entry, counted in resubmissions.",
+  "projects": [
+    {
+      "slug": "bruno-the-librarian",
+      "title": "Bruno - the Librarian",
+      "tagline": "An autonomous librarian that helps human staff manage libraries, retrieves requested books from shelves, and safely hands them to people.",
+      "track": null,
+      "robots": [],
+      "description": "An autonomous librarian that helps human staff manage libraries, retrieves requested books from shelves, and safely hands them to people.",
+      "video": "https://drive.google.com/drive/folders/1Jo1Y8SgdGcShcEXKPaRmYjSONMS6_H8I?usp=sharing",
+      "images": [],
+      "repo": null,
+      "team": [
+        {
+          "name": "Aaditya Gaur",
+          "github": null
+        },
+        {
+          "name": "Kaushik Sivakumar",
+          "github": null
+        },
+        {
+          "name": "Mohammed Adnan",
+          "github": null
+        }
+      ],
+      "teamRef": null,
+      "issue": null,
+      "source": "form",
+      "submittedAt": "2026-08-17T15:37:01-07:00",
+      "resubmissions": 0,
+      "linkNote": null
+    },
+    {
+      "slug": "edie-sees-you",
+      "title": "Edie Sees You",
+      "tagline": "Edie is a physical AI companion who sees what you're doing and responds in real time.",
+      "track": null,
+      "robots": [],
+      "description": "Edie is a physical AI companion who sees what you're doing and responds in real time.",
+      "video": "https://youtu.be/CJysAI0ujyA?si=khjPKf7O54ji4fw4",
+      "images": [],
+      "repo": null,
+      "team": [
+        {
+          "name": "Edie Robotics",
+          "github": null
+        }
+      ],
+      "teamRef": null,
+      "issue": null,
+      "source": "form",
+      "submittedAt": "2026-08-17T15:44:14-07:00",
+      "resubmissions": 2,
+      "linkNote": null
+    },
+    {
+      "slug": "back-online",
+      "title": "Back Online",
+      "tagline": "Factory SRE is a mobile robotic first responder for factory downtime.",
+      "track": null,
+      "robots": [],
+      "description": "Factory SRE is a mobile robotic first responder for factory downtime.\nA Unitree Go2 robot with a top-mounted SO-101 arm, wrist camera, AprilTag perception, and magnetic service end-effector patrols a warehouse of automated workstations. When monitoring detects that a workstation has failed, the robot autonomously plans a route, identifies the correct station from its AprilTag, approaches its service panel, and holds its magnetic diagnostic tool on the dock for five seconds to establish physical out-of-band access.\nIt then runs a tightly whitelisted recovery—initially restarting a failed vision service—verifies the workstation is online again, logs the incident, and continues to the next failure before returning to its rest position.\nThe project demonstrates the missing link in factory monitoring: when a machine is offline and remote software access is unavailable, the robot physically brings diagnostic access to it.",
+      "video": "https://docs.google.com/presentation/d/1SltuS0WSf85r2NrxoIQTg9RnrleQslzfWaoAbmGTNQE/edit?usp=sharing",
+      "images": [],
+      "repo": null,
+      "team": [
+        {
+          "name": "Josh",
+          "github": null
+        },
+        {
+          "name": "Raghav",
+          "github": null
+        },
+        {
+          "name": "Robert",
+          "github": null
+        },
+        {
+          "name": "Mohan",
+          "github": null
+        }
+      ],
+      "teamRef": null,
+      "issue": null,
+      "source": "form",
+      "submittedAt": "2026-08-17T15:45:16-07:00",
+      "resubmissions": 0,
+      "linkNote": null
+    },
+    {
+      "slug": "the-first-experiment",
+      "title": "The first experiment",
+      "tagline": "We were trying to get the arm move the object from one place to another.",
+      "track": null,
+      "robots": [],
+      "description": "We were trying to get the arm move the object from one place to another.",
+      "video": "https://youtu.be/rrXMuq81Bjw",
+      "images": [],
+      "repo": null,
+      "team": [
+        {
+          "name": "Team Ankit/Takeshi",
+          "github": null
+        }
+      ],
+      "teamRef": null,
+      "issue": null,
+      "source": "form",
+      "submittedAt": "2026-08-17T15:45:24-07:00",
+      "resubmissions": 0,
+      "linkNote": null
+    },
+    {
+      "slug": "saffron-procedural-saffron-harvesting-cell-reach-verified-gr",
+      "title": "SAFFRON - procedural saffron harvesting cell (reach verified, grasp not yet)",
+      "tagline": "Saffron is the most expensive crop on earth: a kilogram is ~150,000 crocus flowers, each hand-picked for exactly three red stigma threads.",
+      "track": null,
+      "robots": [],
+      "description": "Saffron is the most expensive crop on earth: a kilogram is ~150,000 crocus flowers, each hand-picked for exactly three red stigma threads. No crocus exists in the Isaac asset library, so we generated the world too: every flower is a seeded parameter vector (bloom, petal spread, thread length, splay, colour), with ripe flowers and unripe buds drawn from the same sampler so selectivity must be recovered from the scene, not read off a label. Sim-only on Antioch / Isaac Sim 6.0.1, SO-101.\n\nModules: World (procedural crocus USD) -> Perception (HSV separation of deep-red thread from purple petal across the hue wraparound, clustering, tip extraction, ripeness grading) -> Reasoning (grade flowers, never plan a bud as a target, retry-once-then-abandon) -> Action (reach calibrated by driving the arm and measuring where it lands, 320 stations, each rehearsed before a flower is planted on it).\n\nVERIFIED: the arm reaches every planned thread, jaw closing 0.1-7.7 mm from target, 0 retries, no bud ever targeted.\n\nNOT DONE, PLAINLY: the gripper does not grasp or carry a thread. Our gate fires on jaw-to-thread proximity under 22 mm and then releases the thread programmatically; threads carry no collider while held. The video shows accurate reaching, not picking. We are not claiming a working harvest.\n\nThe engineering is in the debugging, all found by instrumenting the sim: teleport kinematics detonating the articulation (tool radius 2.8e10 m, unrecoverable, so later readings are silently garbage); a stillness test firing before the servos moved, so calibration recorded the start pose; measuring from the jaw link, which swings ~100 degrees when the gripper opens (162 -> 68 mm); breakable joints that never held, 10 of 12 threads on the floor while the USD attribute still said \"attached\"; and a kinematic thread acting as an immovable obstacle on its own grasp target (0.2 mm rehearsal, 81 mm miss). Two fixes tried, measured and reverted: drive-gain overrides and neutral-pose transits (90 -> 203 mm).\n\nNext: colliders on threads, tune break force against measured contact force, carry to the vial.",
+      "video": "https://github.com/agi-developr/saffron-physical-ai-sprint/raw/main/demo/saffron_harvest.mp4",
+      "images": [],
+      "repo": "https://github.com/agi-developr/saffron-physical-ai-sprint",
+      "team": [
+        {
+          "name": "Ilia Prihodko",
+          "github": null
+        }
+      ],
+      "teamRef": null,
+      "issue": null,
+      "source": "form",
+      "submittedAt": "2026-08-17T15:47:36-07:00",
+      "resubmissions": 2,
+      "linkNote": "video:"
+    },
+    {
+      "slug": "physical-ai-perception-reasoning-action-pipeline-for-a-robot",
+      "title": "Physical AI Perception-Reasoning-Action Pipeline for a Robotic Arm",
+      "tagline": "Built and hardware-verified a SO-ARM101 control stack: real-time object detection via webcam (OpenCV) with tuned color/contour filtering, camera-to-robot coordinate calibration using forward",
+      "track": null,
+      "robots": [],
+      "description": "Built and hardware-verified a SO-ARM101 control stack: real-time object detection via webcam (OpenCV) with tuned color/contour filtering, camera-to-robot coordinate calibration using forward kinematics, and inverse-kinematics-driven multi-joint arm control. The arm reliably performs coordinated multi-joint motion - base rotation, elbow, wrist, and gripper - with emergency-stop and dry-run safety modes, debugged down to the servo level for accurate, repeatable movement.",
+      "video": "https://drive.google.com/file/d/1GZ-XO0QhOkfM1r2gC53TjoredmeW7a4h/view?usp=drivesdk",
+      "images": [],
+      "repo": null,
+      "team": [
+        {
+          "name": "Bryan Samuel James",
+          "github": null
+        },
+        {
+          "name": "priyank patel",
+          "github": null
+        }
+      ],
+      "teamRef": null,
+      "issue": null,
+      "source": "form",
+      "submittedAt": "2026-08-17T15:47:41-07:00",
+      "resubmissions": 0,
+      "linkNote": null
+    },
+    {
+      "slug": "v9-max",
+      "title": "V9 Max",
+      "tagline": "ONCE — show a robot once.",
+      "track": null,
+      "robots": [],
+      "description": "ONCE — show a robot once. Teach an SO-101 arm any tabletop task by demonstrating it once with your hands: the robot narrates what it understood (NVIDIA Cosmos-Reason on Nebius), rehearses it with real physics in Isaac Sim on Antioch, executes, verifies from the camera, and remembers it as a named skill — so strangers can teach it live and compose skills by language (\"do Sarah's skill with the yellow ones\").\nPerception → reasoning → rehearsal → action → verify → remember, with a deterministic fallback at every layer so the loop never stalls on a network, and teach-by-correction that turns a miss into a second learning moment.\nEvery teach event becomes a human-verified episode (Toloka) feeding a Nebius fine-tune — programs first, policies later: the data flywheel for the long tail of tasks nobody will ever program by hand.",
+      "video": "https://drive.google.com/drive/folders/1QDMphtzc-r73amkXYtImoYZtBcKxi-FG?usp=sharing",
+      "images": [],
+      "repo": null,
+      "team": [
+        {
+          "name": "V9",
+          "github": null
+        }
+      ],
+      "teamRef": null,
+      "issue": null,
+      "source": "form",
+      "submittedAt": "2026-08-17T15:54:06-07:00",
+      "resubmissions": 0,
+      "linkNote": null
+    },
+    {
+      "slug": "reflect-real-world-failure-led-embodied-continual-training",
+      "title": "REFLECT Real-world Failure-Led Embodied Continual Training",
+      "tagline": "Most robot policies are trained once, deployed once, and frozen — when reality diverges from simulation, the loop stops.",
+      "track": null,
+      "robots": [],
+      "description": "Most robot policies are trained once, deployed once, and frozen — when reality diverges from simulation, the loop stops. REFLECT treats deployment as the start of learning: an ACT policy trains in Antioch, passes a physics-based sim gate, and deploys to the real SO-101. When the arm fails, an embodied reasoning critic watches the rollout video, diagnoses what went wrong, and turns that failure into targeted simulation curriculum. Antioch generates corrective experience at scale, the policy retrains, and the improved version redeploys. One real mistake becomes the next training phase — perception, reasoning, and action closing the loop end to end.",
+      "video": "https://drive.google.com/drive/folders/1WWDUR8f-wLWJMQLyoxJoEgmyIoDdE-gb?usp=sharing",
+      "images": [],
+      "repo": null,
+      "team": [
+        {
+          "name": "Nikhil Prabhu",
+          "github": null
+        },
+        {
+          "name": "Pranav Palagummi",
+          "github": null
+        }
+      ],
+      "teamRef": null,
+      "issue": null,
+      "source": "form",
+      "submittedAt": "2026-08-17T15:55:02-07:00",
+      "resubmissions": 0,
+      "linkNote": null
+    },
+    {
+      "slug": "humanoid-yoga-instructor",
+      "title": "Humanoid Yoga Instructor",
+      "tagline": "Yoga is thousands of years old, but in the last decade it's gone mainstream in the West.",
+      "track": null,
+      "robots": [],
+      "description": "Yoga is thousands of years old, but in the last decade it's gone mainstream in the West. With that popularization, it has also gotten expensive. A studio class in San Francisco averages $40 an hour. So most people just pull up a free video instead. And then they practice wrong. Because a video doesn't watch you back. You hold Warrior II with your knee half-bent and your arms out of line, and nothing in the room can tell you.\n\nWe built a coach that does.\n\nPoint a webcam at yourself and MediaPipe tracks thirty-three body landmarks in real time, converts them to joint angles, and classifies exactly what's wrong. Then, instead of printing a warning on a screen, a simulated Unitree G1 humanoid steps in and shows you the fix. It is the same movement a human instructor would make, just on a robot. \n\n**We have SONIC code that we provided to the humanoid owners, who said they will do their best to test it in their office. Unfortunately, we weren't able to get videos from them before the deadline.",
+      "video": "https://youtu.be/1w1YG7n7nbE",
+      "images": [],
+      "repo": null,
+      "team": [
+        {
+          "name": "Prisha",
+          "github": null
+        },
+        {
+          "name": "Anish",
+          "github": null
+        },
+        {
+          "name": "Rishab",
+          "github": null
+        },
+        {
+          "name": "Sandra",
+          "github": null
+        },
+        {
+          "name": "Bryan",
+          "github": null
+        },
+        {
+          "name": "Rukaiya",
+          "github": null
+        }
+      ],
+      "teamRef": null,
+      "issue": null,
+      "source": "form",
+      "submittedAt": "2026-08-17T15:55:54-07:00",
+      "resubmissions": 0,
+      "linkNote": null
+    },
+    {
+      "slug": "collaborative-reference-frames-for-assistive-robotics",
+      "title": "Collaborative Reference Frames For Assistive Robotics",
+      "tagline": "Using Meta Glasses vision stream combined with an actuator camera to build corrective prompts for a VLA.",
+      "track": null,
+      "robots": [],
+      "description": "Using Meta Glasses vision stream combined with an actuator camera to build corrective prompts for a VLA. Ran the end-effector using smolVLA and inputs from cameras on the endeffector/manipulator and smart Meta glasses, as well as voice input from the glasses. Used the feedback loop to adjust the prompt and improve the action accuracy. Future work would be to use more of DeepSeek's PPO algorithm to improve the policy for tasks",
+      "video": "https://youtu.be/3yY9Vv15kDE?is=573CldcDN6bu3bMI",
+      "images": [],
+      "repo": null,
+      "team": [
+        {
+          "name": "ayan",
+          "github": null
+        },
+        {
+          "name": "benji",
+          "github": null
+        },
+        {
+          "name": "rikin",
+          "github": null
+        },
+        {
+          "name": "masaki",
+          "github": null
+        },
+        {
+          "name": "chris",
+          "github": null
+        },
+        {
+          "name": "aaryan",
+          "github": null
+        }
+      ],
+      "teamRef": null,
+      "issue": null,
+      "source": "form",
+      "submittedAt": "2026-08-17T15:55:55-07:00",
+      "resubmissions": 0,
+      "linkNote": null
+    },
+    {
+      "slug": "robot-skills-graph",
+      "title": "Robot skills graph",
+      "tagline": "A way to track skills and attempts for replay and learning",
+      "track": null,
+      "robots": [],
+      "description": "A way to track skills and attempts for replay and learning",
+      "video": "https://drive.google.com/file/d/1idB0sOAaXE7j-q0TEolJPSl3fbFVHWtf/view?usp=sharing",
+      "images": [],
+      "repo": null,
+      "team": [
+        {
+          "name": "Jeremy Adams",
+          "github": null
+        }
+      ],
+      "teamRef": null,
+      "issue": null,
+      "source": "form",
+      "submittedAt": "2026-08-17T15:56:58-07:00",
+      "resubmissions": 0,
+      "linkNote": null
+    },
+    {
+      "slug": "fastloop",
+      "title": "Fastloop",
+      "tagline": "fastloop is a physical ai control plane for authoring robot tasks in a 3d digital twin and running the same versioned contract through simulation and a real so-101.",
+      "track": null,
+      "robots": [],
+      "description": "fastloop is a physical ai control plane for authoring robot tasks in a 3d digital twin and running the same versioned contract through simulation and a real so-101. thesis is that robot experience should not disappear into logs, every attempt should be scored, diagnosed, and turned into the next experiment. the end-to-end loop of language-directed motion + vla policies + deterministic verification + real rollout evidence + failure replay + run comparison, means that VLAs can specialise towards novel task solves.",
+      "video": "https://drive.google.com/file/d/1qAQYP3ArDHB7BkjP_r4C7YKJCKBaTZ1M/view?usp=sharing",
+      "images": [],
+      "repo": null,
+      "team": [
+        {
+          "name": "Hugh Phan",
+          "github": null
+        },
+        {
+          "name": "Sam Ethan Mathew",
+          "github": null
+        },
+        {
+          "name": "Ken Han",
+          "github": null
+        },
+        {
+          "name": "Nicole Jiang",
+          "github": null
+        },
+        {
+          "name": "Joshua McConkie",
+          "github": null
+        },
+        {
+          "name": "Chuchu Wu",
+          "github": null
+        }
+      ],
+      "teamRef": null,
+      "issue": null,
+      "source": "form",
+      "submittedAt": "2026-08-17T16:00:47-07:00",
+      "resubmissions": 2,
+      "linkNote": null
+    },
+    {
+      "slug": "tubot",
+      "title": "Tubot",
+      "tagline": "Identifying and picking tubes.",
+      "track": null,
+      "robots": [],
+      "description": "Identifying and picking tubes.",
+      "video": "https://youtube.com/shorts/ZYJicvqhOcs?is=AdIQWN_HzOhhLqTo",
+      "images": [],
+      "repo": null,
+      "team": [
+        {
+          "name": "Armin",
+          "github": null
+        },
+        {
+          "name": "Alina",
+          "github": null
+        }
+      ],
+      "teamRef": null,
+      "issue": null,
+      "source": "form",
+      "submittedAt": "2026-08-17T16:03:27-07:00",
+      "resubmissions": 0,
+      "linkNote": null
+    },
+    {
+      "slug": "desk-duster",
+      "title": "Desk Duster",
+      "tagline": "Our project cleans desks.",
+      "track": null,
+      "robots": [],
+      "description": "Our project cleans desks. We removed dust from surfaces while watching out for edges and picking up any items that may come in the way. Our approach has a robotics arm mounted on a mobile base with a camera. The goal is to get such a small and mobile unit to be deployed on several counter tops for autonomous cleaning. We were successfully able to build the unit and control all parts. However integration of the whole system is still in progress.",
+      "video": "https://photos.app.goo.gl/DZwLXMJ8UJbm714fA",
+      "images": [],
+      "repo": null,
+      "team": [
+        {
+          "name": "Ritika Shrivastava",
+          "github": null
+        },
+        {
+          "name": "Lucy Yang",
+          "github": null
+        },
+        {
+          "name": "Arushi Vashist",
+          "github": null
+        }
+      ],
+      "teamRef": null,
+      "issue": null,
+      "source": "form",
+      "submittedAt": "2026-08-17T16:06:38-07:00",
+      "resubmissions": 0,
+      "linkNote": null
+    },
+    {
+      "slug": "within-reach",
+      "title": "Within Reach",
+      "tagline": "Within Reach An assistive robotic system for people with limited upper-body mobility.",
+      "track": null,
+      "robots": [],
+      "description": "Within Reach\n\nAn assistive robotic system for people with limited upper-body mobility. It watches a workspace through a camera, identifies a requested object, figures out a safe placement inside the user's personal reach zone, and uses an SO-101 robotic arm to bring the object closer — then checks its own work and corrects the placement if needed.\n\nA user says something like \"Bring my medicine to my left side.\" The system finds the object and any obstacle in the scene from the camera feed alone, computes the user's accessible zone based on their stated mobility constraints, plans a path around the obstacle, and moves the object there with the arm. A second camera check confirms the object actually landed within reach; if not, the robot re-grasps and nudges it into place.\n\nIt's built as four clean modules — perception (color segmentation, shape/bounding-box detection, pixel-to-table coordinates), reasoning (a planner that decides which object, which zone, which path, and whether a correction is needed), action (real physics-based pick-and-place in simulation, not animation), and verification (the closed-loop check-and-correct step).",
+      "video": "https://youtu.be/Lhc3lXwQI4o?si=CVWKCsAHhKHK5jdf",
+      "images": [],
+      "repo": null,
+      "team": [
+        {
+          "name": "Assem Kadirova Kamila Kuatova",
+          "github": null
+        }
+      ],
+      "teamRef": null,
+      "issue": null,
+      "source": "form",
+      "submittedAt": "2026-08-17T16:11:02-07:00",
+      "resubmissions": 0,
+      "linkNote": null
+    },
+    {
+      "slug": "404team-work",
+      "title": "404team work",
+      "tagline": "Teleoperation of so-101 plus controlling follower arm in the simulation from the leader arm in the real world",
+      "track": null,
+      "robots": [],
+      "description": "Teleoperation of so-101 plus controlling follower arm in the simulation from the leader arm in the real world",
+      "video": "https://youtube.com/shorts/V_S5wStHcHA?feature=share",
+      "images": [],
+      "repo": null,
+      "team": [
+        {
+          "name": "Valdis",
+          "github": null
+        },
+        {
+          "name": "Lin",
+          "github": null
+        },
+        {
+          "name": "Josh",
+          "github": null
+        }
+      ],
+      "teamRef": null,
+      "issue": null,
+      "source": "form",
+      "submittedAt": "2026-08-17T16:15:39-07:00",
+      "resubmissions": 0,
+      "linkNote": null
+    }
+  ]
+}

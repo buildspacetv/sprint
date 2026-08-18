@@ -182,6 +182,30 @@ failed sends, and retries. Nothing about scoring depends on the network — a
 judging tool that stops working because the connection did is worse than one
 that never had a backend. Judges can still export CSV/JSON at any point.
 
+## Two sources feed the showcase
+
+`data/projects.json` is the live one: GitHub issues, rewritten by the sync
+workflow on every issue event. `data/submissions.json` is the demo-day Google
+Form export, and no workflow touches it — which is exactly why it is a separate
+file. A sync run rewrites `projects.json` wholesale, so form entries living
+there would vanish on the next issue edit.
+
+`build.js` concatenates the two before rendering, so the showcase, the project
+pages, and the JSON API all see one merged set. When both sources carry the same
+slug, the issue wins: it is the one an organizer can still edit.
+
+What is deliberately **not** imported from the form export:
+
+- **Team email addresses.** The form collects them; the site does not publish them.
+- **The two unlabelled scratch columns** holding judging notes (`8, 8, 8, 7`,
+  `alr reviewed`). They are internal, inconsistent, and present for only some rows.
+
+Re-submissions are folded together: same project title from a team whose roster
+overlaps the earlier entry keeps the latest row, and the count is recorded in
+`resubmissions` (shown on the project page as "revised twice"). Form entries have
+no track — the form never asked — so the track chip is omitted rather than
+rendered as "Unspecified" on every card.
+
 ## The bottom-left corner
 
 Every page carries the same three items in the bottom-left: **API**, **GitHub**,
