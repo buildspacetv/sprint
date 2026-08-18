@@ -214,9 +214,20 @@ the generated pages they are a fixed pill, because those pages have no rail. The
 API link used to live in the top-right nav, where it competed with the four
 links people actually navigate by.
 
-**Refresh** POSTs to `/api/redeploy`, which triggers a Vercel deploy hook. The
-site rebuilds itself on every issue event, so this is for the case automation
-cannot see: a changed env var, a Vercel setting, a build that failed on a flake.
+**Refresh** POSTs to `/api/redeploy`. The site rebuilds itself on every issue
+event, so this is for the case automation cannot see: a changed env var, a
+Vercel setting, a build that failed on a flake.
+
+It has two ways to get there. A Vercel deploy hook (`VERCEL_DEPLOY_HOOK_URL`)
+redeploys the current commit as-is, which is the right tool when the content is
+fine and the deployment is not. Without one it dispatches the build workflow
+using the same GitHub token `/api/edit` already uses, which re-runs sync +
+build, so it also picks up issue edits — but it cannot redeploy an unchanged
+tree, since there would be nothing to commit. The reply says which path ran.
+
+The fallback is deliberate: a deploy hook is a dashboard round-trip nobody makes
+at 3am during an event, and the token is already configured, so the button works
+with no setup and gets strictly better if a hook is added later.
 
 It is authorized with the editor's passcode (`x-edit-key`, the same
 `sessionStorage` key edit mode uses) for the reason every other write endpoint
@@ -228,11 +239,12 @@ one build; it is per-instance, so treat it as courtesy rather than a guarantee.
 
 | Variable | Value |
 | --- | --- |
-| `VERCEL_DEPLOY_HOOK_URL` | A deploy hook from Vercel → Settings → Git → Deploy Hooks |
-| `EDIT_KEY` | The organizer passcode, shared with edit mode |
+| `EDIT_KEY` | The organizer passcode, shared with edit mode. Required. |
+| `EDIT_GITHUB_TOKEN` | Already set for `/api/edit`; doubles as the build trigger. |
+| `VERCEL_DEPLOY_HOOK_URL` | Optional. Vercel → Settings → Git → Deploy Hooks. Takes precedence when present. |
 
-Until both are set the endpoint returns `503 not_configured` naming the missing
-one, and the button reports it in place.
+The endpoint returns `503 not_configured` naming what is missing — `EDIT_KEY`,
+or both trigger paths at once — and the button reports it in place.
 
 Note that `index.html` carries its own copy of the corner markup, styles, and
 script: it is published as a standalone Artifact and cannot load site CSS or JS.

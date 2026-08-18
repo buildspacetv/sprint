@@ -535,7 +535,7 @@ code { font-family: var(--f-mono); font-size: .86em; }
         });
       })
       .then(function (r) {
-        if (r.ok) { say('Queued — the new build is usually live in a couple of minutes.'); return; }
+        if (r.ok) { say((r.data && r.data.message) || 'Queued — the new build is usually live in a couple of minutes.'); return; }
         if (r.status === 401) { try { sessionStorage.removeItem(KEY); } catch (e) {} }
         say((r.data.error && r.data.error.message) || 'Could not start a redeploy.');
       })
