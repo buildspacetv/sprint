@@ -3,26 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Open any page of the Physical AI Sprint site in edit mode.">
+<meta name="description" content="Within Reach An assistive robotic system for people with limited upper-body mobility.">
 <meta name="color-scheme" content="light dark">
-<title>Edit</title>
-<link rel="canonical" href="https://www.buildspace.tv/edit.html">
+<title>Within Reach — Physical AI Sprint</title>
+<link rel="canonical" href="https://www.buildspace.tv/projects/within-reach.html">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Edit">
-<meta property="og:description" content="Open any page of the Physical AI Sprint site in edit mode.">
-<meta property="og:url" content="https://www.buildspace.tv/edit.html">
+<meta property="og:title" content="Within Reach — Physical AI Sprint">
+<meta property="og:description" content="Within Reach An assistive robotic system for people with limited upper-body mobility.">
+<meta property="og:url" content="https://www.buildspace.tv/projects/within-reach.html">
 
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Edit">
-<meta name="twitter:description" content="Open any page of the Physical AI Sprint site in edit mode.">
+<meta name="twitter:title" content="Within Reach — Physical AI Sprint">
+<meta name="twitter:description" content="Within Reach An assistive robotic system for people with limited upper-body mobility.">
 
-<link rel="alternate" type="text/markdown" href="/edit.html.md" title="Markdown version">
-<meta name="edit-kind" content="file">
-<meta name="edit-target" content="src/pages-extra.js">
-<meta name="edit-label" content="src/pages-extra.js — editPage()">
+<link rel="alternate" type="text/markdown" href="/projects/within-reach.html.md" title="Markdown version">
+<meta name="edit-kind" content="generator">
+<meta name="edit-target" content="build.js">
+<meta name="edit-label" content="build.js — projectPage()">
 <link rel="alternate" type="application/json" href="/api/index.json" title="JSON API">
 <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
-
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.buildspace.tv/#organization","name":"The Physical AI Sprint","url":"https://www.buildspace.tv","description":"A one-day Physical AI hackathon alongside Actuate SF, hosted by Nebius with NVIDIA, Antioch, and Toloka.","sameAs":["https://github.com/buildspacetv/sprint","https://luma.com/nkknxvrz","https://discord.com/invite/nN58zxSTFR","https://nebius.com"],"contactPoint":{"@type":"ContactPoint","contactType":"organizer","url":"https://www.buildspace.tv/contact.html","email":"hello@dabl.club","availableLanguage":["en"]},"address":{"@type":"PostalAddress","addressLocality":"San Francisco","addressRegion":"CA","addressCountry":"US"}},{"@type":"WebSite","@id":"https://www.buildspace.tv/#website","url":"https://www.buildspace.tv","name":"The Physical AI Sprint","publisher":{"@id":"https://www.buildspace.tv/#organization"},"inLanguage":"en"},{"@type":"WebAPI","@id":"https://www.buildspace.tv/#api","name":"Physical AI Sprint API","description":"Read-only JSON API over the hackathon teams and projects. No authentication, no rate limit.","url":"https://www.buildspace.tv/developers.html","documentation":"https://www.buildspace.tv/developers.html","provider":{"@id":"https://www.buildspace.tv/#organization"},"termsOfService":"https://www.buildspace.tv/privacy.html","potentialAction":{"@type":"ConsumeAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.buildspace.tv/api/teams.json","httpMethod":"GET","contentType":"application/json"}}},{"@type":"Service","@id":"https://www.buildspace.tv/#service","name":"The Physical AI Sprint hackathon","serviceType":"Hackathon","description":"A one-day Physical AI hackathon: robot hardware, cloud simulation, workshops, and judging, free to attend.","provider":{"@id":"https://www.buildspace.tv/#organization"},"areaServed":{"@type":"City","name":"San Francisco"},"offers":{"@type":"Offer","price":0,"priceCurrency":"USD","url":"https://luma.com/nkknxvrz"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Handbook","item":"https://www.buildspace.tv/"},{"@type":"ListItem","position":2,"name":"Showcase","item":"https://www.buildspace.tv/showcase.html"},{"@type":"ListItem","position":3,"name":"Within Reach","item":"https://www.buildspace.tv/projects/within-reach.html"}]},{"@type":"CreativeWork","name":"Within Reach","url":"https://www.buildspace.tv/projects/within-reach.html","abstract":"Within Reach An assistive robotic system for people with limited upper-body mobility.","description":"Within Reach\n\nAn assistive robotic system for people with limited upper-body mobility. It watches a workspace through a camera, identifies a requested object, figures out a safe placement inside the user's personal reach zone, and uses an SO-101 robotic arm to bring the object closer — then checks its own work and corrects the placement if needed.\n\nA user says something like \"Bring my medicine to my left side.\" The system finds the object and any obstacle in the scene from the camera feed alone, computes the user's accessible zone based on their stated mobility constraints, plans a path around the obstacle, and moves the object there with the arm. A second camera check confirms the object actually landed within reach; if not, the robot re-grasps and nudges it into place.\n\nIt's built as four clean modules — perception (color segmentation, shape/bounding-box detection, pixel-to-table coordinates), reasoning (a planner that decides which object, which zone, which path, and whether a correction is needed), action (real physics-based pick-and-place in simulation, not animation), and verification (the closed-loop check-and-correct step).","isPartOf":{"@id":"https://www.buildspace.tv/#website"},"author":[{"@type":"Person","name":"Assem Kadirova Kamila Kuatova"}]}]}
+</script>
 <style>
 /* ==========================================================================
    The Physical AI Sprint — shared design system
@@ -447,7 +449,7 @@ code { font-family: var(--f-mono); font-size: .86em; }
   <nav>
     <a href="/">Handbook</a>
     <a href="/teams.html">Teams</a>
-    <a href="/showcase.html">Showcase</a>
+    <a href="/showcase.html" aria-current="page">Showcase</a>
     <a href="/submit.html">Submit</a>
   </nav>
 </header>
@@ -456,110 +458,95 @@ code { font-family: var(--f-mono); font-size: .86em; }
 
 <header class="pagehead narrow">
   <div class="pagehead-in">
-    <p class="eyebrow">Edit mode</p>
-    <h1>Edit the site</h1>
-    <p class="lede">Open a page, click the text you want to change, and type. Press Publish and it is live in a couple of minutes.</p>
+    <p class="eyebrow"><a class="back" href="/showcase.html">← All projects</a></p>
+    <h1>Within Reach</h1>
+    <p class="lede">Within Reach An assistive robotic system for people with limited upper-body mobility.</p>
     <div class="actions">
-      <a class="btn" href="/?edit=1">Start with the handbook</a>
-      <a class="btn ghost" href="/teams.html?edit=1">Or the team directory</a>
+      
+      
     </div>
   </div>
 </header>
 
 <div class="wrap narrow">
-  <h2>Two kinds of text</h2>
-  <p><b>Most text you can change right here.</b> Click it, type, publish. Team pitches, project descriptions, and the wording on pages like About and Privacy all work this way.</p>
-  <p><b>Some text opens GitHub instead.</b> Headings, layout, and the setup guides are written in code rather than stored as content. Edit mode marks those and takes you straight to the right file — and to the exact line, so you are not hunting. You need a GitHub account with access to the repo.</p>
-  <p>You never have to work out which is which. Every page tells you, and anything you can click and type into is editable here.</p>
+<div class="videowrap"><iframe src="https://www.youtube.com/embed/Lhc3lXwQI4o" title="Project video" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
 
-  <h2>Pages</h2>
-  <div class="tablewrap">
-    <table class="fields">
-      <thead><tr><th>Page</th><th>What is on it</th><th>Editing</th></tr></thead>
-      <tbody>
-        <tr>
-          <td class="team"><a href="/?edit=1">Handbook</a></td>
-          <td>The challenge, schedule, judging, and the four setup guides.</td>
-          <td>Opens GitHub, at the line you clicked</td>
-        </tr>
-        <tr>
-          <td class="team"><a href="/about.html?edit=1">About</a></td>
-          <td>What the event is and who runs it.</td>
-          <td>Edit here</td>
-        </tr>
-        <tr>
-          <td class="team"><a href="/privacy.html?edit=1">Privacy</a></td>
-          <td>What data the site holds.</td>
-          <td>Edit here</td>
-        </tr>
-        <tr>
-          <td class="team"><a href="/contact.html?edit=1">Contact</a></td>
-          <td>How to reach the organizers.</td>
-          <td>Opens GitHub</td>
-        </tr>
-        <tr>
-          <td class="team"><a href="/developers.html?edit=1">Developers</a></td>
-          <td>The JSON API and how to call it.</td>
-          <td>Opens GitHub</td>
-        </tr>
-        <tr>
-          <td class="team"><a href="/teams.html?edit=1">Team directory</a></td>
-          <td>The list itself. Each team is edited on its own page.</td>
-          <td>Opens GitHub</td>
-        </tr>
-        <tr>
-          <td class="team"><a href="/showcase.html?edit=1">Project showcase</a></td>
-          <td>The grid itself. Each project is edited on its own page.</td>
-          <td>Opens GitHub</td>
-        </tr>
-        <tr>
-          <td class="team"><a href="/submit.html?edit=1">Submit</a></td>
-          <td>Instructions for submitting a project.</td>
-          <td>Opens GitHub</td>
-        </tr>
-      </tbody>
-    </table>
+
+  <div class="prose">
+<p>Within Reach</p>
+<p>An assistive robotic system for people with limited upper-body mobility. It watches a workspace through a camera, identifies a requested object, figures out a safe placement inside the user&#39;s personal reach zone, and uses an SO-101 robotic arm to bring the object closer — then checks its own work and corrects the placement if needed.</p>
+<p>A user says something like &quot;Bring my medicine to my left side.&quot; The system finds the object and any obstacle in the scene from the camera feed alone, computes the user&#39;s accessible zone based on their stated mobility constraints, plans a path around the obstacle, and moves the object there with the arm. A second camera check confirms the object actually landed within reach; if not, the robot re-grasps and nudges it into place.</p>
+<p>It&#39;s built as four clean modules — perception (color segmentation, shape/bounding-box detection, pixel-to-table coordinates), reasoning (a planner that decides which object, which zone, which path, and whether a correction is needed), action (real physics-based pick-and-place in simulation, not animation), and verification (the closed-loop check-and-correct step).</p>
   </div>
 
-  <h2>Teams and projects</h2>
-  <p>Each team and project page shows what that team filled in when they signed up. Editing the page edits their entry, and the page updates itself — so this is how you fix a typo in someone's write-up without asking them to do it.</p>
-  <div class="tablewrap">
-    <table class="fields">
-      <thead><tr><th>Page</th><th>Their entry</th></tr></thead>
-      <tbody>
-        <tr><td class="team"><a href="/teams/practice-makes-perfect.html?edit=1">Practice Makes Perfect</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/1">#1</a></td></tr>
-        <tr><td class="team"><a href="/projects/404team-work.html?edit=1">404team work</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/0">#0</a></td></tr>
-        <tr><td class="team"><a href="/projects/back-online.html?edit=1">Back Online</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/0">#0</a></td></tr>
-        <tr><td class="team"><a href="/projects/bruno-the-librarian.html?edit=1">Bruno - the Librarian</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/0">#0</a></td></tr>
-        <tr><td class="team"><a href="/projects/collaborative-reference-frames-for-assistive-robotics.html?edit=1">Collaborative Reference Frames For Assistive Robotics</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/0">#0</a></td></tr>
-        <tr><td class="team"><a href="/projects/desk-duster.html?edit=1">Desk Duster</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/0">#0</a></td></tr>
-        <tr><td class="team"><a href="/projects/edie-sees-you.html?edit=1">Edie Sees You</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/0">#0</a></td></tr>
-        <tr><td class="team"><a href="/projects/fastloop.html?edit=1">Fastloop</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/0">#0</a></td></tr>
-        <tr><td class="team"><a href="/projects/humanoid-yoga-instructor.html?edit=1">Humanoid Yoga Instructor</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/0">#0</a></td></tr>
-        <tr><td class="team"><a href="/projects/nemocode.html?edit=1">NemoCode</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/3">#3</a></td></tr>
-        <tr><td class="team"><a href="/projects/physical-ai-perception-reasoning-action-pipeline-for-a-robot.html?edit=1">Physical AI Perception-Reasoning-Action Pipeline for a Robotic Arm</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/0">#0</a></td></tr>
-        <tr><td class="team"><a href="/projects/reflect-real-world-failure-led-embodied-continual-training.html?edit=1">REFLECT Real-world Failure-Led Embodied Continual Training</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/0">#0</a></td></tr>
-        <tr><td class="team"><a href="/projects/robot-skills-graph.html?edit=1">Robot skills graph</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/0">#0</a></td></tr>
-        <tr><td class="team"><a href="/projects/saffron-procedural-saffron-harvesting-cell-reach-verified-gr.html?edit=1">SAFFRON - procedural saffron harvesting cell (reach verified, grasp not yet)</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/0">#0</a></td></tr>
-        <tr><td class="team"><a href="/projects/the-first-experiment.html?edit=1">The first experiment</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/0">#0</a></td></tr>
-        <tr><td class="team"><a href="/projects/tubot.html?edit=1">Tubot</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/0">#0</a></td></tr>
-        <tr><td class="team"><a href="/projects/v9-max.html?edit=1">V9 Max</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/0">#0</a></td></tr>
-        <tr><td class="team"><a href="/projects/within-reach.html?edit=1">Within Reach</a></td><td><a href="https://github.com/buildspacetv/sprint/issues/0">#0</a></td></tr>
-      </tbody>
-    </table>
-  </div>
 
-  <h2>What you need</h2>
-  <ul class="list">
-    <li><b>To edit here:</b> the passcode an organizer gave you. You enter it once.</li>
-    <li><b>To edit on GitHub:</b> a GitHub account with access to <a href="https://github.com/buildspacetv/sprint">the repo</a>. Without access, GitHub offers to send your change as a suggestion instead.</li>
+
+  <h2>Team</h2>
+  <ul class="team">
+    <li><span class="nolink"><span class="who"><span class="nm">Assem Kadirova Kamila Kuatova</span></span></span></li>
   </ul>
 
-  <h2>If it will not let you</h2>
-  <p>Occasionally a piece of text cannot be changed here, because the site assembles it from other information rather than storing it as words — a count, a date, a team name repeated from elsewhere. Edit mode says so and points you at the file. Change it there and it updates everywhere it appears.</p>
+  <dl class="facts">
+    
+    
+    
+    
+    <div><dt>Submission</dt><dd>Demo-day form</dd></div>
+    <div><dt>Submitted</dt><dd>August 17, 2026 at 4:11pm</dd></div>
+  </dl>
 
-  <h2>Leaving edit mode</h2>
-  <p>Press <b>Leave edit mode</b> in the purple bar, or close the tab. It never shows for anyone visiting the site normally.</p>
+  <div class="share">
+    <span class="share-label">Share</span>
+    <a href="https://twitter.com/intent/tweet?text=Within%20Reach%20%E2%80%94%20Within%20Reach%20An%20assistive%20robotic%20system%20for%20people%20with%20limited%20upper-body%20mobility.&amp;url=https%3A%2F%2Fwww.buildspace.tv%2Fprojects%2Fwithin-reach.html" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-7.4 8.5L23 22h-6.8l-5.3-7-6.1 7H1.7l7.9-9L1 2h7l4.8 6.4L18.9 2Zm-1.1 18h1.9L7.3 4H5.3l12.5 16Z"/></svg>
+      X
+    </a>
+    <a href="https://bsky.app/intent/compose?text=Within%20Reach%20%E2%80%94%20Within%20Reach%20An%20assistive%20robotic%20system%20for%20people%20with%20limited%20upper-body%20mobility.%20https%3A%2F%2Fwww.buildspace.tv%2Fprojects%2Fwithin-reach.html" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 10.8C10.9 8.6 7.9 4.6 5.1 2.6 2.4.7 1.4 1 .8 1.3.1 1.7 0 2.8 0 3.4c0 .6.3 5.1.6 5.9.7 2.4 3.3 3.2 5.6 3-2.3.3-4.4 1.2-1.7 4.2 3 3.2 4.1-.7 4.7-2.7l.8-2.4.8 2.4c.6 2 1.7 5.9 4.7 2.7 2.7-3 .6-3.9-1.7-4.2 2.3.2 4.9-.6 5.6-3 .3-.8.6-5.3.6-5.9 0-.6-.1-1.7-.8-2.1-.6-.3-1.6-.6-4.3 1.3-2.8 2-5.8 6-6.9 8.2Z"/></svg>
+      Bluesky
+    </a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.buildspace.tv%2Fprojects%2Fwithin-reach.html" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.76-2.05C21.4 8.65 22 11.1 22 14.2V21h-4v-6c0-1.4-.03-3.2-2-3.2-2 0-2.3 1.5-2.3 3.1V21h-4V9Z"/></svg>
+      LinkedIn
+    </a>
+    <button type="button" id="copyLink">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.1.1l3-3a5 5 0 0 0-7.1-7.1l-1.7 1.7 1.4 1.4 1.7-1.7a3 3 0 0 1 4.3 4.3l-3 3a3 3 0 0 1-4.3 0L10 13Zm4-2a5 5 0 0 0-7.1-.1l-3 3a5 5 0 0 0 7.1 7.1l1.7-1.7-1.4-1.4-1.7 1.7a3 3 0 1 1-4.3-4.3l3-3a3 3 0 0 1 4.3 0L14 11Z"/></svg>
+      Copy link
+    </button>
+    <button type="button" id="nativeShare" hidden>Share…</button>
+  </div>
+
+  <script>
+  (function () {
+    var url = "https://www.buildspace.tv/projects/within-reach.html";
+    var title = "Within Reach";
+    var text = "Within Reach — Within Reach An assistive robotic system for people with limited upper-body mobility.";
+    var copy = document.getElementById('copyLink');
+    copy.addEventListener('click', function () {
+      var done = function () {
+        var was = copy.innerHTML;
+        copy.textContent = 'Copied';
+        copy.classList.add('done');
+        setTimeout(function () { copy.innerHTML = was; copy.classList.remove('done'); }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(done, function () {});
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = url; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    });
+    if (navigator.share) {
+      var nat = document.getElementById('nativeShare');
+      nat.hidden = false;
+      nat.addEventListener('click', function () {
+        navigator.share({ title: title, text: text, url: url }).catch(function () {});
+      });
+    }
+  })();
+  </script>
 </div>
 </main>
 
