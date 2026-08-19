@@ -19,9 +19,8 @@ const DISCORD = 'https://discord.com/invite/nN58zxSTFR';
 const EVENT_DATE = '2026-08-17';
 
 const HTML_PAGES = [
-  ['/', 'Handbook', 'The full hackathon guide: challenge, schedule, judging, and four setup guides for the SO-101, Antioch, and Unitree robots.'],
-  ['/showcase.html', 'Project showcase', 'Every project submitted, searchable and filterable by track.'],
-  ['/submit.html', 'Submit a project', 'How to submit a project to the showcase.'],
+  ['/', 'Project showcase', 'Every project built at the sprint, with demos, teams, and write-ups.'],
+  ['/handbook.html', 'Handbook', 'The full hackathon guide: challenge, schedule, judging, and four setup guides for the SO-101, Antioch, and Unitree robots.'],
   ['/developers.html', 'Developers', 'The read-only JSON API over teams and projects.'],
   ['/about.html', 'About', 'What the Physical AI Sprint is, who runs it, and how it works.'],
   ['/contact.html', 'Contact', 'How to reach the organizers.'],
@@ -762,7 +761,7 @@ Full description: [openapi.json](${SITE}/openapi.json).
 
 - **Register a user.** Registration is on Luma: ${APPLY}
 - **Create a team or submit a project.** Both are GitHub issue forms, which need a signed-in
-  GitHub user. Link the person to ${SITE}/teams.html or ${SITE}/submit.html rather than
+  GitHub user. Link the person to ${SITE}/ rather than
   attempting it on their behalf.
 - **Write anything.** The API is read-only by design.
 
@@ -1134,7 +1133,7 @@ function markdownTwins(teams, projects) {
     : '_No projects submitted yet. The deadline is 3:30pm on event day._';
 
   const twins = {
-    'index.md': fm('The Physical AI Sprint', 'A one-day Physical AI hackathon on ' + EVENT_DATE + ' alongside Actuate SF.', SITE + '/') +
+    'handbook.md': fm('The Physical AI Sprint', 'A one-day Physical AI hackathon on ' + EVENT_DATE + ' alongside Actuate SF.', SITE + '/') +
 `# The Physical AI Sprint
 
 A one-day hackathon at the intersection of AI and the physical world, ${EVENT_DATE},
@@ -1147,7 +1146,7 @@ creativity, and architectural quality.
 
 - [Full handbook](${SITE}/) — challenge, schedule, judging, and four setup guides
 - [Everything as one markdown document](${SITE}/llms-full.txt)
-- [Project showcase](${SITE}/showcase.html)
+- [Project showcase](${SITE}/) · [Handbook](${SITE}/handbook.html)
 - [API](${SITE}/developers.html) · [Register](${APPLY}) · [Discord](${DISCORD})
 
 ## Schedule
@@ -1171,7 +1170,7 @@ ${teamLines}
 Post a team or ask to join one at [${SITE}/teams.html](${SITE}/teams.html).
 Structured data: [${SITE}/api/teams.json](${SITE}/api/teams.json).
 `,
-    'showcase.md': fm('Project showcase', 'Projects built at the Physical AI Sprint.', SITE + '/showcase.html') +
+    'index.md': fm('Project showcase', 'Projects built at the Physical AI Sprint.', SITE + '/') +
 `# Project showcase
 
 ${projects.length} project${projects.length === 1 ? '' : 's'} submitted.

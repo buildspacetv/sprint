@@ -10,16 +10,34 @@ because generated pages are committed to the repo.
 
 | Path | Source | Notes |
 | --- | --- | --- |
-| `/` | `index.html` | The handbook. Hand-maintained, self-contained. |
-| `/teams.html` | generated | Team directory: post a team, find one with room, search by skill or person. |
-| `/showcase.html` | generated | Grid of all submitted projects, with search and track filter. |
-| `/submit.html` | generated | How to submit; links to the GitHub issue form. |
+| `/` | generated | **The showcase.** Grid of every project, with search, preview images, and an event photo strip in the header. |
+| `/handbook.html` | `handbook.html` | The handbook. Hand-maintained, self-contained. Was the home page until the event ended. |
+| `/teams.html` | generated | Team directory. Unlinked and noindexed — it went unused. |
+| `/submit.html` | generated | How to submit. Unlinked and noindexed now that submissions are closed. |
+| `/showcase.html` | — | Permanent redirect to `/`. |
 | `/teams/<slug>.html` | generated | One page per team: roster, skills, and the projects they submitted. |
 | `/projects/<slug>.html` | generated | One page per project. |
 
-`index.html` deliberately keeps its own copy of the design tokens rather than
-using `src/styles.css`. It is also published as a standalone Claude Artifact,
-which cannot load external stylesheets, so it has to stay self-contained.
+`handbook.html` deliberately keeps its own copy of the design tokens rather
+than using `src/styles.css`. It is also published as a standalone Claude
+Artifact, which cannot load external stylesheets, so it has to stay
+self-contained. It was `index.html` until the showcase took the root; the
+editor's write allowlist, `edit-map.json`, and the edit-target meta all name it
+by its new path.
+
+## Card preview images
+
+A card shows the first committed image if a project has one. Failing that,
+`thumbFor()` derives a thumbnail from the demo link: YouTube publishes one per
+video id (Shorts included), Drive and Slides both answer `/thumbnail` for a
+shared file, and a repo has an OpenGraph card. What is left over — a Drive
+*folder*, which has no single file to preview — gets a lettered tile rather
+than an empty grey box, and a derived thumbnail that 404s later falls back to
+the same tile in the browser.
+
+Photos in the showcase header come from `img/header/`, in filename order. Drop
+files in, rebuild, and the strip appears; with the directory empty it renders
+nothing at all.
 
 ## How submissions work
 
@@ -96,8 +114,9 @@ If you add a field, run it through those same helpers.
 ## Layout
 
 ```
-index.html                                  handbook (hand-maintained)
-showcase.html  teams.html  submit.html  projects/*.html    generated — do not edit
+handbook.html                               handbook (hand-maintained)
+index.html  teams.html  submit.html  projects/*.html    generated — do not edit
+img/header/*                                photos for the showcase header
 build.js                                    the generator
 src/styles.css                              design system for generated pages
 data/projects.json  data/teams.json         source of truth

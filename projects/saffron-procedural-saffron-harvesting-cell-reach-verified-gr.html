@@ -23,7 +23,7 @@
 <link rel="alternate" type="application/json" href="/api/index.json" title="JSON API">
 <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.buildspace.tv/#organization","name":"The Physical AI Sprint","url":"https://www.buildspace.tv","description":"A one-day Physical AI hackathon alongside Actuate SF, hosted by Nebius with NVIDIA, Antioch, and Toloka.","sameAs":["https://github.com/buildspacetv/sprint","https://luma.com/nkknxvrz","https://discord.com/invite/nN58zxSTFR","https://nebius.com"],"contactPoint":{"@type":"ContactPoint","contactType":"organizer","url":"https://www.buildspace.tv/contact.html","email":"hello@dabl.club","availableLanguage":["en"]},"address":{"@type":"PostalAddress","addressLocality":"San Francisco","addressRegion":"CA","addressCountry":"US"}},{"@type":"WebSite","@id":"https://www.buildspace.tv/#website","url":"https://www.buildspace.tv","name":"The Physical AI Sprint","publisher":{"@id":"https://www.buildspace.tv/#organization"},"inLanguage":"en"},{"@type":"WebAPI","@id":"https://www.buildspace.tv/#api","name":"Physical AI Sprint API","description":"Read-only JSON API over the hackathon teams and projects. No authentication, no rate limit.","url":"https://www.buildspace.tv/developers.html","documentation":"https://www.buildspace.tv/developers.html","provider":{"@id":"https://www.buildspace.tv/#organization"},"termsOfService":"https://www.buildspace.tv/privacy.html","potentialAction":{"@type":"ConsumeAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.buildspace.tv/api/teams.json","httpMethod":"GET","contentType":"application/json"}}},{"@type":"Service","@id":"https://www.buildspace.tv/#service","name":"The Physical AI Sprint hackathon","serviceType":"Hackathon","description":"A one-day Physical AI hackathon: robot hardware, cloud simulation, workshops, and judging, free to attend.","provider":{"@id":"https://www.buildspace.tv/#organization"},"areaServed":{"@type":"City","name":"San Francisco"},"offers":{"@type":"Offer","price":0,"priceCurrency":"USD","url":"https://luma.com/nkknxvrz"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Handbook","item":"https://www.buildspace.tv/"},{"@type":"ListItem","position":2,"name":"Showcase","item":"https://www.buildspace.tv/showcase.html"},{"@type":"ListItem","position":3,"name":"SAFFRON - procedural saffron harvesting cell (reach verified, grasp not yet)","item":"https://www.buildspace.tv/projects/saffron-procedural-saffron-harvesting-cell-reach-verified-gr.html"}]},{"@type":"CreativeWork","name":"SAFFRON - procedural saffron harvesting cell (reach verified, grasp not yet)","url":"https://www.buildspace.tv/projects/saffron-procedural-saffron-harvesting-cell-reach-verified-gr.html","abstract":"Saffron is the most expensive crop on earth: a kilogram is ~150,000 crocus flowers, each hand-picked for exactly three red stigma threads.","description":"Saffron is the most expensive crop on earth: a kilogram is ~150,000 crocus flowers, each hand-picked for exactly three red stigma threads. No crocus exists in the Isaac asset library, so we generated the world too: every flower is a seeded parameter vector (bloom, petal spread, thread length, splay, colour), with ripe flowers and unripe buds drawn from the same sampler so selectivity must be recovered from the scene, not read off a label. Sim-only on Antioch / Isaac Sim 6.0.1, SO-101.\n\nModules: World (procedural crocus USD) -\u003E Perception (HSV separation of deep-red thread from purple petal across the hue wraparound, clustering, tip extraction, ripeness grading) -\u003E Reasoning (grade flowers, never plan a bud as a target, retry-once-then-abandon) -\u003E Action (reach calibrated by driving the arm and measuring where it lands, 320 stations, each rehearsed before a flower is planted on it).\n\nVERIFIED: the arm reaches every planned thread, jaw closing 0.1-7.7 mm from target, 0 retries, no bud ever targeted.\n\nNOT DONE, PLAINLY: the gripper does not grasp or carry a thread. Our gate fires on jaw-to-thread proximity under 22 mm and then releases the thread programmatically; threads carry no collider while held. The video shows accurate reaching, not picking. We are not claiming a working harvest.\n\nThe engineering is in the debugging, all found by instrumenting the sim: teleport kinematics detonating the articulation (tool radius 2.8e10 m, unrecoverable, so later readings are silently garbage); a stillness test firing before the servos moved, so calibration recorded the start pose; measuring from the jaw link, which swings ~100 degrees when the gripper opens (162 -\u003E 68 mm); breakable joints that never held, 10 of 12 threads on the floor while the USD attribute still said \"attached\"; and a kinematic thread acting as an immovable obstacle on its own grasp target (0.2 mm rehearsal, 81 mm miss). Two fixes tried, measured and reverted: drive-gain overrides and neutral-pose transits (90 -\u003E 203 mm).\n\nNext: colliders on threads, tune break force against measured contact force, carry to the vial.","codeRepository":"https://github.com/agi-developr/saffron-physical-ai-sprint","isPartOf":{"@id":"https://www.buildspace.tv/#website"},"author":[{"@type":"Person","name":"Ilia Prihodko"}]}]}
+{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.buildspace.tv/#organization","name":"The Physical AI Sprint","url":"https://www.buildspace.tv","description":"A one-day Physical AI hackathon alongside Actuate SF, hosted by Nebius with NVIDIA, Antioch, and Toloka.","sameAs":["https://github.com/buildspacetv/sprint","https://luma.com/nkknxvrz","https://discord.com/invite/nN58zxSTFR","https://nebius.com"],"contactPoint":{"@type":"ContactPoint","contactType":"organizer","url":"https://www.buildspace.tv/contact.html","email":"hello@dabl.club","availableLanguage":["en"]},"address":{"@type":"PostalAddress","addressLocality":"San Francisco","addressRegion":"CA","addressCountry":"US"}},{"@type":"WebSite","@id":"https://www.buildspace.tv/#website","url":"https://www.buildspace.tv","name":"The Physical AI Sprint","publisher":{"@id":"https://www.buildspace.tv/#organization"},"inLanguage":"en"},{"@type":"WebAPI","@id":"https://www.buildspace.tv/#api","name":"Physical AI Sprint API","description":"Read-only JSON API over the hackathon teams and projects. No authentication, no rate limit.","url":"https://www.buildspace.tv/developers.html","documentation":"https://www.buildspace.tv/developers.html","provider":{"@id":"https://www.buildspace.tv/#organization"},"termsOfService":"https://www.buildspace.tv/privacy.html","potentialAction":{"@type":"ConsumeAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.buildspace.tv/api/teams.json","httpMethod":"GET","contentType":"application/json"}}},{"@type":"Service","@id":"https://www.buildspace.tv/#service","name":"The Physical AI Sprint hackathon","serviceType":"Hackathon","description":"A one-day Physical AI hackathon: robot hardware, cloud simulation, workshops, and judging, free to attend.","provider":{"@id":"https://www.buildspace.tv/#organization"},"areaServed":{"@type":"City","name":"San Francisco"},"offers":{"@type":"Offer","price":0,"priceCurrency":"USD","url":"https://luma.com/nkknxvrz"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Showcase","item":"https://www.buildspace.tv/"},{"@type":"ListItem","position":2,"name":"SAFFRON - procedural saffron harvesting cell (reach verified, grasp not yet)","item":"https://www.buildspace.tv/projects/saffron-procedural-saffron-harvesting-cell-reach-verified-gr.html"}]},{"@type":"CreativeWork","name":"SAFFRON - procedural saffron harvesting cell (reach verified, grasp not yet)","url":"https://www.buildspace.tv/projects/saffron-procedural-saffron-harvesting-cell-reach-verified-gr.html","abstract":"Saffron is the most expensive crop on earth: a kilogram is ~150,000 crocus flowers, each hand-picked for exactly three red stigma threads.","description":"Saffron is the most expensive crop on earth: a kilogram is ~150,000 crocus flowers, each hand-picked for exactly three red stigma threads. No crocus exists in the Isaac asset library, so we generated the world too: every flower is a seeded parameter vector (bloom, petal spread, thread length, splay, colour), with ripe flowers and unripe buds drawn from the same sampler so selectivity must be recovered from the scene, not read off a label. Sim-only on Antioch / Isaac Sim 6.0.1, SO-101.\n\nModules: World (procedural crocus USD) -\u003E Perception (HSV separation of deep-red thread from purple petal across the hue wraparound, clustering, tip extraction, ripeness grading) -\u003E Reasoning (grade flowers, never plan a bud as a target, retry-once-then-abandon) -\u003E Action (reach calibrated by driving the arm and measuring where it lands, 320 stations, each rehearsed before a flower is planted on it).\n\nVERIFIED: the arm reaches every planned thread, jaw closing 0.1-7.7 mm from target, 0 retries, no bud ever targeted.\n\nNOT DONE, PLAINLY: the gripper does not grasp or carry a thread. Our gate fires on jaw-to-thread proximity under 22 mm and then releases the thread programmatically; threads carry no collider while held. The video shows accurate reaching, not picking. We are not claiming a working harvest.\n\nThe engineering is in the debugging, all found by instrumenting the sim: teleport kinematics detonating the articulation (tool radius 2.8e10 m, unrecoverable, so later readings are silently garbage); a stillness test firing before the servos moved, so calibration recorded the start pose; measuring from the jaw link, which swings ~100 degrees when the gripper opens (162 -\u003E 68 mm); breakable joints that never held, 10 of 12 threads on the floor while the USD attribute still said \"attached\"; and a kinematic thread acting as an immovable obstacle on its own grasp target (0.2 mm rehearsal, 81 mm miss). Two fixes tried, measured and reverted: drive-gain overrides and neutral-pose transits (90 -\u003E 203 mm).\n\nNext: colliders on threads, tune break force against measured contact force, carry to the vial.","codeRepository":"https://github.com/agi-developr/saffron-physical-ai-sprint","isPartOf":{"@id":"https://www.buildspace.tv/#website"},"author":[{"@type":"Person","name":"Ilia Prihodko"}]}]}
 </script>
 <style>
 /* ==========================================================================
@@ -336,6 +336,26 @@ code { font-family: var(--f-mono); font-size: .86em; }
 
 .cliphead { font-family: var(--f-display); font-weight: 600; font-size: .95rem; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); margin: 26px 0 -8px; }
 
+.ph.tile {
+  display: grid; place-items: center; width: 100%; height: 100%;
+  font-family: var(--f-display); font-weight: 600; font-size: 2.6rem; letter-spacing: .04em;
+  color: var(--accent-ink); background:
+    repeating-linear-gradient(0deg, var(--accent-soft) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(90deg, var(--accent-soft) 0 1px, transparent 1px 24px),
+    var(--surface-2);
+}
+
+/* ---------- header photo strip ---------- */
+.pagehead-photos {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px; margin-top: 26px;
+}
+.pagehead-photos img {
+  width: 100%; height: 100%; max-height: 260px; object-fit: cover;
+  border: 1px solid var(--line); border-radius: 10px; display: block;
+}
+@media (max-width: 720px) { .pagehead-photos img { max-height: 190px; } }
+
 .gallery { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 20px 0; }
 .gallery a { display: block; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; background: var(--surface-2); }
 .gallery img { width: 100%; display: block; aspect-ratio: 4 / 3; object-fit: cover; }
@@ -452,9 +472,8 @@ code { font-family: var(--f-mono); font-size: .86em; }
     <span>Monday, August 17, 2026</span>
   </a>
   <nav>
-    <a href="/">Handbook</a>
-    <a href="/showcase.html" aria-current="page">Showcase</a>
-    <a href="/submit.html">Submit</a>
+    <a href="/" aria-current="page">Showcase</a>
+    <a href="/handbook.html">Handbook</a>
   </nav>
 </header>
 
@@ -462,7 +481,7 @@ code { font-family: var(--f-mono); font-size: .86em; }
 
 <header class="pagehead narrow">
   <div class="pagehead-in">
-    <p class="eyebrow"><a class="back" href="/showcase.html">← All projects</a></p>
+    <p class="eyebrow"><a class="back" href="/">← All projects</a></p>
     <h1>SAFFRON - procedural saffron harvesting cell (reach verified, grasp not yet)</h1>
     <p class="lede">Saffron is the most expensive crop on earth: a kilogram is ~150,000 crocus flowers, each hand-picked for exactly three red stigma threads.</p>
     <div class="actions">
@@ -562,8 +581,8 @@ code { font-family: var(--f-mono); font-size: .86em; }
     <div class="foot-links">
       <a href="https://luma.com/nkknxvrz">Apply</a>
       <a href="https://discord.com/invite/nN58zxSTFR">Discord</a>
-      <a href="/showcase.html">Showcase</a>
-      <a href="/submit.html">Submit a project</a>
+      <a href="/">Showcase</a>
+      <a href="/handbook.html">Handbook</a>
       <a href="/developers.html">API</a>
       <a href="/about.html">About</a>
       <a href="/contact.html">Contact</a>

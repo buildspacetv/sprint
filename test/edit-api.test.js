@@ -55,7 +55,7 @@ test('an emptied field becomes _No response_ rather than a blank heading', () =>
 test('the write allowlist covers content and excludes infrastructure', () => {
   const WRITABLE = new Function(`${src.match(/const WRITABLE = \[[\s\S]*?\];/)[0]}; return WRITABLE;`)();
   const allowed = (p) => WRITABLE.some((re) => re.test(p));
-  assert.ok(allowed('index.html'));
+  assert.ok(allowed('handbook.html'));
   assert.ok(allowed('src/pages-extra.js'));
   assert.ok(!allowed('.github/workflows/submissions.yml'), 'the deploy workflow must not be writable');
   assert.ok(!allowed('api/edit/content.js'), 'the edit API must not rewrite itself');
@@ -88,8 +88,8 @@ test('ordinary prose is allowed through', () => {
 });
 
 test('markup is refused in the handbook, which is served as written', () => {
-  assert.ok(unsafeReason('<b>bold</b>', 'index.html'));
-  assert.equal(unsafeReason('plain sentence', 'index.html'), null);
+  assert.ok(unsafeReason('<b>bold</b>', 'handbook.html'));
+  assert.equal(unsafeReason('plain sentence', 'handbook.html'), null);
 });
 
 test('the allowlist no longer includes anything the workflow executes', () => {
@@ -98,5 +98,5 @@ test('the allowlist no longer includes anything the workflow executes', () => {
   assert.ok(!allowed('build.js'), 'the workflow runs `node build.js`');
   assert.ok(!allowed('src/agent-files.js'));
   assert.ok(allowed('src/pages-extra.js'), 'the one file the site actually edits');
-  assert.ok(allowed('index.html'));
+  assert.ok(allowed('handbook.html'));
 });

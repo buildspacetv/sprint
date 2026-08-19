@@ -40,7 +40,7 @@ Full description: [openapi.json](https://www.buildspace.tv/openapi.json).
 
 - **Register a user.** Registration is on Luma: https://luma.com/nkknxvrz
 - **Create a team or submit a project.** Both are GitHub issue forms, which need a signed-in
-  GitHub user. Link the person to https://www.buildspace.tv/teams.html or https://www.buildspace.tv/submit.html rather than
+  GitHub user. Link the person to https://www.buildspace.tv/ rather than
   attempting it on their behalf.
 - **Write anything.** The API is read-only by design.
 
