@@ -490,15 +490,9 @@ code { font-family: var(--f-mono); font-size: .86em; }
 
 <div class="wrap">
   <div class="controls">
-    <input type="search" id="q" placeholder="Search projects, teams, robots…" aria-label="Search projects"
+    <input type="search" id="q" placeholder="Search projects and teams…" aria-label="Search projects"
       toolname="search_projects"
       tooldescription="Filter the submitted hackathon projects by title, tagline, robot used, or team member name.">
-    <div class="filters" role="group" aria-label="Filter by track">
-      <button data-filter="all" aria-pressed="true">All</button>
-      <button data-filter="sim" aria-pressed="false">Sim</button>
-      <button data-filter="hardware" aria-pressed="false">Hardware</button>
-      <button data-filter="both" aria-pressed="false">Sim + real</button>
-    </div>
     <span class="count"><b id="shown">17</b> of 17</span>
   </div>
 
@@ -723,15 +717,12 @@ code { font-family: var(--f-mono); font-size: .86em; }
     var shown = document.getElementById('shown');
     var none = document.getElementById('noresults');
     var grid = document.getElementById('grid');
-    var filter = 'all';
 
     function apply() {
       var term = q.value.trim().toLowerCase();
       var n = 0;
       cards.forEach(function (c) {
-        var okTrack = filter === 'all' || c.getAttribute('data-track') === filter;
-        var okTerm = !term || c.getAttribute('data-search').indexOf(term) !== -1;
-        var on = okTrack && okTerm;
+        var on = !term || c.getAttribute('data-search').indexOf(term) !== -1;
         c.hidden = !on;
         if (on) n++;
       });
@@ -763,15 +754,6 @@ code { font-family: var(--f-mono); font-size: .86em; }
         },
       });
     }
-    Array.prototype.forEach.call(document.querySelectorAll('.filters button'), function (b) {
-      b.addEventListener('click', function () {
-        filter = b.getAttribute('data-filter');
-        Array.prototype.forEach.call(document.querySelectorAll('.filters button'), function (o) {
-          o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
-        });
-        apply();
-      });
-    });
   })();
   </script>
 </div>
