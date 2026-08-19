@@ -45,9 +45,8 @@ them to the GitHub issue forms linked from the site.
 
 ## Pages
 
-- [Handbook](https://www.buildspace.tv/): The full hackathon guide: challenge, schedule, judging, and four setup guides for the SO-101, Antioch, and Unitree robots.
-- [Project showcase](https://www.buildspace.tv/showcase.html): Every project submitted, searchable and filterable by track.
-- [Submit a project](https://www.buildspace.tv/submit.html): How to submit a project to the showcase.
+- [Project showcase](https://www.buildspace.tv/): Every project built at the sprint, with demos, teams, and write-ups.
+- [Handbook](https://www.buildspace.tv/handbook.html): The full hackathon guide: challenge, schedule, judging, and four setup guides for the SO-101, Antioch, and Unitree robots.
 - [Developers](https://www.buildspace.tv/developers.html): The read-only JSON API over teams and projects.
 - [About](https://www.buildspace.tv/about.html): What the Physical AI Sprint is, who runs it, and how it works.
 - [Contact](https://www.buildspace.tv/contact.html): How to reach the organizers.

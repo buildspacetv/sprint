@@ -127,6 +127,15 @@
           "value": "noindex, nofollow"
         }
       ]
+    },
+    {
+      "source": "/submit.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
     }
   ],
   "rewrites": [
@@ -181,6 +190,18 @@
         }
       ],
       "destination": "/judge.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/showcase.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/index.md",
+      "destination": "/handbook.md",
+      "permanent": true
     }
   ]
 }

@@ -91,7 +91,7 @@
   /* ---------------------------------------------------------------- bar */
 
   var kind = meta('edit-kind') || 'file';
-  var target = meta('edit-target') || 'index.html';
+  var target = meta('edit-target') || 'handbook.html';
   var label = meta('edit-label') || target;
 
   var bar = document.createElement('div');

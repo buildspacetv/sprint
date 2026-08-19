@@ -330,9 +330,8 @@ ${css}
     <span>Monday, August 17, 2026</span>
   </a>
   <nav>
-    <a href="/"${current === 'handbook' ? ' aria-current="page"' : ''}>Handbook</a>
-    <a href="/showcase.html"${current === 'showcase' ? ' aria-current="page"' : ''}>Showcase</a>
-    <a href="/submit.html"${current === 'submit' ? ' aria-current="page"' : ''}>Submit</a>
+    <a href="/"${current === 'showcase' ? ' aria-current="page"' : ''}>Showcase</a>
+    <a href="/handbook.html"${current === 'handbook' ? ' aria-current="page"' : ''}>Handbook</a>
   </nav>
 </header>
 
@@ -345,8 +344,8 @@ ${body}
     <div class="foot-links">
       <a href="${APPLY}">Apply</a>
       <a href="${DISCORD}">Discord</a>
-      <a href="/showcase.html">Showcase</a>
-      <a href="/submit.html">Submit a project</a>
+      <a href="/">Showcase</a>
+      <a href="/handbook.html">Handbook</a>
       <a href="/developers.html">API</a>
       <a href="/about.html">About</a>
       <a href="/contact.html">Contact</a>
@@ -373,13 +372,39 @@ ${body}
 
 /* --------------------------------------------------------------- showcase */
 
-function coverFor(p) {
+function thumbFor(p) {
   const img = (p.images || []).map(safeUrl).filter(Boolean)[0];
-  if (img) return `<img src="${esc(img)}" alt="" loading="lazy">`;
-  const v = safeUrl(p.video);
-  const m = v && v.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
-  if (m) return `<img src="https://i.ytimg.com/vi/${esc(m[1])}/hqdefault.jpg" alt="" loading="lazy">`;
-  return `<span class="ph">No media yet</span>`;
+  if (img) return img;
+  const v = safeUrl(p.video) || '';
+  let m;
+  if ((m = v.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|live\/|shorts\/|v\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/))) {
+    return `https://i.ytimg.com/vi/${m[1]}/hqdefault.jpg`;
+  }
+  // Drive serves a thumbnail for any shared file, decks included.
+  if ((m = v.match(/drive\.google\.com\/file\/d\/([A-Za-z0-9_-]+)/)) ||
+      (m = v.match(/docs\.google\.com\/presentation\/d\/([A-Za-z0-9_-]+)/))) {
+    return `https://drive.google.com/thumbnail?id=${m[1]}&sz=w1000`;
+  }
+  // A repo has a rendered OpenGraph card, which beats an empty tile.
+  if ((m = (safeUrl(p.repo) || '').match(/github\.com\/([^/]+)\/([^/#?]+)/))) {
+    return `https://opengraph.githubassets.com/1/${m[1]}/${m[2].replace(/\.git$/, '')}`;
+  }
+  return null;
+}
+
+function coverFor(p) {
+  const t = thumbFor(p);
+  // A thumbnail we derived from someone else's host can 404 later; fall back to
+  // the lettered tile in the browser rather than showing a broken image.
+  if (t) return `<img src="${esc(t)}" alt="" loading="lazy" onerror="this.parentNode.innerHTML='${esc(initialsTile(p).replace(/'/g, "\\'"))}'">`;
+  return initialsTile(p);
+}
+
+/** No derivable image: a lettered tile reads better than an empty grey box. */
+function initialsTile(p) {
+  const words = String(p.title || '').replace(/[^A-Za-z0-9 ]/g, ' ').trim().split(/\s+/).filter(Boolean);
+  const initials = words.slice(0, 2).map((w) => w[0].toUpperCase()).join('') || '?';
+  return `<span class="ph tile" aria-hidden="true">${esc(initials)}</span>`;
 }
 
 function card(p) {
@@ -399,13 +424,24 @@ function card(p) {
       </a>`;
 }
 
+/** Event photos for the showcase header, in filename order. */
+function headerPhotos() {
+  const dir = path.join(ROOT, 'img', 'header');
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir).filter((f) => /\.(jpe?g|png|webp)$/i.test(f)).sort();
+}
+
 function showcase(projects) {
+  const photos = headerPhotos();
   const body = `
 <header class="pagehead">
   <div class="pagehead-in">
     <p class="eyebrow">Project showcase</p>
     <h1>What teams built</h1>
-    <p class="lede">Every project submitted to the Physical AI Sprint. Judging is science-fair style — the top 6 teams demo to the full group at 4:30pm.</p>
+    <p class="lede">Every project built at the Physical AI Sprint — a one-day hackathon alongside Actuate SF, hosted by Nebius with NVIDIA, Antioch, and Toloka.</p>
+${photos.length ? `    <div class="pagehead-photos">
+${photos.map((f) => `      <img src="/img/header/${esc(f)}" alt="" loading="lazy">`).join('\n')}
+    </div>` : ''}
   </div>
 </header>
 
@@ -413,9 +449,6 @@ function showcase(projects) {
 ${projects.length === 0 ? `  <div class="empty">
     <h3>No submissions yet</h3>
     <p>Projects appear here as teams submit them. The deadline is 3:30pm on event day.</p>
-    <div class="actions" style="justify-content:center">
-      <a class="btn" href="/submit.html">Submit your project</a>
-    </div>
   </div>` : `  <div class="controls">
     <input type="search" id="q" placeholder="Search projects, teams, robots…" aria-label="Search projects"
       toolname="search_projects"
@@ -501,10 +534,10 @@ ${projects.map(card).join('\n')}
 </div>`;
 
   return page({
-    jsonLd: graph(...BASE(), breadcrumbs([['Handbook', '/'], ['Showcase', '/showcase.html']]), {
+    jsonLd: graph(...BASE(), breadcrumbs([['Showcase', '/']]), {
       '@type': 'CollectionPage',
       name: 'Project Showcase',
-      url: `${SITE}/showcase.html`,
+      url: `${SITE}/`,
       isPartOf: { '@id': `${SITE}/#website` },
       mainEntity: {
         '@type': 'ItemList',
@@ -519,7 +552,7 @@ ${projects.map(card).join('\n')}
     description: `Projects built at the Physical AI Sprint hackathon${projects.length ? ` — ${projects.length} submitted` : ''}.`,
     body,
     current: 'showcase',
-    canonical: `${SITE}/showcase.html`,
+    canonical: `${SITE}/`,
   });
 }
 
@@ -594,7 +627,7 @@ function projectPage(p, teamEntry) {
   const body = `
 <header class="pagehead narrow">
   <div class="pagehead-in">
-    <p class="eyebrow"><a class="back" href="/showcase.html">← All projects</a></p>
+    <p class="eyebrow"><a class="back" href="/">← All projects</a></p>
     <h1>${esc(p.title)}</h1>
     <p class="lede"${p.issue ? ` data-edit-field="issue:${p.issue}#One-line summary"` : ''}>${esc(p.tagline || '')}</p>
     <div class="actions">
@@ -636,7 +669,7 @@ ${shareBlock({ title: p.title, text: `${p.title} — ${p.tagline || 'built at Th
 </div>`;
 
   return page({
-    jsonLd: graph(...BASE(), breadcrumbs([['Handbook', '/'], ['Showcase', '/showcase.html'], [p.title, `/projects/${p.slug}.html`]]), {
+    jsonLd: graph(...BASE(), breadcrumbs([['Showcase', '/'], [p.title, `/projects/${p.slug}.html`]]), {
       '@type': 'CreativeWork',
       name: p.title,
       url,
@@ -813,7 +846,7 @@ ${teams.map((t) => teamCard(t, builtBy.get(t.slug))).join('\n')}
 </div>`;
 
   return page({
-    jsonLd: graph(...BASE(), breadcrumbs([['Handbook', '/'], ['Teams', '/teams.html']]), {
+    jsonLd: graph(...BASE(), breadcrumbs([['Showcase', '/'], ['Teams', '/teams.html']]), {
       '@type': 'CollectionPage',
       name: 'Team Directory',
       url: `${SITE}/teams.html`,
@@ -880,7 +913,6 @@ ${projects.map(card).join('\n')}
     <h3>No project submitted yet</h3>
     <p>${t.open ? 'This team is still forming.' : 'Projects appear here as soon as the team submits one.'} The deadline is 3:30pm on event day.</p>
     <div class="actions" style="justify-content:center">
-      <a class="btn" href="/submit.html">Submit a project</a>
     </div>
   </div>`}
 
@@ -905,7 +937,7 @@ ${shareBlock({
 </div>`;
 
   return page({
-    jsonLd: graph(...BASE(), breadcrumbs([['Handbook', '/'], ['Teams', '/teams.html'], [t.name, `/teams/${t.slug}.html`]]), {
+    jsonLd: graph(...BASE(), breadcrumbs([['Showcase', '/'], ['Teams', '/teams.html'], [t.name, `/teams/${t.slug}.html`]]), {
       '@type': 'Organization',
       name: t.name,
       url,
@@ -937,7 +969,7 @@ function submitPage() {
     <p class="lede">Submissions run through GitHub, so there is no account to create and no form to lose. Fill in the issue form, drag in your photos and video, and your project page goes live automatically.</p>
     <div class="actions">
       <a class="btn" href="${SUBMIT_URL}" target="_blank" rel="noopener noreferrer">Open the submission form</a>
-      <a class="btn ghost" href="/showcase.html">See the showcase</a>
+      <a class="btn ghost" href="/">See the showcase</a>
     </div>
   </div>
 </header>
@@ -997,7 +1029,7 @@ function submitPage() {
 </div>`;
 
   return page({
-    jsonLd: graph(...BASE(), breadcrumbs([['Handbook', '/'], ['Submit', '/submit.html']]), {
+    jsonLd: graph(...BASE(), breadcrumbs([['Showcase', '/'], ['Submit', '/submit.html']]), {
       '@type': 'FAQPage',
       mainEntity: [
         ['How do I submit a project?', 'Open the GitHub issue form linked from the submit page, fill in the fields, and drag your photos and video straight into the form. Your project page builds and appears in the showcase within a couple of minutes.'],
@@ -1105,7 +1137,7 @@ function main() {
   }
 
   fs.writeFileSync(path.join(ROOT, 'teams.html'), teamsPage(teams, builtBy));
-  fs.writeFileSync(path.join(ROOT, 'showcase.html'), showcase(projects));
+  fs.writeFileSync(path.join(ROOT, 'index.html'), showcase(projects));
   fs.writeFileSync(path.join(ROOT, 'submit.html'), submitPage());
   for (const p of projects) {
     fs.writeFileSync(path.join(outDir, `${p.slug}.html`), projectPage(p, teamOf.get(p.slug)));
@@ -1139,7 +1171,7 @@ function main() {
   const mdTwins = agentFiles.markdownTwins(teams, projects);
   // Edit mode: one inert script served everywhere, plus a map of index.html's
   // section ids to line numbers so handbook sections deep-link to the line.
-  const indexLines = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8').split('\n');
+  const indexLines = fs.readFileSync(path.join(ROOT, 'handbook.html'), 'utf8').split('\n');
   const sections = {};
   indexLines.forEach((ln, i) => {
     const m = ln.match(/id="([a-z0-9-]+)"/i);
@@ -1148,7 +1180,7 @@ function main() {
 
   const generated = {
     'edit-mode.js': editMode.editModeScript(),
-    'edit-map.json': JSON.stringify({ file: 'index.html', sections }, null, 2) + '\n',
+    'edit-map.json': JSON.stringify({ file: 'handbook.html', sections }, null, 2) + '\n',
     ...mdTwins,
     'robots.txt': agentFiles.robots(),
     'sitemap.xml': agentFiles.sitemap(teams, projects),

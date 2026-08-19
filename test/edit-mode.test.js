@@ -20,8 +20,8 @@ const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
 /* --------------------------------------------------------- URL resolution */
 
 test('a file with a known line opens github.dev at that line', () => {
-  const u = resolveEditUrl(REPO_SLUG, 'main', 'file', 'index.html', 867);
-  assert.equal(u, `https://github.dev/${REPO_SLUG}/blob/main/index.html#L867`);
+  const u = resolveEditUrl(REPO_SLUG, 'main', 'file', 'handbook.html', 867);
+  assert.equal(u, `https://github.dev/${REPO_SLUG}/blob/main/handbook.html#L867`);
 });
 
 test('a file without a line opens the plain GitHub editor', () => {
@@ -37,8 +37,8 @@ test('an issue-backed page opens the issue, never a file', () => {
 });
 
 test('view-source links resolve for both kinds', () => {
-  assert.equal(viewSourceUrl(REPO_SLUG, 'main', 'file', 'index.html', 5),
-    `https://github.com/${REPO_SLUG}/blob/main/index.html#L5`);
+  assert.equal(viewSourceUrl(REPO_SLUG, 'main', 'file', 'handbook.html', 5),
+    `https://github.com/${REPO_SLUG}/blob/main/handbook.html#L5`);
   assert.equal(viewSourceUrl(REPO_SLUG, 'main', 'issue', 3),
     `https://github.com/${REPO_SLUG}/issues/3`);
 });
@@ -102,9 +102,9 @@ test('the directory and showcase point at build.js', () => {
   assert.ok(read('showcase.html').includes('content="build.js"'));
 });
 
-test('the handbook points at index.html, which is hand-maintained', () => {
-  const html = read('index.html');
-  assert.ok(html.includes('name="edit-target" content="index.html"'));
+test('the handbook points at handbook.html, which is hand-maintained', () => {
+  const html = read('handbook.html');
+  assert.ok(html.includes('name="edit-target" content="handbook.html"'));
   assert.ok(html.includes('name="edit-kind" content="file"'));
 });
 
@@ -112,8 +112,8 @@ test('the handbook points at index.html, which is hand-maintained', () => {
 
 test('the handbook line map resolves real section ids to line numbers', () => {
   const map = JSON.parse(read('edit-map.json'));
-  assert.equal(map.file, 'index.html');
-  const lines = read('index.html').split('\n');
+  assert.equal(map.file, 'handbook.html');
+  const lines = read('handbook.html').split('\n');
   for (const id of ['challenge', 'judging', 'g1', 'g4']) {
     const n = map.sections[id];
     assert.ok(typeof n === 'number', `${id} has a line number`);

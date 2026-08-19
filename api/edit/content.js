@@ -33,7 +33,7 @@ const BRANCH = process.env.EDIT_BRANCH || 'main';
 // agent-files.js were here and should not have been: the workflow runs
 // `node build.js`, so write access to them is write access to CI.
 const WRITABLE = [
-  /^index\.html$/,
+  /^handbook\.html$/,
   /^src\/pages-extra\.js$/,
 ];
 
@@ -56,8 +56,8 @@ function unsafeReason(value, filePath) {
   for (const [needle, human] of UNSAFE_IN_SOURCE) {
     if (value.includes(needle)) return human;
   }
-  // index.html is served as-is, so markup in a prose edit is markup on the page.
-  if (/^index\.html$/.test(filePath) && /[<>]/.test(value)) return 'an angle bracket';
+  // The handbook is served as-is, so markup in a prose edit is markup on the page.
+  if (/^handbook\.html$/.test(filePath) && /[<>]/.test(value)) return 'an angle bracket';
   return null;
 }
 

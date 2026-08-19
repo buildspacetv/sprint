@@ -203,7 +203,8 @@ test('resolveTeam returns null rather than guessing', () => {
 test('coverFor prefers a photo, then a video thumbnail, then a placeholder', () => {
   assert.ok(coverFor({ images: ['https://example.com/a.png'] }).includes('example.com/a.png'));
   assert.ok(coverFor({ images: [], video: 'https://youtu.be/dQw4w9WgXcQ' }).includes('i.ytimg.com'));
-  assert.ok(coverFor({ images: [], video: null }).includes('No media yet'));
+  assert.ok(coverFor({ images: [], video: null, title: 'Desk Duster' }).includes('DD'),
+    'with nothing to derive, the card falls back to a lettered tile');
 });
 
 test('coverFor drops unsafe image URLs instead of rendering them', () => {
@@ -257,7 +258,6 @@ test('a team page lists the projects that reference it', () => {
 test('a team page shows an empty state before the team submits', () => {
   const out = teamPage(TEAM, []);
   assert.ok(out.includes('No project submitted yet'));
-  assert.ok(out.includes('/submit.html'));
 });
 
 test('a team page links back to the directory and the join thread', () => {

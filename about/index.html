@@ -334,6 +334,26 @@ code { font-family: var(--f-mono); font-size: .86em; }
 
 .cliphead { font-family: var(--f-display); font-weight: 600; font-size: .95rem; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); margin: 26px 0 -8px; }
 
+.ph.tile {
+  display: grid; place-items: center; width: 100%; height: 100%;
+  font-family: var(--f-display); font-weight: 600; font-size: 2.6rem; letter-spacing: .04em;
+  color: var(--accent-ink); background:
+    repeating-linear-gradient(0deg, var(--accent-soft) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(90deg, var(--accent-soft) 0 1px, transparent 1px 24px),
+    var(--surface-2);
+}
+
+/* ---------- header photo strip ---------- */
+.pagehead-photos {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px; margin-top: 26px;
+}
+.pagehead-photos img {
+  width: 100%; height: 100%; max-height: 260px; object-fit: cover;
+  border: 1px solid var(--line); border-radius: 10px; display: block;
+}
+@media (max-width: 720px) { .pagehead-photos img { max-height: 190px; } }
+
 .gallery { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 20px 0; }
 .gallery a { display: block; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; background: var(--surface-2); }
 .gallery img { width: 100%; display: block; aspect-ratio: 4 / 3; object-fit: cover; }
@@ -450,9 +470,8 @@ code { font-family: var(--f-mono); font-size: .86em; }
     <span>Monday, August 17, 2026</span>
   </a>
   <nav>
-    <a href="/">Handbook</a>
-    <a href="/showcase.html">Showcase</a>
-    <a href="/submit.html">Submit</a>
+    <a href="/">Showcase</a>
+    <a href="/handbook.html">Handbook</a>
   </nav>
 </header>
 
@@ -495,8 +514,8 @@ code { font-family: var(--f-mono); font-size: .86em; }
     <div class="foot-links">
       <a href="https://luma.com/nkknxvrz">Apply</a>
       <a href="https://discord.com/invite/nN58zxSTFR">Discord</a>
-      <a href="/showcase.html">Showcase</a>
-      <a href="/submit.html">Submit a project</a>
+      <a href="/">Showcase</a>
+      <a href="/handbook.html">Handbook</a>
       <a href="/developers.html">API</a>
       <a href="/about.html">About</a>
       <a href="/contact.html">Contact</a>

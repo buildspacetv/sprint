@@ -3,324 +3,67 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="The Physical AI Sprint hackathon handbook: event brief, schedule, judging, and four getting-started guides for the SO-101, Antioch, and Unitree robots.">
+<meta name="description" content="Projects built at the Physical AI Sprint hackathon — 17 submitted.">
 <meta name="color-scheme" content="light dark">
+<title>Project Showcase</title>
 <link rel="canonical" href="https://www.buildspace.tv/">
-<title>Physical AI Sprint Handbook</title>
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="The Physical AI Sprint">
-<meta property="og:title" content="The Physical AI Sprint — Hackathon Handbook">
-<meta property="og:description" content="A one-day Physical AI hackathon on August 17, 2026 alongside Actuate SF. Challenge brief, schedule, judging, and four setup guides for the SO-101, Antioch, and Unitree robots.">
+<meta property="og:title" content="Project Showcase">
+<meta property="og:description" content="Projects built at the Physical AI Sprint hackathon — 17 submitted.">
 <meta property="og:url" content="https://www.buildspace.tv/">
-<meta property="og:image" content="https://opengraph.githubassets.com/1/opencolin/physical-ai-sprint-handbook">
-<meta property="og:locale" content="en_US">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Physical AI Sprint — Hackathon Handbook">
-<meta name="twitter:description" content="A one-day Physical AI hackathon on August 17, 2026 alongside Actuate SF.">
-<meta name="twitter:image" content="https://opengraph.githubassets.com/1/opencolin/physical-ai-sprint-handbook">
-<meta name="edit-kind" content="file">
-<meta name="edit-target" content="index.html">
-<meta name="edit-label" content="index.html — the handbook">
-<link rel="alternate" type="text/markdown" href="/index.md" title="Markdown version">
-<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Project Showcase">
+<meta name="twitter:description" content="Projects built at the Physical AI Sprint hackathon — 17 submitted.">
+
+
+<meta name="edit-kind" content="generator">
+<meta name="edit-target" content="build.js">
+<meta name="edit-label" content="build.js — showcase()">
 <link rel="alternate" type="application/json" href="/api/index.json" title="JSON API">
+<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://www.buildspace.tv/#organization",
-      "name": "The Physical AI Sprint",
-      "url": "https://www.buildspace.tv",
-      "description": "A one-day Physical AI hackathon alongside Actuate SF, hosted by Nebius with NVIDIA, Antioch, and Toloka.",
-      "sameAs": [
-        "https://github.com/buildspacetv/sprint",
-        "https://luma.com/nkknxvrz",
-        "https://discord.com/invite/nN58zxSTFR",
-        "https://nebius.com"
-      ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "organizer",
-        "url": "https://www.buildspace.tv/contact.html",
-        "email": "hello@dabl.club",
-        "availableLanguage": [
-          "en"
-        ]
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "San Francisco",
-        "addressRegion": "CA",
-        "addressCountry": "US"
-      }
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://www.buildspace.tv/#website",
-      "url": "https://www.buildspace.tv",
-      "name": "The Physical AI Sprint",
-      "publisher": {
-        "@id": "https://www.buildspace.tv/#organization"
-      },
-      "inLanguage": "en"
-    },
-    {
-      "@type": "WebAPI",
-      "@id": "https://www.buildspace.tv/#api",
-      "name": "Physical AI Sprint API",
-      "description": "Read-only JSON API over the hackathon teams and projects. No authentication, no rate limit.",
-      "url": "https://www.buildspace.tv/developers.html",
-      "documentation": "https://www.buildspace.tv/developers.html",
-      "provider": {
-        "@id": "https://www.buildspace.tv/#organization"
-      },
-      "potentialAction": {
-        "@type": "ConsumeAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://www.buildspace.tv/api/teams.json",
-          "httpMethod": "GET",
-          "contentType": "application/json"
-        }
-      }
-    },
-    {
-      "@type": "Service",
-      "@id": "https://www.buildspace.tv/#service",
-      "name": "The Physical AI Sprint hackathon",
-      "serviceType": "Hackathon",
-      "description": "A one-day Physical AI hackathon: robot hardware, cloud simulation, workshops, and judging, free to attend.",
-      "provider": {
-        "@id": "https://www.buildspace.tv/#organization"
-      },
-      "areaServed": {
-        "@type": "City",
-        "name": "San Francisco"
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": 0,
-        "priceCurrency": "USD",
-        "url": "https://luma.com/nkknxvrz"
-      }
-    },
-    {
-      "@type": "Event",
-      "@id": "https://www.buildspace.tv/#event",
-      "name": "The Physical AI Sprint Hackathon",
-      "description": "A one-day hackathon at the intersection of AI and the physical world. Workshops, then build a working Physical AI prototype in simulation, on real robots, or both.",
-      "startDate": "2026-08-17T08:00:00-07:00",
-      "endDate": "2026-08-17T21:00:00-07:00",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-      "location": {
-        "@type": "Place",
-        "name": "San Francisco, CA",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "San Francisco",
-          "addressRegion": "CA",
-          "addressCountry": "US"
-        }
-      },
-      "organizer": {
-        "@type": "Organization",
-        "name": "Nebius",
-        "url": "https://nebius.com"
-      },
-      "sponsor": [
-        {
-          "@type": "Organization",
-          "name": "NVIDIA",
-          "url": "https://nvidia.com"
-        },
-        {
-          "@type": "Organization",
-          "name": "Antioch"
-        },
-        {
-          "@type": "Organization",
-          "name": "Toloka",
-          "url": "https://toloka.ai"
-        }
-      ],
-      "isAccessibleForFree": true,
-      "offers": {
-        "@type": "Offer",
-        "price": 0,
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": "https://luma.com/nkknxvrz",
-        "validFrom": "2026-07-01T00:00:00-07:00"
-      },
-      "maximumAttendeeCapacity": 125,
-      "inLanguage": "en"
-    },
-    {
-      "@type": "TechArticle",
-      "@id": "https://www.buildspace.tv/#handbook",
-      "headline": "The Physical AI Sprint Handbook",
-      "description": "Participant handbook: challenge brief, schedule, judging criteria, and four setup guides for the SO-101, Antioch, and Unitree robots.",
-      "about": {
-        "@id": "https://www.buildspace.tv/#event"
-      },
-      "isPartOf": {
-        "@id": "https://www.buildspace.tv/#website"
-      },
-      "inLanguage": "en",
-      "license": "https://creativecommons.org/licenses/by/4.0/",
-      "proficiencyLevel": "Intermediate",
-      "keywords": "physical AI, robotics, LeRobot SO-101, Unitree Go2-W, Unitree G1, Isaac Sim, Isaac Lab, imitation learning, ACT policy, NVIDIA Nemotron, NVIDIA Cosmos Reason, hackathon"
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Handbook",
-          "item": "https://www.buildspace.tv/"
-        }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://www.buildspace.tv/#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "When is the Physical AI Sprint?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Monday, August 17, 2026. Doors open at 8:00am, hacking begins at 10:30am, submissions close at 3:30pm, winners are announced at 5:30pm, and a happy hour runs until 9:00pm Pacific time."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How much does it cost to attend?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Nothing. The event is free, but space is limited and every attendee must apply and be approved. Registration is on Luma."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do I need to bring a team?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. Teams can be 1 to 5 people, so hacking solo is fine. The team directory on the site lets you post what you want to build or find a team that still has room, and organizers also help people connect at the event."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What robots can I use?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Ten LeRobot SO-101 leader/follower arm pairs, two Unitree Go2-W wheeled quadrupeds, and one Unitree G1 humanoid. Hardware is shared between teams. The Antioch cloud simulation platform is also available with a calibrated SO-101 digital twin and the Unitree lineup."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do I need a GPU or a powerful laptop?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. Antioch dispatches simulation to GPU machines in the cloud, so nothing heavy runs locally: no GPU, no Docker, and no Isaac install. macOS and Linux both work."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What should I bring?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Your laptop, charger, and anything else you rely on for a full day of building. Setup instructions are shared with registered participants beforehand, and the four guides in the handbook cover what you can install in advance."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How are projects judged?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Science-fair style: judges circulate and view projects at team stations, then the top six teams demo to the full group. Projects are scored on ambition, functionality, creativity, and architectural quality, unweighted."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Who should attend?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Robotics engineers, machine learning engineers, computer vision engineers, research engineers and applied scientists, data and infrastructure engineers working with robotics, and technical founders exploring embodied intelligence."
-          }
-        }
-      ]
-    }
-  ]
-}
+{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.buildspace.tv/#organization","name":"The Physical AI Sprint","url":"https://www.buildspace.tv","description":"A one-day Physical AI hackathon alongside Actuate SF, hosted by Nebius with NVIDIA, Antioch, and Toloka.","sameAs":["https://github.com/buildspacetv/sprint","https://luma.com/nkknxvrz","https://discord.com/invite/nN58zxSTFR","https://nebius.com"],"contactPoint":{"@type":"ContactPoint","contactType":"organizer","url":"https://www.buildspace.tv/contact.html","email":"hello@dabl.club","availableLanguage":["en"]},"address":{"@type":"PostalAddress","addressLocality":"San Francisco","addressRegion":"CA","addressCountry":"US"}},{"@type":"WebSite","@id":"https://www.buildspace.tv/#website","url":"https://www.buildspace.tv","name":"The Physical AI Sprint","publisher":{"@id":"https://www.buildspace.tv/#organization"},"inLanguage":"en"},{"@type":"WebAPI","@id":"https://www.buildspace.tv/#api","name":"Physical AI Sprint API","description":"Read-only JSON API over the hackathon teams and projects. No authentication, no rate limit.","url":"https://www.buildspace.tv/developers.html","documentation":"https://www.buildspace.tv/developers.html","provider":{"@id":"https://www.buildspace.tv/#organization"},"termsOfService":"https://www.buildspace.tv/privacy.html","potentialAction":{"@type":"ConsumeAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.buildspace.tv/api/teams.json","httpMethod":"GET","contentType":"application/json"}}},{"@type":"Service","@id":"https://www.buildspace.tv/#service","name":"The Physical AI Sprint hackathon","serviceType":"Hackathon","description":"A one-day Physical AI hackathon: robot hardware, cloud simulation, workshops, and judging, free to attend.","provider":{"@id":"https://www.buildspace.tv/#organization"},"areaServed":{"@type":"City","name":"San Francisco"},"offers":{"@type":"Offer","price":0,"priceCurrency":"USD","url":"https://luma.com/nkknxvrz"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Showcase","item":"https://www.buildspace.tv/"}]},{"@type":"CollectionPage","name":"Project Showcase","url":"https://www.buildspace.tv/","isPartOf":{"@id":"https://www.buildspace.tv/#website"},"mainEntity":{"@type":"ItemList","numberOfItems":17,"itemListElement":[{"@type":"ListItem","position":1,"name":"404team work","url":"https://www.buildspace.tv/projects/404team-work.html"},{"@type":"ListItem","position":2,"name":"Back Online","url":"https://www.buildspace.tv/projects/back-online.html"},{"@type":"ListItem","position":3,"name":"Bruno - the Librarian","url":"https://www.buildspace.tv/projects/bruno-the-librarian.html"},{"@type":"ListItem","position":4,"name":"Collaborative Reference Frames For Assistive Robotics","url":"https://www.buildspace.tv/projects/collaborative-reference-frames-for-assistive-robotics.html"},{"@type":"ListItem","position":5,"name":"Desk Duster","url":"https://www.buildspace.tv/projects/desk-duster.html"},{"@type":"ListItem","position":6,"name":"Edie Sees You","url":"https://www.buildspace.tv/projects/edie-sees-you.html"},{"@type":"ListItem","position":7,"name":"Fastloop","url":"https://www.buildspace.tv/projects/fastloop.html"},{"@type":"ListItem","position":8,"name":"Humanoid Yoga Instructor","url":"https://www.buildspace.tv/projects/humanoid-yoga-instructor.html"},{"@type":"ListItem","position":9,"name":"NemoCode","url":"https://www.buildspace.tv/projects/nemocode.html"},{"@type":"ListItem","position":10,"name":"Physical AI Perception-Reasoning-Action Pipeline for a Robotic Arm","url":"https://www.buildspace.tv/projects/physical-ai-perception-reasoning-action-pipeline-for-a-robot.html"},{"@type":"ListItem","position":11,"name":"REFLECT Real-world Failure-Led Embodied Continual Training","url":"https://www.buildspace.tv/projects/reflect-real-world-failure-led-embodied-continual-training.html"},{"@type":"ListItem","position":12,"name":"Robot skills graph","url":"https://www.buildspace.tv/projects/robot-skills-graph.html"},{"@type":"ListItem","position":13,"name":"SAFFRON - procedural saffron harvesting cell (reach verified, grasp not yet)","url":"https://www.buildspace.tv/projects/saffron-procedural-saffron-harvesting-cell-reach-verified-gr.html"},{"@type":"ListItem","position":14,"name":"The first experiment","url":"https://www.buildspace.tv/projects/the-first-experiment.html"},{"@type":"ListItem","position":15,"name":"Tubot","url":"https://www.buildspace.tv/projects/tubot.html"},{"@type":"ListItem","position":16,"name":"V9 Max","url":"https://www.buildspace.tv/projects/v9-max.html"},{"@type":"ListItem","position":17,"name":"Within Reach","url":"https://www.buildspace.tv/projects/within-reach.html"}]}}]}
 </script>
-
 <style>
-  *, *::before, *::after { box-sizing: border-box; }
-  body { margin: 0; }
-</style>
+/* ==========================================================================
+   The Physical AI Sprint — shared design system
+   Single source of truth for every generated page. build.js inlines this
+   file into each output page, so the pages stay self-contained.
+   index.html keeps its own copy of these tokens on purpose: it is also
+   published as a standalone Artifact, which cannot load external CSS.
+   ========================================================================== */
 
-<style>
-  /* ---------- tokens: light is the base, both dark states restate only tokens ---------- */
-  :root {
-    --paper:      #EDEFF1;
-    --surface:    #F8FAFB;
-    --surface-2:  #E1E6EA;
-    --ink:        #10151A;
-    --ink-2:      #414D58;
-    --ink-3:      #5F6C77;
-    --line:       #CBD3D9;
-    --line-2:     #A8B4BE;
-    --accent:     #1F3FBF;
-    --accent-ink: #1F3FBF;
-    --accent-soft: rgba(31,63,191,.10);
-    --ok:         #0B6B57;
-    --ok-soft:    rgba(11,107,87,.10);
-    --warn:       #8C5906;
-    --warn-soft:  rgba(140,89,6,.11);
-    --alert:      #A62D1B;
-    --alert-soft: rgba(166,45,27,.10);
-    --term-bg:    #0B1116;
-    --term-ink:   #D2DCE3;
-    --term-line:  #22303A;
-    --term-dim:   #7A8B97;
-    --shadow:     0 1px 2px rgba(16,21,26,.06), 0 8px 24px -12px rgba(16,21,26,.18);
+:root {
+  --paper:      #EDEFF1;
+  --surface:    #F8FAFB;
+  --surface-2:  #E1E6EA;
+  --ink:        #10151A;
+  --ink-2:      #414D58;
+  --ink-3:      #5F6C77;
+  --line:       #CBD3D9;
+  --line-2:     #A8B4BE;
+  --accent:     #1F3FBF;
+  --accent-ink: #1F3FBF;
+  --accent-soft: rgba(31,63,191,.10);
+  --ok:         #0B6B57;
+  --ok-soft:    rgba(11,107,87,.10);
+  --warn:       #8C5906;
+  --warn-soft:  rgba(140,89,6,.11);
+  --alert:      #A62D1B;
+  --alert-soft: rgba(166,45,27,.10);
+  --term-bg:    #0B1116;
+  --term-ink:   #D2DCE3;
+  --term-line:  #22303A;
+  --term-dim:   #7A8B97;
+  --shadow:     0 1px 2px rgba(16,21,26,.06), 0 8px 24px -12px rgba(16,21,26,.18);
 
-    --f-display: "Avenir Next Condensed", "Roboto Condensed", "Arial Narrow", "Helvetica Neue", sans-serif;
-    --f-body: Charter, "Bitstream Charter", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
-    --f-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --paper:      #0C1115;
-      --surface:    #131A20;
-      --surface-2:  #1B242B;
-      --ink:        #E7EDF1;
-      --ink-2:      #A7B4BF;
-      --ink-3:      #74838F;
-      --line:       #24303A;
-      --line-2:     #38454F;
-      --accent:     #86A2FF;
-      --accent-ink: #A5B9FF;
-      --accent-soft: rgba(134,162,255,.13);
-      --ok:         #4CC7A2;
-      --ok-soft:    rgba(76,199,162,.12);
-      --warn:       #E2A84E;
-      --warn-soft:  rgba(226,168,78,.12);
-      --alert:      #F2735E;
-      --alert-soft: rgba(242,115,94,.12);
-      --term-bg:    #070C10;
-      --term-ink:   #CBD7DF;
-      --term-line:  #1D2A33;
-      --term-dim:   #6C7D89;
-      --shadow:     0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
-    }
-  }
-  :root[data-theme="dark"] {
+  --f-display: "Avenir Next Condensed", "Roboto Condensed", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --f-body: Charter, "Bitstream Charter", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --f-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
     --paper:      #0C1115;
     --surface:    #131A20;
     --surface-2:  #1B242B;
@@ -344,1818 +87,756 @@
     --term-dim:   #6C7D89;
     --shadow:     0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
   }
+}
+:root[data-theme="dark"] {
+  --paper:      #0C1115;
+  --surface:    #131A20;
+  --surface-2:  #1B242B;
+  --ink:        #E7EDF1;
+  --ink-2:      #A7B4BF;
+  --ink-3:      #74838F;
+  --line:       #24303A;
+  --line-2:     #38454F;
+  --accent:     #86A2FF;
+  --accent-ink: #A5B9FF;
+  --accent-soft: rgba(134,162,255,.13);
+  --ok:         #4CC7A2;
+  --ok-soft:    rgba(76,199,162,.12);
+  --warn:       #E2A84E;
+  --warn-soft:  rgba(226,168,78,.12);
+  --alert:      #F2735E;
+  --alert-soft: rgba(242,115,94,.12);
+  --term-bg:    #070C10;
+  --term-ink:   #CBD7DF;
+  --term-line:  #1D2A33;
+  --term-dim:   #6C7D89;
+  --shadow:     0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+}
 
-  * { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; }
 
-  body {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--f-body);
-    font-size: 17px;
-    line-height: 1.62;
-    -webkit-font-smoothing: antialiased;
-  }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px;
+}
+img, video { max-width: 100%; }
 
-  a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 2px; }
-  a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {
-    outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px;
-  }
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--accent); color: #fff; padding: 10px 16px;
+  font-family: var(--f-display); border-radius: 0 0 6px 0; text-decoration: none;
+}
+.skip:focus { left: 0; }
 
-  .skip {
-    position: absolute; left: -9999px; top: 0; z-index: 100;
-    background: var(--accent); color: #fff; padding: 10px 16px;
-    font-family: var(--f-display); border-radius: 0 0 6px 0; text-decoration: none;
-  }
-  .skip:focus { left: 0; }
+/* ---------- top bar ---------- */
+.bar {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; gap: 22px;
+  padding: 12px 28px;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+}
+.bar .mark { display: flex; flex-direction: column; gap: 1px; text-decoration: none; color: var(--ink); }
+.bar .mark b {
+  font-family: var(--f-display); font-weight: 600; font-size: 1.1rem;
+  letter-spacing: .01em; text-transform: uppercase; line-height: 1.05;
+}
+.bar .mark span { font-family: var(--f-mono); font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+.bar nav { margin-left: auto; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.bar nav a {
+  font-family: var(--f-display); font-size: .98rem; letter-spacing: .015em;
+  padding: 6px 12px; border-radius: 6px; text-decoration: none; color: var(--ink-2);
+}
+.bar nav a:hover { background: var(--surface-2); color: var(--ink); }
+.bar nav a[aria-current="page"] { background: var(--accent-soft); color: var(--accent-ink); }
 
-  /* ---------- shell ---------- */
-  .shell { display: grid; grid-template-columns: 286px minmax(0,1fr); }
+/* ---------- shared layout ---------- */
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px 120px; }
+.wrap.narrow { max-width: 780px; }
 
-  .rail {
-    position: sticky; top: 0; height: 100vh;
-    display: flex; flex-direction: column;
-    background: var(--surface);
-    border-right: 1px solid var(--line);
-    z-index: 40;
-  }
-  .rail-head { padding: 20px 22px 14px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 12px; }
-  .wordmark { display: flex; flex-direction: column; gap: 2px; }
-  .wordmark b {
-    font-family: var(--f-display); font-weight: 600; font-size: 1.28rem;
-    letter-spacing: .01em; text-transform: uppercase; line-height: 1.05;
-  }
-  .wordmark span { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+.pagehead {
+  padding: 62px 28px 40px; border-bottom: 1px solid var(--line);
+  background:
+    repeating-linear-gradient(0deg, var(--accent-soft) 0 1px, transparent 1px 46px),
+    repeating-linear-gradient(90deg, var(--accent-soft) 0 1px, transparent 1px 46px),
+    var(--surface);
+  margin-bottom: 42px;
+}
+.pagehead-in { max-width: 1120px; margin: 0 auto; }
+.pagehead.narrow .pagehead-in { max-width: 780px; }
+.eyebrow { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent-ink); margin: 0; }
+h1 {
+  font-family: var(--f-display); font-weight: 600;
+  font-size: clamp(2.1rem, 5vw, 3.2rem); line-height: 1; letter-spacing: -.005em;
+  text-transform: uppercase; text-wrap: balance; margin: 13px 0 16px;
+}
+h2 {
+  font-family: var(--f-display); font-weight: 600; text-transform: uppercase;
+  font-size: 1.6rem; line-height: 1.1; margin: 46px 0 6px; text-wrap: balance;
+}
+h3 { font-family: var(--f-display); font-weight: 600; font-size: 1.16rem; margin: 30px 0 4px; letter-spacing: .01em; }
+p { margin: 12px 0; }
+.lede { font-size: 1.1rem; color: var(--ink-2); max-width: 62ch; margin: 0; }
 
-  .searchbtn {
-    display: flex; align-items: center; gap: 8px; width: 100%;
-    padding: 7px 10px; border: 1px solid var(--line); border-radius: 6px;
-    background: var(--paper); color: var(--ink-3);
-    font-family: var(--f-mono); font-size: .74rem; cursor: pointer; text-align: left;
-  }
-  .searchbtn:hover { border-color: var(--line-2); color: var(--ink-2); }
-  .searchbtn kbd { margin-left: auto; }
+ul.list, ol.list { margin: 12px 0; padding-left: 1.15em; display: flex; flex-direction: column; gap: 7px; }
+ul.list li::marker { color: var(--ink-3); }
+ol.list li::marker { font-family: var(--f-mono); font-size: .82rem; color: var(--accent-ink); }
 
-  kbd {
-    font-family: var(--f-mono); font-size: .68rem; padding: 1px 5px;
-    border: 1px solid var(--line-2); border-bottom-width: 2px; border-radius: 4px;
-    background: var(--surface-2); color: var(--ink-2); white-space: nowrap;
-  }
+code { font-family: var(--f-mono); font-size: .86em; }
+:not(pre) > code { background: var(--surface-2); padding: 1px 5px; border-radius: 4px; color: var(--ink); word-break: break-word; }
 
+.chip {
+  font-family: var(--f-mono); font-size: .68rem; letter-spacing: .06em;
+  padding: 3px 9px; border: 1px solid var(--line-2); border-radius: 99px;
+  color: var(--ink-2); background: var(--paper); white-space: nowrap;
+}
+.chip.track-sim { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); }
+.chip.track-hardware { border-color: var(--warn); color: var(--warn); background: var(--warn-soft); }
+.chip.track-both { border-color: var(--ok); color: var(--ok); background: var(--ok-soft); }
 
-  .rail-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-  .railclose {
-    display: none; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
-    border-radius: 6px; padding: 7px 9px; cursor: pointer; place-items: center; flex: none;
-  }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--f-display); font-size: 1rem; letter-spacing: .02em;
+  padding: 9px 18px; border-radius: 6px; text-decoration: none;
+  border: 1px solid var(--accent); background: var(--accent); color: #fff;
+}
+:root[data-theme="dark"] .btn:not(.ghost) { color: #0C1115; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn:not(.ghost) { color: #0C1115; } }
+.btn:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; color: var(--accent-ink); }
+.btn.ghost:hover { background: var(--accent-soft); filter: none; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 0; }
 
-  .nav {
-    flex: 1; overflow-y: auto; padding: 14px 12px 40px;
-    -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
-  }
+.note {
+  margin: 20px 0; border: 1px solid var(--line); border-left: 3px solid var(--line-2);
+  border-radius: 0 8px 8px 0; background: var(--surface); padding: 12px 16px 14px;
+}
+.note-head { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
+.note-body { margin-top: 5px; font-size: .95rem; color: var(--ink-2); }
+.note-body > :first-child { margin-top: 0; }
+.note.info { border-left-color: var(--accent); background: var(--accent-soft); }
+.note.info .note-head { color: var(--accent-ink); }
+.note.warn { border-left-color: var(--warn); background: var(--warn-soft); }
+.note.warn .note-head { color: var(--warn); }
 
-  /* The rail's last row: the links that are always available rather than part
-     of the reading path, plus the redeploy button. It sits below the scrolling
-     nav, so it stays in the bottom-left corner at any scroll position. */
-  .rail-foot {
-    flex: none; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-    padding: 10px 22px calc(10px + env(safe-area-inset-bottom));
-    border-top: 1px solid var(--line);
-    font-family: var(--f-mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase;
-  }
-  .rail-foot a, .rail-foot button { color: var(--ink-3); text-decoration: none; }
-  .rail-foot button { font: inherit; text-transform: inherit; letter-spacing: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
-  .rail-foot a:hover, .rail-foot button:hover:not(:disabled) { color: var(--ink); }
-  .rail-foot button:disabled { opacity: .55; cursor: default; }
-  .corner-msg:empty { display: none; }
-  .corner-msg {
-    flex-basis: 100%; font-size: .62rem; letter-spacing: .03em;
-    text-transform: none; color: var(--ink-3);
-  }
-  .nav-group { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); padding: 14px 10px 6px; }
-  .nav ul { list-style: none; margin: 0; padding: 0; }
-  .nav a {
-    display: flex; align-items: baseline; gap: 9px;
-    padding: 5px 10px; border-radius: 5px;
-    color: var(--ink-2); text-decoration: none;
-    font-family: var(--f-display); font-size: .96rem; letter-spacing: .015em;
-  }
-  .nav a .n { font-family: var(--f-mono); font-size: .66rem; color: var(--ink-3); min-width: 1.4em; }
-  .nav a:hover { background: var(--surface-2); color: var(--ink); }
-  .nav li.current > a { background: var(--accent-soft); color: var(--accent-ink); }
-  .nav li.current > a .n { color: var(--accent-ink); }
-  .sub { max-height: 0; overflow: hidden; transition: max-height .28s ease; }
-  li.current > .sub { max-height: 460px; }
-  .sub a {
-    font-family: var(--f-body); font-size: .84rem; padding: 3px 10px 3px 30px;
-    color: var(--ink-3); border-left: 1px solid var(--line); margin-left: 16px; border-radius: 0 4px 4px 0;
-  }
-  .sub a:hover { background: transparent; color: var(--ink); border-left-color: var(--line-2); }
-  .sub a.here { color: var(--ink); border-left-color: var(--accent); }
+/* ---------- showcase controls ---------- */
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 26px; }
+.controls input[type="search"] {
+  flex: 1 1 240px; min-width: 0;
+  font-family: var(--f-body); font-size: .96rem; color: var(--ink);
+  padding: 9px 13px; border: 1px solid var(--line); border-radius: 7px;
+  background: var(--surface);
+}
+.controls input[type="search"]::placeholder { color: var(--ink-3); }
+.filters { display: flex; gap: 4px; padding: 3px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.filters button {
+  font-family: var(--f-mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase;
+  padding: 6px 12px; border: 0; border-radius: 5px; background: transparent; color: var(--ink-3); cursor: pointer;
+}
+.filters button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+:root[data-theme="dark"] .filters button[aria-pressed="true"] { color: #0C1115; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .filters button[aria-pressed="true"] { color: #0C1115; } }
+.count { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-left: auto; }
 
-  .topbar { display: none; }
+/* ---------- project grid ---------- */
+.grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+.pcard {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+  overflow: hidden; text-decoration: none; color: inherit;
+  transition: border-color .15s, transform .15s;
+}
+.pcard:hover { border-color: var(--line-2); transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) { .pcard:hover { transform: none; } }
+.pcard .cover {
+  aspect-ratio: 16 / 9; background: var(--surface-2);
+  display: grid; place-items: center; overflow: hidden; border-bottom: 1px solid var(--line);
+}
+.pcard .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pcard .cover .ph { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+.pcard .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.pcard h3 { margin: 0; font-size: 1.14rem; line-height: 1.2; }
+.pcard .tag { margin: 0; font-size: .92rem; color: var(--ink-2); flex: 1; }
+.pcard .meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pcard .badge {
+  font-family: var(--f-mono); font-size: .6rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-3); display: inline-flex; align-items: center; gap: 5px;
+}
 
-  /* ---------- content ---------- */
-  main { min-width: 0; }
-  .wrap { max-width: 780px; padding: 0 44px 140px; }
+/* ---------- team directory cards ---------- */
+.grid.teams { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+.tcard {
+  display: flex; flex-direction: column; gap: 10px;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+  padding: 16px 18px 15px;
+}
+.tcard[data-open="yes"] { border-left: 3px solid var(--ok); }
+.tcard-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.tcard-top h3 { margin: 0; font-size: 1.16rem; line-height: 1.2; }
+.tcard .tag { margin: 0; font-size: .94rem; color: var(--ink-2); }
+.skills { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; }
+.skills-label { font-family: var(--f-mono); font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-right: 3px; }
+.roster { list-style: none; margin: 2px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.roster li { margin: 0; }
+.roster a, .roster span {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .86rem; color: var(--ink-2); text-decoration: none;
+  padding: 3px 9px 3px 3px; border: 1px solid var(--line); border-radius: 99px; background: var(--paper);
+}
+.roster a:hover { border-color: var(--accent); color: var(--accent-ink); }
+.roster span { padding-left: 9px; }
+.roster img { width: 20px; height: 20px; border-radius: 99px; background: var(--surface-2); }
+.tcard:target { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.built { margin: 0; font-size: .9rem; display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; }
+.tcard-foot { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-top: auto; padding-top: 10px; }
+.tcard-foot .btn { padding: 6px 13px; font-size: .92rem; }
+.badge { font-family: var(--f-mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
 
-  .hero {
-    padding: 76px 44px 54px; margin-bottom: 40px;
-    border-bottom: 1px solid var(--line);
-    background:
-      repeating-linear-gradient(0deg, var(--accent-soft) 0 1px, transparent 1px 46px),
-      repeating-linear-gradient(90deg, var(--accent-soft) 0 1px, transparent 1px 46px),
-      var(--surface);
-  }
-  .hero-inner { max-width: 780px; }
-  .eyebrow { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent-ink); }
-  h1 {
-    font-family: var(--f-display); font-weight: 600;
-    font-size: clamp(2.4rem, 6vw, 3.9rem); line-height: .98; letter-spacing: -.005em;
-    text-transform: uppercase; text-wrap: balance;
-    margin: 14px 0 18px;
-  }
-  .lede { font-size: 1.12rem; color: var(--ink-2); max-width: 62ch; margin: 0; }
-  .hero-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
-  .chip {
-    font-family: var(--f-mono); font-size: .7rem; letter-spacing: .06em;
-    padding: 4px 9px; border: 1px solid var(--line-2); border-radius: 99px;
-    color: var(--ink-2); background: var(--paper);
-  }
+/* ---------- team ---------- */
+.avatars { display: flex; align-items: center; }
+.avatars img {
+  width: 26px; height: 26px; border-radius: 99px; display: block;
+  border: 1.5px solid var(--surface); background: var(--surface-2); margin-left: -7px;
+}
+.avatars img:first-child { margin-left: 0; }
 
-  section { scroll-margin-top: 24px; padding-top: 8px; }
-  h2 {
-    font-family: var(--f-display); font-weight: 600; text-transform: uppercase;
-    font-size: 1.85rem; line-height: 1.08; letter-spacing: .005em;
-    margin: 62px 0 6px; text-wrap: balance; scroll-margin-top: 24px;
-  }
-  h2 .num {
-    display: block; font-family: var(--f-mono); font-size: .68rem; letter-spacing: .2em;
-    color: var(--accent-ink); margin-bottom: 8px; text-transform: uppercase;
-  }
-  h3 {
-    font-family: var(--f-display); font-weight: 600; font-size: 1.22rem; letter-spacing: .01em;
-    margin: 40px 0 4px; scroll-margin-top: 24px; text-wrap: balance;
-  }
-  h4 { font-family: var(--f-display); font-weight: 600; font-size: 1.02rem; margin: 28px 0 2px; letter-spacing: .01em; }
-  p { margin: 12px 0; }
-  .rule { height: 1px; background: var(--line); margin: 64px 0 0; border: 0; }
+.team { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); margin: 16px 0; padding: 0; list-style: none; }
+.team li { margin: 0; }
+.team a, .team .nolink {
+  display: flex; align-items: center; gap: 11px; padding: 9px 12px;
+  border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
+  text-decoration: none; color: inherit;
+}
+.team a:hover { border-color: var(--line-2); }
+.team .nolink { color: var(--ink-3); }
+.tcard-top h3 a { color: inherit; text-decoration: none; }
+.tcard-top h3 a:hover { color: var(--accent-ink); }
+.team img { width: 34px; height: 34px; border-radius: 99px; flex: none; background: var(--surface-2); }
+.team .who { display: flex; flex-direction: column; min-width: 0; }
+.team .nm { font-family: var(--f-display); font-size: 1rem; letter-spacing: .01em; }
+.team .gh { font-family: var(--f-mono); font-size: .7rem; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; }
 
-  ul.list, ol.list { margin: 12px 0; padding-left: 1.15em; display: flex; flex-direction: column; gap: 7px; }
-  ul.list li::marker { color: var(--ink-3); }
-  ol.list li::marker { font-family: var(--f-mono); font-size: .82rem; color: var(--accent-ink); }
+/* ---------- project page media ---------- */
+.videowrap {
+  position: relative; aspect-ratio: 16 / 9; margin: 22px 0;
+  border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #000;
+}
+.videowrap iframe, .videowrap video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+/* Shorts are shot vertical: a 16:9 frame would be two black bars and a sliver
+   of video. Cap the height so a portrait clip cannot run past the fold. */
+.videowrap.portrait { aspect-ratio: 9 / 16; max-width: min(420px, 100%); max-height: 78vh; margin-inline: auto; }
 
-  code { font-family: var(--f-mono); font-size: .86em; }
-  :not(pre) > code {
-    background: var(--surface-2); padding: 1px 5px; border-radius: 4px;
-    color: var(--ink); word-break: break-word;
-  }
+.cliphead { font-family: var(--f-display); font-weight: 600; font-size: .95rem; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-3); margin: 26px 0 -8px; }
 
-  /* ---------- terminal blocks ---------- */
-  .term { position: relative; margin: 16px 0; border-radius: 8px; background: var(--term-bg); border: 1px solid var(--term-line); overflow: hidden; }
-  .term pre { margin: 0; padding: 16px 18px; overflow-x: auto; }
-  .term.tagged pre { padding-top: 34px; }
-  .term code { color: var(--term-ink); font-size: .82rem; line-height: 1.6; }
-  .term[data-tag]::before {
-    content: attr(data-tag); position: absolute; top: 9px; left: 18px;
-    font-family: var(--f-mono); font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--term-dim);
-  }
-  .copy {
-    position: absolute; top: 7px; right: 8px;
-    font-family: var(--f-mono); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase;
-    color: var(--term-dim); background: transparent; border: 1px solid var(--term-line);
-    border-radius: 5px; padding: 3px 8px; cursor: pointer; opacity: 0; transition: opacity .15s;
-  }
-  .term:hover .copy, .copy:focus-visible { opacity: 1; }
-  .copy:hover { color: var(--term-ink); border-color: var(--term-dim); }
-  .copy.done { color: var(--ok); border-color: var(--ok); opacity: 1; }
+.ph.tile {
+  display: grid; place-items: center; width: 100%; height: 100%;
+  font-family: var(--f-display); font-weight: 600; font-size: 2.6rem; letter-spacing: .04em;
+  color: var(--accent-ink); background:
+    repeating-linear-gradient(0deg, var(--accent-soft) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(90deg, var(--accent-soft) 0 1px, transparent 1px 24px),
+    var(--surface-2);
+}
 
-  /* ---------- callouts ---------- */
-  .ckpt, .note {
-    margin: 20px 0; border: 1px solid var(--line); border-left: 3px solid var(--line-2);
-    border-radius: 0 8px 8px 0; background: var(--surface); padding: 12px 16px 14px;
-  }
-  .ckpt { border-left-color: var(--ok); background: var(--ok-soft); }
-  .ckpt-head { display: flex; align-items: center; gap: 9px; cursor: pointer; user-select: none; }
-  .ckpt-head input { appearance: none; width: 15px; height: 15px; flex: none; margin: 0; border: 1.5px solid var(--ok); border-radius: 3px; background: transparent; cursor: pointer; position: relative; }
-  .ckpt-head input:checked { background: var(--ok); }
-  .ckpt-head input:checked::after {
-    content: ""; position: absolute; left: 4px; top: 1px; width: 4px; height: 8px;
-    border: solid var(--surface); border-width: 0 2px 2px 0; transform: rotate(43deg);
-  }
-  .ckpt-head span { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ok); }
-  .ckpt-body { margin-top: 6px; font-size: .95rem; color: var(--ink-2); }
-  .ckpt-body > :first-child { margin-top: 0; }
-  .ckpt.done { opacity: .62; }
+/* ---------- header photo strip ---------- */
+.pagehead-photos {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px; margin-top: 26px;
+}
+.pagehead-photos img {
+  width: 100%; height: 100%; max-height: 260px; object-fit: cover;
+  border: 1px solid var(--line); border-radius: 10px; display: block;
+}
+@media (max-width: 720px) { .pagehead-photos img { max-height: 190px; } }
 
-  .note-head { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
-  .note-body { margin-top: 5px; font-size: .95rem; color: var(--ink-2); }
-  .note-body > :first-child { margin-top: 0; }
-  .note.warn { border-left-color: var(--warn); background: var(--warn-soft); }
-  .note.warn .note-head { color: var(--warn); }
-  .note.alert { border-left-color: var(--alert); background: var(--alert-soft); }
-  .note.alert .note-head { color: var(--alert); }
-  .note.info { border-left-color: var(--accent); background: var(--accent-soft); }
-  .note.info .note-head { color: var(--accent-ink); }
+.gallery { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 20px 0; }
+.gallery a { display: block; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; background: var(--surface-2); }
+.gallery img { width: 100%; display: block; aspect-ratio: 4 / 3; object-fit: cover; }
 
-  /* ---------- tables ---------- */
-  .tablewrap { overflow-x: auto; margin: 18px 0; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
-  table { border-collapse: collapse; width: 100%; font-size: .92rem; }
-  th {
-    text-align: left; font-family: var(--f-mono); font-weight: 500;
-    font-size: .64rem; letter-spacing: .15em; text-transform: uppercase; color: var(--ink-3);
-    padding: 10px 14px; border-bottom: 1px solid var(--line); white-space: nowrap;
-  }
-  td { padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-2); }
-  tr:last-child td { border-bottom: 0; }
-  td:first-child { color: var(--ink); }
-  td.num, th.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
-  table.trouble td:first-child { font-family: var(--f-mono); font-size: .78rem; line-height: 1.5; min-width: 190px; }
-  tr.flash td { background: var(--accent-soft); }
+.facts { border: 1px solid var(--line); border-radius: 9px; overflow: hidden; margin: 22px 0; }
+.facts div { display: grid; grid-template-columns: 132px 1fr; gap: 14px; padding: 9px 15px; border-bottom: 1px solid var(--line); font-size: .93rem; }
+.facts div:last-child { border-bottom: 0; }
+.facts dt { font-family: var(--f-mono); font-size: .63rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin: 3px 0 0; }
+.facts dd { margin: 0; color: var(--ink-2); }
 
-  /* ---------- cards ---------- */
-  .cards { display: grid; gap: 12px; margin: 20px 0; }
-  .cards.two { grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); }
-  .cards.three { grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); }
-  .card { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 14px 16px; }
-  .card h4 { margin: 0 0 4px; }
-  .card p { margin: 0; font-size: .92rem; color: var(--ink-2); }
-  .card .tag { font-family: var(--f-mono); font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-ink); display: block; margin-bottom: 6px; }
+.prose p { max-width: 68ch; }
+.back { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; }
 
-  /* ---------- schedule ---------- */
-  .sched { margin: 22px 0; border-left: 1px solid var(--line); }
-  .sched div { display: grid; grid-template-columns: 92px 1fr; gap: 16px; padding: 9px 0 9px 18px; position: relative; }
-  .sched div::before {
-    content: ""; position: absolute; left: -4.5px; top: 18px; width: 8px; height: 8px;
-    border-radius: 99px; background: var(--paper); border: 1.5px solid var(--line-2);
-  }
-  .sched div.key::before { background: var(--accent); border-color: var(--accent); }
-  .sched time { font-family: var(--f-mono); font-size: .8rem; font-variant-numeric: tabular-nums; color: var(--ink-3); }
-  .sched div.key time { color: var(--accent-ink); }
-  .sched b { font-weight: 400; font-family: var(--f-display); font-size: 1.02rem; letter-spacing: .01em; }
-  .sched div.key b { font-weight: 600; }
+.empty {
+  border: 1px dashed var(--line-2); border-radius: 10px; padding: 54px 28px;
+  text-align: center; color: var(--ink-2); background: var(--surface);
+}
+.empty h3 { margin: 0 0 6px; }
+.empty p { margin: 0 auto; max-width: 46ch; }
 
-  /* ---------- guide meta strip ---------- */
-  .meta { margin: 18px 0 6px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-  .meta div { display: grid; grid-template-columns: 132px 1fr; gap: 14px; padding: 9px 15px; border-bottom: 1px solid var(--line); font-size: .88rem; }
-  .meta div:last-child { border-bottom: 0; }
-  .meta dt { font-family: var(--f-mono); font-size: .63rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin: 2px 0 0; }
-  .meta dd { margin: 0; color: var(--ink-2); }
+/* ---------- steps ---------- */
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 22px 0; display: flex; flex-direction: column; gap: 16px; }
+.steps li {
+  counter-increment: s; position: relative; padding-left: 46px;
+}
+.steps li::before {
+  content: counter(s, decimal-leading-zero); position: absolute; left: 0; top: 1px;
+  font-family: var(--f-mono); font-size: .74rem; letter-spacing: .06em; color: var(--accent-ink);
+  border: 1px solid var(--line); border-radius: 6px; padding: 3px 7px; background: var(--surface);
+}
+.steps h3 { margin: 0 0 3px; }
+.steps p { margin: 0; color: var(--ink-2); font-size: .96rem; }
 
-  /* ---------- flow diagram ---------- */
-  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 20px 0; padding: 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
-  .flow span { font-family: var(--f-mono); font-size: .74rem; padding: 5px 10px; border: 1px solid var(--line-2); border-radius: 5px; background: var(--paper); }
-  .flow span.hot { border-color: var(--accent); color: var(--accent-ink); }
-  .flow i { color: var(--ink-3); font-style: normal; }
+.fields { width: 100%; border-collapse: collapse; font-size: .93rem; margin: 16px 0; }
+.fields th {
+  text-align: left; font-family: var(--f-mono); font-weight: 500; font-size: .62rem;
+  letter-spacing: .15em; text-transform: uppercase; color: var(--ink-3);
+  padding: 9px 12px; border-bottom: 1px solid var(--line);
+}
+.fields td { padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-2); }
+.fields td:first-child { color: var(--ink); font-family: var(--f-display); font-size: 1rem; white-space: nowrap; }
+.fields tr:last-child td { border-bottom: 0; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
 
-  /* ---------- engine switch ---------- */
-  .switch { display: inline-flex; gap: 3px; padding: 3px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); margin: 22px 0 4px; }
-  .switch button {
-    font-family: var(--f-mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase;
-    padding: 6px 13px; border: 0; border-radius: 5px; background: transparent; color: var(--ink-3); cursor: pointer;
-  }
-  .switch button[aria-selected="true"] { background: var(--accent); color: #fff; }
-  :root[data-theme="dark"] .switch button[aria-selected="true"] { color: #0C1115; }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .switch button[aria-selected="true"] { color: #0C1115; } }
-  .panel[hidden] { display: none; }
+/* ---------- share ---------- */
+.share { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 26px 0 0; padding-top: 20px; border-top: 1px solid var(--line); }
+.share-label { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); margin-right: 4px; }
+.share a, .share button {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--f-display); font-size: .92rem; letter-spacing: .015em;
+  padding: 7px 13px; border: 1px solid var(--line-2); border-radius: 6px;
+  background: var(--surface); color: var(--ink-2); text-decoration: none; cursor: pointer;
+}
+.share a:hover, .share button:hover { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); }
+.share svg { width: 14px; height: 14px; flex: none; fill: currentColor; }
+.share button.done { border-color: var(--ok); color: var(--ok); background: var(--ok-soft); }
+#nativeShare[hidden] { display: none; }
 
-  .keys { display: grid; gap: 8px; margin: 18px 0; }
-  .keys div { display: grid; grid-template-columns: 76px 1fr; gap: 14px; align-items: baseline; }
-  .keys kbd { justify-self: start; }
-  .keys p { margin: 0; font-size: .93rem; color: var(--ink-2); }
+/* ---------- footer ---------- */
+.foot { border-top: 1px solid var(--line); margin-top: 70px; padding: 28px 0 0; display: flex; flex-direction: column; gap: 12px; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: .9rem; }
+.foot-fine { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .06em; color: var(--ink-3); margin: 0; }
 
-  .srcline { margin-top: 30px; padding-top: 12px; border-top: 1px solid var(--line); font-size: .84rem; color: var(--ink-3); }
-  .srcline code { background: transparent; padding: 0; color: var(--ink-2); }
+/* ---------- bottom-left corner ----------
+   The links that are always available rather than part of the reading path:
+   the API docs, the repo, and the redeploy button. Fixed, because "where do I
+   find the API" should have the same answer on every page and at any scroll
+   position. */
+.corner {
+  position: fixed; left: 16px; bottom: 16px; z-index: 30;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  max-width: min(92vw, 420px);
+  padding: 7px 13px; border: 1px solid var(--line-2); border-radius: 99px;
+  background: var(--surface); box-shadow: var(--shadow);
+  font-family: var(--f-mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase;
+}
+.corner a, .corner button { color: var(--ink-3); text-decoration: none; }
+.corner button { font: inherit; text-transform: inherit; letter-spacing: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+.corner a:hover, .corner button:hover:not(:disabled) { color: var(--ink); }
+.corner button:disabled { opacity: .55; cursor: default; }
+.corner-msg:empty { display: none; }
+.corner-msg {
+  flex-basis: 100%; font-size: .62rem; letter-spacing: .03em;
+  text-transform: none; color: var(--ink-3);
+}
 
-  /* ---------- search overlay ---------- */
-  .scrim { position: fixed; inset: 0; background: rgba(10,14,18,.45); z-index: 90; display: none; }
-  .scrim.open { display: block; }
-  .finder {
-    position: fixed; z-index: 91; top: 12vh; left: 50%; transform: translateX(-50%);
-    width: min(640px, calc(100vw - 32px)); background: var(--surface);
-    border: 1px solid var(--line-2); border-radius: 10px; box-shadow: var(--shadow);
-    display: none; flex-direction: column; overflow: hidden;
-  }
-  .finder.open { display: flex; }
-  .finder input {
-    border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--ink);
-    font-family: var(--f-body); font-size: 1rem; padding: 14px 16px; outline: none;
-  }
-  .results { list-style: none; margin: 0; padding: 6px; max-height: 54vh; overflow-y: auto; }
-  .results li a { display: block; padding: 8px 11px; border-radius: 6px; text-decoration: none; color: var(--ink); }
-  .results li a:hover, .results li.sel a { background: var(--accent-soft); }
-  .results .kind { display: block; font-family: var(--f-mono); font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 1px; }
-  .results .ttl { display: block; font-family: var(--f-display); font-size: 1.02rem; letter-spacing: .01em; }
-  .results .sub2 { font-size: .84rem; color: var(--ink-2); display: block; margin-top: 1px; }
-  .results .empty { padding: 18px; color: var(--ink-3); font-size: .92rem; text-align: center; }
+@media (max-width: 720px) {
+  .corner { left: 10px; bottom: calc(10px + env(safe-area-inset-bottom)); gap: 10px; }
 
-  .totop {
-    position: fixed; right: 20px; bottom: 20px; z-index: 30;
-    width: 38px; height: 38px; border-radius: 99px; border: 1px solid var(--line-2);
-    background: var(--surface); color: var(--ink-2); cursor: pointer;
-    display: grid; place-items: center; box-shadow: var(--shadow);
-    opacity: 0; pointer-events: none; transition: opacity .2s;
-  }
-  .totop.show { opacity: 1; pointer-events: auto; }
+  /* The nav wrapped to a second row, making the sticky bar 95px tall — 12% of
+     a phone viewport, permanently. Drop the date line and tighten the nav so
+     it fits one row. */
+  .bar { padding: 8px 14px; gap: 10px; }
+  .bar .mark span { display: none; }
+  .bar .mark b { font-size: 1rem; }
+  .bar nav { gap: 1px; }
+  .bar nav a { padding: 5px 7px; font-size: .88rem; }
+  .wrap, .pagehead { padding-left: 16px; padding-right: 16px; }
+  .pagehead { padding-top: 40px; padding-bottom: 30px; }
+  .facts div { grid-template-columns: 1fr; gap: 2px; }
+  .count { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 
-  /* ---------- responsive ---------- */
-  @media (max-width: 980px) {
-    .shell { grid-template-columns: 1fr; }
-    .topbar {
-      display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 50;
-      padding: 10px 16px; background: var(--surface); border-bottom: 1px solid var(--line);
-    }
-    .topbar .wordmark b { font-size: 1.05rem; }
-    .topbar .searchbtn { width: auto; margin-left: auto; }
-    .menu { border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 6px; padding: 7px 9px; cursor: pointer; display: grid; place-items: center; }
-    .rail {
-      position: fixed; inset: 0 auto 0 0; width: 320px; transform: translateX(-100%);
-      height: 100dvh; transition: transform .25s ease; box-shadow: var(--shadow);
-      z-index: 60; /* over the sticky topbar (50), which it now covers */
-    }
-    .rail.open { transform: none; }
-    .rail-head { padding-top: 16px; flex: none; }
-    /* The drawer covers the topbar, so it carries its own way out. */
-    .railclose { display: grid; }
-    .nav { padding-bottom: calc(40px + env(safe-area-inset-bottom)); }
-    body.nav-open { overflow: hidden; }
-    .wrap, .hero { padding-left: 20px; padding-right: 20px; }
-    .hero { padding-top: 44px; padding-bottom: 38px; }
-    .meta div, .keys div, .sched div { grid-template-columns: 1fr; gap: 2px; }
-    body { font-size: 16.5px; }
-  }
-  /* Phones: the drawer takes the whole screen rather than a peeking column. */
-  @media (max-width: 640px) {
-    .rail { width: 100%; }
-  }
-  /* Desktop: the reading column runs half again as wide and half again as
-     large. Everything in the content area is sized in rem, so lifting the root
-     scales the whole type ramp together; the rail is pinned back to the same
-     pixel sizes it had at a 16px root, because only the right side grows. */
-  @media (min-width: 981px) {
-    html { font-size: 24px; }
-    body { font-size: 25px; }
-    .wrap { max-width: 1170px; padding: 0 66px 140px; }
-    .hero { padding: 76px 66px 54px; }
-    .hero-inner { max-width: 1170px; }
-
-    .rail .wordmark b { font-size: 20.5px; }
-    .rail .wordmark span { font-size: 10.5px; }
-    .rail .searchbtn { font-size: 11.8px; }
-    .rail kbd { font-size: 10.9px; }
-    .nav-group { font-size: 10.2px; }
-    .nav a { font-size: 15.4px; }
-    .nav a .n { font-size: 10.5px; }
-    .sub a { font-size: 13.4px; }
-    .rail-foot { font-size: 10.6px; }
-    .rail-foot .corner-msg { font-size: 10px; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; scroll-behavior: auto !important; animation: none !important; }
-  }
-  /* ---------- calls to action ---------- */
-  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 0; }
-  .btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: var(--f-display); font-size: 1rem; letter-spacing: .02em;
-    padding: 9px 18px; border-radius: 6px; text-decoration: none;
-    border: 1px solid var(--accent); background: var(--accent); color: #fff;
-  }
-  :root[data-theme="dark"] .btn:not(.ghost) { color: #0C1115; }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn:not(.ghost) { color: #0C1115; } }
-  .btn:hover { filter: brightness(1.08); }
-  .btn.ghost { background: transparent; color: var(--accent-ink); }
-  .btn.ghost:hover { background: var(--accent-soft); filter: none; }
-
-  /* ---------- hosts ---------- */
-  .hosts { margin: 26px 0 0; }
-  .hosts-label { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
-  .hosts-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 9px; }
-  .hosts-row span {
-    font-family: var(--f-display); font-size: 1.02rem; letter-spacing: .02em;
-    padding: 5px 13px; border: 1px solid var(--line-2); border-radius: 5px;
-    background: var(--paper); color: var(--ink);
-  }
-
-  .card .detail { margin-top: 7px; padding-top: 7px; border-top: 1px solid var(--line); font-size: .86rem; color: var(--ink-3); }
-  .sched-note { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .16em; text-transform: uppercase; color: var(--warn); margin: 18px 0 -6px; }
-  .sched div.after::before { background: var(--surface-2); border-style: dashed; }
-
-  /* ---------- footer ---------- */
-  .foot { border-top: 1px solid var(--line); margin-top: 70px; padding: 30px 0 0; display: flex; flex-direction: column; gap: 14px; }
-  .foot-links { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: .9rem; }
-  .foot-fine { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .06em; color: var(--ink-3); }
-
-  html { scroll-behavior: smooth; }
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <button class="menu" id="menuBtn" aria-label="Open navigation" aria-expanded="false">
-    <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M0 1h16M0 6h16M0 11h16" stroke="currentColor" stroke-width="1.5"/></svg>
-  </button>
-  <div class="wordmark"><b>Physical AI Sprint</b></div>
-  <button class="searchbtn" data-find>Search <kbd>/</kbd></button>
-</div>
+<a class="skip" href="#content">Skip to content</a>
 
-<a class="skip" href="#challenge">Skip to content</a>
-<div class="shell">
-  <aside class="rail" id="rail">
-    <div class="rail-head">
-      <div class="rail-top">
-        <div class="wordmark">
-          <b>The Physical AI Sprint</b>
-          <span>Hackathon handbook</span>
-        </div>
-        <button class="railclose" id="railClose" aria-label="Close navigation">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.5"/></svg>
-        </button>
-      </div>
-      <button class="searchbtn" data-find>
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><circle cx="5" cy="5" r="4" stroke="currentColor"/><path d="M8 8l3.5 3.5" stroke="currentColor"/></svg>
-        Search guides &amp; symptoms
-        <kbd>/</kbd>
-      </button>
+<header class="bar">
+  <a class="mark" href="/">
+    <b>The Physical AI Sprint</b>
+    <span>Monday, August 17, 2026</span>
+  </a>
+  <nav>
+    <a href="/" aria-current="page">Showcase</a>
+    <a href="/handbook.html">Handbook</a>
+  </nav>
+</header>
+
+<main id="content">
+
+<header class="pagehead">
+  <div class="pagehead-in">
+    <p class="eyebrow">Project showcase</p>
+    <h1>What teams built</h1>
+    <p class="lede">Every project built at the Physical AI Sprint — a one-day hackathon alongside Actuate SF, hosted by Nebius with NVIDIA, Antioch, and Toloka.</p>
+
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="controls">
+    <input type="search" id="q" placeholder="Search projects, teams, robots…" aria-label="Search projects"
+      toolname="search_projects"
+      tooldescription="Filter the submitted hackathon projects by title, tagline, robot used, or team member name.">
+    <div class="filters" role="group" aria-label="Filter by track">
+      <button data-filter="all" aria-pressed="true">All</button>
+      <button data-filter="sim" aria-pressed="false">Sim</button>
+      <button data-filter="hardware" aria-pressed="false">Hardware</button>
+      <button data-filter="both" aria-pressed="false">Sim + real</button>
     </div>
+    <span class="count"><b id="shown">17</b> of 17</span>
+  </div>
 
-    <nav class="nav" id="nav" aria-label="Handbook sections">
-      <div class="nav-group">Projects</div>
-      <ul>
-        <li><a href="/showcase.html"><span class="n">→</span>Project showcase</a></li>
-        <li><a href="/submit.html"><span class="n">→</span>Submit a project</a></li>
-      </ul>
-
-      <div class="nav-group">The event</div>
-      <ul>
-        <li><a href="#expect"><span class="n">00</span>What to expect</a></li>
-        <li><a href="#challenge"><span class="n">01</span>The challenge</a></li>
-        <li><a href="#format"><span class="n">02</span>Format</a></li>
-        <li><a href="#schedule"><span class="n">03</span>Schedule</a></li>
-        <li>
-          <a href="#what-you-get"><span class="n">04</span>What you get</a>
-          <ul class="sub">
-            <li><a href="#antioch">The Antioch platform</a></li>
-            <li><a href="#hardware">Robot hardware</a></li>
-            <li><a href="#assets">Sim-ready assets</a></li>
-            <li><a href="#models">Nemotron &amp; Cosmos</a></li>
-            <li><a href="#support">Support</a></li>
-          </ul>
-        </li>
-        <li><a href="#getting-started"><span class="n">05</span>Getting started guides</a></li>
-        <li><a href="#judging"><span class="n">06</span>Judging</a></li>
-        <li><a href="#rules"><span class="n">07</span>Ground rules</a></li>
-      </ul>
-
-      <div class="nav-group">Attending</div>
-      <ul>
-        <li><a href="#prizes"><span class="n">08</span>Prizes</a></li>
-        <li><a href="#bring"><span class="n">09</span>What to bring</a></li>
-        <li><a href="#attend"><span class="n">10</span>Who should attend</a></li>
-        <li><a href="#notes"><span class="n">11</span>Important notes</a></li>
-      </ul>
-
-      <div class="nav-group">The guides</div>
-      <ul>
-        <li>
-          <a href="#g1"><span class="n">G1</span>LeRobot on macOS</a>
-          <ul class="sub">
-            <li><a href="#g1-s0">0 · What you need</a></li>
-            <li><a href="#g1-s1">1 · Create the environment</a></li>
-            <li><a href="#g1-s2">2 · Find the serial ports</a></li>
-            <li><a href="#g1-s3">3 · Tell the arms apart</a></li>
-            <li><a href="#g1-s4">4 · Assign servo IDs</a></li>
-            <li><a href="#g1-s5">5 · Calibrate each arm</a></li>
-            <li><a href="#g1-s6">6 · First motion</a></li>
-            <li><a href="#g1-s7">7 · Record a dataset</a></li>
-            <li><a href="#g1-diffs">macOS differences</a></li>
-            <li><a href="#g1-trouble">Troubleshooting</a></li>
-            <li><a href="#g1-house">House rules</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="#g2"><span class="n">G2</span>Sim teleoperation</a>
-          <ul class="sub">
-            <li><a href="#g2-s0">0 · One-time setup</a></li>
-            <li><a href="#g2-s1">1 · Two terminals</a></li>
-            <li><a href="#g2-s2">2 · Find the leader port</a></li>
-            <li><a href="#g2-s3">3 · Warm a machine</a></li>
-            <li><a href="#g2-s4">4 · Open the livestream</a></li>
-            <li><a href="#g2-s5">5 · Connect the arm</a></li>
-            <li><a href="#g2-s6">6 · Record episodes</a></li>
-            <li><a href="#g2-s7">7 · Download your data</a></li>
-            <li><a href="#g2-exec">Why machine exec</a></li>
-            <li><a href="#g2-trouble">Troubleshooting</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="#g3"><span class="n">G3</span>Policy training</a>
-          <ul class="sub">
-            <li><a href="#g3-s1">1 · Generate episodes</a></li>
-            <li><a href="#g3-s2">2 · Build the dataset</a></li>
-            <li><a href="#g3-s3">3 · Train</a></li>
-            <li><a href="#g3-s4">4 · Evaluate closed-loop</a></li>
-            <li><a href="#g3-s5">5 · Run on the real arm</a></li>
-            <li><a href="#g3-trouble">Troubleshooting</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="#g4"><span class="n">G4</span>Unitree on Antioch</a>
-          <ul class="sub">
-            <li><a href="#g4-s1">1 · Choose your engine</a></li>
-            <li><a href="#g4-s2">2 · Check what exists</a></li>
-            <li><a href="#g4-s3">3 · Spawn a stock robot</a></li>
-            <li><a href="#g4-s4">4 · Build what's missing</a></li>
-            <li><a href="#g4-s5">5 · Give it a controller</a></li>
-            <li><a href="#g4-s6">6 · Gate it on physics</a></li>
-            <li><a href="#g4-gotchas">Engine gotchas</a></li>
-            <li><a href="#g4-runs">Verified runs</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-
-    <div class="rail-foot">
-      <a href="/developers.html">API</a>
-      <a href="https://github.com/buildspacetv/sprint">GitHub</a>
-      <button type="button" data-refresh>Refresh</button>
-      <span class="corner-msg" role="status"></span>
-    </div>
-  </aside>
-
-  <main>
-    <header class="hero">
-      <div class="hero-inner">
-        <div class="eyebrow">Monday, August 17, 2026 · A hackathon alongside Actuate SF</div>
-        <h1>The Physical AI Sprint</h1>
-        <p class="lede">Get warmed up for Actuate the best way possible — by building. Join Nebius, NVIDIA, Antioch, and Toloka for a day of workshops and building at the intersection of AI and the physical world. Start with technical workshops on the tools and challenge space, then form a team — or work solo — and build a working prototype.</p>
-        <div class="hero-meta">
-          <span class="chip">100–125 participants</span>
-          <span class="chip">Teams of 1–5</span>
-          <span class="chip">One day</span>
-          <span class="chip">Antioch + SO-101 + Unitree</span>
-        </div>
-        <div class="actions">
-          <a class="btn" href="https://luma.com/nkknxvrz">Apply to attend</a>
-          <a class="btn ghost" href="https://discord.com/invite/nN58zxSTFR">Join the Discord</a>
-        </div>
-        <div class="hosts">
-          <div class="hosts-label">Brought to you by</div>
-          <div class="hosts-row">
-            <span>Nebius</span><span>NVIDIA</span><span>Antioch</span><span>Toloka</span>
+  <div class="grid" id="grid">
+      <a class="pcard" href="/projects/404team-work.html"  data-track="" data-search="404team work teleoperation of so-101 plus controlling follower arm in the simulation from the leader arm in the real world  valdis null lin null josh null">
+        <div class="cover"><img src="https://i.ytimg.com/vi/V_S5wStHcHA/hqdefault.jpg" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;4W&lt;/span&gt;'"></div>
+        <div class="body">
+          <h3>404team work</h3>
+          <p class="tag">Teleoperation of so-101 plus controlling follower arm in the simulation from the leader arm in the real world</p>
+          <div class="meta">
+            
+            
+            <span class="badge">3 members</span>
           </div>
         </div>
-      </div>
-    </header>
-
-    <div class="wrap">
-
-      <!-- ============ what to expect ============ -->
-      <section id="expect">
-        <h2><span class="num">00</span>What to expect</h2>
-        <p>We'll begin with technical workshops designed to help you get familiar with the tools, infrastructure, and challenge space. Then, you'll form a team — or work independently — and spend the rest of the day building a working prototype.</p>
-        <ul class="list">
-          <li>Robotics workshops</li>
-          <li>A focused physical AI challenge</li>
-          <li>Access to tools, infrastructure, and technical support</li>
-          <li>Project demos and judging</li>
-          <li>Prizes for the strongest submissions</li>
-        </ul>
-      </section>
-
-      <!-- ============ 01 ============ -->
-      <section id="challenge">
-        <h2><span class="num">01</span>The challenge</h2>
-        <p class="eyebrow" style="margin-bottom:10px">The perception–reasoning–action loop</p>
-        <p>Modern AI excels at generating text and pixels. Physical AI requires closing the loop between the digital mind and a physical embodiment, integrating three pillars:</p>
-
-        <div class="cards three">
-          <div class="card">
-            <span class="tag">Perception · sense</span>
-            <p>Interpret camera and sensor data into a live understanding of a scene.</p>
-            <p class="detail">Ingesting multi-modal sensor data — RGB-D video, LiDAR, IMU readings, tactile feedback, spatial audio — into a real-time, dynamic understanding of the physical surroundings.</p>
-          </div>
-          <div class="card">
-            <span class="tag">Reasoning · think</span>
-            <p>Turn goals into multi-step behavior and adapt when the world changes.</p>
-            <p class="detail">Leveraging foundation models, spatial computing, and decision-making frameworks to analyze constraints, anticipate outcomes, plan multi-step tasks, and adapt to unexpected real-world changes.</p>
-          </div>
-          <div class="card">
-            <span class="tag">Action · act</span>
-            <p>Translate plans into robot motion that actually works.</p>
-            <p class="detail">Translating high-level plans into precise physical outputs: robotic manipulation, autonomous navigation, drone flight dynamics, or interactive IoT actuator responses.</p>
+      </a>
+      <a class="pcard" href="/projects/back-online.html"  data-track="" data-search="back online factory sre is a mobile robotic first responder for factory downtime.  josh null raghav null robert null mohan null">
+        <div class="cover"><img src="https://drive.google.com/thumbnail?id=1SltuS0WSf85r2NrxoIQTg9RnrleQslzfWaoAbmGTNQE&amp;sz=w1000" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;BO&lt;/span&gt;'"></div>
+        <div class="body">
+          <h3>Back Online</h3>
+          <p class="tag">Factory SRE is a mobile robotic first responder for factory downtime.</p>
+          <div class="meta">
+            
+            
+            <span class="badge">4 members</span>
           </div>
         </div>
-
-        <p>Your goal: design and demonstrate a Physical AI task in simulation, in the real world, or across both. You have several robot modalities, the Antioch simulation platform for building and testing, and a single day. The brief is deliberately open-ended: we provide the robots, the world, and the building blocks, and you decide what the system does and how it thinks. In short, build some cool stuff.</p>
-
-        <h3>Three project directions</h3>
-        <p>All are equally viable.</p>
-        <ul class="list">
-          <li><b>Sim only.</b> Build and demonstrate entirely on the Antioch platform. No hardware queue, unlimited resets, and every robot modality is available.</li>
-          <li><b>Hardware only.</b> Build directly on the physical robots at the hardware stations.</li>
-          <li><b>Sim and real.</b> Show a trajectory between the two: prototype or train in sim and run it on the real robot (sim-to-real), or capture real demonstrations and bring them into sim (real-to-sim).</li>
-        </ul>
-
-        <div class="note info">
-          <div class="note-head">Planning note</div>
-          <div class="note-body">Hardware is limited and shared across all teams, so simulation is the dependable path. The strongest projects will likely run most of their loop in sim even when they touch hardware.</div>
-        </div>
-      </section>
-
-      <!-- ============ 02 ============ -->
-      <section id="format">
-        <h2><span class="num">02</span>Format</h2>
-        <p>100 to 125 participants, hacking in teams of 1 to 5. Solo is fine — you do not need to arrive with a team.</p>
-      </section>
-
-      <!-- ============ 03 ============ -->
-      <section id="schedule">
-        <h2><span class="num">03</span>Schedule</h2>
-        <p class="sched-note">Monday, August 17, 2026 · Subject to change</p>
-        <div class="sched">
-          <div><time>8:00 am</time><b>Doors open and check-in, grab breakfast</b></div>
-          <div><time>9:00 am</time><b>Welcome and challenge briefing</b></div>
-          <div><time>9:15 am</time><b>Technical workshops by hosts</b></div>
-          <div class="key"><time>10:30 am</time><b>Hacking begins</b></div>
-          <div><time>12:00 pm</time><b>Lunch</b></div>
-          <div><time>1:00 pm</time><b>Hacking continues</b></div>
-          <div class="key"><time>3:30 pm</time><b>Submission deadline</b></div>
-          <div><time>4:30 pm</time><b>Demos and judging (top 6 live demos)</b></div>
-          <div class="key"><time>5:30 pm</time><b>Winners announced</b></div>
-          <div class="after"><time>6–9 pm</time><b>Happy hour</b></div>
-        </div>
-      </section>
-
-      <!-- ============ 04 ============ -->
-      <section id="what-you-get">
-        <h2><span class="num">04</span>What you get</h2>
-
-        <h3 id="antioch">The Antioch platform</h3>
-        <p>Antioch is a cloud simulation platform for robotics. You write ordinary Python against the NVIDIA Isaac stack (Isaac Sim and Isaac Lab are both available) on your own laptop, and Antioch dispatches it to GPU machines on Nebius. Nothing heavy runs locally: no GPU, no Docker, no Isaac install, and macOS and Linux both work.</p>
-        <p>You can develop interactively by building simulations and streaming them into the browser. You can also define parameterized simulation scenarios and run variants at scale headlessly. Scenario runs are recorded and replayable, with metrics, logs, live viewport streams, and 3D recordings you can open in the browser.</p>
-        <p>Your team will receive a link to sign up for the Antioch Console. Each team gets its own development environment where teammates share machines and scenario runs and can see each other's work as it lands. Signup links will be distributed over email once teams are formed.</p>
-        <div class="note info">
-          <div class="note-head">Start here</div>
-          <div class="note-body">For how the platform actually works, start with the Antioch product docs: <a href="https://console.poc.antioch.com/docs/welcome">console.poc.antioch.com/docs/welcome</a></div>
-        </div>
-
-        <h3 id="hardware">Robot hardware</h3>
-        <div class="cards two">
-          <div class="card">
-            <span class="tag">10 ×</span>
-            <h4>LeRobot SO-101 pairs</h4>
-            <p>Leader/follower arms. Setup documentation for Linux and Windows; for macOS, use <a href="#g1">Guide 1</a>.</p>
-          </div>
-          <div class="card">
-            <span class="tag">2 ×</span>
-            <h4>Unitree Go2-W</h4>
-            <p>Wheeled quadrupeds. Documentation at <a href="https://github.com/unitreerobotics">github.com/unitreerobotics</a>.</p>
-          </div>
-          <div class="card">
-            <span class="tag">1 ×</span>
-            <h4>Unitree G1</h4>
-            <p>Humanoid. Documentation at <a href="https://github.com/unitreerobotics">github.com/unitreerobotics</a>.</p>
+      </a>
+      <a class="pcard" href="/projects/bruno-the-librarian.html"  data-track="" data-search="bruno - the librarian an autonomous librarian that helps human staff manage libraries, retrieves requested books from shelves, and safely hands them to people.  aaditya gaur null kaushik sivakumar null mohammed adnan null">
+        <div class="cover"><span class="ph tile" aria-hidden="true">BT</span></div>
+        <div class="body">
+          <h3>Bruno - the Librarian</h3>
+          <p class="tag">An autonomous librarian that helps human staff manage libraries, retrieves requested books from shelves, and safely hands them to people.</p>
+          <div class="meta">
+            
+            
+            <span class="badge">3 members</span>
           </div>
         </div>
-        <p>Hardware stations are shared between teams and staffed by the host teams.</p>
-
-        <h3 id="assets">Sim-ready assets</h3>
-        <ul class="list">
-          <li><b>Robots.</b> A calibrated SO-101 digital twin, plus the Unitree lineup in the Isaac asset library (Go2, G1, and others; <a href="#g4-s2">Guide 4</a> lists what is on the shelf).</li>
-          <li><b>Environments.</b> Ready-made scenes to stage your task in.</li>
-          <li><b>Objects.</b> Containers, fixtures, and props, so composing a scene takes minutes rather than hours of importing and tuning your own meshes.</li>
-        </ul>
-
-        <h4>Physical assets for SO-101</h4>
-        <ul class="list">
-          <li>Blocks of various size, shape, and color</li>
-          <li>Vials and vial racks</li>
-        </ul>
-
-        <h3 id="models">Frontier models: Nemotron and Cosmos from NVIDIA</h3>
-        <p>Both families are served over an OpenAI-compatible API, so any OpenAI client works — you only change the base URL and the key. <b>Start on Nebius Token Factory</b>: that is where your event credits live. Reach for NVIDIA's own endpoint when you want a model Token Factory does not serve, Cosmos Reason above all. The two families do different jobs, and the split maps onto the challenge's own pillars.</p>
-
-        <div class="tablewrap">
-          <table>
-            <thead><tr><th>Host</th><th>Base URL</th><th>Key</th><th>Use it for</th></tr></thead>
-            <tbody>
-              <tr><td><b>Nebius Token Factory</b> — start here</td><td><code>https://api.tokenfactory.nebius.com/v1/</code></td><td><code>NEBIUS_API_KEY</code> from <a href="https://tokenfactory.nebius.com/?modals=create-api-key">tokenfactory.nebius.com</a></td><td>Nemotron. New accounts get $25 in credits plus $25 in Tavily credits for live web search.</td></tr>
-              <tr><td>NVIDIA</td><td><code>https://integrate.api.nvidia.com/v1</code></td><td><code>NVIDIA_API_KEY</code> from <a href="https://build.nvidia.com">build.nvidia.com</a></td><td>Cosmos Reason, and anything missing from the Token Factory catalogue.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="cards two">
-          <div class="card">
-            <span class="tag">Perception + reasoning</span>
-            <h4>Cosmos Reason</h4>
-            <p>A vision-language model that understands the physical world by reasoning over video and images — the closest thing here to a model built for this exact challenge.</p>
-            <p class="detail"><code>nvidia/cosmos-reason2-8b</code> · on NVIDIA</p>
-          </div>
-          <div class="card">
-            <span class="tag">Planning + tool calling</span>
-            <h4>Nemotron</h4>
-            <p>Open reasoning models for the planning layer. The flagship is a hybrid Mamba-Transformer MoE with a 1M-token context, built for agentic reasoning, planning, and tool calling.</p>
-            <p class="detail"><code>nvidia/nemotron-3-super-120b-a12b</code> · on Token Factory</p>
+      </a>
+      <a class="pcard" href="/projects/collaborative-reference-frames-for-assistive-robotics.html"  data-track="" data-search="collaborative reference frames for assistive robotics using meta glasses vision stream combined with an actuator camera to build corrective prompts for a vla.  ayan null benji null rikin null masaki null chris null aaryan null">
+        <div class="cover"><img src="https://i.ytimg.com/vi/3yY9Vv15kDE/hqdefault.jpg" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;CR&lt;/span&gt;'"></div>
+        <div class="body">
+          <h3>Collaborative Reference Frames For Assistive Robotics</h3>
+          <p class="tag">Using Meta Glasses vision stream combined with an actuator camera to build corrective prompts for a VLA.</p>
+          <div class="meta">
+            
+            
+            <span class="badge">6 members</span>
           </div>
         </div>
-
-        <h4>Turn a goal into steps with Nemotron</h4>
-        <p>Any OpenAI client works — point it at Token Factory and use it for natural-language tasking, multi-step planning, or deciding what to do when a grasp fails.</p>
-        <div class="term" data-tag="python"><pre><code>import os
-from openai import OpenAI
-
-tf = OpenAI(
-    base_url="https://api.tokenfactory.nebius.com/v1/",
-    api_key=os.environ["NEBIUS_API_KEY"],
-)
-
-plan = tf.chat.completions.create(
-    model="nvidia/nemotron-3-super-120b-a12b",
-    messages=[
-        {"role": "system", "content": "Turn goals into SO-101 pick-and-place steps."},
-        {"role": "user", "content": "Put the green cube in the tray, then reset."},
-    ],
-)
-print(plan.choices[0].message.content)</code></pre></div>
-
-        <h4>Ask Cosmos Reason what it sees</h4>
-        <p>This is the pillar that is easiest to underbuild. Hand it a wrist-camera frame and ask it to reason about the scene before you plan a motion. Same client, second host — Cosmos Reason is served from NVIDIA's endpoint.</p>
-        <div class="term" data-tag="python"><pre><code>import base64
-
-nvidia = OpenAI(
-    base_url="https://integrate.api.nvidia.com/v1",
-    api_key=os.environ["NVIDIA_API_KEY"],
-)
-
-frame = base64.b64encode(open("wrist.jpg", "rb").read()).decode()
-
-resp = nvidia.chat.completions.create(
-    model="nvidia/cosmos-reason2-8b",
-    messages=[{
-        "role": "user",
-        "content": [
-            {"type": "text", "text": "Is the green cube graspable from this angle? If not, say what to change."},
-            {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{frame}"}},
-        ],
-    }],
-)
-print(resp.choices[0].message.content)</code></pre></div>
-
-        <div class="note info">
-          <div class="note-head">Picking a size</div>
-          <div class="note-body">The Nemotron range runs from something small and fast enough for a control loop (<code>nvidia/nvidia-nemotron-nano-9b-v2</code>) up to <code>nvidia/nemotron-3-ultra-550b-a55b</code>, with <code>nvidia/nemotron-nano-12b-v2-vl</code> as the vision-language option if you want one model for both jobs. Model IDs are per-host, so copy the exact string from the catalogue you are calling: <code>GET https://api.tokenfactory.nebius.com/v1/models</code> for Token Factory, <a href="https://integrate.api.nvidia.com/v1/models">integrate.api.nvidia.com/v1/models</a> for NVIDIA. Nebius and NVIDIA engineers are on site all day.</div>
-        </div>
-
-        <h3 id="support">Support</h3>
-        <p>Engineers from the host companies are on hand all day for platform, hardware, and training questions.</p>
-      </section>
-
-      <!-- ============ 05 ============ -->
-      <section id="getting-started">
-        <h2><span class="num">05</span>Getting started guides</h2>
-        <p>The four guides at the back of this handbook each take you from zero to a working proof of concept with the hardware or with Antioch.</p>
-
-        <div class="cards two">
-          <div class="card">
-            <span class="tag">Guide 1</span>
-            <h4><a href="#g1">LeRobot on macOS</a></h4>
-            <p>From a Mac with nothing installed to a real arm following your hand.</p>
-          </div>
-          <div class="card">
-            <span class="tag">Guide 2</span>
-            <h4><a href="#g2">Sim teleoperation</a></h4>
-            <p>Drive the Antioch sim with a real SO-101 leader arm and record scored demonstration episodes.</p>
-          </div>
-          <div class="card">
-            <span class="tag">Guide 3</span>
-            <h4><a href="#g3">Policy training</a></h4>
-            <p>Train an ACT or Diffusion policy on sim data, evaluate it closed-loop, and run it on a real arm.</p>
-          </div>
-          <div class="card">
-            <span class="tag">Guide 4</span>
-            <h4><a href="#g4">Unitree robots on Antioch</a></h4>
-            <p>Spawn a quadruped or humanoid, give it a controller, and verify it on physics rather than video.</p>
+      </a>
+      <a class="pcard" href="/projects/desk-duster.html"  data-track="" data-search="desk duster our project cleans desks.  ritika shrivastava null lucy yang null arushi vashist null">
+        <div class="cover"><img src="/img/desk-duster-cover.jpg" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;DD&lt;/span&gt;'"></div>
+        <div class="body">
+          <h3>Desk Duster</h3>
+          <p class="tag">Our project cleans desks.</p>
+          <div class="meta">
+            
+            
+            <span class="badge">3 members</span>
           </div>
         </div>
-
-        <div class="note">
-          <div class="note-head">These are not the assignment</div>
-          <div class="note-body">They exist so you can explore the stack and prove the plumbing works. The challenge is what you build past them: extend one into something of your own, combine several, or ignore them entirely and chart a different course.</div>
-        </div>
-
-        <h4>Some directions to calibrate ambition</h4>
-        <ul class="list">
-          <li>A vial pick-and-place cell that survives a shuffled scene</li>
-          <li>A new skill taught by teleop and distilled into a policy</li>
-          <li>Person-following with a quadruped</li>
-          <li>Pouring with the G1</li>
-          <li>A multi-robot scene</li>
-          <li>Natural-language tasking</li>
-          <li>Deliberate failure recovery</li>
-        </ul>
-      </section>
-
-      <!-- ============ 06 ============ -->
-      <section id="judging">
-        <h2><span class="num">06</span>Judging</h2>
-        <p>Judging runs science-fair style first: judges from the hosting companies circulate and view projects at team stations, so have a tight walkthrough and a live or recorded demo ready. The top 6 teams then demo to the full group, and winners are announced after.</p>
-        <p>Projects are judged on four categories, unweighted.</p>
-        <div class="cards two">
-          <div class="card"><span class="tag">Ambition</span><p>How hard the problem is and how much of the loop you take on.</p></div>
-          <div class="card"><span class="tag">Functionality</span><p>Does it work end-to-end when demonstrated.</p></div>
-          <div class="card"><span class="tag">Creativity</span><p>Originality in the task, approach, or demo.</p></div>
-          <div class="card"><span class="tag">Architectural quality</span><p>How well the system is put together: clean boundaries between perception, reasoning, and action, and sound engineering choices.</p></div>
-        </div>
-      </section>
-
-      <!-- ============ 07 ============ -->
-      <section id="rules">
-        <h2><span class="num">07</span>Ground rules</h2>
-        <ul class="list">
-          <li>Unless you are confident you can pull it off quickly, avoid fine-tuning pre-trained policies or VLA models. Training a small imitation policy from scratch on your own demonstrations fits comfortably in the day (<a href="#g3">Guide 3</a> shows the path); wrangling a large pre-trained model usually does not.</li>
-          <li>Make it awesome.</li>
-        </ul>
-      </section>
-
-      <!-- ============ prizes ============ -->
-      <section id="prizes">
-        <h2><span class="num">08</span>Prizes</h2>
-        <p>Prizes for the strongest submissions, awarded after the top 6 teams demo to the full group. Judging criteria are in <a href="#judging">section 06</a>.</p>
-        <div class="note">
-          <div class="note-head">Details pending</div>
-          <div class="note-body">The event page lists a Prizes section but does not yet publish the specific awards. Nothing further is confirmed, so nothing more is stated here.</div>
-        </div>
-      </section>
-
-      <!-- ============ what to bring ============ -->
-      <section id="bring">
-        <h2><span class="num">09</span>What to bring</h2>
-        <p>Bring your laptop, charger, and anything else you rely on for a full day of building. Required setup instructions and recommended tools are shared with registered participants before the event — the four <a href="#g1">guides</a> in this handbook cover the setup you can do in advance.</p>
-      </section>
-
-      <!-- ============ who should attend ============ -->
-      <section id="attend">
-        <h2><span class="num">10</span>Who should attend</h2>
-        <p>This event is designed for:</p>
-        <ul class="list">
-          <li>Robotics engineers</li>
-          <li>Machine learning engineers</li>
-          <li>Computer vision engineers</li>
-          <li>Research engineers and applied scientists</li>
-          <li>Data and infrastructure engineers working with robotics or physical AI</li>
-          <li>Technical founders and builders exploring embodied intelligence</li>
-        </ul>
-        <p>You don't need to arrive with a team. We'll help participants connect and form teams before and at the event — we'll help you find one on the day.</p>
-      </section>
-
-      <!-- ============ important notes ============ -->
-      <section id="notes">
-        <h2><span class="num">11</span>Important notes</h2>
-        <ul class="list">
-          <li><b>Space is limited</b>, and all attendees must apply and be approved to attend.</li>
-          <li><b>This is a hands-on technical event.</b> Participants should be comfortable writing code and building independently or as part of a small team.</li>
-          <li><b>Please register individually</b>, even if you plan to attend with a team.</li>
-        </ul>
-        <div class="actions">
-          <a class="btn" href="https://luma.com/nkknxvrz">Apply now</a>
-          <a class="btn ghost" href="https://discord.com/invite/nN58zxSTFR">Join the Discord</a>
-        </div>
-        <hr class="rule">
-      </section>
-
-      <!-- ============ GUIDE 1 ============ -->
-      <section id="g1">
-        <h2><span class="num">Guide 1</span>LeRobot on macOS: first-time setup for the SO-101</h2>
-        <p class="lede">Go from a Mac with nothing installed to a real SO-101 arm following your hand. The published LeRobot instructions assume Windows or Ubuntu, so the port names, permissions, and GPU advice in them do not match a Mac. This guide is the macOS version, with every difference called out where you hit it.</p>
-
-        <dl class="meta">
-          <div><dt>Total time</dt><dd>About 45 minutes, most of it calibration.</dd></div>
-          <div><dt>Tested against</dt><dd>lerobot 0.4.4, Python 3.10, macOS on Apple Silicon.</dd></div>
-          <div><dt>Vendor manual</dt><dd>Assembly and servo wiring: SO-ARM101 user manual (<a href="https://www.hiwonder.com">hiwonder.com</a>)</dd></div>
-        </dl>
-
-        <h3 id="g1-s0">Step 0 · What you need</h3>
-        <h4>Hardware on the desk</h4>
-        <ul class="list">
-          <li>An SO-101 <b>follower</b> arm, which is the one that moves under command.</li>
-          <li>An SO-101 <b>leader</b> arm if you want to teleoperate. The leader has a handle and no gripper servo horn.</li>
-          <li>One <b>data-capable</b> USB-C cable per arm, plus the arm power supplies. A charge-only cable shows no serial port at all and wastes twenty minutes.</li>
-        </ul>
-        <p><b>Software:</b> a terminal, and either miniconda or uv (<a href="https://docs.astral.sh/uv">docs.astral.sh/uv</a>). You do not need a GPU, Docker, or ROS.</p>
-
-        <h3 id="g1-s1">Step 1 · Create the environment</h3>
-        <p>Either tool works. The conda route pulls in ffmpeg, which LeRobot uses for video encoding during dataset recording:</p>
-        <div class="term" data-tag="conda"><pre><code>conda create -n lerobot python=3.10 ffmpeg -c conda-forge -y
-conda activate lerobot
-pip install lerobot opencv-python</code></pre></div>
-        <p>With uv instead:</p>
-        <div class="term" data-tag="uv"><pre><code>uv venv ~/lerobot-env --python 3.10
-source ~/lerobot-env/bin/activate
-uv pip install lerobot opencv-python</code></pre></div>
-        <p>Add <code>opencv-python</code> in either case, because anything that touches a camera needs it and the error you get without it is unhelpful.</p>
-
-        <div class="ckpt" data-ck="g1-env">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body">
-            <div class="term"><pre><code>python -c "import lerobot, torch; print(lerobot.__version__, torch.__version__)"
-python -c "import torch; print('MPS available:', torch.backends.mps.is_available())"</code></pre></div>
-            <p>You should see a lerobot version and <code>MPS available: True</code>. Plain <code>pip install torch</code> already gives you Apple Silicon acceleration. There is no CUDA wheel for a Mac, so ignore every tutorial that tells you to install one.</p>
+      </a>
+      <a class="pcard" href="/projects/edie-sees-you.html"  data-track="" data-search="edie sees you edie is a physical ai companion who sees what you&#39;re doing and responds in real time.  edie robotics null">
+        <div class="cover"><img src="https://i.ytimg.com/vi/CJysAI0ujyA/hqdefault.jpg" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;ES&lt;/span&gt;'"></div>
+        <div class="body">
+          <h3>Edie Sees You</h3>
+          <p class="tag">Edie is a physical AI companion who sees what you&#39;re doing and responds in real time.</p>
+          <div class="meta">
+            
+            
+            <span class="badge">1 member</span>
           </div>
         </div>
-
-        <h3 id="g1-s2">Step 2 · Find the serial ports</h3>
-        <p>Plug in one arm, then list the ports:</p>
-        <div class="term"><pre><code>ls /dev/tty.usbmodem*</code></pre></div>
-        <p>macOS names serial ports <code>/dev/tty.usbmodemXXXXXXXX</code>. Linux tutorials say <code>/dev/ttyACM0</code> and the vendor manual says <code>COM22</code> or <code>COM24</code>; neither exists here, so substitute your own port name into every command you copy. LeRobot also ships an interactive finder that walks you through unplugging a cable:</p>
-        <div class="term"><pre><code>lerobot-find-port</code></pre></div>
-        <p>Two more macOS specifics. You do not need udev rules or <code>sudo chmod</code> on the port, because it is usable as soon as it appears. USB hubs also renumber ports across reboots and replugs, so check the name at the start of each session rather than trusting one you wrote down yesterday.</p>
-
-        <div class="ckpt" data-ck="g1-ports">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p><code>ls /dev/tty.usbmodem*</code> prints one port per plugged-in arm. If it prints nothing, swap the cable before you debug anything else.</p></div>
-        </div>
-
-        <h3 id="g1-s3">Step 3 · Tell the two arms apart</h3>
-        <p>Both arms produce identical port names, so you have to identify them. Two reliable methods:</p>
-        <ul class="list">
-          <li><b>The unplug test.</b> List the ports with both arms connected, unplug one, list again, and note which name disappeared.</li>
-          <li><b>The passive wiggle test.</b> This project ships a script that reads joints for 15 seconds and commands no motion.</li>
-        </ul>
-        <div class="term"><pre><code>cd ~/my-sim
-python replay/check_so101.py --port /dev/tty.usbmodemXXXXXXXX</code></pre></div>
-        <p>Move each joint gently by hand while it prints. The sanity bar comes from the script's own docstring: at rest the numbers should be repeatable, none should sit near plus or minus 180, and moving one joint must move only its own number, in a consistent direction.</p>
-
-        <div class="ckpt" data-ck="g1-ids">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body">
-            <p>You know which port is the leader and which is the follower. Save them so later commands are copy-paste:</p>
-            <div class="term"><pre><code>export LEADER=/dev/tty.usbmodemAAAAAAAA
-export FOLLOWER=/dev/tty.usbmodemBBBBBBBB</code></pre></div>
+      </a>
+      <a class="pcard" href="/projects/fastloop.html"  data-track="" data-search="fastloop fastloop is a physical ai control plane for authoring robot tasks in a 3d digital twin and running the same versioned contract through simulation and a real so-101.  hugh phan null sam ethan mathew null ken han null nicole jiang null joshua mcconkie null chuchu wu null">
+        <div class="cover"><img src="https://drive.google.com/thumbnail?id=1qAQYP3ArDHB7BkjP_r4C7YKJCKBaTZ1M&amp;sz=w1000" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;F&lt;/span&gt;'"></div>
+        <div class="body">
+          <h3>Fastloop</h3>
+          <p class="tag">fastloop is a physical ai control plane for authoring robot tasks in a 3d digital twin and running the same versioned contract through simulation and a real so-101.</p>
+          <div class="meta">
+            
+            
+            <span class="badge">6 members</span>
           </div>
         </div>
-
-        <div class="note">
-          <div class="note-head">Expected surprise</div>
-          <div class="note-body">On most lerobot versions <code>connect()</code> enables torque, so the arm stiffens when the script starts. That is normal, and the script still sends no motion.</div>
-        </div>
-
-        <h3 id="g1-s4">Step 4 · Assign servo IDs (DIY kits only)</h3>
-        <p>Pre-assembled arms arrive with servo IDs set, so skip this step. If you built the arm from a kit, each servo needs its ID written one at a time, with only that servo connected:</p>
-        <div class="term"><pre><code>lerobot-setup-motors --robot.type=so101_follower --robot.port=$FOLLOWER</code></pre></div>
-        <p>Follow the prompts and the vendor manual's wiring order. Connecting several unconfigured servos at once writes the same ID to more than one of them, which is confusing to undo.</p>
-
-        <h3 id="g1-s5">Step 5 · Calibrate each arm</h3>
-        <p>Calibration teaches LeRobot each joint's real range. Do it once per arm, in the calibration start pose from the manual:</p>
-        <div class="term"><pre><code>lerobot-calibrate --robot.type=so101_follower \
-    --robot.port=$FOLLOWER --robot.id=my_follower_arm
-
-lerobot-calibrate --teleop.type=so101_leader \
-    --teleop.port=$LEADER --teleop.id=my_leader_arm</code></pre></div>
-        <p>The <code>--id</code> you choose here is the <code>--id</code> every later command must use, because profiles are keyed by it. They are written to <code>~/.cache/huggingface/lerobot/calibration/</code>.</p>
-
-        <div class="ckpt" data-ck="g1-cal">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body">
-            <p>Both profiles exist:</p>
-            <div class="term"><pre><code>ls ~/.cache/huggingface/lerobot/calibration/</code></pre></div>
-            <p><b>Back that directory up now.</b> Recalibrating in the middle of a demo costs you the demo.</p>
+      </a>
+      <a class="pcard" href="/projects/humanoid-yoga-instructor.html"  data-track="" data-search="humanoid yoga instructor yoga is thousands of years old, but in the last decade it&#39;s gone mainstream in the west.  prisha null anish null rishab null sandra null bryan null rukaiya null">
+        <div class="cover"><img src="https://i.ytimg.com/vi/1w1YG7n7nbE/hqdefault.jpg" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;HY&lt;/span&gt;'"></div>
+        <div class="body">
+          <h3>Humanoid Yoga Instructor</h3>
+          <p class="tag">Yoga is thousands of years old, but in the last decade it&#39;s gone mainstream in the West.</p>
+          <div class="meta">
+            
+            
+            <span class="badge">6 members</span>
           </div>
         </div>
-
-        <h3 id="g1-s6">Step 6 · First motion: teleoperate</h3>
-        <p>With both arms calibrated, the leader drives the follower:</p>
-        <div class="term"><pre><code>lerobot-teleoperate \
-    --robot.type=so101_follower --robot.port=$FOLLOWER --robot.id=my_follower_arm \
-    --teleop.type=so101_leader --teleop.port=$LEADER --teleop.id=my_leader_arm</code></pre></div>
-        <p>Keep one hand near the power switch for the first run. Move the leader slowly and watch for a joint that travels the wrong way, which points at a calibration or ID mismatch rather than a hardware fault.</p>
-
-        <div class="ckpt" data-ck="g1-teleop">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p>The follower mirrors the leader across all six joints, including the gripper, with no joint racing to its limit. Flags vary slightly between lerobot releases, so run <code>lerobot-teleoperate --help</code> if one is rejected.</p></div>
-        </div>
-
-        <h3 id="g1-s7">Step 7 · Record a dataset</h3>
-        <p>Recording captures synchronized camera frames, joint states, and commands in the LeRobot dataset format, which is what the training scripts consume. Check your cameras first:</p>
-        <div class="term"><pre><code>lerobot-find-cameras opencv</code></pre></div>
-        <div class="note warn">
-          <div class="note-head">macOS camera permission</div>
-          <div class="note-body">macOS gates camera access per application, so grant your terminal permission under <b>System Settings → Privacy and Security → Camera</b>. Without it the capture returns black frames and reports no error at all.</div>
-        </div>
-        <p>Then record, adding your camera and dataset flags from <code>lerobot-record --help</code>:</p>
-        <div class="term"><pre><code>lerobot-record \
-    --robot.type=so101_follower --robot.port=$FOLLOWER --robot.id=my_follower_arm \
-    --teleop.type=so101_leader --teleop.port=$LEADER --teleop.id=my_leader_arm \
-    --dataset.repo_id=&lt;your-name&gt;/so101-pick-place \
-    --dataset.single_task="Put the green cube in the tray."</code></pre></div>
-
-        <div class="ckpt" data-ck="g1-record">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p>Episodes appear under <code>~/.cache/huggingface/lerobot/&lt;your-repo-id&gt;/</code> with video files and parquet data. From there, <code>lerobot-train</code> fits a policy; <a href="#g3">Guide 3</a> covers the training and evaluation path, including a way to generate episodes in simulation instead of by hand.</p></div>
-        </div>
-
-        <h3 id="g1-diffs">macOS differences at a glance</h3>
-        <div class="tablewrap">
-          <table>
-            <thead><tr><th>Every other tutorial says</th><th>On a Mac</th></tr></thead>
-            <tbody>
-              <tr><td><code>/dev/ttyACM0</code> or <code>COM22</code></td><td><code>/dev/tty.usbmodemXXXXXXXX</code></td></tr>
-              <tr><td><code>sudo chmod 666 /dev/ttyACM0</code> and udev rules</td><td>Nothing to do; the port works when it appears</td></tr>
-              <tr><td>Install a CUDA build of torch</td><td><code>pip install torch</code> gives MPS; no CUDA wheel exists</td></tr>
-              <tr><td>Cameras work once plugged in</td><td>Grant terminal camera access in Privacy and Security</td></tr>
-              <tr><td>Port names are stable</td><td>Hubs renumber ports on reboot and replug</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h3 id="g1-trouble">Troubleshooting</h3>
-        <div class="tablewrap">
-          <table class="trouble" data-scope="Guide 1">
-            <thead><tr><th>Symptom</th><th>Cause and fix</th></tr></thead>
-            <tbody>
-              <tr><td>ls /dev/tty.usbmodem* prints nothing</td><td>Charge-only cable, or the plug is not seated. Swap to a data cable.</td></tr>
-              <tr><td>Both arms show the same kind of port name</td><td>Expected. Identify them by the unplug test or <code>check_so101.py</code> (Step 3).</td></tr>
-              <tr><td>A calibration or teleop command cannot find the profile</td><td>The <code>--id</code> does not match the one used at calibration. Check <code>~/.cache/huggingface/lerobot/calibration/</code>.</td></tr>
-              <tr><td>One joint moves the wrong direction</td><td>Calibration or servo ID mismatch on that joint. Recalibrate that arm; check IDs on a DIY kit.</td></tr>
-              <tr><td>Camera capture returns black frames</td><td>macOS camera permission for your terminal (Step 7).</td></tr>
-              <tr><td>The arm stiffens as soon as a script connects</td><td>Expected: <code>connect()</code> enables torque. Passive scripts still send no motion.</td></tr>
-              <tr><td>Port worked yesterday, not today</td><td>The hub renumbered it. Re-run <code>ls /dev/tty.usbmodem*</code> and update <code>$LEADER</code> and <code>$FOLLOWER</code>.</td></tr>
-              <tr><td>A script refuses to run over a version or units stamp</td><td>Do not bypass it. Re-stamp in the environment you are running from.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h3 id="g1-house">House rules for real hardware</h3>
-        <p>These are enforced by the scripts in <code>replay/</code>, and they exist because each one was learned the expensive way.</p>
-        <ul class="list">
-          <li><b>Pin one driver per data file.</b> Every trajectory and policy records the driver, lerobot version, and calibration id it was made with, and the loader validates all three before anything moves. A mismatch stops the run loudly instead of falling back.</li>
-          <li><b>Treat units as data.</b> The units dictionary travels with the file and is asserted against the robot config at both ends.</li>
-          <li><b>Never cut torque while the arm holds a commanded pose</b>, because the arm drops. Ramp back to the rest pose read at connect time, then disconnect.</li>
-          <li><b>Run the real <code>--dry-run</code> first</b>, every time the code or the trajectory changed. It exercises the whole path with sends suppressed. Note that <code>--dry-lift-mm</code> is a rehearsal that does move the arm.</li>
-          <li><b>Keep a hand near the power switch</b> on first runs.</li>
-        </ul>
-        <p class="srcline">Scripts referenced here: <code>replay/check_so101.py</code>, <code>replay/replay_on_so101.py</code>, <code>replay/run_act_on_so101.py</code>. Sim teleop and cloud setup: <a href="#g2">Guide 2</a>.</p>
-        <hr class="rule">
-      </section>
-
-      <!-- ============ GUIDE 2 ============ -->
-      <section id="g2">
-        <h2><span class="num">Guide 2</span>Sim teleoperation: drive the Antioch sim with a real SO-101 leader arm</h2>
-        <p class="lede">Hold a real leader arm, watch a physics-simulated SO-101 mirror your hand on a cloud GPU, and record demonstration episodes that are scored the moment you stop recording. Nothing runs locally except the arm driver, so your Mac needs no GPU, no Docker, and no Isaac install.</p>
-
-        <dl class="meta">
-          <div><dt>First motion</dt><dd>About 5 minutes once the setup in Step 0 is done.</dd></div>
-          <div><dt>Tested against</dt><dd>antioch-sim 0.3.27 on isaac-601-ga, lerobot 0.4.4, Python 3.10 in the robot env, macOS on Apple Silicon.</dd></div>
-        </dl>
-
-        <div class="flow">
-          <span>your hand</span><i>→</i>
-          <span>leader arm (USB)</span><i>→</i>
-          <span>bridge script</span><i>→</i>
-          <span class="hot">cloud sim container</span><i>→</i>
-          <span>scored demo episodes (mp4 + npz)</span>
-          <i>+</i><span>WebRTC livestream (your browser)</span>
-        </div>
-
-        <h3 id="g2-s0">Step 0 · One-time setup</h3>
-        <p>You need three things before the fun part.</p>
-        <ol class="list">
-          <li>The project at <code>~/my-sim</code>, with its own environment.</li>
-          <li>A separate environment that talks to the arm over USB. Keep it separate from the project environment, because mixing the two causes the most confusing errors in this whole pipeline.</li>
-          <li>A calibrated leader arm. If yours has never been calibrated, follow <a href="#g1-s5">Guide 1 through Step 5</a> and come back. The follower arm stays in its box for this guide, because the sim replaces it.</li>
-        </ol>
-        <div class="term" data-tag="project env"><pre><code>cd ~/my-sim &amp;&amp; uv sync &amp;&amp; .venv/bin/antioch auth login</code></pre></div>
-        <div class="term" data-tag="arm env"><pre><code>conda create -n lerobot python=3.10 ffmpeg -c conda-forge -y
-conda activate lerobot
-pip install lerobot opencv-python</code></pre></div>
-
-        <div class="note alert">
-          <div class="note-head">One rule for every command below</div>
-          <div class="note-body">Call the project's own CLI at <code>~/my-sim/.venv/bin/antioch</code> from inside <code>~/my-sim</code>. A bare <code>antioch</code> on your PATH is a different binary that cannot see the project, and the CLI refuses to run outside a directory holding <code>antioch.yaml</code>.</div>
-        </div>
-
-        <h3 id="g2-s1">Step 1 · Two terminals</h3>
-        <p>This pipeline needs two terminals at once, and it helps to know which is which before you start.</p>
-        <div class="cards two">
-          <div class="card"><span class="tag">Terminal A</span><h4>The sim session</h4><p>Run from <code>~/my-sim</code> with the project environment. It claims the cloud machine and keeps the simulation alive.</p></div>
-          <div class="card"><span class="tag">Terminal B</span><h4>The bridge</h4><p>Run in your <code>(lerobot)</code> environment. It reads the arm and streams joints into the machine that Terminal A claimed.</p></div>
-        </div>
-
-        <h3 id="g2-s2">Step 2 · Find the leader port</h3>
-        <p>Plug in the leader arm by itself, then capture the port in one command:</p>
-        <div class="term"><pre><code>export LEADER=$(ls /dev/tty.usbmodem* | head -1) &amp;&amp; echo $LEADER</code></pre></div>
-        <div class="ckpt" data-ck="g2-port">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p>It echoes something like <code>/dev/tty.usbmodem58FA0836661</code>. If it prints nothing, the cable is charge-only or unseated. If you have both arms plugged in, this picks one arbitrarily, so unplug the follower or identify the ports as described in <a href="#g1-s3">Guide 1, Step 3</a>.</p></div>
-        </div>
-
-        <h3 id="g2-s3">Step 3 · Warm a machine and start the session</h3>
-        <p>In <b>Terminal A</b>. The first command claims a cloud machine and warms it, which matters because a freshly claimed machine deadlocks on its first render and a teleop session started cold dies a few minutes in with no useful error:</p>
-        <div class="term" data-tag="Terminal A"><pre><code>cd ~/my-sim &amp;&amp; .venv/bin/antioch scenario run --scenario so101_render_probe --timeout 300</code></pre></div>
-        <p>Then start a 30 minute session on that same machine. Leave off <code>--machine</code> entirely and the session uses the machine you just warmed:</p>
-        <div class="term" data-tag="Terminal A"><pre><code>.venv/bin/antioch scenario run --scenario so101_live_teleop \
-    --set max_seconds=1800 --verbose --timeout 1900</code></pre></div>
-        <div class="ckpt" data-ck="g2-session">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p>The output prints <code>[teleop] live for 1800s; waiting for /tmp/leader_stream.jsonl</code>. The simulation is up and idling. Leave this terminal alone for the rest of the session.</p></div>
-        </div>
-
-        <h3 id="g2-s4">Step 4 · Open the livestream</h3>
-        <p>In a third shell, or Terminal B before you connect the arm, open the machine's viewport straight into your browser:</p>
-        <div class="term"><pre><code>cd ~/my-sim &amp;&amp; .venv/bin/antioch machine status | awk '/url/{print $2}' | xargs open</code></pre></div>
-        <div class="ckpt" data-ck="g2-stream">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p>A browser tab shows the arm, a green cube, and a blue tray. The stream starts when a viewer connects, so leave the tab open. Every new session on a new machine has a new URL, so re-run this command rather than reusing an old tab.</p></div>
-        </div>
-
-        <h3 id="g2-s5">Step 5 · Connect the arm</h3>
-        <p>In <b>Terminal B</b>, in your <code>(lerobot)</code> environment. One command, no machine id to look up, because the wrapper resolves the assigned machine itself:</p>
-        <div class="term" data-tag="Terminal B"><pre><code>~/my-sim/replay/teleop_pipe.sh $LEADER</code></pre></div>
-        <div class="ckpt" data-ck="g2-bridge">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p>It prints <code>connecting to antioch-…</code> and then <code># streaming at 30.0 Hz</code>. Within about a second the sim arm snaps to your leader's pose. Move the leader and the sim follows.</p></div>
-        </div>
-
-        <h3 id="g2-s6">Step 6 · Record episodes</h3>
-        <div class="note warn">
-          <div class="note-head">Focus matters</div>
-          <div class="note-body">Click into Terminal B first, because the bridge reads single keypresses and keys pressed in the browser do nothing.</div>
-        </div>
-        <p>The collection rhythm:</p>
-        <div class="term" data-tag="rhythm"><pre><code>r  →  new cube position
-s  →  recording starts
-      pick the cube up with the leader, place it in the tray
-s  →  episode saved and auto-scored
-r  →  again</code></pre></div>
-        <div class="keys">
-          <div><kbd>r</kbd><p>Reset: the cube teleports to a random spot on the table</p></div>
-          <div><kbd>s</kbd><p>Start recording, and press again to stop and save</p></div>
-          <div><kbd>Ctrl-C</kbd><p>Stop the bridge; the sim session keeps running</p></div>
-        </div>
-        <div class="ckpt" data-ck="g2-episode">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p>After each stop, Terminal A prints <code>episode N closed: success/fail, NNN frames</code>. Success means the cube was lifted and ended inside the tray, judged by the same gates the automated test suites use, so it is a real score rather than a self-report.</p></div>
-        </div>
-        <p>Aim for quality over quantity: smooth approach, clean grasp, deliberate place. Ten to fifteen good episodes per session is a solid haul. Episodes upload as they close, so a session that dies loses at most the episode in progress.</p>
-
-        <h3 id="g2-s7">Step 7 · Download your data</h3>
-        <p>From <code>~/my-sim</code>, once you are done. This resolves the newest run id for you:</p>
-        <div class="term"><pre><code>.venv/bin/antioch scenario download $(.venv/bin/antioch scenario list --limit 1 \
-    | grep -oE '[0-9a-f]{32}' | head -1)</code></pre></div>
-        <div class="ckpt" data-ck="g2-download">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p>You get <code>epNNN_success.mp4</code>, the robot's wrist camera view at 640×480 and 10 Hz, paired with <code>epNNN_success.npz</code> holding joint states and your leader commands aligned at 10 Hz. That pair is exactly what the training pipeline ingests, so <a href="#g3">Guide 3</a> picks up from here.</p></div>
-        </div>
-        <div class="note info">
-          <div class="note-head">LeRobot convention</div>
-          <div class="note-body">The actions in the <code>.npz</code> are your commanded leader targets rather than the achieved joint positions. Train on it as it is, because a policy trained on achieved positions cannot hold a load.</div>
-        </div>
-
-        <h3 id="g2-exec">Why the pipe uses machine exec</h3>
-        <p>This is the one detail worth understanding, because getting it wrong fails silently.</p>
-        <p><code>antioch machine exec</code> forwards stdin into the container where the scenario runs. <code>antioch machine ssh</code> lands you in a separate ephemeral filesystem, so a <code>/tmp/leader_stream.jsonl</code> written there is invisible to the scenario.</p>
-        <p>The sim arm then never moves, with no error printed anywhere. The wrapper script uses <code>machine exec</code> for exactly this reason, which is why the recommended path is to run the wrapper rather than assemble the pipe by hand.</p>
-
-        <h3 id="g2-trouble">Troubleshooting</h3>
-        <div class="note warn">
-          <div class="note-head">Two things to avoid</div>
-          <div class="note-body">Do not edit a scenario mid-session and expect it to take effect, because the container keeps the code the session launched with; cycle the session instead. Do not <code>pkill</code> inside the container, because that can wedge the exec channel and take the bridge down with it. Let sessions expire on <code>max_seconds</code>, or use <code>antioch machine reset</code> and then warm the machine again.</div>
-        </div>
-        <div class="tablewrap">
-          <table class="trouble" data-scope="Guide 2">
-            <thead><tr><th>Symptom</th><th>Cause and fix</th></tr></thead>
-            <tbody>
-              <tr><td>BrokenPipeError from the bridge</td><td>The pipe went through <code>machine ssh</code> instead of <code>machine exec</code>. Use <code>teleop_pipe.sh</code>.</td></tr>
-              <tr><td>no machine assigned from the wrapper</td><td>Terminal A is not running. Start the session first, because the wrapper only connects and never claims.</td></tr>
-              <tr><td>Assigning machine… waiting spinner</td><td>A stale machine id made the CLI claim a new machine. Stop it and let the wrapper resolve the id itself.</td></tr>
-              <tr><td>No antioch.yaml found</td><td>You ran an antioch command outside <code>~/my-sim</code>. <code>cd ~/my-sim</code> first.</td></tr>
-              <tr><td>Session hangs at start and dies a few minutes in</td><td>The machine was cold. Run <code>so101_render_probe</code> on it, then relaunch the session.</td></tr>
-              <tr><td>Stream is fine but the sim arm ignores you</td><td>Check Terminal A for <code>bridge header ok</code> and a rising frame count. If neither appears, restart the bridge.</td></tr>
-              <tr><td>Pressed s and nothing recorded</td><td>The keypress went to the browser. Click Terminal B, then watch for the <code># record ON</code> echo.</td></tr>
-              <tr><td>Stream URL is dead</td><td>The platform rotated machines, so the id and URL both changed. Restart from Step 3.</td></tr>
-              <tr><td>ls /dev/tty.usbmodem* shows nothing</td><td>Charge-only cable or a loose plug. Use a data-capable USB-C cable.</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="srcline">Scripts referenced here: <code>replay/teleop_pipe.sh</code>, <code>replay/leader_bridge.py</code>, <code>src/so101_live_teleop.py</code>. Arm setup: <a href="#g1">Guide 1</a>. Training on this data: <a href="#g3">Guide 3</a>.</p>
-        <hr class="rule">
-      </section>
-
-      <!-- ============ GUIDE 3 ============ -->
-      <section id="g3">
-        <h2><span class="num">Guide 3</span>Train your first SO-101 policy: ACT/Diffusion on sim data</h2>
-        <p class="lede">Generate demonstration episodes in simulation, train an imitation policy on them, check it closed-loop in sim, and run it on a real arm. You need the my-sim project with Antioch access, plus a Python 3.10 env with lerobot, torch, and opencv-python. Your laptop needs no GPU and no Isaac install: simulation runs on cloud GPUs, and training runs locally on Apple Silicon (MPS).</p>
-
-        <dl class="meta">
-          <div><dt>First policy</dt><dd>About 1.5 hours, most of it unattended training.</dd></div>
-          <div><dt>Tested against</dt><dd>lerobot 0.4.4, torch 2.10 for training and 2.11+cu130 for remote eval, Python 3.10 in the lerobot env, antioch-sim 0.3.27 on isaac-601-ga, asset so101_antioch 1.3.0.</dd></div>
-        </dl>
-
-        <h3 id="g3-s1">Step 1 · Generate episodes</h3>
-        <p>From the project root, run the scripted-expert suite. It replays a verified pick-and-place over randomized cube positions and sizes:</p>
-        <div class="term"><pre><code>.venv/bin/antioch suite run wrist_cam_enabled --queue
-.venv/bin/antioch scenario list --limit 5          # find the run ids
-.venv/bin/antioch scenario download &lt;run-id&gt;</code></pre></div>
-        <div class="ckpt" data-ck="g3-episodes">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p>About 30 episodes appear in roughly 4 minutes of suite time. Each episode is a pair of files: <code>epNNN_success.npz</code> with joint states and actions at 10 Hz, and <code>epNNN_success.mp4</code> with the 640×480 wrist camera view.</p></div>
-        </div>
-        <p>If you would rather record human demonstrations, drive the sim arm with a real leader arm instead (<a href="#g2">Guide 2</a>). The output format is the same; plan for 10 to 15 episodes per session.</p>
-        <div class="note alert">
-          <div class="note-head">Important</div>
-          <div class="note-body">Whichever route you take, the <code>actions</code> array must hold the <b>commanded joint targets</b> rather than the measured positions. A policy trained on measured positions learns to command whatever pose the arm already has, so it stops producing force the moment it meets resistance and freezes under load. Both routes already record commands; keep it that way if you modify them.</div>
-        </div>
-
-        <h3 id="g3-s2">Step 2 · Build the dataset</h3>
-        <p>Convert the episode pairs into a LeRobot dataset with exactly these fields:</p>
-        <div class="tablewrap">
-          <table>
-            <thead><tr><th>Field</th><th>Value</th></tr></thead>
-            <tbody>
-              <tr><td><code>observation.images.wrist</code></td><td>640×480 RGB, 10 Hz</td></tr>
-              <tr><td><code>observation.state</code></td><td>6 joint positions, radians</td></tr>
-              <tr><td><code>action</code></td><td>6 next-step joint targets, radians</td></tr>
-              <tr><td><code>task</code></td><td>string "Put the green cube in the tray."</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="ckpt" data-ck="g3-dataset">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p>About 30 episodes of 240 steps each load without errors. That is enough for a first policy. Add more data only after eval shows you need it.</p></div>
-        </div>
-
-        <h3 id="g3-s3">Step 3 · Train</h3>
-        <p>Train ACT with the LeRobot default config (chunk 100), batch 8, inside your lerobot env:</p>
-        <div class="term"><pre><code>lerobot-train --policy.type=act --dataset.repo_id=&lt;your-dataset&gt; \
-    --steps 15000 --batch_size 8 --save_freq 5000</code></pre></div>
-        <p>Set the budget to 15k steps rather than the 100k in the LeRobot tutorial. The tutorial assumes large, messy, human-collected datasets; 30 consistent scripted episodes converge much earlier. For Diffusion Policy, swap in <code>--policy.type=diffusion</code> and expect a longer wall clock (about 90 M parameters against ACT's 52 M).</p>
-        <div class="ckpt" data-ck="g3-train">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p>Training runs at about 4 steps/s on MPS and finishes 15k steps in roughly an hour. The smoothed loss should end below about 20% of its value at step 500, with no NaN. Keep all three checkpoints; Step 4 decides which one is best.</p></div>
-        </div>
-
-        <h3 id="g3-s4">Step 4 · Evaluate closed-loop in sim</h3>
-        <p>A low training loss tells you the policy can imitate the dataset. It does not tell you the policy can do the task. To find out, export the checkpoint as TorchScript (trace it on torch 2.10; the remote's 2.11 loads it) and run the eval scenario. The policy takes the scripted expert's place at 10 Hz: it receives the wrist image and the measured joints, and it outputs joint targets. It receives nothing else.</p>
-        <p>The run scores against the same physics gates as the expert suite: the cube must end inside the tray within the tick budget.</p>
-        <div class="tablewrap">
-          <table>
-            <thead><tr><th>Eval set</th><th class="num">Episodes</th><th>Pass bar</th></tr></thead>
-            <tbody>
-              <tr><td>Seen positions (training bearings)</td><td class="num">10</td><td>TBD</td></tr>
-              <tr><td>Held-out positions (midpoints)</td><td class="num">9</td><td>TBD</td></tr>
-              <tr><td>Held-out sizes (47.5 / 52.5 mm)</td><td class="num">6</td><td>reported</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="ckpt" data-ck="g3-eval">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p>A passing checkpoint clears both bars. If the seen set passes and held-out fails, add data diversity. If both fail, check the commanded-actions rule from Step 1 before you touch anything else.</p></div>
-        </div>
-
-        <h3 id="g3-s5">Step 5 · Run on the real arm</h3>
-        <p>The runner is <code>replay/run_act_on_so101.py</code>:</p>
-        <div class="term" data-tag="once"><pre><code># stamp the policy with driver + lerobot version + calibration id
-python replay/run_act_on_so101.py --stamp --id my_follower_arm</code></pre></div>
-        <div class="term" data-tag="always first"><pre><code># the full path with motion suppressed
-python replay/run_act_on_so101.py --port /dev/tty.usbmodemXXX \
-    --id my_follower_arm --camera 0 --dry-run</code></pre></div>
-        <div class="term" data-tag="live"><pre><code>python replay/run_act_on_so101.py --port /dev/tty.usbmodemXXX \
-    --id my_follower_arm --camera 0</code></pre></div>
-        <div class="ckpt" data-ck="g3-real">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p><code>--dry-run</code> prints every command it would send while moving nothing. The live run performs the task. The script also enforces the safety rules: it validates the stamped driver, lerobot version, and calibration id at load, asserts units at both ends, and ramps torque back to rest before it disconnects. Leave those checks alone.</p></div>
-        </div>
-
-        <h3 id="g3-trouble">Troubleshooting</h3>
-        <div class="tablewrap">
-          <table class="trouble" data-scope="Guide 3">
-            <thead><tr><th>Symptom</th><th>Fix</th></tr></thead>
-            <tbody>
-              <tr><td>Policy grasps, carries, then freezes mid-task</td><td>It was trained on measured positions. Rebuild the dataset from commanded targets (Step 1).</td></tr>
-              <tr><td>Identical failures across all checkpoints</td><td>The first camera frame was black. Warm-render before the first decision, and reuse the previous frame when a capture returns nothing.</td></tr>
-              <tr><td>First render run on a fresh cloud machine hangs</td><td>The machine is cold. Warm it with <code>antioch scenario run --scenario so101_render_probe</code> (about 25 s), then rerun.</td></tr>
-              <tr><td>Loss looks great, eval fails</td><td>This is expected sometimes. The loss curve does not predict closed-loop success; only Step 4 does.</td></tr>
-              <tr><td>Training crawls or crashes on Mac</td><td>Use plain <code>pip install torch</code> for MPS. There is no CUDA wheel for Mac, and you do not need one.</td></tr>
-              <tr><td>Real arm ignores the policy file</td><td>The version stamp does not match. Re-stamp (<code>--stamp</code>) in the env you will run with, using the calibration id you calibrated with.</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="srcline">Code: <code>replay/run_act_on_so101.py</code>, <code>replay/leader_bridge.py</code>, <code>src/so101_bench_tasks.py</code>. Benchmark and results: <code>sim2real_benchmark.md</code>.</p>
-        <hr class="rule">
-      </section>
-
-      <!-- ============ GUIDE 4 ============ -->
-      <section id="g4">
-        <h2><span class="num">Guide 4</span>Running Unitree robots on Antioch: Isaac Sim vs Isaac Lab</h2>
-        <p class="lede">Spawn a Unitree quadruped or humanoid, give it a controller, and prove it works. The first decision is which engine you run on, because Isaac Sim and Isaac Lab expose completely different Python entry points for the same robot. This guide covers both, then walks the path from a stock asset to a verified walking robot.</p>
-
-        <dl class="meta">
-          <div><dt>Standing robot</dt><dd>About 15 minutes on an engine you have already chosen.</dd></div>
-          <div><dt>Tested against</dt><dd>antioch-sim 0.3.27, engines isaac-601-ga (Isaac Sim 6.0.1) and isaac-lab-30b2 (Isaac Lab 3.0), URDF importer 3.11.2, Unitree URDFs from unitreerobotics/unitree_ros, policies from fan-ziqi/rl_sar.</dd></div>
-        </dl>
-
-        <h3 id="g4-s1">Step 1 · Choose your engine</h3>
-        <p>One project runs one engine, selected in three places that must agree: the <code>antioch-sim</code> extra in <code>pyproject.toml</code>, the image coordinate or Dockerfile in <code>antioch.yaml</code>, and the <code>FROM</code> line of that Dockerfile. Changing engines means editing all three and rebuilding the image.</p>
-        <p>The two engines are not two flavors of the same API. They are different libraries:</p>
-        <div class="tablewrap">
-          <table>
-            <thead><tr><th></th><th>Isaac Sim 6.0.1 (isaac-601-ga)</th><th>Isaac Lab 3.0 (isaac-lab-30b2)</th></tr></thead>
-            <tbody>
-              <tr><td>Simulation context</td><td><code>isaacsim.core.api.World</code></td><td><code>isaaclab.sim.SimulationContext(SimulationCfg(...))</code></td></tr>
-              <tr><td><code>antioch.world()</code></td><td>works</td><td>raises <code>UnsupportedEngineError</code></td></tr>
-              <tr><td>Robot object</td><td><code>isaacsim.core.api.robots.Robot</code> plus <code>add_reference_to_stage</code></td><td><code>isaaclab.assets.Articulation(ArticulationCfg(...))</code></td></tr>
-              <tr><td>Prebuilt robot configs</td><td>none; you point at a USD</td><td><code>isaaclab_assets.robots.unitree</code></td></tr>
-              <tr><td>Gains</td><td>authored in the USD DriveAPI, or <code>set_gains</code> at runtime</td><td>declared in the cfg's actuator groups</td></tr>
-              <tr><td>Commands</td><td><code>controller.apply_action(ArticulationAction(...))</code></td><td><code>set_joint_position_target</code> then <code>write_data_to_sim</code></td></tr>
-              <tr><td>Camera</td><td><code>isaacsim.sensors.camera.Camera</code></td><td><code>isaaclab.sensors.Camera</code></td></tr>
-              <tr><td>Physics manager</td><td>the PhysX default works</td><td>needs <code>isaaclab_ovphysx</code>, see the gotchas below</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p>Choose <b>Isaac Sim</b> when you want a robot standing, driving, or running a pretrained policy, which is what this guide's verified runs use. Choose <b>Isaac Lab</b> when you want its <code>ArticulationCfg</code> library or its managers for training.</p>
-
-        <h4>The same 15 lines on each engine</h4>
-        <div class="switch" role="tablist" aria-label="Engine">
-          <button role="tab" id="tab-sim" aria-controls="panel-sim" aria-selected="true" data-engine="sim">Isaac Sim 6.0.1</button>
-          <button role="tab" id="tab-lab" aria-controls="panel-lab" aria-selected="false" data-engine="lab">Isaac Lab 3.0</button>
-        </div>
-        <div class="panel" id="panel-sim" role="tabpanel" aria-labelledby="tab-sim">
-          <div class="term" data-tag="isaac-601-ga"><pre><code>from isaacsim.core.api import World
-from isaacsim.core.api.robots import Robot
-from isaacsim.core.utils.stage import add_reference_to_stage
-from isaacsim.core.utils.types import ArticulationAction
-
-world = World(physics_dt=1/200, rendering_dt=1/200, stage_units_in_meters=1.0)
-world.scene.add_ground_plane(z_position=0.0)
-add_reference_to_stage(usd_path=usd, prim_path="/World/robot")
-robot = world.scene.add(Robot(prim_path="/World/robot", name="robot",
-                             position=np.array([0.0, 0.0, 0.42])))
-world.reset()
-controller = robot.get_articulation_controller()
-controller.set_gains(kps=kp, kds=kd)
-controller.apply_action(ArticulationAction(joint_positions=targets))
-world.step(render=True)</code></pre></div>
-        </div>
-        <div class="panel" id="panel-lab" role="tabpanel" aria-labelledby="tab-lab" hidden>
-          <div class="term" data-tag="isaac-lab-30b2"><pre><code>import isaaclab.sim as sim_utils
-from isaaclab.actuators import ImplicitActuatorCfg
-from isaaclab.assets import Articulation, ArticulationCfg
-from isaaclab.sim import SimulationCfg, SimulationContext
-from isaaclab_ovphysx.physics import OvPhysxCfg
-
-sim = SimulationContext(SimulationCfg(dt=1/200, device="cuda:0",
-                                      physics=OvPhysxCfg()))
-robot = Articulation(ArticulationCfg(
-    prim_path="/World/robot",
-    spawn=sim_utils.UsdFileCfg(usd_path=usd),
-    init_state=ArticulationCfg.InitialStateCfg(pos=(0.0, 0.0, 0.42)),
-    actuators={"all": ImplicitActuatorCfg(joint_names_expr=[".*"],
-                                          stiffness=25.0, damping=0.5)}))
-sim.reset()
-robot.set_joint_position_target(targets)
-robot.write_data_to_sim()
-sim.step(render=True)
-robot.update(1/200)</code></pre></div>
-        </div>
-        <div class="note warn">
-          <div class="note-head">Import placement</div>
-          <div class="note-body">Keep both Isaac imports inside the scenario function. The CLI imports your scenario files on your laptop, where neither library is installed.</div>
-        </div>
-
-        <h3 id="g4-s2">Step 2 · Check what already exists</h3>
-        <p>Before building anything, find out whether your robot is already on the shelf. The Isaac 6.0 asset library carries these Unitree models:</p>
-        <div class="term"><pre><code>A1  B2  Dex3  Dex5  G1  G1_23dof  Go1  Go2  H1  H2  Z1  aliengo  laikago</code></pre></div>
-        <p>Isaac Lab additionally ships <code>ArticulationCfg</code> objects with tuned gains: <code>UNITREE_A1_CFG</code>, <code>UNITREE_GO1_CFG</code>, <code>UNITREE_GO2_CFG</code>, <code>H1_CFG</code>, <code>G1_CFG</code>, <code>G1_MINIMAL_CFG</code>, and <code>G1_29DOF_CFG</code>. Those configs live in <code>isaaclab_assets</code>, which is importable on the Lab engine only.</p>
-        <div class="note alert">
-          <div class="note-head">Nothing wheeled exists</div>
-          <div class="note-body">The Go2W, B2W, and similar variants are absent from the asset library and from <code>isaaclab_assets</code>, so they need <a href="#g4-s4">Step 4</a>.</div>
-        </div>
-        <p>To check for yourself rather than trusting a list, <code>src/unitree_go2w_probe.py</code> lists the library and the config module in one boot:</p>
-        <div class="term"><pre><code>.venv/bin/antioch scenario run --scenario unitree_go2w_probe --verbose</code></pre></div>
-        <div class="ckpt" data-ck="g4-probe">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p>The run prints the Unitree folder listing and whether the config module imported. On isaac-601-ga expect <code>No module named 'isaaclab_assets'</code>, which is normal and tells you the gains must come from the USD or from your own table.</p></div>
-        </div>
-
-        <h3 id="g4-s3">Step 3 · Spawn a stock robot</h3>
-        <p>For a robot the library already has, point at its USD and let the engine spawn it. On Isaac Sim, resolve the asset root and reference the file:</p>
-        <div class="term" data-tag="Isaac Sim"><pre><code>from isaacsim.storage.native import get_assets_root_path
-usd = f"{get_assets_root_path()}/Isaac/Robots/Unitree/Go2/go2.usd"</code></pre></div>
-        <p>On Isaac Lab, use the shipped config instead, which carries both the USD path and the tuned actuator groups:</p>
-        <div class="term" data-tag="Isaac Lab"><pre><code>from isaaclab_assets.robots.unitree import UNITREE_GO2_CFG
-robot = Articulation(UNITREE_GO2_CFG.replace(prim_path="/World/robot"))</code></pre></div>
-        <div class="ckpt" data-ck="g4-spawn">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p>The robot appears at its spawn height and holds a pose without folding. If it collapses, the drives carry placeholder gains, so continue to the bake in Step 4.</p></div>
-        </div>
-
-        <h3 id="g4-s4">Step 4 · Build a robot the shelf does not have</h3>
-        <p>This is the Go2W path, and it applies to any Unitree model missing from the library. Unitree publishes official URDFs in <code>unitreerobotics/unitree_ros</code> under <code>robots/&lt;model&gt;_description</code>, with real masses, limits, and geometry. The pipeline is fetch, patch, import, bake, and it lives in <code>src/unitree_go2w_bake.py</code>:</p>
-        <div class="term"><pre><code>.venv/bin/antioch scenario run --scenario unitree_go2w_bake --verbose</code></pre></div>
-        <p>Four things about the importer on this engine, all measured rather than documented:</p>
-        <ul class="list">
-          <li>Importer 3.11.2 has <b>no Kit commands</b>. The documented <code>URDFParseAndImportFile</code> belongs to an older generation. Use <code>URDFImporter(URDFImporterConfig(...)).import_urdf()</code> from <code>isaacsim.asset.importer.urdf</code>.</li>
-          <li>Its <code>usd_path</code> is a <b>directory, not a filename</b>. Output lands at <code>&lt;usd_path&gt;/&lt;robot&gt;/&lt;robot&gt;.usda</code> with payload files beside it, and the call returns the file it wrote.</li>
-          <li>It converts primitive collisions and <b>silently drops mesh collisions</b>. A Go2W imported as-is has no wheel colliders at all and rests on its belly, so author convex hulls on the visual meshes yourself, per mesh rather than on the parent Xform.</li>
-          <li>Patch <code>package://</code> mesh references to relative paths before importing.</li>
-        </ul>
-        <p>The bake then writes gains into the USD DriveAPI so the file stands on its own. Two conversions matter: USD angular drives store stiffness and damping <b>per degree</b> while robot gain tables are <b>per radian</b>, so divide by 57.2958, and wheel joints take <b>velocity drives with stiffness zero</b> rather than position drives.</p>
-        <div class="ckpt" data-ck="g4-bake">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p>The run reports the joint count it baked, the wheel colliders it authored, and a stand plus drive result. Verified reference: run <code>93cd6ff55fdd4742b0411d0f2514e803</code> stands at 0.335 m and drives 0.90 m in 2.5 s with a wheel radius of 0.086 m.</p></div>
-        </div>
-
-        <h3 id="g4-s5">Step 5 · Give it a controller</h3>
-        <p>No pretrained locomotion policy ships with either engine for a wheeled quadruped, and Unitree's own RL repositories cover Go2, H1, and G1 rather than the W variants. The one public source of deployable checkpoints is <a href="https://github.com/fan-ziqi/rl_sar">fan-ziqi/rl_sar</a>, which also deploys them to real robots over <code>unitree_sdk2</code>. It carries policies for go2, go2w, b2, b2w, g1, a1, lite3, tita, and others.</p>
-        <p>Read the contract from each policy's <code>config.yaml</code> rather than guessing it. The two we run differ in a way that matters:</p>
-        <div class="tablewrap">
-          <table>
-            <thead><tr><th></th><th>Go2W</th><th>G1</th></tr></thead>
-            <tbody>
-              <tr><td>Joints</td><td class="num">16 — 12 legs and 4 wheels</td><td class="num">29</td></tr>
-              <tr><td>Observation size</td><td class="num">57</td><td class="num">96</td></tr>
-              <tr><td>Legs</td><td>position targets, default + scale × action</td><td>position targets, all 29</td></tr>
-              <tr><td>Wheels</td><td>velocity targets, stiffness 0</td><td>none</td></tr>
-              <tr><td>Gains</td><td>legs kp 20 / kd 0.5, wheels kp 0 / kd 0.5</td><td>per joint, kp 20 to 200</td></tr>
-              <tr><td>Joint order</td><td>leg triplets FR, FL, RR, RL then wheels</td><td><code>base_joint_names[joint_mapping[i]]</code></td></tr>
-              <tr><td>Wheel positions in obs</td><td>zeroed, because the joints are continuous</td><td>not applicable</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p>Both are velocity-commanded at the operator level, meaning you send a body twist of forward speed, lateral speed, and yaw rate at 50 Hz on a 200 Hz sim. Set the policy's own gains on the articulation controller at runtime, which is what the real deployment does.</p>
-        <div class="ckpt" data-ck="g4-policy">
-          <label class="ckpt-head"><input type="checkbox"><span>Checkpoint</span></label>
-          <div class="ckpt-body"><p>Verified reference runs, both on isaac-601-ga: <code>b52b679e94db4b96aca4599b71b923a2</code> tracks a 0.5 m/s Go2W command at 96%, and <code>9dbf0a1627cc4a639f2127e1e8c090ba</code> walks the G1 at 85% of a 0.4 m/s command with torso tilt under 5 degrees.</p></div>
-        </div>
-
-        <h3 id="g4-s6">Step 6 · Gate it on physics, not on video</h3>
-        <p>A robot that looks fine in a clip can be sliding on frictionless wheels or holding a pose the drives cannot actually produce. Every scenario here asserts measured quantities, and the useful gates for legged robots are base height above a floor, tilt off vertical, joint tracking error, and real displacement over ground for a commanded velocity.</p>
-        <p>Allow a grace window at the start of each segment. A dropped-in robot rocks once while the controller catches it, and on the Go2W that transient reaches about 27 degrees of tilt before settling under 4 degrees. Judging the caught state rather than the transient is the difference between a meaningful gate and a flaky one.</p>
-
-        <h3 id="g4-gotchas">Engine gotchas</h3>
-        <div class="tablewrap">
-          <table class="trouble" data-scope="Guide 4">
-            <thead><tr><th>Symptom</th><th>Cause and fix</th></tr></thead>
-            <tbody>
-              <tr><td>Every video films a frozen robot while physics clearly moves</td><td>The Fabric scene delegate severs USD from PhysX. Boot with <code>--/app/useFabricSceneDelegate=0</code>, <code>--/rtx/hydra/readTransformsFromFabricInRenderDelegate=0</code>, <code>--/physics/fabricEnabled=0</code>, and call <code>SimulationManager.enable_fabric(False)</code> after <code>world.reset()</code>, because a GPU boot turns it back on inside <code>World</code>.</td></tr>
-              <tr><td>On Isaac Lab, commands appear to be ignored</td><td>The Lab beta's default physics manager drops command writes. Pass <code>physics=OvPhysxCfg()</code> from <code>isaaclab_ovphysx</code>.</td></tr>
-              <tr><td>No module named 'isaaclab_assets'</td><td>You are on the Isaac Sim engine. Read the gain values from the upstream config source and author them yourself, or switch engines.</td></tr>
-              <tr><td>import isaacsim.sensors fails on Isaac Lab</td><td>That Kit extension is not enabled by default there. Use <code>isaaclab.sensors.Camera</code>, which needs <code>omni.replicator.core</code> and the carb flag <code>/isaaclab/cameras_enabled</code>.</td></tr>
-              <tr><td>First render scenario on a fresh machine hangs</td><td>The machine is cold. Warm it with a light render scenario first, roughly 25 seconds.</td></tr>
-              <tr><td>A camera returns black frames</td><td>The near clip plane is at its default. Set it explicitly, for example 0.05 m, and check that the subject fits the vertical field of view at your working distance.</td></tr>
-              <tr><td>The robot falls through the floor</td><td>Mesh collisions were dropped at import. Author convex hulls on the visual meshes of every collider-less link, including feet.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h3 id="g4-runs">Verified runs</h3>
-        <div class="tablewrap">
-          <table>
-            <thead><tr><th>Scenario</th><th>Run</th><th>Result</th></tr></thead>
-            <tbody>
-              <tr><td><code>unitree_go2w_probe</code></td><td class="num">2a277fa189fe44cc959a1f2dbab3671f</td><td>No Go2W in the library or in isaaclab_assets</td></tr>
-              <tr><td><code>unitree_go2w_bake</code></td><td class="num">93cd6ff55fdd4742b0411d0f2514e803</td><td>Stands 0.335 m, drives 0.90 m</td></tr>
-              <tr><td><code>unitree_go2w_policy_eval</code></td><td class="num">b52b679e94db4b96aca4599b71b923a2</td><td>96% velocity tracking</td></tr>
-              <tr><td><code>unitree_go2w_follow</code></td><td class="num">8ff230388c444b77b7fe0c75e4260a48</td><td>Camera-driven person following</td></tr>
-              <tr><td><code>unitree_g1_walk</code></td><td class="num">9dbf0a1627cc4a639f2127e1e8c090ba</td><td>85% velocity tracking</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="srcline">Scenarios referenced here: <code>src/unitree_go2w_probe.py</code>, <code>src/unitree_go2w_bake.py</code>, <code>src/unitree_go2w_policy.py</code>, <code>src/unitree_go2w_follow.py</code>, <code>src/unitree_g1_policy.py</code>, and <code>src/unitree_stand.py</code> for the Isaac Lab bake pattern.</p>
-      </section>
-
-      <footer class="foot">
-        <div class="hosts">
-          <div class="hosts-label">Brought to you by</div>
-          <div class="hosts-row">
-            <span>Nebius</span><span>NVIDIA</span><span>Antioch</span><span>Toloka</span>
+      </a>
+      <a class="pcard" href="/projects/nemocode.html" data-edit-kind="issue" data-edit-target="3" data-edit-label="edit project #3" data-track="sim" data-search="nemocode connect your coding agent to nvidia nemotron and cosmos on nebius token factory — one install, four harnesses, config-free.  opencolin opencolin">
+        <div class="cover"><img src="https://raw.githubusercontent.com/buildspacetv/sprint/0056d2e1c5c55648ab7080af689784791a18af4d/img/nemocode-robot.png" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;N&lt;/span&gt;'"></div>
+        <div class="body">
+          <h3>NemoCode</h3>
+          <p class="tag">Connect your coding agent to NVIDIA Nemotron and Cosmos on Nebius Token Factory — one install, four harnesses, config-free.</p>
+          <div class="meta">
+            <span class="chip track-sim">Sim only</span>
+            <span class="avatars"><img src="https://github.com/opencolin.png?size=52" alt="" loading="lazy"></span>
+            <span class="badge">1 member</span>
           </div>
         </div>
-        <div class="foot-links">
-          <a href="https://luma.com/nkknxvrz">Apply</a>
-          <a href="https://discord.com/invite/nN58zxSTFR">Discord</a>
-          <a href="/showcase.html">Showcase</a>
-          <a href="/submit.html">Submit a project</a>
-          <a href="https://nebius.com/careers">Nebius careers</a>
-          <a href="https://docs.nebius.com/legal/privacy">Privacy</a>
+      </a>
+      <a class="pcard" href="/projects/physical-ai-perception-reasoning-action-pipeline-for-a-robot.html"  data-track="" data-search="physical ai perception-reasoning-action pipeline for a robotic arm built and hardware-verified a so-arm101 control stack: real-time object detection via webcam (opencv) with tuned color/contour filtering, camera-to-robot coordinate calibration using forward  bryan samuel james null priyank patel null">
+        <div class="cover"><img src="https://drive.google.com/thumbnail?id=1GZ-XO0QhOkfM1r2gC53TjoredmeW7a4h&amp;sz=w1000" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;PA&lt;/span&gt;'"></div>
+        <div class="body">
+          <h3>Physical AI Perception-Reasoning-Action Pipeline for a Robotic Arm</h3>
+          <p class="tag">Built and hardware-verified a SO-ARM101 control stack: real-time object detection via webcam (OpenCV) with tuned color/contour filtering, camera-to-robot coordinate calibration using forward</p>
+          <div class="meta">
+            
+            
+            <span class="badge">2 members</span>
+          </div>
         </div>
-        <p class="foot-fine">© 2026 The Physical AI Sprint Hackathon. All rights reserved.</p>
-      </footer>
+      </a>
+      <a class="pcard" href="/projects/reflect-real-world-failure-led-embodied-continual-training.html"  data-track="" data-search="reflect real-world failure-led embodied continual training most robot policies are trained once, deployed once, and frozen — when reality diverges from simulation, the loop stops.  nikhil prabhu null pranav palagummi null">
+        <div class="cover"><span class="ph tile" aria-hidden="true">RR</span></div>
+        <div class="body">
+          <h3>REFLECT Real-world Failure-Led Embodied Continual Training</h3>
+          <p class="tag">Most robot policies are trained once, deployed once, and frozen — when reality diverges from simulation, the loop stops.</p>
+          <div class="meta">
+            
+            
+            <span class="badge">2 members</span>
+          </div>
+        </div>
+      </a>
+      <a class="pcard" href="/projects/robot-skills-graph.html"  data-track="" data-search="robot skills graph a way to track skills and attempts for replay and learning  jeremy adams null">
+        <div class="cover"><img src="https://drive.google.com/thumbnail?id=1idB0sOAaXE7j-q0TEolJPSl3fbFVHWtf&amp;sz=w1000" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;RS&lt;/span&gt;'"></div>
+        <div class="body">
+          <h3>Robot skills graph</h3>
+          <p class="tag">A way to track skills and attempts for replay and learning</p>
+          <div class="meta">
+            
+            
+            <span class="badge">1 member</span>
+          </div>
+        </div>
+      </a>
+      <a class="pcard" href="/projects/saffron-procedural-saffron-harvesting-cell-reach-verified-gr.html"  data-track="" data-search="saffron - procedural saffron harvesting cell (reach verified, grasp not yet) saffron is the most expensive crop on earth: a kilogram is ~150,000 crocus flowers, each hand-picked for exactly three red stigma threads.  ilia prihodko null">
+        <div class="cover"><img src="https://opengraph.githubassets.com/1/agi-developr/saffron-physical-ai-sprint" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;SP&lt;/span&gt;'"></div>
+        <div class="body">
+          <h3>SAFFRON - procedural saffron harvesting cell (reach verified, grasp not yet)</h3>
+          <p class="tag">Saffron is the most expensive crop on earth: a kilogram is ~150,000 crocus flowers, each hand-picked for exactly three red stigma threads.</p>
+          <div class="meta">
+            
+            
+            <span class="badge">1 member</span>
+          </div>
+        </div>
+      </a>
+      <a class="pcard" href="/projects/the-first-experiment.html"  data-track="" data-search="the first experiment we were trying to get the arm move the object from one place to another.  team ankit/takeshi null">
+        <div class="cover"><img src="https://i.ytimg.com/vi/rrXMuq81Bjw/hqdefault.jpg" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;TF&lt;/span&gt;'"></div>
+        <div class="body">
+          <h3>The first experiment</h3>
+          <p class="tag">We were trying to get the arm move the object from one place to another.</p>
+          <div class="meta">
+            
+            
+            <span class="badge">1 member</span>
+          </div>
+        </div>
+      </a>
+      <a class="pcard" href="/projects/tubot.html"  data-track="" data-search="tubot identifying and picking tubes.  armin null alina null">
+        <div class="cover"><img src="https://i.ytimg.com/vi/ZYJicvqhOcs/hqdefault.jpg" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;T&lt;/span&gt;'"></div>
+        <div class="body">
+          <h3>Tubot</h3>
+          <p class="tag">Identifying and picking tubes.</p>
+          <div class="meta">
+            
+            
+            <span class="badge">2 members</span>
+          </div>
+        </div>
+      </a>
+      <a class="pcard" href="/projects/v9-max.html"  data-track="" data-search="v9 max once — show a robot once.  v9 null">
+        <div class="cover"><span class="ph tile" aria-hidden="true">VM</span></div>
+        <div class="body">
+          <h3>V9 Max</h3>
+          <p class="tag">ONCE — show a robot once.</p>
+          <div class="meta">
+            
+            
+            <span class="badge">1 member</span>
+          </div>
+        </div>
+      </a>
+      <a class="pcard" href="/projects/within-reach.html"  data-track="" data-search="within reach within reach an assistive robotic system for people with limited upper-body mobility.  assem kadirova kamila kuatova null">
+        <div class="cover"><img src="https://i.ytimg.com/vi/Lhc3lXwQI4o/hqdefault.jpg" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;WR&lt;/span&gt;'"></div>
+        <div class="body">
+          <h3>Within Reach</h3>
+          <p class="tag">Within Reach An assistive robotic system for people with limited upper-body mobility.</p>
+          <div class="meta">
+            
+            
+            <span class="badge">1 member</span>
+          </div>
+        </div>
+      </a>
+  </div>
 
-    </div>
-  </main>
-</div>
+  <div class="empty" id="noresults" hidden>
+    <h3>Nothing matches</h3>
+    <p>Try a different search term or clear the track filter.</p>
+  </div>
 
-<button class="totop" id="toTop" aria-label="Back to top">
-  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M6.5 12V1M1.5 6L6.5 1l5 5" stroke="currentColor" stroke-width="1.5"/></svg>
-</button>
-
-<div class="scrim" id="scrim"></div>
-<div class="finder" id="finder" role="dialog" aria-modal="true" aria-label="Search">
-  <input id="q" type="text" placeholder="Search sections, steps, and troubleshooting symptoms…" autocomplete="off" spellcheck="false" aria-label="Search the handbook" toolname="search_handbook" tooldescription="Search the Physical AI Sprint handbook by section, setup step, or hardware troubleshooting symptom (for example 'black frames' or 'port not found') and return matching entries with links.">
-  <ul class="results" id="results"></ul>
-</div>
-
-<script>
-(function () {
-  "use strict";
-  var store = {
-    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
-    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
-  };
-
-  /* ---- copy buttons ---- */
-  Array.prototype.forEach.call(document.querySelectorAll(".term"), function (term) {
-    if (term.hasAttribute("data-tag")) term.classList.add("tagged");
-    var btn = document.createElement("button");
-    btn.className = "copy";
-    btn.type = "button";
-    btn.textContent = "Copy";
-    btn.addEventListener("click", function () {
-      var code = term.querySelector("code");
-      var text = code ? code.textContent : "";
-      var done = function () {
-        btn.textContent = "Copied";
-        btn.classList.add("done");
-        setTimeout(function () { btn.textContent = "Copy"; btn.classList.remove("done"); }, 1400);
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done, function () { btn.textContent = "Press ⌘C"; });
-      } else {
-        var ta = document.createElement("textarea");
-        ta.value = text; document.body.appendChild(ta); ta.select();
-        try { document.execCommand("copy"); done(); } catch (e) {}
-        document.body.removeChild(ta);
-      }
-    });
-    term.appendChild(btn);
-  });
-
-  /* ---- checkpoints ---- */
-  // The checkpoints stay tickable and remembered across refreshes; the sidebar
-  // progress meter that counted them was removed as clutter.
-  var ckpts = Array.prototype.slice.call(document.querySelectorAll(".ckpt[data-ck]"));
-  ckpts.forEach(function (c) {
-    var key = "pais-ck-" + c.getAttribute("data-ck");
-    var box = c.querySelector("input");
-    // Without this every checkbox announces simply as "Checkpoint", 21 times
-    // over, with nothing to tell them apart. Name each one after its step.
-    var head = c.previousElementSibling;
-    while (head && !/^H[234]$/.test(head.tagName)) head = head.previousElementSibling;
-    if (head) box.setAttribute("aria-label", "Checkpoint: " + head.textContent.trim());
-    if (store.get(key) === "1") { box.checked = true; c.classList.add("done"); }
-    box.addEventListener("change", function () {
-      c.classList.toggle("done", box.checked);
-      store.set(key, box.checked ? "1" : "0");
-    });
-  });
-
-  /* ---- engine switch ---- */
-  var tabs = Array.prototype.slice.call(document.querySelectorAll(".switch button[data-engine]"));
-  tabs.forEach(function (t) {
-    t.addEventListener("click", function () {
-      tabs.forEach(function (o) {
-        var on = o === t;
-        o.setAttribute("aria-selected", on ? "true" : "false");
-        document.getElementById("panel-" + o.getAttribute("data-engine")).hidden = !on;
-      });
-    });
-  });
-
-  /* ---- nav scroll spy ---- */
-  var navLinks = Array.prototype.slice.call(document.querySelectorAll("#nav a"));
-  // Only in-page anchors participate in scroll spy; the rail also holds links
-  // to other pages, and passing those to querySelector would throw.
-  var spyLinks = navLinks.filter(function (a) { return (a.getAttribute("href") || "").charAt(0) === "#"; });
-  var byHash = {};
-  spyLinks.forEach(function (a) { byHash[a.getAttribute("href")] = a; });
-  var targets = spyLinks
-    .map(function (a) { return document.querySelector(a.getAttribute("href")); })
-    .filter(Boolean);
-
-  var spy = new IntersectionObserver(function () {
-    var best = null, bestTop = Infinity;
-    targets.forEach(function (el) {
-      var r = el.getBoundingClientRect();
-      if (r.top <= 140 && r.top > -1e6) {
-        var d = 140 - r.top;
-        if (d < bestTop) { bestTop = d; best = el; }
-      }
-    });
-    if (!best) best = targets[0];
-    setCurrent(best.id);
-  }, { rootMargin: "-100px 0px -70% 0px", threshold: [0, 1] });
-  targets.forEach(function (el) { spy.observe(el); });
-
-  function setCurrent(id) {
-    spyLinks.forEach(function (a) { a.classList.remove("here"); });
-    Array.prototype.forEach.call(document.querySelectorAll("#nav li"), function (li) { li.classList.remove("current"); });
-    var link = byHash["#" + id];
-    if (!link) return;
-    link.classList.add("here");
-    var li = link.closest("li");
-    while (li) { li.classList.add("current"); li = li.parentElement.closest("li"); }
-  }
-  window.addEventListener("scroll", function () {
-    if (window.scrollY < 60) setCurrent(targets[0] ? targets[0].id : "");
-  }, { passive: true });
-
-  /* ---- mobile drawer ---- */
-  var rail = document.getElementById("rail");
-  var menuBtn = document.getElementById("menuBtn");
-  function closeRail() {
-    rail.classList.remove("open");
-    document.body.classList.remove("nav-open");
-    menuBtn.setAttribute("aria-expanded", "false");
-  }
-  menuBtn.addEventListener("click", function () {
-    var open = rail.classList.toggle("open");
-    document.body.classList.toggle("nav-open", open);
-    menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
-  });
-  document.getElementById("railClose").addEventListener("click", closeRail);
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && rail.classList.contains("open")) closeRail();
-  });
-  // Rotating or resizing past the breakpoint leaves the rail static again; the
-  // body must not stay locked behind a drawer that is no longer a drawer.
-  window.addEventListener("resize", function () {
-    if (window.innerWidth > 980) closeRail();
-  });
-  navLinks.forEach(function (a) { a.addEventListener("click", closeRail); });
-
-  /* ---- redeploy button ----
-     A copy of the corner script build.js emits for the generated pages; this
-     file is a standalone artifact and cannot load site scripts, so the two are
-     kept in step by hand. The passcode is the editor's, from the same
-     sessionStorage key, so publishing an edit and refreshing do not each ask. */
+  <script>
   (function () {
-    var KEY = "pais-edit-key";
-    var btn = document.querySelector("[data-refresh]");
-    var out = document.querySelector(".corner-msg");
-    if (!btn) return;
-    function say(t) { if (out) out.textContent = t || ""; }
-    btn.addEventListener("click", function () {
-      var k = "";
-      try { k = sessionStorage.getItem(KEY) || ""; } catch (e) {}
-      if (!k) {
-        k = window.prompt("Edit passcode (an organizer has it):") || "";
-        if (!k) { say("Cancelled — nothing was triggered."); return; }
-        try { sessionStorage.setItem(KEY, k); } catch (e) {}
-      }
-      btn.disabled = true;
-      say("Asking Vercel to rebuild…");
-      fetch("/api/redeploy", { method: "POST", headers: { "x-edit-key": k } })
-        .then(function (res) {
-          return res.json().catch(function () { return {}; }).then(function (d) {
-            return { ok: res.ok, status: res.status, data: d };
-          });
-        })
-        .then(function (r) {
-          if (r.ok) { say((r.data && r.data.message) || "Queued — the new build is usually live in a couple of minutes."); return; }
-          if (r.status === 401) { try { sessionStorage.removeItem(KEY); } catch (e) {} }
-          say((r.data.error && r.data.error.message) || "Could not start a redeploy.");
-        })
-        .catch(function () { say("Network error — nothing was triggered."); })
-        .then(function () {
-          btn.disabled = false;
-          setTimeout(function () { say(""); }, 8000);
+    var TOOL_NAME = 'search_projects';
+    var TOOL_DESC = 'Filter the submitted hackathon projects by title, tagline, robot used, or team member name.';
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.pcard'));
+    var q = document.getElementById('q');
+    var shown = document.getElementById('shown');
+    var none = document.getElementById('noresults');
+    var grid = document.getElementById('grid');
+    var filter = 'all';
+
+    function apply() {
+      var term = q.value.trim().toLowerCase();
+      var n = 0;
+      cards.forEach(function (c) {
+        var okTrack = filter === 'all' || c.getAttribute('data-track') === filter;
+        var okTerm = !term || c.getAttribute('data-search').indexOf(term) !== -1;
+        var on = okTrack && okTerm;
+        c.hidden = !on;
+        if (on) n++;
+      });
+      shown.textContent = n;
+      none.hidden = n !== 0;
+      grid.hidden = n === 0;
+    }
+
+    q.addEventListener('input', apply);
+
+    // WebMCP: expose the same filter as a callable tool for browser-resident
+    // agents. Guarded because the API only exists in recent Chrome.
+    var mc = window.document.modelContext || window.navigator.modelContext;
+    if (mc && typeof mc.registerTool === 'function') {
+      mc.registerTool({
+        name: TOOL_NAME,
+        description: TOOL_DESC,
+        inputSchema: {
+          type: 'object',
+          properties: { query: { type: 'string', description: 'Text to filter by.' } },
+          required: ['query'],
+        },
+        async execute(args) {
+          q.value = (args && args.query) || '';
+          apply();
+          var hits = cards.filter(function (c) { return !c.hidden; })
+            .map(function (c) { return { name: c.querySelector('h3').textContent.trim(), url: (c.getAttribute('href') || (c.querySelector('a') || {}).getAttribute && c.querySelector('a').getAttribute('href')) || null }; });
+          return { content: [{ type: 'text', text: JSON.stringify({ count: hits.length, results: hits }) }] };
+        },
+      });
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('.filters button'), function (b) {
+      b.addEventListener('click', function () {
+        filter = b.getAttribute('data-filter');
+        Array.prototype.forEach.call(document.querySelectorAll('.filters button'), function (o) {
+          o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
         });
+        apply();
+      });
     });
   })();
+  </script>
+</div>
+</main>
 
-  /* ---- search index ---- */
-  var index = [];
-  Array.prototype.forEach.call(document.querySelectorAll("h2[id], section[id] h3[id]"), function (h) {
-    var sec = h.closest("section");
-    var scope = sec && sec.querySelector("h2") ? sec.querySelector("h2").textContent.replace(/^\s*\S+\s*/, "").trim() : "";
-    var num = h.querySelector(".num");
-    index.push({
-      kind: h.tagName === "H2" ? "Section" : scope,
-      title: (num ? h.textContent.replace(num.textContent, "") : h.textContent).trim(),
-      sub: "",
-      id: h.id
-    });
-  });
-  Array.prototype.forEach.call(document.querySelectorAll("table.trouble"), function (t) {
-    var scope = t.getAttribute("data-scope") || "";
-    Array.prototype.forEach.call(t.tBodies[0].rows, function (row, i) {
-      if (!row.id) row.id = "sym-" + scope.replace(/\W+/g, "") + "-" + i;
-      index.push({
-        kind: scope + " · symptom",
-        title: row.cells[0].textContent.trim(),
-        sub: row.cells[1].textContent.trim(),
-        id: row.id,
-        row: row
-      });
-    });
-  });
+<div class="wrap">
+  <footer class="foot">
+    <div class="foot-links">
+      <a href="https://luma.com/nkknxvrz">Apply</a>
+      <a href="https://discord.com/invite/nN58zxSTFR">Discord</a>
+      <a href="/">Showcase</a>
+      <a href="/handbook.html">Handbook</a>
+      <a href="/developers.html">API</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="https://github.com/buildspacetv/sprint">GitHub</a>
+    </div>
+    <p class="foot-fine">© 2026 The Physical AI Sprint Hackathon. All rights reserved.</p>
+  </footer>
+</div>
 
-  var scrim = document.getElementById("scrim");
-  var finder = document.getElementById("finder");
-  var q = document.getElementById("q");
-  var results = document.getElementById("results");
-  var sel = 0, shown = [];
-
-  function openFinder() {
-    scrim.classList.add("open"); finder.classList.add("open");
-    q.value = ""; render(""); q.focus(); closeRail();
-  }
-  function closeFinder() { scrim.classList.remove("open"); finder.classList.remove("open"); }
-
-  function render(term) {
-    var t = term.trim().toLowerCase();
-    shown = (t ? index.filter(function (it) {
-      return (it.title + " " + it.sub + " " + it.kind).toLowerCase().indexOf(t) !== -1;
-    }) : index).slice(0, 40);
-    sel = 0;
-    if (!shown.length) { results.innerHTML = '<li class="empty">Nothing matches that.</li>'; return; }
-    results.innerHTML = shown.map(function (it, i) {
-      return '<li' + (i === 0 ? ' class="sel"' : '') + '><a href="#' + it.id + '">' +
-        '<span class="kind">' + esc(it.kind) + '</span>' +
-        '<span class="ttl">' + esc(it.title) + '</span>' +
-        (it.sub ? '<span class="sub2">' + esc(it.sub) + '</span>' : '') +
-        '</a></li>';
-    }).join("");
-    Array.prototype.forEach.call(results.querySelectorAll("a"), function (a, i) {
-      a.addEventListener("click", function (e) { e.preventDefault(); go(shown[i]); });
-    });
-  }
-  function esc(s) { return s.replace(/[&<>"]/g, function (c) { return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]; }); }
-
-  function go(item) {
-    closeFinder();
-    var el = document.getElementById(item.id);
-    if (!el) return;
-    el.scrollIntoView({ behavior: "smooth", block: "center" });
-    if (item.row) {
-      item.row.classList.add("flash");
-      setTimeout(function () { item.row.classList.remove("flash"); }, 2200);
-    }
-  }
-  function move(d) {
-    if (!shown.length) return;
-    var lis = results.children;
-    lis[sel].classList.remove("sel");
-    sel = (sel + d + shown.length) % shown.length;
-    lis[sel].classList.add("sel");
-    lis[sel].scrollIntoView({ block: "nearest" });
-  }
-
-  Array.prototype.forEach.call(document.querySelectorAll("[data-find]"), function (b) {
-    b.addEventListener("click", openFinder);
-  });
-
-  // WebMCP: expose the handbook search as a callable tool for browser-resident
-  // agents. Same index the dialog uses — sections plus every troubleshooting
-  // symptom across the four guides.
-  var mc = document.modelContext || navigator.modelContext;
-  if (mc && typeof mc.registerTool === "function") {
-    mc.registerTool({
-      name: "search_handbook",
-      description: "Search the Physical AI Sprint handbook by section, setup step, or hardware troubleshooting symptom, and return matching entries with links.",
-      inputSchema: {
-        type: "object",
-        properties: { query: { type: "string", description: "Text to search for, e.g. 'black frames' or 'calibration'." } },
-        required: ["query"]
-      },
-      execute: function (args) {
-        var t = String((args && args.query) || "").toLowerCase();
-        var hits = index.filter(function (it) {
-          return (it.title + " " + it.sub + " " + it.kind).toLowerCase().indexOf(t) !== -1;
-        }).slice(0, 20).map(function (it) {
-          return { kind: it.kind, title: it.title, detail: it.sub || undefined, url: location.origin + "/#" + it.id };
-        });
-        return { content: [{ type: "text", text: JSON.stringify({ count: hits.length, results: hits }) }] };
-      }
-    });
-  }
-  scrim.addEventListener("click", closeFinder);
-  q.addEventListener("input", function () { render(q.value); });
-  q.addEventListener("keydown", function (e) {
-    if (e.key === "ArrowDown") { e.preventDefault(); move(1); }
-    else if (e.key === "ArrowUp") { e.preventDefault(); move(-1); }
-    else if (e.key === "Enter") { e.preventDefault(); if (shown[sel]) go(shown[sel]); }
-  });
-  document.addEventListener("keydown", function (e) {
-    var typing = /^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName);
-    if (e.key === "Escape") { closeFinder(); closeRail(); }
-    else if ((e.key === "/" || (e.key.toLowerCase() === "k" && (e.metaKey || e.ctrlKey))) && !typing) {
-      e.preventDefault(); openFinder();
-    }
-  });
-
-  /* ---- back to top ---- */
-  var toTop = document.getElementById("toTop");
-  toTop.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
-  window.addEventListener("scroll", function () {
-    toTop.classList.toggle("show", window.scrollY > 700);
-  }, { passive: true });
-})();
-</script>
+<div class="corner">
+  <a href="/developers.html">API</a>
+  <a href="https://github.com/buildspacetv/sprint">GitHub</a>
+  <button type="button" data-refresh>Refresh</button>
+  <span class="corner-msg" role="status"></span>
+</div>
 
 <script src="/edit-mode.js" defer></script>
-
+<script>
+(function () {
+  var KEY = 'pais-edit-key';
+  var btn = document.querySelector('[data-refresh]');
+  var out = document.querySelector('.corner-msg');
+  if (!btn) return;
+  function say(t) { if (out) out.textContent = t || ''; }
+  btn.addEventListener('click', function () {
+    var k = '';
+    try { k = sessionStorage.getItem(KEY) || ''; } catch (e) {}
+    if (!k) {
+      k = window.prompt('Edit passcode (an organizer has it):') || '';
+      if (!k) { say('Cancelled — nothing was triggered.'); return; }
+      try { sessionStorage.setItem(KEY, k); } catch (e) {}
+    }
+    btn.disabled = true;
+    say('Asking Vercel to rebuild…');
+    fetch('/api/redeploy', { method: 'POST', headers: { 'x-edit-key': k } })
+      .then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (d) {
+          return { ok: res.ok, status: res.status, data: d };
+        });
+      })
+      .then(function (r) {
+        if (r.ok) { say((r.data && r.data.message) || 'Queued — the new build is usually live in a couple of minutes.'); return; }
+        if (r.status === 401) { try { sessionStorage.removeItem(KEY); } catch (e) {} }
+        say((r.data.error && r.data.error.message) || 'Could not start a redeploy.');
+      })
+      .catch(function () { say('Network error — nothing was triggered.'); })
+      .then(function () {
+        btn.disabled = false;
+        setTimeout(function () { say(''); }, 8000);
+      });
+  });
+})();
+</script>
 </body>
 </html>
