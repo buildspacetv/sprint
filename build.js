@@ -598,7 +598,7 @@ function shareBlock({ title, text, url }) {
   </script>`;
 }
 
-function projectPage(p, teamEntry) {
+function projectPage(p, teamEntry, others = []) {
   const t = track(p.track);
   const url = `${SITE}/projects/${p.slug}.html`;
   const repo = safeUrl(p.repo);
@@ -607,24 +607,22 @@ function projectPage(p, teamEntry) {
   const cover = images[0] || null;
 
   const body = `
-<header class="pagehead narrow">
-  <div class="pagehead-in">
-    <p class="eyebrow"><a class="back" href="/">← All projects</a></p>
-    <h1>${esc(p.title)}</h1>
-    <p class="lede"${p.issue ? ` data-edit-field="issue:${p.issue}#One-line summary"` : ''}>${esc(p.tagline || '')}</p>
-    <div class="actions">
-      ${p.track ? `<span class="chip ${t.cls}">${esc(t.label)}</span>` : ''}
-      ${(p.robots || []).map((r) => `<span class="chip">${esc(r)}</span>`).join('\n      ')}
-    </div>
-  </div>
-</header>
-
-<div class="wrap narrow">
+<div class="wrap watchwrap">
+  <p class="eyebrow"><a class="back" href="/">← All projects</a></p>
+  <div class="watch">
+  <main class="watch-main">
 ${(p.videos && p.videos.length
     ? p.videos.map((v, i) => `${p.videos.length > 1 ? `  <h3 class="cliphead">Clip ${i + 1} of ${p.videos.length}</h3>` : ''}\n${videoEmbed(v)}`).join('\n')
     : videoEmbed(p.video))}
 ${p.videoSource ? `  <p class="srcline">Clips hosted on Google Photos — <a href="${esc(safeUrl(p.videoSource) || '#')}" target="_blank" rel="noopener noreferrer">open the original album</a> if a player fails to load.</p>` : ''}
 ${p.video && !p.repo && p.linkNote ? `  <p class="srcline">${esc(p.linkNote)}</p>` : ''}
+
+  <h1 class="watch-title">${esc(p.title)}</h1>
+  <p class="lede"${p.issue ? ` data-edit-field="issue:${p.issue}#One-line summary"` : ''}>${esc(p.tagline || '')}</p>
+  ${(p.track || (p.robots || []).length) ? `<div class="actions">
+      ${p.track ? `<span class="chip ${t.cls}">${esc(t.label)}</span>` : ''}
+      ${(p.robots || []).map((r) => `<span class="chip">${esc(r)}</span>`).join('\n      ')}
+    </div>` : ''}
 
 ${p.description ? `  <div class="prose"${p.issue ? ` data-edit-field="issue:${p.issue}#Description" data-edit-multiline="1"` : ''}>\n${prose(p.description)}\n  </div>` : ''}
 
@@ -648,6 +646,19 @@ ${roster(p.team)}` : ''}
   </dl>
 
 ${shareBlock({ title: p.title, text: `${p.title} — ${p.tagline || 'built at The Physical AI Sprint'}`, url })}
+  </main>
+
+  <aside class="watch-side" aria-label="Other projects">
+    <h2 class="side-head">More from the sprint</h2>
+${others.map((o) => `    <a class="side-item" href="/projects/${esc(o.slug)}.html">
+      <span class="side-thumb">${coverFor(o)}</span>
+      <span class="side-meta">
+        <span class="side-title">${esc(o.title)}</span>
+        <span class="side-sub">${esc((o.team || []).length ? `${o.team.length} member${o.team.length === 1 ? '' : 's'}` : 'Physical AI Sprint')}</span>
+      </span>
+    </a>`).join('\n')}
+  </aside>
+  </div>
 </div>`;
 
   return page({
@@ -1122,7 +1133,8 @@ function main() {
   fs.writeFileSync(path.join(ROOT, 'index.html'), showcase(projects));
   fs.writeFileSync(path.join(ROOT, 'submit.html'), submitPage());
   for (const p of projects) {
-    fs.writeFileSync(path.join(outDir, `${p.slug}.html`), projectPage(p, teamOf.get(p.slug)));
+    fs.writeFileSync(path.join(outDir, `${p.slug}.html`),
+      projectPage(p, teamOf.get(p.slug), projects.filter((o) => o.slug !== p.slug)));
   }
 
   // Trust anchors + developer portal.

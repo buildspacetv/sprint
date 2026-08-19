@@ -324,6 +324,47 @@ code { font-family: var(--f-mono); font-size: .86em; }
 .team .nm { font-family: var(--f-display); font-size: 1rem; letter-spacing: .01em; }
 .team .gh { font-family: var(--f-mono); font-size: .7rem; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; }
 
+/* ---------- watch layout ----------
+   Player and write-up on the left, every other project down the right. The
+   rail is a nav, so it scrolls with its own overflow rather than stretching
+   the page to seventeen items tall. */
+/* A watch page is not a reading column: it runs nearly full-bleed so the
+   player takes about two thirds of the window rather than of a 1120px wrap. */
+.watchwrap { max-width: min(1720px, 96vw); padding-top: 26px; }
+.watch { display: grid; grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr); gap: 30px; align-items: start; }
+.watch-main { min-width: 0; }
+.watch-title { font-size: clamp(1.6rem, 3vw, 2.3rem); margin: 18px 0 8px; }
+
+.watch-side { position: sticky; top: 76px; max-height: calc(100vh - 96px); overflow-y: auto; padding-right: 4px; }
+.side-head {
+  font-family: var(--f-mono); font-size: .68rem; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ink-3); margin: 0 0 12px;
+}
+.side-item {
+  display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: 11px; align-items: start;
+  padding: 7px; margin: 0 -7px; border-radius: 8px; text-decoration: none; color: inherit;
+}
+.side-item:hover { background: var(--surface-2); }
+.side-thumb {
+  display: block; aspect-ratio: 16 / 9; border-radius: 7px; overflow: hidden;
+  background: var(--surface-2); border: 1px solid var(--line);
+}
+.side-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.side-thumb .ph.tile { font-size: 1.1rem; }
+.side-meta { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.side-title {
+  font-family: var(--f-display); font-size: 1rem; line-height: 1.25; letter-spacing: .01em;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.side-sub { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .06em; color: var(--ink-3); }
+
+@media (max-width: 980px) {
+  .watch { grid-template-columns: 1fr; gap: 34px; }
+  /* Stacked, a sticky rail would pin a list over the write-up. */
+  .watch-side { position: static; max-height: none; overflow: visible; border-top: 1px solid var(--line); padding-top: 20px; }
+  .side-item { grid-template-columns: 140px minmax(0, 1fr); }
+}
+
 /* ---------- project page media ---------- */
 .videowrap {
   position: relative; aspect-ratio: 16 / 9; margin: 22px 0;
@@ -479,22 +520,17 @@ code { font-family: var(--f-mono); font-size: .86em; }
 
 <main id="content">
 
-<header class="pagehead narrow">
-  <div class="pagehead-in">
-    <p class="eyebrow"><a class="back" href="/">← All projects</a></p>
-    <h1>Robot skills graph</h1>
-    <p class="lede">A way to track skills and attempts for replay and learning</p>
-    <div class="actions">
-      
-      
-    </div>
-  </div>
-</header>
-
-<div class="wrap narrow">
+<div class="wrap watchwrap">
+  <p class="eyebrow"><a class="back" href="/">← All projects</a></p>
+  <div class="watch">
+  <main class="watch-main">
 <div class="videowrap"><iframe src="https://drive.google.com/file/d/1idB0sOAaXE7j-q0TEolJPSl3fbFVHWtf/preview" title="Project video" allow="autoplay" allowfullscreen loading="lazy"></iframe></div>
 
 
+
+  <h1 class="watch-title">Robot skills graph</h1>
+  <p class="lede">A way to track skills and attempts for replay and learning</p>
+  
 
   <div class="prose">
 <p>A way to track skills and attempts for replay and learning</p>
@@ -568,6 +604,124 @@ code { font-family: var(--f-mono); font-size: .86em; }
     }
   })();
   </script>
+  </main>
+
+  <aside class="watch-side" aria-label="Other projects">
+    <h2 class="side-head">More from the sprint</h2>
+    <a class="side-item" href="/projects/404team-work.html">
+      <span class="side-thumb"><img src="https://i.ytimg.com/vi/V_S5wStHcHA/hqdefault.jpg" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;4W&lt;/span&gt;'"></span>
+      <span class="side-meta">
+        <span class="side-title">404team work</span>
+        <span class="side-sub">3 members</span>
+      </span>
+    </a>
+    <a class="side-item" href="/projects/back-online.html">
+      <span class="side-thumb"><img src="https://drive.google.com/thumbnail?id=1SltuS0WSf85r2NrxoIQTg9RnrleQslzfWaoAbmGTNQE&amp;sz=w1000" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;BO&lt;/span&gt;'"></span>
+      <span class="side-meta">
+        <span class="side-title">Back Online</span>
+        <span class="side-sub">4 members</span>
+      </span>
+    </a>
+    <a class="side-item" href="/projects/bruno-the-librarian.html">
+      <span class="side-thumb"><span class="ph tile" aria-hidden="true">BT</span></span>
+      <span class="side-meta">
+        <span class="side-title">Bruno - the Librarian</span>
+        <span class="side-sub">3 members</span>
+      </span>
+    </a>
+    <a class="side-item" href="/projects/collaborative-reference-frames-for-assistive-robotics.html">
+      <span class="side-thumb"><img src="https://i.ytimg.com/vi/3yY9Vv15kDE/hqdefault.jpg" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;CR&lt;/span&gt;'"></span>
+      <span class="side-meta">
+        <span class="side-title">Collaborative Reference Frames For Assistive Robotics</span>
+        <span class="side-sub">6 members</span>
+      </span>
+    </a>
+    <a class="side-item" href="/projects/desk-duster.html">
+      <span class="side-thumb"><img src="/img/desk-duster-cover.jpg" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;DD&lt;/span&gt;'"></span>
+      <span class="side-meta">
+        <span class="side-title">Desk Duster</span>
+        <span class="side-sub">3 members</span>
+      </span>
+    </a>
+    <a class="side-item" href="/projects/edie-sees-you.html">
+      <span class="side-thumb"><img src="https://i.ytimg.com/vi/CJysAI0ujyA/hqdefault.jpg" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;ES&lt;/span&gt;'"></span>
+      <span class="side-meta">
+        <span class="side-title">Edie Sees You</span>
+        <span class="side-sub">1 member</span>
+      </span>
+    </a>
+    <a class="side-item" href="/projects/fastloop.html">
+      <span class="side-thumb"><img src="https://drive.google.com/thumbnail?id=1qAQYP3ArDHB7BkjP_r4C7YKJCKBaTZ1M&amp;sz=w1000" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;F&lt;/span&gt;'"></span>
+      <span class="side-meta">
+        <span class="side-title">Fastloop</span>
+        <span class="side-sub">6 members</span>
+      </span>
+    </a>
+    <a class="side-item" href="/projects/humanoid-yoga-instructor.html">
+      <span class="side-thumb"><img src="https://i.ytimg.com/vi/1w1YG7n7nbE/hqdefault.jpg" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;HY&lt;/span&gt;'"></span>
+      <span class="side-meta">
+        <span class="side-title">Humanoid Yoga Instructor</span>
+        <span class="side-sub">6 members</span>
+      </span>
+    </a>
+    <a class="side-item" href="/projects/nemocode.html">
+      <span class="side-thumb"><img src="https://raw.githubusercontent.com/buildspacetv/sprint/0056d2e1c5c55648ab7080af689784791a18af4d/img/nemocode-robot.png" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;N&lt;/span&gt;'"></span>
+      <span class="side-meta">
+        <span class="side-title">NemoCode</span>
+        <span class="side-sub">1 member</span>
+      </span>
+    </a>
+    <a class="side-item" href="/projects/physical-ai-perception-reasoning-action-pipeline-for-a-robot.html">
+      <span class="side-thumb"><img src="https://drive.google.com/thumbnail?id=1GZ-XO0QhOkfM1r2gC53TjoredmeW7a4h&amp;sz=w1000" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;PA&lt;/span&gt;'"></span>
+      <span class="side-meta">
+        <span class="side-title">Physical AI Perception-Reasoning-Action Pipeline for a Robotic Arm</span>
+        <span class="side-sub">2 members</span>
+      </span>
+    </a>
+    <a class="side-item" href="/projects/reflect-real-world-failure-led-embodied-continual-training.html">
+      <span class="side-thumb"><span class="ph tile" aria-hidden="true">RR</span></span>
+      <span class="side-meta">
+        <span class="side-title">REFLECT Real-world Failure-Led Embodied Continual Training</span>
+        <span class="side-sub">2 members</span>
+      </span>
+    </a>
+    <a class="side-item" href="/projects/saffron-procedural-saffron-harvesting-cell-reach-verified-gr.html">
+      <span class="side-thumb"><img src="https://opengraph.githubassets.com/1/agi-developr/saffron-physical-ai-sprint" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;SP&lt;/span&gt;'"></span>
+      <span class="side-meta">
+        <span class="side-title">SAFFRON - procedural saffron harvesting cell (reach verified, grasp not yet)</span>
+        <span class="side-sub">1 member</span>
+      </span>
+    </a>
+    <a class="side-item" href="/projects/the-first-experiment.html">
+      <span class="side-thumb"><img src="https://i.ytimg.com/vi/rrXMuq81Bjw/hqdefault.jpg" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;TF&lt;/span&gt;'"></span>
+      <span class="side-meta">
+        <span class="side-title">The first experiment</span>
+        <span class="side-sub">1 member</span>
+      </span>
+    </a>
+    <a class="side-item" href="/projects/tubot.html">
+      <span class="side-thumb"><img src="https://i.ytimg.com/vi/ZYJicvqhOcs/hqdefault.jpg" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;T&lt;/span&gt;'"></span>
+      <span class="side-meta">
+        <span class="side-title">Tubot</span>
+        <span class="side-sub">2 members</span>
+      </span>
+    </a>
+    <a class="side-item" href="/projects/v9-max.html">
+      <span class="side-thumb"><span class="ph tile" aria-hidden="true">VM</span></span>
+      <span class="side-meta">
+        <span class="side-title">V9 Max</span>
+        <span class="side-sub">1 member</span>
+      </span>
+    </a>
+    <a class="side-item" href="/projects/within-reach.html">
+      <span class="side-thumb"><img src="https://i.ytimg.com/vi/Lhc3lXwQI4o/hqdefault.jpg" alt="" loading="lazy" onerror="this.parentNode.innerHTML='&lt;span class=&quot;ph tile&quot; aria-hidden=&quot;true&quot;&gt;WR&lt;/span&gt;'"></span>
+      <span class="side-meta">
+        <span class="side-title">Within Reach</span>
+        <span class="side-sub">1 member</span>
+      </span>
+    </a>
+  </aside>
+  </div>
 </div>
 </main>
 

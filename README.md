@@ -25,6 +25,18 @@ self-contained. It was `index.html` until the showcase took the root; the
 editor's write allowlist, `edit-map.json`, and the edit-target meta all name it
 by its new path.
 
+## Project pages are a watch layout
+
+A project page runs player-left, rail-right at ≥981px: the video takes about
+two thirds of the window (`.watchwrap` widens to `min(1720px, 96vw)` — a watch
+page is not a 1120px reading column), and every *other* project runs down a
+sticky right rail with its thumbnail, title, and team size. Below 981px the two
+columns stack and the rail loses its stickiness, so it cannot pin a list of
+sixteen over the write-up.
+
+The title, tagline, and chips moved under the player rather than into a page
+header, which is what makes it read as a watch page rather than an article.
+
 ## Card preview images
 
 A card shows the first committed image if a project has one. Failing that,
