@@ -9,7 +9,7 @@
       "track": null,
       "robots": [],
       "description": "An autonomous librarian that helps human staff manage libraries, retrieves requested books from shelves, and safely hands them to people.",
-      "video": "https://drive.google.com/drive/folders/1Jo1Y8SgdGcShcEXKPaRmYjSONMS6_H8I?usp=sharing",
+      "video": "https://drive.google.com/file/d/1KmB55Sq3765Y6GyujLn3PyWTMForqEld/view",
       "images": [],
       "repo": null,
       "team": [
@@ -31,7 +31,13 @@
       "source": "form",
       "submittedAt": "2026-08-17T15:37:01-07:00",
       "resubmissions": 0,
-      "linkNote": null
+      "linkNote": null,
+      "videos": [
+        "https://drive.google.com/file/d/1KmB55Sq3765Y6GyujLn3PyWTMForqEld/view",
+        "https://drive.google.com/file/d/1Zj8AAXbXK5HKZtX7TazMCiyGIWwkMvSB/view"
+      ],
+      "videoSource": "https://drive.google.com/drive/folders/1Jo1Y8SgdGcShcEXKPaRmYjSONMS6_H8I",
+      "_note": "Two clips picked out of the submitted Drive folder (bruno-g1-joined.mp4, g1-demo.mov) so they embed instead of linking out."
     },
     {
       "slug": "edie-sees-you",
@@ -171,7 +177,7 @@
       "track": null,
       "robots": [],
       "description": "ONCE — show a robot once. Teach an SO-101 arm any tabletop task by demonstrating it once with your hands: the robot narrates what it understood (NVIDIA Cosmos-Reason on Nebius), rehearses it with real physics in Isaac Sim on Antioch, executes, verifies from the camera, and remembers it as a named skill — so strangers can teach it live and compose skills by language (\"do Sarah's skill with the yellow ones\").\nPerception → reasoning → rehearsal → action → verify → remember, with a deterministic fallback at every layer so the loop never stalls on a network, and teach-by-correction that turns a miss into a second learning moment.\nEvery teach event becomes a human-verified episode (Toloka) feeding a Nebius fine-tune — programs first, policies later: the data flywheel for the long tail of tasks nobody will ever program by hand.",
-      "video": "https://drive.google.com/drive/folders/1QDMphtzc-r73amkXYtImoYZtBcKxi-FG?usp=sharing",
+      "video": "https://drive.google.com/file/d/1IL7sCb-UW8vPMsf4ThTDmF1xA8Us_VDk/view",
       "images": [],
       "repo": null,
       "team": [
@@ -185,7 +191,9 @@
       "source": "form",
       "submittedAt": "2026-08-17T15:54:06-07:00",
       "resubmissions": 0,
-      "linkNote": null
+      "linkNote": null,
+      "videoSource": "https://drive.google.com/drive/folders/1QDMphtzc-r73amkXYtImoYZtBcKxi-FG",
+      "_note": "Video points at IMG_5134.MOV inside the submitted Drive folder so it embeds instead of linking out."
     },
     {
       "slug": "reflect-real-world-failure-led-embodied-continual-training",
