@@ -450,15 +450,9 @@ ${projects.length === 0 ? `  <div class="empty">
     <h3>No submissions yet</h3>
     <p>Projects appear here as teams submit them. The deadline is 3:30pm on event day.</p>
   </div>` : `  <div class="controls">
-    <input type="search" id="q" placeholder="Search projects, teams, robots…" aria-label="Search projects"
+    <input type="search" id="q" placeholder="Search projects and teams…" aria-label="Search projects"
       toolname="search_projects"
       tooldescription="Filter the submitted hackathon projects by title, tagline, robot used, or team member name.">
-    <div class="filters" role="group" aria-label="Filter by track">
-      <button data-filter="all" aria-pressed="true">All</button>
-      <button data-filter="sim" aria-pressed="false">Sim</button>
-      <button data-filter="hardware" aria-pressed="false">Hardware</button>
-      <button data-filter="both" aria-pressed="false">Sim + real</button>
-    </div>
     <span class="count"><b id="shown">${projects.length}</b> of ${projects.length}</span>
   </div>
 
@@ -480,15 +474,12 @@ ${projects.map(card).join('\n')}
     var shown = document.getElementById('shown');
     var none = document.getElementById('noresults');
     var grid = document.getElementById('grid');
-    var filter = 'all';
 
     function apply() {
       var term = q.value.trim().toLowerCase();
       var n = 0;
       cards.forEach(function (c) {
-        var okTrack = filter === 'all' || c.getAttribute('data-track') === filter;
-        var okTerm = !term || c.getAttribute('data-search').indexOf(term) !== -1;
-        var on = okTrack && okTerm;
+        var on = !term || c.getAttribute('data-search').indexOf(term) !== -1;
         c.hidden = !on;
         if (on) n++;
       });
@@ -520,15 +511,6 @@ ${projects.map(card).join('\n')}
         },
       });
     }
-    Array.prototype.forEach.call(document.querySelectorAll('.filters button'), function (b) {
-      b.addEventListener('click', function () {
-        filter = b.getAttribute('data-filter');
-        Array.prototype.forEach.call(document.querySelectorAll('.filters button'), function (o) {
-          o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
-        });
-        apply();
-      });
-    });
   })();
   </script>`}
 </div>`;
