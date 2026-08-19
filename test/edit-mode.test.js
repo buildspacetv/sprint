@@ -84,7 +84,7 @@ test('the script embeds the shared URL resolver rather than a copy', () => {
 /* --------------------------------------------- generated pages target right */
 
 test('every generated page declares an edit source', () => {
-  for (const p of ['teams.html', 'showcase.html', 'submit.html', 'about.html', 'contact.html', 'privacy.html', 'developers.html']) {
+  for (const p of ['index.html', 'teams.html', 'submit.html', 'about.html', 'contact.html', 'privacy.html', 'developers.html']) {
     const html = read(p);
     assert.ok(html.includes('name="edit-kind"'), `${p} declares a kind`);
     assert.ok(html.includes('/edit-mode.js'), `${p} loads the script`);
@@ -99,7 +99,7 @@ test('trust anchors point at their generator source, not their HTML', () => {
 
 test('the directory and showcase point at build.js', () => {
   assert.ok(read('teams.html').includes('content="build.js"'));
-  assert.ok(read('showcase.html').includes('content="build.js"'));
+  assert.ok(read('index.html').includes('content="build.js"'));
 });
 
 test('the handbook points at handbook.html, which is hand-maintained', () => {
@@ -124,7 +124,7 @@ test('the handbook line map resolves real section ids to line numbers', () => {
 /* ------------------------------------- edit chrome never ships to the public */
 
 test('no page renders edit chrome without the script deciding to', () => {
-  for (const p of ['index.html', 'teams.html', 'showcase.html']) {
+  for (const p of ['handbook.html', 'index.html', 'teams.html']) {
     const html = read(p);
     assert.ok(!html.includes('class="em-bar"'), `${p} has no pre-rendered edit bar`);
     assert.ok(!html.includes('em-pill'), `${p} has no pre-rendered edit pills`);
