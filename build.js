@@ -612,6 +612,15 @@ function shareBlock({ title, text, url }) {
   </script>`;
 }
 
+// Names the host behind a project's videoSource so the fallback line points at
+// the right place: a Photos album, a Drive folder, or whatever else turns up.
+function videoSourceHost(u) {
+  const s = String(u || '');
+  if (/photos\.(app\.goo\.gl|google\.com)/.test(s)) return { host: 'Google Photos', cta: 'open the original album' };
+  if (/drive\.google\.com/.test(s)) return { host: 'Google Drive', cta: 'open the original folder' };
+  return { host: 'their original host', cta: 'open the original' };
+}
+
 function projectPage(p, teamEntry, others = []) {
   const t = track(p.track);
   const url = `${SITE}/projects/${p.slug}.html`;
@@ -629,7 +638,11 @@ function projectPage(p, teamEntry, others = []) {
 ${(p.videos && p.videos.length
     ? p.videos.map((v, i) => `${p.videos.length > 1 ? `  <h3 class="cliphead">Clip ${i + 1} of ${p.videos.length}</h3>` : ''}\n${videoEmbed(v)}`).join('\n')
     : videoEmbed(p.video))}
-${p.videoSource ? `  <p class="srcline">Clips hosted on Google Photos — <a href="${esc(safeUrl(p.videoSource) || '#')}" target="_blank" rel="noopener noreferrer">open the original album</a> if a player fails to load.</p>` : ''}
+${p.videoSource ? (() => {
+    const h = videoSourceHost(p.videoSource);
+    const many = (p.videos || []).length > 1;
+    return `  <p class="srcline">${many ? 'Clips' : 'Video'} hosted on ${esc(h.host)} — <a href="${esc(safeUrl(p.videoSource) || '#')}" target="_blank" rel="noopener noreferrer">${esc(h.cta)}</a> if ${many ? 'a player fails' : 'the player fails'} to load.</p>`;
+  })() : ''}
 ${p.video && !p.repo && p.linkNote ? `  <p class="srcline">${esc(p.linkNote)}</p>` : ''}
 
   <h1 class="watch-title">${esc(p.title)}</h1>
