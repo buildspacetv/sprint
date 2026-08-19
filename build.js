@@ -372,7 +372,21 @@ ${body}
 
 /* --------------------------------------------------------------- showcase */
 
+/**
+ * A cover committed for one project, by slug: img/projects/<slug>.jpg (or
+ * .jpeg/.png/.webp). Photos of a demo in the room beat any thumbnail we can
+ * derive from a link, and some links — a Drive folder — yield nothing at all.
+ */
+function projectImage(slug) {
+  const dir = path.join(ROOT, 'img', 'projects');
+  if (!fs.existsSync(dir)) return null;
+  const hit = fs.readdirSync(dir).find((f) => f.replace(/\.[^.]+$/, '') === slug && /\.(jpe?g|png|webp)$/i.test(f));
+  return hit ? `/img/projects/${hit}` : null;
+}
+
 function thumbFor(p) {
+  const own = projectImage(p.slug);
+  if (own) return own;
   const img = (p.images || []).map(safeUrl).filter(Boolean)[0];
   if (img) return img;
   const v = safeUrl(p.video) || '';
@@ -602,7 +616,8 @@ function projectPage(p, teamEntry, others = []) {
   const t = track(p.track);
   const url = `${SITE}/projects/${p.slug}.html`;
   const repo = safeUrl(p.repo);
-  const images = (p.images || []).map(safeUrl).filter(Boolean);
+  const own = projectImage(p.slug);
+  const images = [...(own ? [own] : []), ...(p.images || []).map(safeUrl).filter(Boolean)];
   const team = (p.team || []).map((m) => ({ name: m.name || ghUser(m.github) || 'Unnamed', user: ghUser(m.github) }));
   const cover = images[0] || null;
 

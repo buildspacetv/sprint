@@ -39,7 +39,14 @@ header, which is what makes it read as a watch page rather than an article.
 
 ## Card preview images
 
-A card shows the first committed image if a project has one. Failing that,
+**To set a project's image by hand, drop a file at `img/projects/<slug>.jpg`**
+(`.jpeg`, `.png`, and `.webp` work too) and rebuild. It wins over everything
+below, and it also becomes the project page's cover and `og:image`. The slug is
+the one in the page URL — `img/projects/v9-max.jpg` for `/projects/v9-max.html`.
+This is the only route for a project whose demo link is a Drive *folder*, which
+has no thumbnail to derive.
+
+Failing that, a card shows the first committed image if a project has one. Failing that,
 `thumbFor()` derives a thumbnail from the demo link: YouTube publishes one per
 video id (Shorts included), Drive and Slides both answer `/thumbnail` for a
 shared file, and a repo has an OpenGraph card. What is left over — a Drive
